@@ -691,6 +691,13 @@
   .ww-num { flex:none; font-family:'Poppins',sans-serif; font-weight:400; font-size:clamp(110px, calc(14.3vw - 43px), 200px);
     line-height:.755; color:#0F172A; letter-spacing:0; white-space:nowrap; padding-top:.03em; }
   .ww-copy { flex:0 1 600px; min-width:0; display:flex; flex-direction:column; gap:28px; }
+  /* 50,000+ gradient shimmer — vanilla port of gradient-shimmer's "sunrise"
+     preset (MIT, © 2026 ziye). The band is clipped to the glyphs; the extra
+     padding (cancelled by the negative margin) keeps the tall digits and the
+     comma's tail inside the painted box, since line-height is only .755. */
+  .ww-num.gs { --gs-base:#0F172A; position:relative; background-repeat:no-repeat; background-size:100% 100%;
+    background-color:var(--gs-base); -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; padding:.2em 0 .25em; margin:-.17em 0 -.25em; }
   .ww-copy h2 { max-width:538px; }
   .ww-lead { margin:0; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#334155; opacity:.98; }
   .ww-panel { position:relative; margin:56px auto 0; max-width:1496px; aspect-ratio:1496/700; border-radius:20px; background:#0D424E; overflow:hidden; }
@@ -2382,6 +2389,66 @@
   });
 
   /* Keep triggers honest after fonts/images settle and on resize */
+  /* ---------- 50,000+ gradient shimmer ----------
+     Same band, colours and timing as the gradient-shimmer React package
+     ("sunrise", 105deg, 1.45s sweep, 1s rest, smooth easing), rebuilt with
+     the Web Animations API because this page has no React. Pauses while
+     scrolling, when off screen or in a hidden tab; skipped entirely for
+     reduced motion or where background-clip:text is unsupported. */
+  (function () {
+    var el = document.querySelector('.ww-num');
+    if (!el || typeof el.animate !== 'function') return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!(window.CSS && (CSS.supports('background-clip', 'text') || CSS.supports('-webkit-background-clip', 'text')))) return;
+
+    var STOPS = [['#B6D3EF', 0], ['#CAD1D7', .153], ['#D7CFC8', .252], ['#E1CDB9', .341], ['#EAC6A5', .424],
+                 ['#EDB185', .505], ['#EF9B62', .586], ['#F18F60', .669], ['#F48D7A', .758], ['#F78A94', .857], ['#F888A0', 1]];
+    var ANGLE = 105, CORE = .44, MID = .72, SPREAD = 3, MAX_SPREAD = 48, BASE_FONT = 14,
+        DURATION = 1450, REST = 1000, EASE = 'cubic-bezier(0.45, 0, 0.55, 1)';
+    var first = STOPS[0][0], last = STOPS[STOPS.length - 1][0];
+    el.style.backgroundImage = ['linear-gradient(' + ANGLE + 'deg',
+      'var(--gs-base) calc(50% - var(--gs-spread))',
+      'color-mix(in oklab, var(--gs-base) 42%, ' + first + ') calc(50% - var(--gs-spread-mid))',
+      STOPS.map(function (s) { return s[0] + ' calc(50% + var(--gs-spread-mid) * ' + ((s[1] - .5) * 2 * CORE).toFixed(4) + ')'; }).join(', '),
+      'color-mix(in oklab, var(--gs-base) 42%, ' + last + ') calc(50% + var(--gs-spread-mid))',
+      'var(--gs-base) calc(50% + var(--gs-spread)))'].join(', ');
+    el.classList.add('gs');
+
+    function measure() {
+      var w = el.getBoundingClientRect().width || 96;
+      var scale = (parseFloat(getComputedStyle(el).fontSize) || BASE_FONT) / BASE_FONT;
+      var len = el.textContent.trim().length;
+      var spread = Math.min(len * SPREAD * scale, MAX_SPREAD * scale);
+      var layer = Math.max(1, w + spread * 2);
+      el.style.setProperty('--gs-spread', spread + 'px');
+      el.style.setProperty('--gs-spread-mid', spread * MID + 'px');
+      el.style.backgroundSize = layer + 'px 100%';
+      return { from: -spread - layer / 2, to: w + spread - layer / 2 };
+    }
+
+    var anim = null, timer = 0, inView = false, visible = !document.hidden, still = true, scrollT = 0;
+    function active() { return inView && visible && still; }
+    function sync() { if (anim) { if (active()) anim.play(); else anim.pause(); } }
+    function sweep() {
+      var m = measure();
+      var next = el.animate([{ backgroundPosition: m.from + 'px center' }, { backgroundPosition: m.to + 'px center' }],
+                            { duration: DURATION, easing: EASE, fill: 'forwards' });
+      if (anim) anim.cancel();
+      anim = next;
+      if (!active()) next.pause();
+      next.onfinish = function () { timer = setTimeout(sweep, REST); };
+    }
+    new IntersectionObserver(function (es) { inView = es[es.length - 1].isIntersecting; sync(); },
+                             { rootMargin: '160px' }).observe(el);
+    document.addEventListener('visibilitychange', function () { visible = !document.hidden; sync(); });
+    window.addEventListener('scroll', function () {
+      still = false; sync();
+      clearTimeout(scrollT); scrollT = setTimeout(function () { still = true; sync(); }, 120);
+    }, { passive: true, capture: true });
+    window.addEventListener('resize', measure);
+    sweep();
+  })();
+
   window.addEventListener('load', function () {
     ScrollTrigger.refresh();
     /* Failsafe: nothing should ever be left invisible. */
