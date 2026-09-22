@@ -259,3 +259,103 @@
     window.addEventListener('resize', fit);
   })();
 })();
+
+/* ══════════ Tertiary (underline) buttons — hover animation, every page ══════════
+   Each part is doubled, an original and an aria-hidden clone, inside its own
+   overflow:hidden mask. On hover or keyboard focus the label rolls up, the
+   arrow leaves to the top-right while its copy enters from the bottom-left
+   (40ms later), and the underline slides right with a 14px gap travelling
+   across it. At rest, and once the move ends, the button looks unchanged;
+   hover-out simply runs the transitions back. The underline is redrawn as an
+   element at the link's own offset and thickness, and the colour and gap are
+   pinned so no page hover rule can shift the finished state. Pages can mark
+   extra links with data-tertiary, or call window.dokanTertiary(root) after
+   injecting new ones. */
+(function () {
+  var SEL = '[data-tertiary], .md-link, .mk-card-cta, .ww-pop-more, .feat-side a, .blog-card a.underline, .mdh-req .lnk a';
+
+  /* The label window is sized from real metrics: its top clears ascenders,
+     its bottom stops just above the underline (so the incoming copy never
+     crosses the line), and the label keeps its original line-box height. */
+  function measure(a) {
+    var label = a.querySelector('.tbtn-label'), line = a.querySelector('.tbtn-line');
+    if (!label || !line) return;
+    var mask = label.querySelector('.tbtn-mask'), ts = label.querySelectorAll('.tbtn-t');
+    mask.style.height = mask.style.marginTop = mask.style.marginBottom = '';
+    ts.forEach(function (t) { t.style.height = t.style.paddingTop = ''; });
+    var fs = parseFloat(getComputedStyle(a).fontSize) || 16;
+    var t1 = ts[0], top = t1.getBoundingClientRect().top, L = t1.getBoundingClientRect().height;
+    var mark = document.createElement('span');
+    mark.style.cssText = 'display:inline-block;width:0;height:0;vertical-align:baseline';
+    t1.appendChild(mark);
+    var base = mark.getBoundingClientRect().top - top;
+    t1.removeChild(mark);
+    var off = parseFloat(a.dataset.tbOffset); if (isNaN(off)) off = fs * .1;
+    /* Chrome paints text underlines at whole CSS pixels (1.5px shows as 2px) */
+    var th = parseFloat(a.dataset.tbThick); th = isNaN(th) ? Math.max(1, Math.round(fs / 16)) : Math.max(1, Math.round(th));
+    var lineTop = base + off;
+    var e1 = Math.round(fs * .2);                              /* room above the line box */
+    var bottom = Math.max(base + fs * .2, lineTop - 1);        /* window ends above the underline */
+    var H = bottom + e1;
+    ts.forEach(function (t) { t.style.height = H + 'px'; t.style.paddingTop = e1 + 'px'; });
+    mask.style.height = H + 'px';
+    mask.style.marginTop = (-e1) + 'px';
+    mask.style.marginBottom = (L - bottom) + 'px';
+    line.style.top = lineTop + 'px';
+    line.style.height = th + 'px';
+  }
+
+  function enhance(a) {
+    if (a.classList.contains('tbtn')) return;
+    var cs = getComputedStyle(a);
+    /* remember the link's own underline before it is switched off */
+    var off = parseFloat(cs.textUnderlineOffset), th = parseFloat(cs.textDecorationThickness);
+    if (!isNaN(off)) a.dataset.tbOffset = off;
+    if (!isNaN(th)) a.dataset.tbThick = th;
+    var icon = null, text = '';
+    [].slice.call(a.childNodes).forEach(function (n) {
+      if (n.nodeType === 3) { text += n.textContent; a.removeChild(n); }
+      else if (n.nodeType === 1 && (n.tagName.toLowerCase() === 'svg' || n.querySelector('svg')) && !icon) { icon = n; a.removeChild(n); }
+      else if (n.nodeType === 1) { text += n.textContent; a.removeChild(n); }
+    });
+    text = text.replace(/\s+/g, ' ').trim();
+    if (!text) return;
+
+    var label = document.createElement('span'), mask = document.createElement('span');
+    label.className = 'tbtn-label'; mask.className = 'tbtn-mask';
+    var t1 = document.createElement('span'), t2 = document.createElement('span');
+    t1.className = 'tbtn-t'; t2.className = 'tbtn-t tbtn-clone';
+    t1.textContent = t2.textContent = text; t2.setAttribute('aria-hidden', 'true');
+    mask.appendChild(t1); mask.appendChild(t2); label.appendChild(mask);
+    var line = document.createElement('span');
+    line.className = 'tbtn-line'; line.setAttribute('aria-hidden', 'true');
+    line.innerHTML = '<i></i><i class="tbtn-clone"></i>';
+    label.appendChild(line);
+    a.appendChild(label);
+
+    if (icon) {
+      var box = document.createElement('span'), i1 = document.createElement('span'), i2 = document.createElement('span');
+      box.className = 'tbtn-ico'; i1.className = 'tbtn-io'; i2.className = 'tbtn-io tbtn-clone';
+      i1.appendChild(icon); i2.appendChild(icon.cloneNode(true)); i2.setAttribute('aria-hidden', 'true');
+      box.appendChild(i1); box.appendChild(i2);
+      a.appendChild(box);
+    }
+    if (!a.getAttribute('aria-label')) a.setAttribute('aria-label', text);
+    a.style.setProperty('--tb-color', cs.color);
+    a.style.setProperty('--tb-gap', cs.columnGap && cs.columnGap !== 'normal' ? cs.columnGap : '10px');
+    if (cs.display === 'inline') a.style.display = 'inline-flex';
+    a.classList.add('tbtn');
+    measure(a);
+  }
+
+  function run(root) {
+    (root || document).querySelectorAll(SEL).forEach(enhance);
+  }
+  window.dokanTertiary = run;
+  function remeasure() { document.querySelectorAll('.tbtn').forEach(measure); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { run(); });
+  else run();
+  window.addEventListener('load', remeasure);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(remeasure);
+  var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(remeasure, 150); });
+})();

@@ -336,3 +336,27 @@ html.is-loading.is-released #site-nav { visibility:visible; }   /* header enters
   .menu-links .msub a.msub-more::after { content:' \2192'; }
 }
 @media (max-width:1200px) and (prefers-reduced-motion: reduce) { .msub { transition:none; } }
+
+/* ── Tertiary (underline) buttons: hover animation (markup built by site-nav.js) ── */
+.tbtn { text-decoration:none !important; color:var(--tb-color) !important; gap:var(--tb-gap) !important; align-items:center; }
+.tbtn svg { transform:none !important; transition:none !important; }          /* page nudges off */
+.tbtn-label { position:relative; display:inline-block; }
+.tbtn-mask { position:relative; display:block; overflow:hidden; }       /* height + offsets set by JS */
+.tbtn-t { display:block; box-sizing:border-box; white-space:nowrap; }
+.tbtn-t.tbtn-clone { position:absolute; left:0; top:100%; }
+.tbtn-line { position:absolute; left:0; right:0; top:100%; height:1.5px; overflow:hidden; pointer-events:none; }
+.tbtn-line i { position:absolute; inset:0; background:currentColor; }
+.tbtn-line i.tbtn-clone { transform:translateX(calc(-100% - 14px)); }
+.tbtn-ico { position:relative; display:inline-flex; flex:none; overflow:hidden; }
+.tbtn-io { display:flex; }
+.tbtn-io svg { display:block; }
+.tbtn-io.tbtn-clone { position:absolute; inset:0; transform:translate(-100%, 100%); }
+.tbtn-t, .tbtn-io, .tbtn-line i {
+  transition:transform .35s cubic-bezier(.65, 0, .35, 1); }
+.tbtn-io { transition-delay:.04s; }
+.tbtn:hover .tbtn-t, .tbtn:focus-visible .tbtn-t { transform:translateY(-100%); }
+.tbtn:hover .tbtn-io, .tbtn:focus-visible .tbtn-io { transform:translate(100%, -100%); }
+.tbtn:hover .tbtn-io.tbtn-clone, .tbtn:focus-visible .tbtn-io.tbtn-clone { transform:translate(0, 0); }
+.tbtn:hover .tbtn-line i, .tbtn:focus-visible .tbtn-line i { transform:translateX(calc(100% + 14px)); }
+.tbtn:hover .tbtn-line i.tbtn-clone, .tbtn:focus-visible .tbtn-line i.tbtn-clone { transform:translateX(0); }
+@media (prefers-reduced-motion: reduce) { .tbtn-t, .tbtn-io, .tbtn-line i { transition:none; } }
