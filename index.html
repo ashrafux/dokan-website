@@ -820,7 +820,8 @@
   }
 
   /* ---- Featured (Figma frame 2106260906) ---- */
-  .ft-section { display:flex; flex-direction:column; align-items:center; gap:55px; padding:100px 20px 165px; background:#fff; }
+  .ft-section { display:flex; flex-direction:column; align-items:center; gap:55px; padding:100px 20px 192px; background:#fff; }
+  @media (max-width:1024px) { .ft-section { padding-bottom:128px; } }   /* 192px logo row -> modules card on desktop */
   .ft-copy { width:564px; max-width:100%; text-align:center; opacity:.98; }
   .ft-copy h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:600; font-size:24px; line-height:1.3; color:#0F172A; }
   .ft-copy p { margin:0; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#334155; }
