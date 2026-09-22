@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dokani &ndash; Responsive WordPress Theme for Beautiful Website</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="site-nav.css?v=19" />
+<!-- Page loader: only the header shows until site-nav.js reveals the page (5s failsafe) -->
+<script>(function(d){if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.style.setProperty('--loader-bg','#0b0a12');d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000)})(document.documentElement)</script>
+<script>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { display:['Poppins','sans-serif'], body:['Lato','sans-serif'] },
+    colors: { dokan:'#7047EB', title:'#0f172a', heading:'#0E0E0F', para:'#334155',
+      reg:'#575757', lite:'#828282', stroke:'#E9E9E9' },
+  }}};
+</script>
+<style>
+  .wrap { width:100%; max-width:1700px; margin:0 auto; padding-left:102px; padding-right:102px; }
+  @media (max-width:1200px){ .wrap { padding-left:48px; padding-right:48px; } }
+  @media (max-width:700px){ .wrap { padding-left:20px; padding-right:20px; } }
+  body { background:#fff; color:#0f172a; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  html.lenis, html.lenis body { height:auto; }
+  html.lenis-smooth { scroll-behavior:auto !important; }
+
+  /* ── HERO (525:19456, 1700x1460) ── */
+  .dk-hero { position:relative; color:#fff; overflow:hidden;
+    background:#0b0a12 url('Media/Theme%20Details%20Page/Header%20BG.png') top center/cover no-repeat; }
+  .dk-band { display:flex; justify-content:center; gap:42px; padding-top:188px; }
+  .dk-badge { flex:none; margin-top:10px; display:inline-flex; align-items:center;
+    justify-content:center; min-width:142px; height:41px; padding:0 20px; border-radius:9999px;
+    background:#F8A66B; font-family:'Lato',sans-serif; font-weight:700; font-size:15px; color:#fff; }
+  .dk-copy { width:658px; max-width:100%; flex:none; }
+  .dk-h1 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
+    line-height:1.2; color:#fff; }
+  .dk-sub { margin:28px 0 0; width:517px; max-width:100%; font-family:'Lato',sans-serif;
+    font-size:20px; line-height:1.5; color:rgba(255,255,255,.62); }
+  .dk-cta { display:flex; align-items:center; gap:15px; margin-top:56px; }
+  .btn-dl { position:relative; display:flex; align-items:center; padding-left:40px; width:264px;
+    height:70px; background:#7047EB; border-radius:9999px; font-family:'Lato',sans-serif;
+    font-weight:700; font-size:16.85px; color:#fff; transition:background-color .25s, transform .25s; }
+  .btn-dl:hover { background:#5d36d6; transform:translateY(-2px); }
+  .btn-dl .circle { position:absolute; right:12px; top:50%; transform:translateY(-50%);
+    width:45.9px; height:45.6px; border-radius:9999px; background:#fff; color:#7047EB;
+    display:flex; align-items:center; justify-content:center; }
+  .btn-dl .circle svg { width:23px; height:23px; }
+  .btn-ghost { display:flex; align-items:center; justify-content:center; width:175px; height:68px;
+    border-radius:9999px; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.16);
+    font-family:'Lato',sans-serif; font-weight:700; font-size:16.85px; color:#fff;
+    transition:background-color .25s, transform .25s; }
+  .btn-ghost:hover { background:rgba(255,255,255,.18); transform:translateY(-2px); }
+  /* hero panels (525:19968 @ 101/800): 490 + 20 gap + 989 */
+  .dk-panels { display:flex; gap:20px; margin:112px auto 0; width:1499px;
+    max-width:calc(100% - 40px); padding-bottom:102px; }
+  .dk-panels img { border-radius:16px; display:block; }
+  .dk-panels img:first-child { width:490px; }
+  .dk-panels img:last-child { width:989px; }
+
+  /* ── FEATURE CARDS ── */
+  .ft-head { display:flex; align-items:flex-end; justify-content:space-between; gap:60px; }
+  .ft-head h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
+    line-height:1.2; color:#0f172a; max-width:502px; }
+  .ft-head p { margin:0 0 6px; max-width:333px; font-family:'Lato',sans-serif; font-size:18px;
+    line-height:1.6; color:#575757; }
+  .ft-cards { display:grid; grid-template-columns:734fr 737fr; gap:27px; margin-top:56px; }
+  .ft-card { position:relative; background:#F2F2F4; border-radius:20px; min-height:633px;
+    padding:50px; transition:transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s; }
+  .ft-card h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:36px;
+    line-height:1.2; color:#0f172a; }
+  .ft-card p { margin:12px 0 0; max-width:422px; font-family:'Lato',sans-serif; font-size:20px;
+    line-height:1.5; color:#575757; }
+  .ft-card img { position:absolute; left:50px; top:332px; width:355px; }
+  .ft-arrow { position:absolute; right:53px; bottom:50px; width:84px; height:84px;
+    border-radius:9999px; background:#fff; color:#334155; display:flex; align-items:center;
+    justify-content:center; transition:background-color .3s, color .3s, transform .3s; }
+  .ft-arrow svg { width:34px; height:34px; }
+  @media (hover:hover) {
+    .ft-card:hover { transform:translateY(-6px); box-shadow:0 26px 52px -26px rgba(20,20,40,.22); }
+    .ft-card:hover .ft-arrow { background:#7047EB; color:#fff; transform:rotate(45deg); }
+  }
+  .ft-wide { position:relative; margin-top:28px; background:#F2F2F4; border-radius:20px;
+    min-height:633px; overflow:hidden; }
+  .ft-wide .txt { position:absolute; left:80px; top:80px; max-width:431px; z-index:2; }
+  .ft-wide h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:36px;
+    line-height:1.25; color:#0f172a; }
+  .ft-wide .txt p { margin:16px 0 0; font-family:'Lato',sans-serif; font-size:20px;
+    line-height:1.5; color:#575757; }
+  .ft-wide .ft-arrow { left:80px; right:auto; top:469px; bottom:auto; }
+  .ft-wide img { position:absolute; right:0; top:0; height:100%; width:723px; object-fit:cover;
+    border-radius:0 20px 20px 0; }
+  @media (hover:hover) { .ft-wide:hover .ft-arrow { background:#7047EB; color:#fff; transform:rotate(45deg); } }
+
+  /* ── WHY GRID (525:20023) ── */
+  .wg-head { display:flex; align-items:flex-start; justify-content:space-between; gap:60px; }
+  .wg-head h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:32px;
+    line-height:1.2; color:#0f172a; max-width:288px; }
+  .wg-head p { margin:0; max-width:381px; font-family:'Lato',sans-serif; font-size:18px;
+    line-height:1.6; color:#575757; }
+  .wg-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:28px; margin-top:68px; }
+  .wg-card { position:relative; overflow:hidden; background:#F2F2F4; border-radius:16px;
+    min-height:333px; padding:33px 26px 35px; display:flex; flex-direction:column; }
+  .wg-card::before { content:''; position:absolute; inset:0; border-radius:inherit;
+    pointer-events:none; background:url('Media/Demo%20Details%20Page/Why%20Dokan%20Is%20the%20Best%20Solution%20for%20Your%20Marketplace.png') center/cover no-repeat;
+    opacity:0; transition:opacity .35s ease; }
+  .wg-card > * { position:relative; z-index:1; }
+  .wg-card:hover::before, .wg-card:focus-within::before { opacity:1; }
+  .wg-ic { width:120px; height:120px; display:flex; align-items:center; justify-content:center;
+    color:#141B34; }
+  .wg-ic svg { width:56px; height:56px; }
+  .wg-card h3 { margin:auto 0 0 9px; font-family:'Poppins',sans-serif; font-weight:700;
+    font-size:24px; line-height:1.3; color:#0f172a; }
+
+  /* ── CHECKLIST ROWS (525:19365) ── */
+  .dt-sec { background:linear-gradient(150deg,#EDF1F7 0%,#F4F3F7 55%,#EEF0F6 100%);
+    padding:96px 0 110px; }
+  .dt-sec h2 { margin:0 0 64px; text-align:center; font-family:'Poppins',sans-serif;
+    font-weight:700; font-size:52px; line-height:1.2; color:#1d2433; }
+  .dt-row { display:grid; grid-template-columns:1fr 723px; background:#fff; border-radius:20px;
+    overflow:hidden; min-height:583px; }
+  .dt-row + .dt-row { margin-top:28px; }
+  .dt-row-copy { padding:80px 60px 60px 80px; }
+  .dt-row-copy h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:36px;
+    line-height:1.3; color:#0f172a; }
+  .dt-row-copy > p { margin:22px 0 0; max-width:400px; font-family:'Lato',sans-serif;
+    font-size:17px; line-height:1.55; color:#575757; }
+  .dt-list { margin:34px 0 0; }
+  .dt-list li { display:flex; align-items:center; gap:12px; margin-bottom:18px;
+    font-family:'Lato',sans-serif; font-size:16px; color:#334155; }
+  .dt-list svg { width:20px; height:20px; flex:none; }
+  .dt-row > img { width:100%; height:100%; object-fit:cover; }
+
+  /* ── SUPPORT TRIO (525:20095): 495 cards, 5px gaps ── */
+  .sp-head { display:flex; align-items:flex-start; justify-content:space-between; gap:60px; }
+  .sp-head h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
+    line-height:1.2; color:#0f172a; max-width:502px; }
+  .sp-head p { margin:6px 0 0; max-width:500px; font-family:'Lato',sans-serif; font-size:18px;
+    line-height:1.6; color:#575757; }
+  .sp-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:5px; margin-top:56px; }
+  .sp-card { position:relative; background:#F2F2F4; border-radius:20px; min-height:450px;
+    padding:43px 35px 36px; display:flex; flex-direction:column;
+    transition:transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s; }
+  .sp-ic { color:#141B34; } .sp-ic svg { width:48px; height:48px; }
+  .sp-txt { margin-top:auto; }
+  .sp-txt h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:28px;
+    color:#0f172a; }
+  .sp-txt p { margin:14px 0 0; max-width:422px; font-family:'Lato',sans-serif; font-size:17px;
+    line-height:1.5; color:#575757; }
+  @media (hover:hover) {
+    .sp-card:hover { transform:translateY(-6px); box-shadow:0 24px 48px -24px rgba(20,20,40,.2); }
+  }
+
+  /* ── TEMPLATES (y 10010..10801) — lined bg + fanned cards ── */
+  .tpl-head { text-align:center; }
+  .tpl-head h2 { margin:0 auto; max-width:578px; font-family:'Poppins',sans-serif; font-weight:700;
+    font-size:52px; line-height:1.2; color:#0f172a; }
+  .tpl-head p { margin:28px auto 0; max-width:424px; font-family:'Lato',sans-serif; font-size:20px;
+    line-height:1.5; color:#575757; }
+  .tpl-stage { position:relative; margin-top:44px; width:100%; aspect-ratio:1700/791; overflow:hidden;
+    background-image:repeating-linear-gradient(to bottom,#EFEFF3 0 1px,transparent 1px 113px);
+    -webkit-mask-image:linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+    mask-image:linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%); }
+  /* The exports are already rotated and carry their own soft shadow on a
+     transparent canvas, so they are placed flat at their Figma rects — no CSS
+     rotate, no CSS box-shadow, no opaque backing. */
+  .tpl { position:absolute; height:auto; will-change:transform; }
+
+  /* ── FAQ
+
+  /* ── CTA ── */
+  .cta-wrap { width:100%; max-width:1700px; margin:0 auto; padding:0 20px; }
+  .dk-final { position:relative; overflow:hidden; border-radius:20px; background:#7047EB;
+    min-height:646px; }
+  .dk-final svg.waves { position:absolute; inset:0; width:100%; height:100%; opacity:.25;
+    pointer-events:none; }
+  .dk-final-copy { position:absolute; left:84px; top:123px; max-width:603px; z-index:2; }
+  .dk-final-copy h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
+    line-height:1.2; color:#fff; }
+  .dk-final-copy p { margin:28px 0 0; max-width:405px; font-family:'Lato',sans-serif;
+    font-size:20px; line-height:1.5; color:rgba(255,255,255,.8); }
+  .dk-final .btn-dl { margin-top:56px; background:#fff; color:#0E0E0F; }
+  .dk-final .btn-dl:hover { background:#f2effc; }
+  .dk-final .btn-dl .circle { background:#7047EB; color:#fff; }
+  .dk-final-art { position:absolute; right:0; bottom:0; width:678px; z-index:1;
+    border-top-left-radius:10px; }
+
+  @media (max-width:1500px) {
+    .dk-panels img:first-child { width:32.7%; } .dk-panels img:last-child { width:66%; }
+    .dt-row { grid-template-columns:1fr 1fr; }
+    .dt-row > img { min-height:100%; }
+  }
+  @media (max-width:1200px) {
+    .dk-band { flex-direction:column; gap:20px; padding:150px 32px 0; }
+    .dk-badge { align-self:flex-start; margin-top:0; }
+    .dk-copy, .dk-sub { width:auto; }
+    .dk-h1 { font-size:clamp(30px,4.6vw,52px); }
+    .ft-head, .wg-head, .sp-head { flex-direction:column; align-items:flex-start; gap:16px; }
+    .ft-cards { grid-template-columns:1fr; }
+    .ft-card { min-height:0; padding:32px; padding-bottom:150px; }
+    .ft-card img { position:static; width:min(355px,100%); margin-top:28px; }
+    .ft-arrow { width:64px; height:64px; right:28px; bottom:28px; }
+    .ft-wide { min-height:0; }
+    .ft-wide .txt { position:static; padding:32px 32px 0; max-width:none; }
+    .ft-wide .ft-arrow { position:static; margin:24px 32px; }
+    .ft-wide img { position:static; width:100%; height:auto; border-radius:0 0 20px 20px; }
+    .wg-grid { grid-template-columns:repeat(2,1fr); }
+    .dt-row { grid-template-columns:1fr; min-height:0; }
+    .dt-row-copy { padding:36px 28px; }
+    .dt-row > img { height:auto; }
+    .sp-cards { grid-template-columns:1fr; gap:16px; }
+    .sp-card { min-height:320px; }
+    .dk-final-copy { position:static; padding:56px 32px 0; }
+    .dk-final { min-height:0; padding-bottom:40px; }
+    .dk-final-art { position:static; width:calc(100% - 64px); margin:36px 32px 0; border-radius:10px; }
+    .ft-head h2, .sp-head h2, .dt-sec h2, .dk-final-copy h2 { font-size:clamp(28px,4.4vw,52px); }
+  }
+  @media (max-width:760px) {
+    .wg-grid { grid-template-columns:1fr; }
+    .dk-cta { flex-wrap:wrap; }
+    .btn-dl, .btn-ghost { width:100%; max-width:264px; }
+    .dk-panels { flex-direction:column; }
+    .dk-panels img:first-child, .dk-panels img:last-child { width:100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+  }
+
+  /* ── Mobile polish: feature tiles two-up, sized for phones ── */
+  @media (max-width:760px) {
+    .wg-grid { grid-template-columns:1fr 1fr; gap:12px; margin-top:40px; }
+    .wg-card { min-height:0; padding:18px 14px 20px; }
+    .wg-ic { width:64px; height:64px; } .wg-ic svg { width:32px; height:32px; }
+    .wg-card h3 { margin-top:16px; font-size:15px; }
+    .sp-cards { grid-template-columns:1fr 1fr; gap:12px; }
+    .sp-card { min-height:220px; padding:20px 16px; }
+    .sp-cards > .sp-card:last-child:nth-child(odd) { grid-column:1 / -1; min-height:170px; }
+    .sp-ic svg { width:36px; height:36px; }
+    .sp-txt h3 { font-size:20px; } .sp-txt p { margin-top:8px; font-size:14px; }
+  }
+  @media (max-width:1200px) { .tpl-head h2 { font-size:clamp(28px,4.4vw,52px); } }
+  @media (min-width:761px) and (max-width:1200px) {
+    .sp-cards { grid-template-columns:repeat(3,1fr); }
+    .sp-card { min-height:280px; padding:28px 24px; }
+  }
+  @media (max-width:1024px) { .sec-tpl { padding-top:72px; } .dt-sec { padding:72px 0 80px; } .dt-sec h2 { margin-bottom:40px; } }
+  @media (max-width:640px)  { .sec-tpl { padding-top:56px; } .dt-sec { padding:56px 0 56px; } .dt-sec h2 { margin-bottom:28px; } }
+  @media (max-width:640px) {
+    .tpl-head p { margin-top:16px; font-size:16px; }
+    /* Wider stage on phones so the templates stay legible; the section clips
+       the overflow and the mask fades at the visible edges. */
+    .sec-tpl { overflow-x:clip; }
+    .tpl-stage { width:180%; margin-left:-40%; margin-top:28px;
+      -webkit-mask-image:linear-gradient(to right, transparent 22%, #000 26%, #000 74%, transparent 78%);
+      mask-image:linear-gradient(to right, transparent 22%, #000 26%, #000 74%, transparent 78%); }
+  }
+</style>
+</head>
+<body class="font-body">
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="dk-hero">
+  <div id="site-nav" data-variant="dark"></div>
+  <div class="dk-band">
+    <span class="dk-badge" data-anim>Dokani Theme</span>
+    <div class="dk-copy">
+      <h1 class="dk-h1" data-anim>A Multipurpose WordPress Theme That Is, Free, Lightweight &amp; Fully Responsive</h1>
+      <p class="dk-sub" data-anim>Dokani is a starter theme that helps you create modern-looking websites like personal portfolio, blog, online shop or eCommerce marketplace</p>
+      <div class="dk-cta" data-anim>
+        <a href="#" class="btn-dl">Download now
+          <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 11l4.5 4.5 4.5-4.5M5 19h14"/></svg></span>
+        </a>
+        <a href="demo.html" class="btn-ghost">Try Demo</a>
+      </div>
+    </div>
+  </div>
+  <div class="dk-panels" data-anim>
+    <img src="Media/Theme%20Details%20Page/Frame%202106260523.png" alt="Dokani mobile layout preview" />
+    <img src="Media/Theme%20Details%20Page/Frame%202106260523-1.png" alt="Dokani desktop layout preview" />
+  </div>
+</header>
+
+<!-- ═══════════ FEATURE CARDS ═══════════ -->
+<section class="bg-white pt-[192px]">
+  <div class="wrap">
+    <div class="ft-head" data-anim>
+      <h2>A simple heading goes here</h2>
+      <p>Everything Dokani ships with, explained in a couple of lines.</p>
+    </div>
+    <div class="ft-cards">
+      <article class="ft-card" data-anim>
+        <h3>WooCommerce<br />Compatible</h3>
+        <p>If you are looking for a WooCommerce-supported marketplace theme to enjoy the pleasant aspects of building and running a site, Dokani Theme is the one you should consider.</p>
+        <img src="Media/Theme%20Details%20Page/image%201748.png" alt="" loading="lazy" />
+        <span class="ft-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+      </article>
+      <article class="ft-card" data-anim>
+        <h3>Simple Yet<br />Powerful</h3>
+        <p>Dokani takes care of all the difficult and boring technical sides of your site&rsquo;s design. Thus, you don&rsquo;t need to have programming knowledge and the theme is completely user-friendly.</p>
+        <img src="Media/Theme%20Details%20Page/image%201748-1.png" alt="" loading="lazy" />
+        <span class="ft-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+      </article>
+    </div>
+    <article class="ft-wide" data-anim>
+      <div class="txt">
+        <h3>Completely<br />Standalone Theme</h3>
+        <p>This responsive, super-fast, SEO-friendly theme has no dependency. It works perfectly with almost all WordPress plugins.</p>
+      </div>
+      <span class="ft-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+      <img src="Media/Theme%20Details%20Page/Frame%202106260522.png" alt="Dokani products dashboard" loading="lazy" />
+    </article>
+  </div>
+</section>
+
+<!-- ═══════════ WHY GRID ═══════════ -->
+<section class="bg-white pt-[192px]">
+  <div class="wrap">
+    <div class="wg-head" data-anim>
+      <h2>Theme Features</h2>
+      <p>Dokani gives you the tools, support, and flexibility to build and grow your store with ease, right out of the box.</p>
+    </div>
+    <div class="wg-grid">
+        <article class="wg-card" data-g>
+          <span class="wg-ic"><svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M28 5l7.1 14.8 16.3 2.2-12 11.3 3 16.1L28 41.6 13.6 49.4l3-16.1-12-11.3 16.3-2.2z"/></svg></span>
+          <h3>WooCommerce Supported<br />Ratings &amp; Reviews</h3>
+        </article>
+        <article class="wg-card" data-g>
+          <span class="wg-ic"><svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="21" cy="18" r="7.5"/><path d="M8 47c0-8 5.8-13 13-13s13 5 13 13"/><path d="M40 14c3.4 1.4 5.6 4.6 5.6 8.4 0 3.8-2.2 7-5.6 8.4M42 38c3.6 1.6 6 4.8 6.6 9"/></svg></span>
+          <h3>Fully RTL<br />Supported</h3>
+        </article>
+        <article class="wg-card" data-g>
+          <span class="wg-ic"><svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h6l6 30h24l6-22H16"/><circle cx="21" cy="47" r="3.4"/><circle cx="40" cy="47" r="3.4"/></svg></span>
+          <h3>Easily Manageable<br />Cart &amp; Sidebars</h3>
+        </article>
+        <article class="wg-card" data-g>
+          <span class="wg-ic"><svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><g fill="currentColor" stroke="none"><circle cx="14" cy="14" r="3.2"/><circle cx="28" cy="14" r="3.2"/><circle cx="42" cy="14" r="3.2"/><circle cx="14" cy="28" r="3.2"/><circle cx="28" cy="28" r="3.2"/><circle cx="42" cy="28" r="3.2"/><circle cx="14" cy="42" r="3.2"/><circle cx="28" cy="42" r="3.2"/><circle cx="42" cy="42" r="3.2"/></g></svg></span>
+          <h3>Mega Menu<br />Built-in Product<br />Categories</h3>
+        </article>
+        <article class="wg-card" data-g>
+          <span class="wg-ic"><svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="28" cy="28" r="7"/><path d="M28 6v6M28 44v6M6 28h6M44 28h6M12.4 12.4l4.3 4.3M39.3 39.3l4.3 4.3M12.4 43.6l4.3-4.3M39.3 16.7l4.3-4.3"/></svg></span>
+          <h3>Different Types<br />of Sorting</h3>
+        </article>
+        <article class="wg-card" data-g>
+          <span class="wg-ic"><svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="16" height="16" rx="2.5"/><rect x="32" y="8" width="16" height="16" rx="2.5"/><rect x="8" y="32" width="16" height="16" rx="2.5"/><rect x="32" y="32" width="16" height="16" rx="2.5"/></svg></span>
+          <h3>Block Feature<br />Supported</h3>
+        </article>
+        <article class="wg-card" data-g>
+          <span class="wg-ic"><svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="28" cy="10" r="4.5"/><path d="M8 20c13 4 27 4 40 0M28 24v10M28 34l-8 16M28 34l8 16"/></svg></span>
+          <h3>Top Level<br />Support</h3>
+        </article>
+        <article class="wg-card" data-g>
+          <span class="wg-ic"><svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="36" r="5.5"/><circle cx="38" cy="30" r="5.5"/><circle cx="30" cy="14" r="5.5"/></svg></span>
+          <h3>Customizable<br />Color Scheme</h3>
+        </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CHECKLIST ROWS ═══════════ -->
+<section class="dt-sec mt-[176px]">
+  <div class="wrap">
+    <h2 data-anim>A simple heading goes here</h2>
+      <article class="dt-row" data-anim>
+        <div class="dt-row-copy">
+          <h3>Interactive &amp;<br />Responsive Design</h3>
+          <p>Dokani theme provides a professional look to your website along with better experience.</p>
+          <ul class="dt-list">
+            <li><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#12B76A"/><path d="M7.5 12.4l2.9 2.9 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Smart and modern design</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#12B76A"/><path d="M7.5 12.4l2.9 2.9 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Fully responsive to all types of devices</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#12B76A"/><path d="M7.5 12.4l2.9 2.9 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>100% compatible with WooCommerce</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#12B76A"/><path d="M7.5 12.4l2.9 2.9 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Lightweight &amp; fast for a better user experience</li>
+          </ul>
+        </div>
+        <img src="Media/Theme%20Details%20Page/Interactive%20%26%20Responsive%20Design.png" alt="" loading="lazy" />
+      </article>
+      <article class="dt-row" data-anim>
+        <div class="dt-row-copy">
+          <h3>Fully Compatible<br />&amp; RTL Supported</h3>
+          <p>Dokani theme is compatible with bootstrap and RTL supported.</p>
+          <ul class="dt-list">
+            <li><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#12B76A"/><path d="M7.5 12.4l2.9 2.9 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Frontend fully bootstrap based</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#12B76A"/><path d="M7.5 12.4l2.9 2.9 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Supports all Right To Left languages</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#12B76A"/><path d="M7.5 12.4l2.9 2.9 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Cross-browser compatible</li>
+          </ul>
+        </div>
+        <img src="Media/Theme%20Details%20Page/Fully%20Compatible%20%26%20RTL%20Supported.png" alt="" loading="lazy" />
+      </article>
+      <article class="dt-row" data-anim>
+        <div class="dt-row-copy">
+          <h3>Technologically<br />Tested &amp; Updated</h3>
+          <p>Dokani theme is continuously tested with modern technology. It’s usable with updated versions of WordPress &amp; WooCommerce.</p>
+          <ul class="dt-list">
+            <li><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#12B76A"/><path d="M7.5 12.4l2.9 2.9 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Tested up to WordPress 5.2.3 and WooCommerce 3.9.0</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#12B76A"/><path d="M7.5 12.4l2.9 2.9 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Translation ready with PO file and also multilingual ready</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#12B76A"/><path d="M7.5 12.4l2.9 2.9 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Google Maps integration with the store page</li>
+          </ul>
+        </div>
+        <img src="Media/Theme%20Details%20Page/Technologically%20Tested%20%26%20Updated.png" alt="" loading="lazy" />
+      </article>
+  </div>
+</section>
+
+<!-- ═══════════ TEMPLATES (525:21351) ═══════════ -->
+<section class="bg-white sec-tpl">
+  <div class="wrap">
+    <div class="tpl-head">
+      <h2 data-anim>Amazing Templates<br />for Dokani Theme</h2>
+      <p data-anim>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+    </div>
+  </div>
+  <div class="tpl-stage" id="tplStage">
+      <img class="tpl" src="Media/Theme%20Details%20Page/Amazing%20Templates%20for%20Dokani%20Theme/Rectangle%2034626509.png" alt="Dokani template 1" loading="lazy" style="left:-23.11%;top:3.48%;width:47.27%" />
+      <img class="tpl" src="Media/Theme%20Details%20Page/Amazing%20Templates%20for%20Dokani%20Theme/Rectangle%2034626508.png" alt="Dokani template 2" loading="lazy" style="left:6.94%;top:-3.45%;width:36.67%" />
+      <img class="tpl" src="Media/Theme%20Details%20Page/Amazing%20Templates%20for%20Dokani%20Theme/Rectangle%2034626505.png" alt="Dokani template 3" loading="lazy" style="left:32.88%;top:-8.93%;width:33.82%" />
+      <img class="tpl" src="Media/Theme%20Details%20Page/Amazing%20Templates%20for%20Dokani%20Theme/Rectangle%2034626506.png" alt="Dokani template 4" loading="lazy" style="left:55.72%;top:-5.79%;width:38.17%" />
+      <img class="tpl" src="Media/Theme%20Details%20Page/Amazing%20Templates%20for%20Dokani%20Theme/Rectangle%2034626507.png" alt="Dokani template 5" loading="lazy" style="left:78.72%;top:5.59%;width:42.49%" />
+  </div>
+</section></section>
+
+<!-- ═══════════ SUPPORT TRIO ═══════════ -->
+<section class="bg-white pt-[240px] pb-[192px]">
+  <div class="wrap">
+    <div class="sp-head" data-anim>
+      <h2>A simple heading goes here</h2>
+      <p>Dokani keeps your store awesome, smart and visually clean — here is what that means in practice.</p>
+    </div>
+    <div class="sp-cards">
+      <article class="sp-card" data-anim>
+        <span class="sp-ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 4l6.1 12.6 14 1.9-10.3 9.7 2.6 13.8L24 35.6 11.6 42l2.6-13.8L3.9 18.5l14-1.9z"/></svg></span>
+        <div class="sp-txt"><h3>Awesome</h3><p>Widget design for store and frontpage category</p></div>
+      </article>
+      <article class="sp-card" data-anim>
+        <span class="sp-ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 4a12.5 12.5 0 00-7 22.8c1.6 1.2 2.6 3 2.6 5V34h8.8v-2.2c0-2 1-3.8 2.6-5A12.5 12.5 0 0024 4z"/><path d="M20 40h8M22 45h4"/></svg></span>
+        <div class="sp-txt"><h3>Smart</h3><p>Simple, stable and secure</p></div>
+      </article>
+      <article class="sp-card" data-anim>
+        <span class="sp-ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 24s7.6-12.5 21-12.5S45 24 45 24s-7.6 12.5-21 12.5S3 24 3 24z"/><circle cx="24" cy="24" r="5.4"/></svg></span>
+        <div class="sp-txt"><h3>Visually</h3><p>And graphically clear cut</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA ═══════════ -->
+<section class="bg-white pb-[110px]">
+  <div class="cta-wrap">
+    <div class="dk-final" data-anim>
+      <svg class="waves" preserveAspectRatio="none" viewBox="0 0 1000 500" fill="none" stroke="white" stroke-width="1">
+        <path d="M-40 430 C 240 340 620 380 1050 210"/><path d="M-40 500 C 280 410 640 440 1050 300"/>
+        <path d="M-40 360 C 240 280 620 320 1050 140"/><path d="M-40 290 C 240 220 620 260 1050 80"/>
+      </svg>
+      <div class="dk-final-copy">
+        <h2>Dokani &ndash; Responsive WordPress Theme for Beautiful Website</h2>
+        <p>Start designing your website just the way you want without any cost!</p>
+        <a href="#" class="btn-dl">Download for Free
+          <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 11l4.5 4.5 4.5-4.5M5 19h14"/></svg></span>
+        </a>
+      </div>
+      <img class="dk-final-art" src="Media/Demo%20Details%20Page/footer%20CTA.png" alt="Dokani storefront" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<footer class="bg-black text-white">
+  <div class="wrap pt-[90px] pb-[40px]">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-10 gap-y-14">
+      <!-- col 1 -->
+      <div>
+        <a href="#" class="inline-block mb-9">
+          <img src="Media/Dokan%20Logos/Dokan%20Logo-Dark%20Footer.svg" alt="Dokan"
+               width="139" height="38" class="w-[139px] h-[38px]" />
+        </a>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="About Us|Brand Assets|Changelog|Contact Us|Career"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Use Cases</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Fashion|Furniture|Print on demand|Electronics|Auction|Booking|View All"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Demo's</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Dokan WordPress Plugin|Dokan Mobile App|Delivery Driver App|Otel Theme"></ul>
+      </div>
+      <!-- col 2 -->
+      <div>
+        <h5 class="font-display font-semibold text-[17px] mb-5">Resources</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Blogs|Documentation|FAQs|Video Tutorials|Webinars"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Policies</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Privacy Policy|Terms of Sevice|Support Policy|Affiliate Policy|Refund Policy"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5 leading-snug">Support &amp;<br />Success Stories</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Success Stories|Testimonials|Support"></ul>
+      </div>
+      <!-- col 3 -->
+      <div>
+        <h5 class="font-display font-semibold text-[17px] mb-5">Important Links</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Modules|Features|Payment Integrations|Compatible Plugins|Compatible Themes|Compare"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Solutions</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Marketplace (Hosted by you)|eCommerce Shop (Hosted by us)|Marketplace (Hosted by us)|Mobile App|Delivery Driver App|Otel Theme|Dokan Care|wePOS|StoreGrowth|weLab"></ul>
+      </div>
+      <!-- col 4 -->
+      <div>
+        <h5 class="font-display font-semibold text-[17px] mb-5 leading-snug">Partnership<br />&amp; Affiliate</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Partner with Us|Join Our Affiliate Program|Affiliate Policy|Affiliate|Influencer Program"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5 leading-snug">Guide to Build a<br />Marketplace Like</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Etsy|Amazon|eBay|Alibaba|Airbnb|More Examples"></ul>
+      </div>
+    </div>
+
+    <div class="mt-[90px] flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+      <div>
+        <h5 class="font-display font-bold text-[22px] mb-5">Keep Updated</h5>
+        <form class="flex items-center bg-white rounded-full p-1.5 w-full max-w-[278px]" onsubmit="return false">
+          <input type="email" placeholder="Your email address" class="flex-1 min-w-0 bg-transparent font-body text-heading text-[14px] px-4 py-2 outline-none placeholder:text-lite" />
+          <button class="rounded-full bg-dokan hover:bg-[#5d36d6] transition-colors px-4 py-2.5 font-body font-bold text-[13px] text-white whitespace-nowrap">Stay Updated</button>
+        </form>
+      </div>
+      <div class="flex flex-col items-start lg:items-end gap-6">
+        <div class="flex items-center gap-3" id="socials"></div>
+        <div class="flex flex-wrap items-center gap-4 text-white/70 font-body text-[13px]">
+          <span class="rounded bg-[#15151b] px-3 py-1.5 flex items-center gap-2"><span class="font-bold text-[10px] text-dokan">GDPR</span> Compliant</span>
+          <span class="text-white/20">|</span>
+          <span class="flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-[#22C55E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+            Secure Payment
+          </span>
+          <span class="text-white/20">|</span>
+          <span class="font-display font-bold italic text-white/90 text-[15px]">stripe</span>
+          <span class="text-white/20">|</span>
+          <span class="font-display font-bold italic text-[15px]"><span class="text-[#4B96D8]">Pay</span><span class="text-[#8ECBEE]">Pal</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-7 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 font-body text-[13px] text-white/60">
+      <span class="flex items-center gap-2">A <span class="font-bold text-white">weDevs</span> Product</span>
+      <span>© 2025, Dokan. All Rights Reserved.</span>
+      <button class="flex items-center gap-1.5 hover:text-white transition-colors">
+        English <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<script src="demos.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="site-nav.js?v=17"></script>
+<script>
+(function () {
+  var FOOTER_ROUTES = { 'Modules':'modules.html', 'Blogs':'blog.html',
+    'Testimonials':'testimonials.html', 'Compatible Themes':'themes.html',
+    'Dokan WordPress Plugin':'demo.html' };
+  document.querySelectorAll('[data-links]').forEach(function (ul) {
+    ul.dataset.links.split('|').forEach(function (t) {
+      var li = document.createElement('li');
+      li.innerHTML = '<a href="' + (FOOTER_ROUTES[t] || '#') + '" class="hover:text-white transition-colors">' + t + '</a>';
+      ul.appendChild(li);
+    });
+  });
+  var socials = [
+    ['#1877F2','<path fill="#fff" d="M13.5 21v-7h2.3l.4-2.7h-2.7V9.5c0-.8.2-1.3 1.4-1.3H16V5.8c-.3 0-1.1-.1-2-.1-2 0-3.4 1.2-3.4 3.5v1.9H8.3V14h2.3v7h2.9z"/>'],
+    ['#000000','<path fill="#fff" d="M14.2 10.6L19 5.5h-1.4l-3.7 4-3-4H7l4.5 6-4.5 5h1.4l3.9-4.3 3.1 4.3H19l-4.8-6.6z"/>'],
+    ['#FF0000','<path fill="#fff" d="M18.6 9.2c-.2-.7-.7-1.2-1.4-1.4C15.9 7.5 12 7.5 12 7.5s-3.9 0-5.2.3c-.7.2-1.2.7-1.4 1.4C5.1 10.5 5.1 12 5.1 12s0 1.5.3 2.8c.2.7.7 1.2 1.4 1.4 1.3.3 5.2.3 5.2.3s3.9 0 5.2-.3c.7-.2 1.2-.7 1.4-1.4.3-1.3.3-2.8.3-2.8s0-1.5-.3-2.8zM10.8 14.3V9.7l3.9 2.3-3.9 2.3z"/>'],
+    ['#0A66C2','<path fill="#fff" d="M9 10.5H6.7V18H9v-7.5zM7.8 9.4c.8 0 1.3-.5 1.3-1.2 0-.7-.5-1.2-1.3-1.2S6.6 7.5 6.6 8.2c0 .7.5 1.2 1.2 1.2zM18 18v-4.3c0-2.2-1.2-3.3-2.8-3.3-1.3 0-1.9.7-2.2 1.2v-1h-2.3c0 .6 0 7.4 0 7.4H13v-4.2c0-.2 0-.4.1-.6.2-.4.6-.9 1.3-.9.9 0 1.3.7 1.3 1.7V18H18z"/>'],
+    ['#111111','<path fill="#fff" d="M7.5 8.2c-1.4 0-2.4 1.6-2.4 3.4 0 1.5.7 2.5 1.8 2.5.9 0 1.5-.6 2.4-2.2l.9-1.6c.3.5.6 1 .9 1.5-.4.6-.8 1.2-1.1 1.5-.9 1-1.6 1.4-2.6 1.4-1.9 0-3-1.6-3-3.9 0-2.6 1.5-4.6 3.4-4.6 1.2 0 2 .6 2.9 1.9.6-.9 1.4-1.9 2.8-1.9 1.9 0 3.3 2 3.3 4.6 0 2.3-1.1 3.9-2.9 3.9-.6 0-1.1-.2-1.6-.6.3-.4.5-.7.8-1.1.3.2.5.3.8.3 1 0 1.5-1 1.5-2.5 0-1.8-.9-3.4-2.3-3.4-.8 0-1.4.6-2.2 1.9l-.8 1.4c-1 1.8-1.9 2.9-3.3 2.9z"/>'],
+  ];
+  var sw = document.getElementById('socials');
+  if (sw) socials.forEach(function (x) {
+    var a = document.createElement('a');
+    a.href = '#'; a.className = 'grid place-items-center h-[34px] w-[34px] rounded-full';
+    a.style.background = x[0];
+    a.innerHTML = '<svg viewBox="0 0 24 24" class="w-full h-full">' + x[1] + '</svg>';
+    sw.appendChild(a);
+  });
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!window.gsap || !window.ScrollTrigger || reduced) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  if (window.Lenis && !window.matchMedia('(hover:none)').matches) {
+    var lenis = new Lenis({ duration: 1.05, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  gsap.timeline({ defaults: { ease: 'power3.out' } })
+    .from('.site-nav .menu-row > *', { y: -16, opacity: 0, duration: .6, stagger: .08 })
+    .from('.dk-badge', { y: 20, opacity: 0, duration: .6 }, '-=.3')
+    .from('.dk-h1',   { y: 34, opacity: 0, duration: .85 }, '-=.4')
+    .from('.dk-sub',  { y: 22, opacity: 0, duration: .7 }, '-=.55')
+    .from('.dk-cta > *', { y: 18, opacity: 0, duration: .6, stagger: .1 }, '-=.45')
+    .from('.dk-panels img', { y: 60, opacity: 0, duration: 1, stagger: .12 }, '-=.5');
+
+  gsap.utils.toArray('section [data-anim]').forEach(function (el) {
+    gsap.from(el, { y: 30, opacity: 0, duration: .8, ease: 'power3.out', immediateRender: false,
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true } });
+  });
+  var wg = document.querySelector('.wg-grid');
+  gsap.from(wg.children, { y: 34, opacity: 0, duration: .7, ease: 'power3.out', stagger: .07,
+    immediateRender: false, scrollTrigger: { trigger: wg, start: 'top 86%', once: true } });
+
+  /* Template marquee: the whole fan drifts slowly right-to-left and wraps
+     seamlessly — a card that leaves on the left re-enters on the right after
+     one full period, so the loop never jumps. Placement, sizes and the baked
+     rotations are untouched; motion is a pure x translation. */
+  (function () {
+    var stage = document.getElementById('tplStage');
+    if (!stage) return;
+    var cards = gsap.utils.toArray('#tplStage .tpl');
+    if (!cards.length) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var SPEED = 0.025;          // stage-widths per second (~42px/s at 1700)
+    var base = [], widths = [], period = 0, offset = 0, running = false;
+
+    function measure() {
+      var sw = stage.clientWidth;
+      var minL = Infinity, maxR = -Infinity;
+      base = []; widths = [];
+      cards.forEach(function (c) {
+        var l = parseFloat(c.style.left) / 100 * sw;
+        var w = c.getBoundingClientRect().width;
+        base.push(l); widths.push(w);
+        if (l < minL) minL = l;
+        if (l + w > maxR) maxR = l + w;
+      });
+      period = (maxR - minL) + 40;   // group span + 40px seam
+    }
+    measure();
+
+    /* The fan is an arc: cards near the centre sit higher and upright, outer
+       cards sit lower and lean outward. As a card travels it follows that
+       same curve — y and tilt are functions of its horizontal position,
+       relative to its home slot so the resting design is untouched. */
+    var ARC_R = 26;                              // total lean across the stage, deg
+    function tick(t, dt) {
+      if (!running) return;
+      var sw = stage.clientWidth, sh = stage.clientHeight;
+      var A = sh * 0.7;                          // arc depth in px
+      offset += (dt / 1000) * SPEED * sw;
+      cards.forEach(function (c, i) {
+        /* per-card wrap: jump only once fully offscreen left, straight onto
+           the next periodic tile — spacing stays exact, no dead travel */
+        var wrapMin = -widths[i] - 40;
+        var e = base[i] - offset;
+        e = ((e - wrapMin) % period + period) % period + wrapMin;
+        var xn = (e + widths[i] / 2) / sw;       // card centre, 0..1 across stage
+        var hn = (base[i] + widths[i] / 2) / sw; // its home-slot centre
+        var dy = A * ((xn - .5) * (xn - .5) - (hn - .5) * (hn - .5));
+        if (dy > 12) dy = 12;                    // never sink below the fitted bottoms
+        gsap.set(c, { x: e - base[i], y: dy, rotation: ARC_R * (xn - hn) });
+      });
+    }
+    gsap.ticker.add(tick);
+
+    /* Only animate while the section is on screen */
+    ScrollTrigger.create({
+      trigger: stage, start: 'top bottom', end: 'bottom top',
+      onToggle: function (st) { running = st.isActive; }
+    });
+
+    var rt2; window.addEventListener('resize', function () {
+      clearTimeout(rt2); rt2 = setTimeout(measure, 150);
+    });
+  })();
+
+  window.addEventListener('load', function () {
+    ScrollTrigger.refresh();
+    setTimeout(function () {
+      document.querySelectorAll('[data-anim], [data-g]').forEach(function (el) {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.05) {
+          var r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) gsap.set(el, { clearProps: 'opacity,transform' });
+        }
+      });
+    }, 1200);
+  });
+  var rt; window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () { ScrollTrigger.refresh(); }, 200);
+  });
+})();
+</script>
+</body>
+</html>

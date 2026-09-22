@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>How to Ensure eCommerce Data Privacy — Dokan Blog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="site-nav.css?v=19" />
+<!-- Page loader: only the header shows until site-nav.js reveals the page (5s failsafe) -->
+<script>(function(d){if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000)})(document.documentElement)</script>
+<script>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { display:['Poppins','sans-serif'], body:['Lato','sans-serif'] },
+    colors: { dokan:'#7047EB', title:'#0f172a', heading:'#0E0E0F', para:'#334155',
+      reg:'#575757', lite:'#828282', stroke:'#E9E9E9' },
+  }}};
+</script>
+<style>
+  .wrap { width:100%; max-width:1700px; margin:0 auto; padding-left:102px; padding-right:102px; }
+  @media (max-width:1200px){ .wrap { padding-left:48px; padding-right:48px; } }
+  @media (max-width:700px){ .wrap { padding-left:20px; padding-right:20px; } }
+  body { background:#fff; color:#0f172a; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  html.lenis, html.lenis body { height:auto; }
+  html.lenis-smooth { scroll-behavior:auto !important; }
+  .h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
+    line-height:1.2; color:#0f172a; }
+  .sub { font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#575757; }
+  .cta-wrap { width:100%; max-width:1700px; margin:0 auto; padding:0 20px; }
+  .cta-band { position:relative; overflow:hidden; border-radius:20px; background:#7047EB; min-height:646px; }
+  .cta-band svg.waves { position:absolute; inset:0; width:100%; height:100%; opacity:.25; pointer-events:none; }
+  .cta-copy { position:absolute; left:84px; top:139px; max-width:655px; z-index:2; }
+  .cta-copy h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:62px; line-height:1.25; color:#fff; }
+  .cta-copy p { margin:28px 0 0; max-width:527px; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:rgba(255,255,255,.8); }
+  .cta-btn { display:inline-flex; align-items:center; gap:14px; margin-top:56px; background:#fff;
+    border-radius:9999px; padding:10px 10px 10px 32px; font-family:'Lato',sans-serif; font-weight:700;
+    font-size:16px; color:#0E0E0F; transition:transform .25s, box-shadow .25s; }
+  .cta-btn:hover { transform:translateY(-2px); box-shadow:0 18px 36px -16px rgba(0,0,0,.35); }
+  .cta-btn .circle { width:45px; height:45px; border-radius:9999px; background:#0E0E0F; color:#fff;
+    display:flex; align-items:center; justify-content:center; }
+  .cta-btn .circle svg { width:17px; height:17px; }
+  .cta-art { position:absolute; right:0; bottom:0; width:678px; z-index:1; border-top-left-radius:10px; }
+  @media (max-width:1200px) {
+    .cta-copy { position:static; padding:56px 32px 0; }
+    .cta-copy h2 { font-size:clamp(30px,4.6vw,62px); }
+    .cta-band { min-height:0; padding-bottom:40px; }
+    .cta-art { position:static; width:calc(100% - 64px); margin:36px 32px 0; border-radius:10px; }
+  }
+
+
+  .bl-hero { background:#EFEBFB; }
+  .bl-col { max-width:801px; margin:0 auto; padding:0 20px; }
+  .bl-title { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
+    line-height:1.2; color:#0f172a; padding-top:198px; }
+  .bl-meta { display:flex; align-items:center; gap:24px; margin-top:27px; padding-bottom:56px; }
+  .bl-ava { width:71px; height:71px; border-radius:9999px; flex:none;
+    background:linear-gradient(135deg,#8B7BF0,#F0839B); }
+  .bl-meta .who b { display:block; font-family:'Poppins',sans-serif; font-weight:600; font-size:24px;
+    color:#0f172a; }
+  .bl-meta .who span { display:inline-flex; align-items:center; gap:8px; margin-top:8px;
+    font-family:'Lato',sans-serif; font-size:15px; color:#575757; }
+  .bl-meta .who span i { width:5px; height:5px; border-radius:99px; background:#B7BCC9; }
+  .bl-right { margin-left:auto; text-align:right; }
+  .bl-chip { display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:9999px;
+    background:#fff; border:1px solid #E5E2F2; font-family:'Lato',sans-serif; font-size:13px;
+    color:#25252D; }
+  .bl-right small { display:block; margin-top:14px; font-family:'Lato',sans-serif; font-size:15px;
+    color:#575757; }
+  .bl-heroimg { width:100%; border-radius:16px; display:block; margin-top:0; }
+  .bl-body { font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#334155; }
+  .bl-body p { margin:34px 0 0; }
+  .bl-h2 { margin:96px 0 0; font-family:'Poppins',sans-serif; font-weight:700; font-size:32px;
+    line-height:1.2; color:#0f172a; }
+  .bl-quote { margin-top:96px; background:#F2F2F4; border-radius:20px; padding:63px 48px; }
+  .bl-quote svg { width:48px; height:39px; }
+  .bl-quote p { margin:10px 0 0 63px; font-family:'Poppins',sans-serif; font-weight:700;
+    font-size:24px; line-height:1.3; color:#1d2433; max-width:535px; }
+  .bl-checks { margin-top:38px; }
+  .bl-checks li { display:flex; gap:18px; padding:12px 0 24px; border-bottom:1px solid #ECECF0;
+    font-size:20px; line-height:1.5; color:#334155; }
+  .bl-checks li:last-child { border-bottom:0; }
+  .bl-checks svg { width:22px; height:22px; flex:none; margin-top:6px; }
+  .bl-code { margin-top:38px; background:#101425; border-radius:16px; padding:16px; position:relative; }
+  .bl-code .copy { position:absolute; right:24px; top:26px; font-family:'Lato',sans-serif;
+    font-size:15px; color:#B9BFD8; cursor:pointer; }
+  .bl-code .copy:hover { color:#fff; }
+  .bl-code .lang { display:inline-block; margin:14px 0 0 30px; font-family:'Lato',sans-serif;
+    font-size:15px; color:#8FA2FF; }
+  .bl-code pre { margin:12px 30px 24px; font-family:ui-monospace,Menlo,monospace; font-size:15px;
+    line-height:1.65; color:#D7DCF0; overflow-x:auto; }
+  .bl-shot { width:100%; border-radius:16px; border:1px solid #ECECF0; margin-top:38px; display:block; }
+  .bl-table { width:100%; margin-top:38px; border-radius:16px; overflow:hidden;
+    border-collapse:separate; border-spacing:0; }
+  .bl-table th { background:#7C4DEB; color:#fff; text-align:left; padding:22px 32px;
+    font-family:'Lato',sans-serif; font-weight:400; font-size:19px; }
+  .bl-table td { padding:22px 32px; font-family:'Lato',sans-serif; font-size:19px; color:#575757;
+    background:#F7F6FC; }
+  .bl-table tr:nth-child(even) td { background:#EFECFA; }
+  .bl-news { margin-top:96px; border-radius:20px; overflow:hidden; position:relative; color:#fff;
+    background:radial-gradient(70% 90% at 85% 20%, rgba(88,74,220,.5) 0%, rgba(6,7,12,0) 60%), #0A0912;
+    padding:63px 80px; }
+  .bl-news h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:36px;
+    line-height:1.2; }
+  .bl-news form { display:flex; align-items:center; margin-top:27px; background:#fff;
+    border-radius:9999px; padding:8px; max-width:461px; }
+  .bl-news input { flex:1; min-width:0; background:transparent; outline:none; padding:10px 20px;
+    font-family:'Lato',sans-serif; font-size:15px; color:#25252D; }
+  .bl-news button { background:#7047EB; color:#fff; border-radius:9999px; padding:12px 24px;
+    font-family:'Lato',sans-serif; font-weight:700; font-size:14px; white-space:nowrap;
+    transition:background-color .25s; }
+  .bl-news button:hover { background:#5d36d6; }
+  .bl-news small { display:block; margin-top:20px; font-family:'Lato',sans-serif; font-size:15px;
+    color:rgba(255,255,255,.65); }
+  .bl-rel { margin-top:80px; }
+  .bl-rel-head { display:flex; align-items:center; justify-content:space-between; }
+  .bl-rel-head h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:32px;
+    color:#0f172a; }
+  .bl-rel-head .nav { display:flex; gap:10px; }
+  .bl-rel-head .nav button { width:43px; height:43px; border-radius:9999px; display:flex;
+    align-items:center; justify-content:center; transition:background-color .25s, color .25s; }
+  .bl-rel-head .nav .prev { background:#F1EFFA; color:#7047EB; }
+  .bl-rel-head .nav .next { background:#7047EB; color:#fff; }
+  .bl-rel-head .nav button:hover { opacity:.85; }
+  .bl-rel-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:37px; margin-top:33px; }
+  .bl-rel-card .thumb { border-radius:14px; height:222px;
+    background:linear-gradient(135deg,#7A3BF0,#B24BF0); transition:transform .35s cubic-bezier(.22,.61,.36,1); }
+  .bl-rel-card:hover .thumb { transform:translateY(-6px); }
+  .bl-rel-card:nth-child(2) .thumb { background:linear-gradient(135deg,#4F5BF0,#7A8CF8); }
+  .bl-rel-card h4 { margin:22px 0 0; font-family:'Poppins',sans-serif; font-weight:700;
+    font-size:22px; line-height:1.35; color:#0f172a; }
+  .bl-rel-card:hover h4 { color:#7047EB; }
+  .bl-rel-meta { display:flex; align-items:center; gap:22px; margin-top:18px; }
+  .bl-rel-meta .cat { padding:8px 16px; border-radius:9999px; background:#F2F2F4;
+    font-family:'Lato',sans-serif; font-size:14px; color:#334155; }
+  .bl-rel-meta .time { display:inline-flex; align-items:center; gap:7px;
+    font-family:'Lato',sans-serif; font-size:14px; color:#575757; }
+  @media (max-width:900px) {
+    .bl-title { font-size:clamp(28px,5.4vw,52px); padding-top:160px; }
+    .bl-meta { flex-wrap:wrap; }
+    .bl-news { padding:36px 24px; }
+    .bl-news h3 { font-size:clamp(24px,4.6vw,36px); }
+    .bl-rel-grid { grid-template-columns:1fr; }
+    .bl-quote { padding:28px 22px; }
+    .bl-quote p { margin-left:0; margin-top:22px; }
+    .bl-table th, .bl-table td { padding:14px 14px; font-size:15px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+  }
+
+  /* ── Mobile polish: long code lines scroll instead of being cut ── */
+  .bl-code pre { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  @media (max-width:640px) {
+    .bl-code pre { margin:12px 16px 20px; font-size:13px; }
+    .bl-code .lang { margin-left:16px; }
+    .bl-code .copy { right:16px; }
+  }
+</style>
+</head>
+<body class="font-body">
+<div class="bl-hero relative">
+  <div id="site-nav" data-variant="light"></div>
+  <div class="bl-col">
+    <h1 class="bl-title" data-anim>How to Ensure eCommerce Data Privacy: A Step-by-Step Guide for Beginners</h1>
+    <div class="bl-meta" data-anim>
+      <span class="bl-ava"></span>
+      <div class="who">
+        <b>Shams Sumon Rinku</b>
+        <span><i></i> eCommerce &nbsp;<i></i>&nbsp; 19 Oct 2024</span>
+      </div>
+      <div class="bl-right">
+        <span class="bl-chip"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg> Human Written</span>
+        <small>10 mins read</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<article class="bg-white pb-[80px]">
+  <div class="bl-col">
+    <div class="bl-heroimg" style="height:427px;background:linear-gradient(135deg,#5B2EE8,#9B4BF0)"></div>
+    <div class="bl-body" data-anim>
+      <p>Running an online store means handling sensitive customer information every single day — names, addresses, payment details, and browsing habits. One data breach can destroy the trust you have worked so hard to build, and with regulations like GDPR and CCPA now firmly in place, protecting customer data is not optional anymore.</p>
+      <p>It is understandable to feel overwhelmed by the technical side of data privacy. The good news? You do not need to be a security expert to protect your store. This guide walks you through practical, beginner-friendly steps to keep your customers' data safe.</p>
+    </div>
+
+    <div class="bl-quote" data-anim>
+      <svg viewBox="0 0 48 34" fill="#7047EB"><path d="M0 34V20.4C0 8.8 6.4 1.6 17.6 0l2 5.2C12.4 7.2 8.8 11.2 8.4 16H18v18H0zm28 0V20.4C28 8.8 34.4 1.6 45.6 0l2 5.2C40.4 7.2 36.8 11.2 36.4 16H46v18H28z"/></svg>
+      <p>I have reviewed Dokan and it seems that there is no match for it when it comes features and frontend capabilities as well.</p>
+    </div>
+
+    <h2 class="bl-h2" data-anim>What is Data Privacy in eCommerce?</h2>
+    <div class="bl-body" data-anim>
+      <p>Data privacy in eCommerce means responsibly collecting, storing, and using your customers' personal information. Every time someone creates an account, places an order, or subscribes to your newsletter, they are trusting you with their data. Data privacy is about honoring that trust — being transparent about what you collect, keeping it secure, and never using it in ways your customers didn't agree to.</p>
+    </div>
+
+    <h2 class="bl-h2" data-anim>Step to follow to gain Security</h2>
+    <div class="bl-body" data-anim>
+      <p>Protecting customer data is essential for any online store. It builds trust, prevents security risks, and ensures compliance with legal requirements.</p>
+    </div>
+    <ul class="bl-checks" data-anim>
+          <li><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#12B76A" stroke-width="1.8"/><path d="M7.8 12.3l2.7 2.7 5.6-5.6" stroke="#12B76A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Prevents Data Breaches: Hackers target online stores to steal personal and financial data. Strong security measures help protect sensitive information from cyberattacks.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#12B76A" stroke-width="1.8"/><path d="M7.8 12.3l2.7 2.7 5.6-5.6" stroke="#12B76A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Prevents Data Breaches: Hackers target online stores to steal personal and financial data. Strong security measures help protect sensitive information from cyberattacks.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#12B76A" stroke-width="1.8"/><path d="M7.8 12.3l2.7 2.7 5.6-5.6" stroke="#12B76A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Prevents Data Breaches: Hackers target online stores to steal personal and financial data. Strong security measures help protect sensitive information from cyberattacks.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#12B76A" stroke-width="1.8"/><path d="M7.8 12.3l2.7 2.7 5.6-5.6" stroke="#12B76A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Prevents Data Breaches: Hackers target online stores to steal personal and financial data. Strong security measures help protect sensitive information from cyberattacks.</span></li>
+    </ul>
+
+    <h2 class="bl-h2" data-anim>Custom code can be a best option</h2>
+    <div class="bl-body" data-anim>
+      <p>For compliance with the CCPA (California Consumer Privacy Act — USA), your store needs clear mechanisms for consumers to opt out of data selling and request deletion of their data. A small snippet like the one below is often the starting point.</p>
+    </div>
+    <div class="bl-code" data-anim>
+      <span class="copy" data-copy>Copy</span>
+      <span class="lang">CSS</span>
+      <pre><code>// E-commerce Checkout System (Example)
+class ShoppingCart {
+  constructor() {
+    this.items = [];
+  }
+  addItem(item, price, quantity) {
+    this.items.push({ item, price, quantity });
+  }
+  calculateTotal() {
+    return this.items.reduce((total, item) =&gt;
+      total + item.price * item.quantity, 0);
+  }
+  applyDiscount(discountCode) {
+    const discounts = { "WELCOME10": 0.10, "SALE20": 0.20 };
+    return this.calculateTotal() *
+      (1 - (discounts[discountCode] || 0));
+  }
+}</code></pre>
+    </div>
+
+    <h2 class="bl-h2" data-anim>Custom code can be a best options</h2>
+    <div class="bl-body" data-anim>
+      <p>Your compliance effort doesn't stop at the paperwork. Confirm that customer-facing flows behave the way your policy promises. The two most common places privacy issues hide are your plugin settings and your checkout screens:</p>
+      <p>1) CCPA (California Consumer Privacy Act — USA)</p>
+      <p>2) PCI DSS (Payment Security Standard)</p>
+    </div>
+    <img class="bl-shot" src="Media/Admin%20dashboard.png" alt="WordPress products screen" loading="lazy" data-anim />
+    <img class="bl-shot" src="Media/Admin%20dashboard.png" alt="WordPress products screen" loading="lazy" data-anim />
+
+    <h2 class="bl-h2" data-anim>Create a Transparent Privacy Policy</h2>
+    <div class="bl-body" data-anim>
+      <p>When life gets busy or your goals feel demanding, skipping a workout can seem harmless. Your privacy policy is the same: it only works if it is honest, visible, and kept up to date. Write it in plain language, link it from your footer and checkout, and revisit it whenever you add a new plugin or start collecting anything new.</p>
+    </div>
+
+    <h2 class="bl-h2" data-anim>Comparison between Dokan and WCFM</h2>
+    <table class="bl-table" data-anim>
+      <thead><tr><th>Features</th><th>Dokan</th><th>WCFM</th></tr></thead>
+      <tbody>
+          <tr><td>Demo</td><td>Yes</td><td>Yes</td></tr>
+          <tr><td>Support</td><td>Support ticket, email, live chat</td><td>Support ticket, email, live chat</td></tr>
+          <tr><td>Built-in Multilingual Support</td><td>Yes</td><td>Yes</td></tr>
+          <tr><td>Withdrawal System</td><td>Yes</td><td>Yes</td></tr>
+          <tr><td>Refund Management</td><td>Yes</td><td>Yes</td></tr>
+      </tbody>
+    </table>
+
+    <div class="bl-news" data-anim>
+      <h3>Get Fresh<br />Updates Every Day</h3>
+      <form onsubmit="return false">
+        <input type="email" placeholder="Your email address" />
+        <button>Stay Updated</button>
+      </form>
+      <small>Get access to exclusive guides, tips, updates, ebooks, and more.</small>
+    </div>
+
+    <div class="bl-rel" data-anim>
+      <div class="bl-rel-head">
+        <h3>Related Post</h3>
+        <div class="nav">
+          <button class="prev" aria-label="Previous"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <button class="next" aria-label="Next"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+      </div>
+      <div class="bl-rel-grid">
+        <a href="#" class="bl-rel-card">
+          <div class="thumb"></div>
+          <h4>How to Build a Modern User Account Dashboard in WordPress</h4>
+          <div class="bl-rel-meta"><span class="cat">Plugins Release Notes</span>
+            <span class="time"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 13 min read</span></div>
+        </a>
+        <a href="#" class="bl-rel-card">
+          <div class="thumb"></div>
+          <h4>How to Build a Modern User Account Dashboard in WordPress</h4>
+          <div class="bl-rel-meta"><span class="cat">Plugins Release Notes</span>
+            <span class="time"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 13 min read</span></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+
+<script>
+  document.addEventListener('click', function (e) {
+    var c = e.target.closest('[data-copy]');
+    if (!c) return;
+    var code = c.parentElement.querySelector('code');
+    if (navigator.clipboard && code) navigator.clipboard.writeText(code.textContent);
+    c.textContent = 'Copied!';
+    setTimeout(function () { c.textContent = 'Copy'; }, 1600);
+  });
+</script>
+
+<footer class="bg-black text-white">
+  <div class="wrap pt-[90px] pb-[40px]">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-10 gap-y-14">
+      <!-- col 1 -->
+      <div>
+        <a href="#" class="inline-block mb-9">
+          <img src="Media/Dokan%20Logos/Dokan%20Logo-Dark%20Footer.svg" alt="Dokan"
+               width="139" height="38" class="w-[139px] h-[38px]" />
+        </a>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="About Us|Brand Assets|Changelog|Contact Us|Career"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Use Cases</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Fashion|Furniture|Print on demand|Electronics|Auction|Booking|View All"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Demo's</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Dokan WordPress Plugin|Dokan Mobile App|Delivery Driver App|Otel Theme"></ul>
+      </div>
+      <!-- col 2 -->
+      <div>
+        <h5 class="font-display font-semibold text-[17px] mb-5">Resources</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Blogs|Documentation|FAQs|Video Tutorials|Webinars"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Policies</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Privacy Policy|Terms of Sevice|Support Policy|Affiliate Policy|Refund Policy"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5 leading-snug">Support &amp;<br />Success Stories</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Success Stories|Testimonials|Support"></ul>
+      </div>
+      <!-- col 3 -->
+      <div>
+        <h5 class="font-display font-semibold text-[17px] mb-5">Important Links</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Modules|Features|Payment Integrations|Compatible Plugins|Compatible Themes|Compare"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Solutions</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Marketplace (Hosted by you)|eCommerce Shop (Hosted by us)|Marketplace (Hosted by us)|Mobile App|Delivery Driver App|Otel Theme|Dokan Care|wePOS|StoreGrowth|weLab"></ul>
+      </div>
+      <!-- col 4 -->
+      <div>
+        <h5 class="font-display font-semibold text-[17px] mb-5 leading-snug">Partnership<br />&amp; Affiliate</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Partner with Us|Join Our Affiliate Program|Affiliate Policy|Affiliate|Influencer Program"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5 leading-snug">Guide to Build a<br />Marketplace Like</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Etsy|Amazon|eBay|Alibaba|Airbnb|More Examples"></ul>
+      </div>
+    </div>
+
+    <div class="mt-[90px] flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+      <div>
+        <h5 class="font-display font-bold text-[22px] mb-5">Keep Updated</h5>
+        <form class="flex items-center bg-white rounded-full p-1.5 w-full max-w-[278px]" onsubmit="return false">
+          <input type="email" placeholder="Your email address" class="flex-1 min-w-0 bg-transparent font-body text-heading text-[14px] px-4 py-2 outline-none placeholder:text-lite" />
+          <button class="rounded-full bg-dokan hover:bg-[#5d36d6] transition-colors px-4 py-2.5 font-body font-bold text-[13px] text-white whitespace-nowrap">Stay Updated</button>
+        </form>
+      </div>
+      <div class="flex flex-col items-start lg:items-end gap-6">
+        <div class="flex items-center gap-3" id="socials"></div>
+        <div class="flex flex-wrap items-center gap-4 text-white/70 font-body text-[13px]">
+          <span class="rounded bg-[#15151b] px-3 py-1.5 flex items-center gap-2"><span class="font-bold text-[10px] text-dokan">GDPR</span> Compliant</span>
+          <span class="text-white/20">|</span>
+          <span class="flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-[#22C55E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+            Secure Payment
+          </span>
+          <span class="text-white/20">|</span>
+          <span class="font-display font-bold italic text-white/90 text-[15px]">stripe</span>
+          <span class="text-white/20">|</span>
+          <span class="font-display font-bold italic text-[15px]"><span class="text-[#4B96D8]">Pay</span><span class="text-[#8ECBEE]">Pal</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-7 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 font-body text-[13px] text-white/60">
+      <span class="flex items-center gap-2">A <span class="font-bold text-white">weDevs</span> Product</span>
+      <span>© 2025, Dokan. All Rights Reserved.</span>
+      <button class="flex items-center gap-1.5 hover:text-white transition-colors">
+        English <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<script src="demos.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="site-nav.js?v=17"></script>
+<script>
+(function () {
+  var socials = [
+    ['#1877F2','<path fill="#fff" d="M13.5 21v-7h2.3l.4-2.7h-2.7V9.5c0-.8.2-1.3 1.4-1.3H16V5.8c-.3 0-1.1-.1-2-.1-2 0-3.4 1.2-3.4 3.5v1.9H8.3V14h2.3v7h2.9z"/>'],
+    ['#000000','<path fill="#fff" d="M14.2 10.6L19 5.5h-1.4l-3.7 4-3-4H7l4.5 6-4.5 5h1.4l3.9-4.3 3.1 4.3H19l-4.8-6.6z"/>'],
+    ['#FF0000','<path fill="#fff" d="M18.6 9.2c-.2-.7-.7-1.2-1.4-1.4C15.9 7.5 12 7.5 12 7.5s-3.9 0-5.2.3c-.7.2-1.2.7-1.4 1.4C5.1 10.5 5.1 12 5.1 12s0 1.5.3 2.8c.2.7.7 1.2 1.4 1.4 1.3.3 5.2.3 5.2.3s3.9 0 5.2-.3c.7-.2 1.2-.7 1.4-1.4.3-1.3.3-2.8.3-2.8s0-1.5-.3-2.8zM10.8 14.3V9.7l3.9 2.3-3.9 2.3z"/>'],
+    ['#0A66C2','<path fill="#fff" d="M9 10.5H6.7V18H9v-7.5zM7.8 9.4c.8 0 1.3-.5 1.3-1.2 0-.7-.5-1.2-1.3-1.2S6.6 7.5 6.6 8.2c0 .7.5 1.2 1.2 1.2zM18 18v-4.3c0-2.2-1.2-3.3-2.8-3.3-1.3 0-1.9.7-2.2 1.2v-1h-2.3c0 .6 0 7.4 0 7.4H13v-4.2c0-.2 0-.4.1-.6.2-.4.6-.9 1.3-.9.9 0 1.3.7 1.3 1.7V18H18z"/>'],
+    ['#111111','<path fill="#fff" d="M7.5 8.2c-1.4 0-2.4 1.6-2.4 3.4 0 1.5.7 2.5 1.8 2.5.9 0 1.5-.6 2.4-2.2l.9-1.6c.3.5.6 1 .9 1.5-.4.6-.8 1.2-1.1 1.5-.9 1-1.6 1.4-2.6 1.4-1.9 0-3-1.6-3-3.9 0-2.6 1.5-4.6 3.4-4.6 1.2 0 2 .6 2.9 1.9.6-.9 1.4-1.9 2.8-1.9 1.9 0 3.3 2 3.3 4.6 0 2.3-1.1 3.9-2.9 3.9-.6 0-1.1-.2-1.6-.6.3-.4.5-.7.8-1.1.3.2.5.3.8.3 1 0 1.5-1 1.5-2.5 0-1.8-.9-3.4-2.3-3.4-.8 0-1.4.6-2.2 1.9l-.8 1.4c-1 1.8-1.9 2.9-3.3 2.9z"/>'],
+  ];
+  var FOOTER_ROUTES = { 'Modules':'modules.html', 'Blogs':'blog.html',
+    'Testimonials':'testimonials.html', 'Compatible Themes':'themes.html',
+    'Dokan WordPress Plugin':'demo.html' };
+  document.querySelectorAll('[data-links]').forEach(function (ul) {
+    ul.dataset.links.split('|').forEach(function (t) {
+      var li = document.createElement('li');
+      li.innerHTML = '<a href="' + (FOOTER_ROUTES[t] || '#') + '" class="hover:text-white transition-colors">' + t + '</a>';
+      ul.appendChild(li);
+    });
+  });
+  var sw = document.getElementById('socials');
+  if (sw) socials.forEach(function (x) {
+    var a = document.createElement('a');
+    a.href = '#'; a.className = 'grid place-items-center h-[34px] w-[34px] rounded-full';
+    a.style.background = x[0];
+    a.innerHTML = '<svg viewBox="0 0 24 24" class="w-full h-full">' + x[1] + '</svg>';
+    sw.appendChild(a);
+  });
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!window.gsap || !window.ScrollTrigger || reduced) return;
+  gsap.registerPlugin(ScrollTrigger);
+  if (window.Lenis && !window.matchMedia('(hover:none)').matches) {
+    var lenis = new Lenis({ duration: 1.05, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+  gsap.from('.site-nav .menu-row > *', { y:-16, opacity:0, duration:.6, stagger:.08, ease:'power3.out' });
+  gsap.utils.toArray('[data-anim]').forEach(function (el) {
+    gsap.from(el, { y:30, opacity:0, duration:.8, ease:'power3.out', immediateRender:false,
+      clearProps:'transform',
+      scrollTrigger:{ trigger:el, start:'top 88%', once:true } });
+  });
+  document.querySelectorAll('[data-stagger]').forEach(function (host) {
+    gsap.from(host.children, { y:34, opacity:0, duration:.7, ease:'power3.out', stagger:.06,
+      immediateRender:false, clearProps:'transform',
+      scrollTrigger:{ trigger:host, start:'top 86%', once:true } });
+  });
+  window.addEventListener('load', function () {
+    ScrollTrigger.refresh();
+    setTimeout(function () {
+      document.querySelectorAll('[data-anim], [data-stagger] > *').forEach(function (el) {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.05) {
+          var r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) gsap.set(el, { clearProps:'opacity,transform' });
+        }
+      });
+    }, 1200);
+  });
+  var rt; window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () { ScrollTrigger.refresh(); }, 200);
+  });
+})();
+</script>
+</body>
+</html>

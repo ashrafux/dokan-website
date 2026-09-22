@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dokan Compatible Themes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="site-nav.css?v=19" />
+<!-- Page loader: only the header shows until site-nav.js reveals the page (5s failsafe) -->
+<script>(function(d){if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.style.setProperty('--loader-bg','#05060b');d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000)})(document.documentElement)</script>
+<script>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { display:['Poppins','sans-serif'], body:['Lato','sans-serif'] },
+    colors: { dokan:'#7047EB', title:'#0f172a', titled:'#25252D', heading:'#0E0E0F',
+      para:'#334155', reg:'#575757', lite:'#828282', stroke:'#E9E9E9' },
+    boxShadow: { lite:'0 2px 5px 0 #0000000F', medium:'0 0 55px 0 #0000000A' },
+  }}};
+</script>
+<style>
+  .wrap { width:100%; max-width:1700px; margin:0 auto; padding-left:102px; padding-right:102px; }
+  @media (max-width:1200px){ .wrap { padding-left:48px; padding-right:48px; } }
+  @media (max-width:700px){ .wrap { padding-left:20px; padding-right:20px; } }
+  body { background:#fff; color:#0f172a; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  html.lenis, html.lenis body { height:auto; }
+  html.lenis-smooth { scroll-behavior:auto !important; }
+
+  /* ── HERO (Figma 170:12805, 1700x1020) ── */
+  .th-hero { position:relative; color:#fff; overflow:hidden;
+    background:#05060b url('Media/Themes%20Page/Header%20BG.png') center/cover no-repeat; }
+  .th-hero-inner { position:relative; min-height:1020px; }
+  .th-copy { position:absolute; left:102px; top:202px; width:427px; z-index:5; }
+  .th-h1 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:62px;
+    line-height:1.25; color:#fff; }
+  .th-sub { margin:26px 0 0; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5;
+    color:rgba(255,255,255,.62); }
+  /* collage export = Figma 170:12804 (1090x724 @1x) at x610 y189 */
+  .th-art { position:absolute; left:610px; top:189px; width:1090px; max-width:none; }
+
+  /* ── DOKAN THEMES (170:12809) ── */
+  .dk-head { display:flex; align-items:center; justify-content:space-between; gap:32px; }
+  .dk-head h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
+    line-height:1.2; color:#0f172a; }
+  .dk-side { display:flex; align-items:center; gap:40px; }
+  .dk-side p { margin:0; width:230px; font-family:'Lato',sans-serif; font-size:15px;
+    line-height:1.45; color:#575757; }
+  .dk-arrow { width:54px; height:54px; border-radius:9999px; border:1px solid #E9E9E9;
+    display:flex; align-items:center; justify-content:center; color:#0E0E0F;
+    transition:border-color .25s, color .25s, background-color .25s; }
+  .dk-arrow:disabled { color:#C9CBD3; cursor:default; }
+  .dk-arrow:not(:disabled):hover { border-color:#0E0E0F; background:#0E0E0F; color:#fff; }
+  .dk-arrow svg { width:20px; height:20px; }
+
+  .dk-viewport { overflow:hidden; margin-top:56px; }
+  .dk-track { display:flex; gap:30px; will-change:transform; }
+  .dk-card { flex:none; background:#F3F3F5; border-radius:20px; padding:32px; }
+  .dk-card img { display:block; border-radius:12px; }
+  .dk-card--dokani img { width:898px; max-width:100%; }
+  .dk-card--otel img { width:537px; max-width:100%; }
+  .dk-caption { display:flex; align-items:center; justify-content:space-between; gap:20px;
+    margin-top:30px; }
+  .dk-caption h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:24px;
+    line-height:1.35; color:#0f172a; max-width:420px; }
+  .dk-free { flex:none; background:#12B76A; color:#fff; border-radius:9999px; padding:9px 22px;
+    font-family:'Lato',sans-serif; font-weight:700; font-size:14px; }
+  @media (hover:hover) {
+    .dk-card { transition:transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s; }
+    .dk-card:hover { transform:translateY(-6px); box-shadow:0 26px 52px -26px rgba(20,20,40,.25); }
+  }
+
+  /* ── THIRD PARTY (170:12818) ── */
+  .tp-head { display:flex; align-items:flex-start; gap:120px; }
+  .tp-head h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
+    line-height:1.2; color:#0f172a; }
+  .tp-head p { margin:10px 0 0; width:250px; font-family:'Lato',sans-serif; font-size:20px;
+    line-height:1.5; color:#575757; }
+
+  /* columns: sidebar 137 at the gutter, grid 1115 ending on the right gutter */
+  .tp-cols { display:grid; grid-template-columns:137px 1fr; gap:246px; margin-top:60px; }
+  .tp-toolbar { display:flex; align-items:center; justify-content:space-between; gap:24px;
+    margin-bottom:20px; }
+  .tp-count { font-family:'Lato',sans-serif; font-size:16px; color:#25252D; }
+  .tp-sort { display:flex; align-items:center; justify-content:space-between; gap:24px;
+    width:270px; height:51px; padding:0 20px; border:1px solid #E9E9E9; border-radius:10px;
+    font-family:'Lato',sans-serif; font-size:16px; color:#828282; background:#fff;
+    transition:border-color .2s; }
+  .tp-sort:hover { border-color:#7047EB; }
+
+  .flt-h { margin:0 0 18px; font-family:'Poppins',sans-serif; font-weight:600; font-size:20px;
+    color:#0f172a; }
+  .flt-h + ul { margin-bottom:44px; }
+  .flt { display:flex; align-items:center; gap:12px; margin-bottom:16px; cursor:pointer;
+    font-family:'Lato',sans-serif; font-size:16px; color:#334155; }
+  .flt-box { width:18px; height:18px; border:1px solid #CBD0DA; border-radius:4px; flex:none;
+    background:#fff; transition:border-color .2s, background-color .2s; position:relative; }
+  .flt:hover .flt-box { border-color:#7047EB; }
+  .flt.is-on .flt-box { background:#7047EB; border-color:#7047EB; }
+  .flt.is-on .flt-box::after { content:''; position:absolute; left:5px; top:1px; width:6px;
+    height:11px; border:solid #fff; border-width:0 2px 2px 0; transform:rotate(42deg); }
+
+  .tp-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:57px; }
+  .tp-card { display:block; border-radius:16px; }
+  .tp-card img { display:block; width:100%; height:auto; border-radius:16px;
+    filter:drop-shadow(0 2px 5px rgba(0,0,0,.06));
+    transition:transform .4s cubic-bezier(.22,.61,.36,1), filter .4s; }
+  @media (hover:hover) {
+    .tp-card:hover img { transform:translateY(-8px) scale(1.015);
+      filter:drop-shadow(0 26px 34px rgba(20,20,40,.22)); }
+  }
+
+  .tp-pag { display:flex; align-items:center; justify-content:center; gap:8px; margin-top:64px; }
+  .tp-pag button { min-width:39px; height:39px; padding:0 10px; border-radius:10px;
+    font-family:'Lato',sans-serif; font-size:15px; color:#575757;
+    transition:background-color .2s, color .2s; }
+  .tp-pag button.is-cur { background:#7047EB; color:#fff; font-weight:700; }
+  .tp-pag button:not(.is-cur):hover { background:#F1F1F4; }
+
+  /* ── CTA (163:42446, 1660x646 on 20px gutters) ── */
+  .cta-wrap { width:100%; max-width:1700px; margin:0 auto; padding:0 20px; }
+  .th-cta { position:relative; overflow:hidden; border-radius:20px; background:#7047EB;
+    min-height:646px; }
+  .th-cta svg.waves { position:absolute; inset:0; width:100%; height:100%; opacity:.25;
+    pointer-events:none; }
+  .th-cta-copy { position:absolute; left:84px; top:154px; max-width:655px; z-index:2; }
+  .th-cta-copy h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:62px;
+    line-height:1.25; color:#fff; }
+  .th-cta-copy p { margin:28px 0 0; max-width:527px; font-family:'Lato',sans-serif; font-size:20px;
+    line-height:1.5; color:rgba(255,255,255,.8); }
+  .th-cta-btn { display:inline-flex; align-items:center; gap:14px; margin-top:44px;
+    background:#fff; border-radius:9999px; padding:10px 10px 10px 32px;
+    font-family:'Lato',sans-serif; font-weight:700; font-size:16px; color:#0E0E0F;
+    transition:transform .25s, box-shadow .25s; }
+  .th-cta-btn:hover { transform:translateY(-2px); box-shadow:0 18px 36px -16px rgba(0,0,0,.35); }
+  .th-cta-btn .circle { width:45px; height:45px; border-radius:9999px; background:#0E0E0F;
+    color:#fff; display:flex; align-items:center; justify-content:center; }
+  .th-cta-btn .circle svg { width:17px; height:17px; }
+  .th-cta-art { position:absolute; right:0; bottom:0; width:678px; z-index:1;
+    border-top-left-radius:10px; }
+
+  @media (max-width:1500px) {
+    .th-art { left:auto; right:-120px; width:72vw; }
+    .tp-cols { gap:100px; }
+  }
+  @media (max-width:1200px) {
+    .th-hero-inner { min-height:0; padding-bottom:56px; }
+    .th-copy { position:static; width:auto; max-width:560px; padding:150px 0 40px; }
+    .th-h1 { font-size:clamp(36px,5.4vw,62px); }
+    .th-art { position:static; width:100%; margin-top:8px; }
+    .dk-head { flex-wrap:wrap; }
+    .tp-head { flex-direction:column; gap:16px; }
+    .tp-cols { grid-template-columns:1fr; gap:40px; }
+    .flt-h + ul { display:flex; flex-wrap:wrap; gap:10px 22px; margin-bottom:24px; }
+    .th-cta-copy { position:static; padding:56px 32px 0; }
+    .th-cta-copy h2 { font-size:clamp(30px,4.6vw,62px); }
+    .th-cta { min-height:0; padding-bottom:40px; }
+    .th-cta-art { position:static; width:calc(100% - 64px); margin:36px 32px 0; border-radius:10px; }
+  }
+  @media (max-width:1200px) {
+    /* carousel pages between full-width cards instead of clipping fixed ones */
+    .dk-card { flex:0 0 100%; }
+    .dk-card--dokani img, .dk-card--otel img { width:100%; }
+    /* same frame for both slides, so the shorter card isn't stretched with a blank tail */
+    .dk-card--otel img { aspect-ratio:1796/950; object-fit:cover; object-position:center top; }
+  }
+  @media (max-width:760px) {
+    .tp-grid { grid-template-columns:1fr; gap:32px; }
+    .dk-card { padding:18px; }
+    .dk-caption h3 { font-size:19px; }
+    .th-copy { padding-top:130px; }
+    .tp-toolbar { flex-wrap:wrap; gap:14px; }
+    .tp-sort { width:100%; }
+  }
+  .reveal { opacity:1; }
+  @media (prefers-reduced-motion: reduce) {
+    *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+  }
+
+  /* ── Mobile polish ── */
+  @media (max-width:1200px) { .th-copy { padding-left:48px; padding-right:48px; } }
+  @media (max-width:700px)  { .th-copy { padding-left:20px; padding-right:20px; } }
+  @media (max-width:760px) {
+    .dk-side { width:100%; gap:14px; justify-content:space-between; }
+    .dk-side p { width:auto; flex:1 1 auto; font-size:14px; }
+    .dk-arrow { width:44px; height:44px; }
+    .tp-grid { grid-template-columns:1fr 1fr; gap:14px; }
+  }
+</style>
+</head>
+<body class="font-body">
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="th-hero">
+  <div id="site-nav" data-variant="dark"></div>
+  <div class="th-hero-inner">
+    <div class="th-copy">
+      <h1 class="th-h1" data-anim>Dokan<br />Compatible<br />Themes</h1>
+      <p class="th-sub" data-anim>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard</p>
+    </div>
+    <img class="th-art" src="Media/Themes%20Page/Header%20image.png" alt="Collage of Dokan compatible theme storefronts" data-anim />
+  </div>
+</header>
+
+<!-- ═══════════ DOKAN THEMES ═══════════ -->
+<section class="bg-white pt-[120px]">
+  <div class="wrap">
+    <div class="dk-head" data-anim>
+      <h2>Dokan Themes</h2>
+      <div class="dk-side">
+        <p>Created by us, recommended for the best Dokan experience.</p>
+        <div class="flex items-center gap-3">
+          <button class="dk-arrow" id="dkPrev" aria-label="Previous" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="dk-arrow" id="dkNext" aria-label="Next">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="dk-viewport">
+      <div class="dk-track" id="dkTrack">
+        <article class="dk-card dk-card--dokani" data-anim onclick="location.href='dokani-theme.html'" style="cursor:pointer" role="link" tabindex="0" aria-label="Dokani Theme details"
+          onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();location.href='dokani-theme.html';}">
+          <img src="Media/Themes%20Page/Dokani%20Theme%20%E2%80%93%20Multi-vendor%20Marketplace.png" alt="Dokani theme preview" />
+          <div class="dk-caption">
+            <h3><a href="dokani-theme.html" class="hover:text-dokan transition-colors">Dokani Theme &ndash; Multi-vendor Marketplace</a></h3>
+            <span class="dk-free">Free</span>
+          </div>
+        </article>
+        <article class="dk-card dk-card--otel" data-anim>
+          <img src="Media/Themes%20Page/Otel%20Theme%20%E2%80%93%20The%20Best%20Hotel%20Booking%20WordPress%20Theme.png" alt="Otel theme preview" />
+          <div class="dk-caption">
+            <h3>Otel Theme &ndash; The Best Hotel Booking WordPress Theme</h3>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ THIRD PARTY THEMES ═══════════ -->
+<section class="bg-white pt-[120px] pb-[120px]">
+  <div class="wrap">
+    <div class="tp-head" data-anim>
+      <h2>Third Party<br />Themes</h2>
+      <p>Other popular themes that also work nicely with Dokan.</p>
+    </div>
+
+    <div class="tp-cols">
+      <aside>
+        <h4 class="flt-h">Price</h4>
+        <ul>
+          <li class="flt"><span class="flt-box"></span>Free</li>
+          <li class="flt"><span class="flt-box"></span>Paid</li>
+        </ul>
+        <h4 class="flt-h">Category</h4>
+        <ul>
+          <li class="flt"><span class="flt-box"></span>Auto Parts</li>
+          <li class="flt"><span class="flt-box"></span>Booking</li>
+          <li class="flt"><span class="flt-box"></span>Cosmetic</li>
+          <li class="flt"><span class="flt-box"></span>Electronics</li>
+          <li class="flt"><span class="flt-box"></span>Fashion</li>
+          <li class="flt"><span class="flt-box"></span>Fitness</li>
+          <li class="flt"><span class="flt-box"></span>Food</li>
+          <li class="flt"><span class="flt-box"></span>Furniture</li>
+          <li class="flt"><span class="flt-box"></span>Grocery</li>
+          <li class="flt"><span class="flt-box"></span>Jewelry</li>
+        </ul>
+      </aside>
+
+      <div>
+        <div class="tp-toolbar" data-anim>
+          <span class="tp-count">1 - 24 of <b>1211</b> themes</span>
+          <button class="tp-sort">Sort
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
+
+        <div class="tp-grid" id="tpGrid">
+        <a href="#" class="tp-card reveal"><img src="Media/Themes%20Page/Third%20party%20theme/Sneaker%20Saga.png" alt="Sneaker Saga theme" loading="lazy" /></a>
+        <a href="#" class="tp-card reveal"><img src="Media/Themes%20Page/Third%20party%20theme/StyleAddict.png" alt="StyleAddict theme" loading="lazy" /></a>
+        <a href="#" class="tp-card reveal"><img src="Media/Themes%20Page/Third%20party%20theme/Carryclass.png" alt="Carryclass theme" loading="lazy" /></a>
+        <a href="#" class="tp-card reveal"><img src="Media/Themes%20Page/Third%20party%20theme/GlareGuard.png" alt="GlareGuard theme" loading="lazy" /></a>
+        <a href="#" class="tp-card reveal"><img src="Media/Themes%20Page/Third%20party%20theme/StyleCove.png" alt="StyleCove theme" loading="lazy" /></a>
+        <a href="#" class="tp-card reveal"><img src="Media/Themes%20Page/Third%20party%20theme/Crown%20Fit.png" alt="Crown Fit theme" loading="lazy" /></a>
+        <a href="#" class="tp-card reveal"><img src="Media/Themes%20Page/Third%20party%20theme/TeeTrend.png" alt="TeeTrend theme" loading="lazy" /></a>
+        <a href="#" class="tp-card reveal"><img src="Media/Themes%20Page/Third%20party%20theme/TasteBite.png" alt="TasteBite theme" loading="lazy" /></a>
+        <a href="#" class="tp-card reveal"><img src="Media/Themes%20Page/Third%20party%20theme/Quickmart.png" alt="Quickmart theme" loading="lazy" /></a>
+        <a href="#" class="tp-card reveal"><img src="Media/Themes%20Page/Third%20party%20theme/packPro.png" alt="packPro theme" loading="lazy" /></a>
+        <a href="#" class="tp-card reveal"><img src="Media/Themes%20Page/Third%20party%20theme/PageTurner.png" alt="PageTurner theme" loading="lazy" /></a>
+        <a href="#" class="tp-card reveal"><img src="Media/Themes%20Page/Third%20party%20theme/WristWise.png" alt="WristWise theme" loading="lazy" /></a>
+        <a href="#" class="tp-card reveal"><img src="Media/Themes%20Page/Third%20party%20theme/ComputerEase.png" alt="ComputerEase theme" loading="lazy" /></a>
+        <a href="#" class="tp-card reveal"><img src="Media/Themes%20Page/Third%20party%20theme/ElectroHub.png" alt="ElectroHub theme" loading="lazy" /></a>
+        <a href="#" class="tp-card reveal"><img src="Media/Themes%20Page/Third%20party%20theme/SoundSphere.png" alt="SoundSphere theme" loading="lazy" /></a>
+        <a href="#" class="tp-card reveal"><img src="Media/Themes%20Page/Third%20party%20theme/Chicnest.png" alt="Chicnest theme" loading="lazy" /></a>
+        <a href="#" class="tp-card reveal"><img src="Media/Themes%20Page/Third%20party%20theme/Perfectfit.png" alt="Perfectfit theme" loading="lazy" /></a>
+        <a href="#" class="tp-card reveal"><img src="Media/Themes%20Page/Third%20party%20theme/Trendhive.png" alt="Trendhive theme" loading="lazy" /></a>
+        </div>
+
+        <div class="tp-pag" data-anim>
+          <button class="is-cur">1</button><button>2</button><button>3</button>
+          <button disabled>&hellip;</button><button>51</button>
+          <button aria-label="Next page"><svg class="w-4 h-4 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA ═══════════ -->
+<section class="bg-white pb-[110px]">
+  <div class="cta-wrap">
+    <div class="th-cta" data-anim>
+      <svg class="waves" preserveAspectRatio="none" viewBox="0 0 1000 500" fill="none" stroke="white" stroke-width="1">
+        <path d="M-40 430 C 240 340 620 380 1050 210"/><path d="M-40 500 C 280 410 640 440 1050 300"/>
+        <path d="M-40 360 C 240 280 620 320 1050 140"/><path d="M-40 290 C 240 220 620 260 1050 80"/>
+      </svg>
+      <div class="th-cta-copy">
+        <h2>Create the Ultimate Multi Vendor Store</h2>
+        <p>Do more with Dokan using powerful advanced modules and reach greater heights with your marketplace</p>
+        <a href="index.html" class="th-cta-btn">Get Started Now
+          <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+      <img class="th-cta-art" src="Media/Themes%20Page/Image%20Container.png" alt="Dokani storefront" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<footer class="bg-black text-white">
+  <div class="wrap pt-[90px] pb-[40px]">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-10 gap-y-14">
+      <!-- col 1 -->
+      <div>
+        <a href="#" class="inline-block mb-9">
+          <img src="Media/Dokan%20Logos/Dokan%20Logo-Dark%20Footer.svg" alt="Dokan"
+               width="139" height="38" class="w-[139px] h-[38px]" />
+        </a>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="About Us|Brand Assets|Changelog|Contact Us|Career"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Use Cases</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Fashion|Furniture|Print on demand|Electronics|Auction|Booking|View All"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Demo's</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Dokan WordPress Plugin|Dokan Mobile App|Delivery Driver App|Otel Theme"></ul>
+      </div>
+      <!-- col 2 -->
+      <div>
+        <h5 class="font-display font-semibold text-[17px] mb-5">Resources</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Blogs|Documentation|FAQs|Video Tutorials|Webinars"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Policies</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Privacy Policy|Terms of Sevice|Support Policy|Affiliate Policy|Refund Policy"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5 leading-snug">Support &amp;<br />Success Stories</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Success Stories|Testimonials|Support"></ul>
+      </div>
+      <!-- col 3 -->
+      <div>
+        <h5 class="font-display font-semibold text-[17px] mb-5">Important Links</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Modules|Features|Payment Integrations|Compatible Plugins|Compatible Themes|Compare"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Solutions</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Marketplace (Hosted by you)|eCommerce Shop (Hosted by us)|Marketplace (Hosted by us)|Mobile App|Delivery Driver App|Otel Theme|Dokan Care|wePOS|StoreGrowth|weLab"></ul>
+      </div>
+      <!-- col 4 -->
+      <div>
+        <h5 class="font-display font-semibold text-[17px] mb-5 leading-snug">Partnership<br />&amp; Affiliate</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Partner with Us|Join Our Affiliate Program|Affiliate Policy|Affiliate|Influencer Program"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5 leading-snug">Guide to Build a<br />Marketplace Like</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Etsy|Amazon|eBay|Alibaba|Airbnb|More Examples"></ul>
+      </div>
+    </div>
+
+    <div class="mt-[90px] flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+      <div>
+        <h5 class="font-display font-bold text-[22px] mb-5">Keep Updated</h5>
+        <form class="flex items-center bg-white rounded-full p-1.5 w-full max-w-[278px]" onsubmit="return false">
+          <input type="email" placeholder="Your email address" class="flex-1 min-w-0 bg-transparent font-body text-heading text-[14px] px-4 py-2 outline-none placeholder:text-lite" />
+          <button class="rounded-full bg-dokan hover:bg-[#5d36d6] transition-colors px-4 py-2.5 font-body font-bold text-[13px] text-white whitespace-nowrap">Stay Updated</button>
+        </form>
+      </div>
+      <div class="flex flex-col items-start lg:items-end gap-6">
+        <div class="flex items-center gap-3" id="socials"></div>
+        <div class="flex flex-wrap items-center gap-4 text-white/70 font-body text-[13px]">
+          <span class="rounded bg-[#15151b] px-3 py-1.5 flex items-center gap-2"><span class="font-bold text-[10px] text-dokan">GDPR</span> Compliant</span>
+          <span class="text-white/20">|</span>
+          <span class="flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-[#22C55E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+            Secure Payment
+          </span>
+          <span class="text-white/20">|</span>
+          <span class="font-display font-bold italic text-white/90 text-[15px]">stripe</span>
+          <span class="text-white/20">|</span>
+          <span class="font-display font-bold italic text-[15px]"><span class="text-[#4B96D8]">Pay</span><span class="text-[#8ECBEE]">Pal</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-7 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 font-body text-[13px] text-white/60">
+      <span class="flex items-center gap-2">A <span class="font-bold text-white">weDevs</span> Product</span>
+      <span>© 2025, Dokan. All Rights Reserved.</span>
+      <button class="flex items-center gap-1.5 hover:text-white transition-colors">
+        English <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<script src="demos.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="site-nav.js?v=17"></script>
+<script>
+(function () {
+  var FOOTER_ROUTES = { 'Modules':'modules.html', 'Blogs':'blog.html',
+    'Testimonials':'testimonials.html', 'Compatible Themes':'themes.html',
+    'Dokan WordPress Plugin':'demo.html' };
+  document.querySelectorAll('[data-links]').forEach(function (ul) {
+    ul.dataset.links.split('|').forEach(function (t) {
+      var li = document.createElement('li');
+      li.innerHTML = '<a href="' + (FOOTER_ROUTES[t] || '#') + '" class="hover:text-white transition-colors">' + t + '</a>';
+      ul.appendChild(li);
+    });
+  });
+  var socials = [
+    ['#1877F2','<path fill="#fff" d="M13.5 21v-7h2.3l.4-2.7h-2.7V9.5c0-.8.2-1.3 1.4-1.3H16V5.8c-.3 0-1.1-.1-2-.1-2 0-3.4 1.2-3.4 3.5v1.9H8.3V14h2.3v7h2.9z"/>'],
+    ['#000000','<path fill="#fff" d="M14.2 10.6L19 5.5h-1.4l-3.7 4-3-4H7l4.5 6-4.5 5h1.4l3.9-4.3 3.1 4.3H19l-4.8-6.6z"/>'],
+    ['#FF0000','<path fill="#fff" d="M18.6 9.2c-.2-.7-.7-1.2-1.4-1.4C15.9 7.5 12 7.5 12 7.5s-3.9 0-5.2.3c-.7.2-1.2.7-1.4 1.4C5.1 10.5 5.1 12 5.1 12s0 1.5.3 2.8c.2.7.7 1.2 1.4 1.4 1.3.3 5.2.3 5.2.3s3.9 0 5.2-.3c.7-.2 1.2-.7 1.4-1.4.3-1.3.3-2.8.3-2.8s0-1.5-.3-2.8zM10.8 14.3V9.7l3.9 2.3-3.9 2.3z"/>'],
+    ['#0A66C2','<path fill="#fff" d="M9 10.5H6.7V18H9v-7.5zM7.8 9.4c.8 0 1.3-.5 1.3-1.2 0-.7-.5-1.2-1.3-1.2S6.6 7.5 6.6 8.2c0 .7.5 1.2 1.2 1.2zM18 18v-4.3c0-2.2-1.2-3.3-2.8-3.3-1.3 0-1.9.7-2.2 1.2v-1h-2.3c0 .6 0 7.4 0 7.4H13v-4.2c0-.2 0-.4.1-.6.2-.4.6-.9 1.3-.9.9 0 1.3.7 1.3 1.7V18H18z"/>'],
+    ['#111111','<path fill="#fff" d="M7.5 8.2c-1.4 0-2.4 1.6-2.4 3.4 0 1.5.7 2.5 1.8 2.5.9 0 1.5-.6 2.4-2.2l.9-1.6c.3.5.6 1 .9 1.5-.4.6-.8 1.2-1.1 1.5-.9 1-1.6 1.4-2.6 1.4-1.9 0-3-1.6-3-3.9 0-2.6 1.5-4.6 3.4-4.6 1.2 0 2 .6 2.9 1.9.6-.9 1.4-1.9 2.8-1.9 1.9 0 3.3 2 3.3 4.6 0 2.3-1.1 3.9-2.9 3.9-.6 0-1.1-.2-1.6-.6.3-.4.5-.7.8-1.1.3.2.5.3.8.3 1 0 1.5-1 1.5-2.5 0-1.8-.9-3.4-2.3-3.4-.8 0-1.4.6-2.2 1.9l-.8 1.4c-1 1.8-1.9 2.9-3.3 2.9z"/>'],
+  ];
+  var sw = document.getElementById('socials');
+  if (sw) socials.forEach(function (x) {
+    var a = document.createElement('a');
+    a.href = '#'; a.className = 'grid place-items-center h-[34px] w-[34px] rounded-full';
+    a.style.background = x[0];
+    a.innerHTML = '<svg viewBox="0 0 24 24" class="w-full h-full">' + x[1] + '</svg>';
+    sw.appendChild(a);
+  });
+
+  /* Filter checkboxes (visual toggle) */
+  document.querySelectorAll('.flt').forEach(function (f) {
+    f.addEventListener('click', function () { f.classList.toggle('is-on'); });
+  });
+
+  /* Dokan Themes carousel */
+  (function () {
+    var track = document.getElementById('dkTrack');
+    var prev = document.getElementById('dkPrev'), next = document.getElementById('dkNext');
+    if (!track) return;
+    var pos = 0;
+    function apply() {
+      var vp = track.parentElement.clientWidth;
+      var max = Math.max(0, track.scrollWidth - vp);
+      var x = pos === 0 ? 0 : -max;
+      if (window.gsap) gsap.to(track, { x: x, duration: .7, ease: 'power3.inOut' });
+      else track.style.transform = 'translateX(' + x + 'px)';
+      prev.disabled = pos === 0;
+      next.disabled = pos === 1 || max === 0;
+    }
+    prev.addEventListener('click', function () { pos = 0; apply(); });
+    next.addEventListener('click', function () { pos = 1; apply(); });
+    window.addEventListener('resize', apply);
+    apply();
+  })();
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!window.gsap || !window.ScrollTrigger || reduced) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  if (window.Lenis && !window.matchMedia('(hover:none)').matches) {
+    var lenis = new Lenis({ duration: 1.05, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  gsap.timeline({ defaults: { ease: 'power3.out' } })
+    .from('.site-nav .menu-row > *', { y: -16, opacity: 0, duration: .6, stagger: .08 })
+    .from('.th-h1',  { y: 34, opacity: 0, duration: .85 }, '-=.3')
+    .from('.th-sub', { y: 22, opacity: 0, duration: .7 }, '-=.55')
+    .from('.th-art', { x: 70, opacity: 0, duration: 1 }, '-=.6');
+
+  gsap.to('.th-art', { y: -50, ease: 'none',
+    scrollTrigger: { trigger: '.th-hero', start: 'top top', end: 'bottom top', scrub: true } });
+
+  gsap.utils.toArray('section [data-anim]').forEach(function (el) {
+    gsap.from(el, { y: 30, opacity: 0, duration: .8, ease: 'power3.out', immediateRender: false,
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true } });
+  });
+  var grid = document.getElementById('tpGrid');
+  gsap.from(grid.children, { y: 36, opacity: 0, duration: .7, ease: 'power3.out', stagger: .06,
+    immediateRender: false,
+    scrollTrigger: { trigger: grid, start: 'top 86%', once: true } });
+
+  window.addEventListener('load', function () {
+    ScrollTrigger.refresh();
+    setTimeout(function () {
+      document.querySelectorAll('[data-anim], .tp-card').forEach(function (el) {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.05) {
+          var r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) gsap.set(el, { clearProps: 'opacity,transform' });
+        }
+      });
+    }, 1200);
+  });
+  var rt; window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () { ScrollTrigger.refresh(); }, 200);
+  });
+})();
+</script>
+</body>
+</html>
