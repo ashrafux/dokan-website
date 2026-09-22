@@ -360,3 +360,19 @@ html.is-loading.is-released #site-nav { visibility:visible; }   /* header enters
 .tbtn:hover .tbtn-line i, .tbtn:focus-visible .tbtn-line i { transform:translateX(calc(100% + 14px)); }
 .tbtn:hover .tbtn-line i.tbtn-clone, .tbtn:focus-visible .tbtn-line i.tbtn-clone { transform:translateX(0); }
 @media (prefers-reduced-motion: reduce) { .tbtn-t, .tbtn-io, .tbtn-line i { transition:none; } }
+
+/* ── White secondary buttons: radial fill that follows the cursor (markup built by site-nav.js) ── */
+@property --rb-p { syntax:"<number>"; inherits:true; initial-value:0; }
+.rb { position:relative; overflow:hidden; isolation:isolate; }
+.rb-label { position:relative; transition:color 180ms ease 90ms; }       /* back to normal ~90ms after leaving */
+.rb.is-active .rb-label { color:#9A9A9A; transition:color 120ms ease; }  /* uncovered part while moving */
+.rb-fill { position:absolute; inset:0; z-index:1; pointer-events:none; box-sizing:border-box;
+  display:flex; align-items:center; border-radius:inherit;
+  background:var(--rb-fill, #292A29); color:#FFFFFF;
+  --rb-p:0; transition:--rb-p 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  clip-path:circle(calc(var(--rb-p) * var(--rb-r, 0) * 1px) at var(--rb-x, 50%) var(--rb-y, 50%)); }
+.rb.is-active > .rb-fill { --rb-p:1; }
+.rb-fill .rb-label { color:#FFFFFF; transition:none; white-space:nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  .rb-fill, .rb-label, .rb.is-active .rb-label { transition-duration:0s !important; transition-delay:0s !important; }
+}

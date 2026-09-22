@@ -359,3 +359,79 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(remeasure);
   var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(remeasure, 150); });
 })();
+
+/* ══════════ White secondary buttons — "radial fill, follow cursor" hover ══════════
+   A dark circle grows from the point where the pointer enters until it covers
+   the button, follows the pointer while inside, and shrinks back into the
+   exit point. The fill is an aria-hidden overlay with a copy of the label,
+   revealed by clip-path; only --rb-p (0 -> 1) is transitioned, so x/y/r
+   track the pointer with no lag. Keyboard focus grows from the centre. The
+   button's size, colours at rest and its own hover rules are untouched.
+   Pages can mark extra buttons with data-radial, or call
+   window.dokanRadial(root) after injecting new ones. */
+(function () {
+  var SEL = '[data-radial], .btn-secondary, .mh-b2, .ai-b2';
+
+  function setPoint(b, x, y) {
+    var w = b.clientWidth, h = b.clientHeight;
+    x = Math.min(Math.max(x, 0), w); y = Math.min(Math.max(y, 0), h);   /* a fast exit can report a point outside */
+    var r = Math.max(Math.hypot(x, y), Math.hypot(w - x, y), Math.hypot(x, h - y), Math.hypot(w - x, h - y)) + 1;
+    b.style.setProperty('--rb-x', x + 'px');
+    b.style.setProperty('--rb-y', y + 'px');
+    b.style.setProperty('--rb-r', r);
+  }
+  function local(b, e) {
+    var rect = b.getBoundingClientRect(), bl = b.clientLeft, bt = b.clientTop;
+    return [e.clientX - rect.left - bl, e.clientY - rect.top - bt];
+  }
+
+  function enhance(b) {
+    if (b.classList.contains('rb') || b.disabled || b.getAttribute('aria-disabled') === 'true') return;
+    var text = b.textContent.replace(/\s+/g, ' ').trim();
+    if (!text || b.querySelector('svg, img')) return;
+    var cs = getComputedStyle(b);
+    var label = document.createElement('span');
+    label.className = 'rb-label';
+    while (b.firstChild) label.appendChild(b.firstChild);
+    b.appendChild(label);
+    var fill = document.createElement('span');
+    fill.className = 'rb-fill'; fill.setAttribute('aria-hidden', 'true');
+    fill.appendChild(label.cloneNode(true));
+    fill.style.padding = cs.padding;
+    fill.style.justifyContent = cs.justifyContent === 'normal' ? 'center' : cs.justifyContent;
+    /* the fill takes the button's own dark text colour (spec default #292A29) */
+    var c = cs.color.match(/\d+(\.\d+)?/g) || [];
+    var dark = c.length >= 3 && (+c[0] + +c[1] + +c[2]) / 3 < 80;
+    fill.style.setProperty('--rb-fill', dark ? cs.color : '#292A29');
+    b.appendChild(fill);
+    b.classList.add('rb');
+    setPoint(b, b.clientWidth / 2, b.clientHeight / 2);
+
+    var mouse = false;
+    b.addEventListener('pointerenter', function (e) {
+      mouse = true;
+      var p = local(b, e); setPoint(b, p[0], p[1]);
+      b.classList.add('is-active');
+    });
+    b.addEventListener('pointermove', function (e) {
+      if (!b.classList.contains('is-active')) return;
+      var p = local(b, e); setPoint(b, p[0], p[1]);
+    });
+    b.addEventListener('pointerleave', function (e) {
+      mouse = false;
+      var p = local(b, e); setPoint(b, p[0], p[1]);
+      if (!b.matches(':focus-visible')) b.classList.remove('is-active');
+    });
+    b.addEventListener('focus', function () {
+      if (mouse || !b.matches(':focus-visible')) return;
+      setPoint(b, b.clientWidth / 2, b.clientHeight / 2);
+      b.classList.add('is-active');
+    });
+    b.addEventListener('blur', function () { if (!mouse) b.classList.remove('is-active'); });
+  }
+
+  function run(root) { (root || document).querySelectorAll(SEL).forEach(enhance); }
+  window.dokanRadial = run;
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { run(); });
+  else run();
+})();
