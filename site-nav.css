@@ -263,7 +263,7 @@ html.is-loading.is-released #site-nav { visibility:visible; }   /* header enters
    layer would also cover the panel, which sits in the hero card's own
    stacking layer.) pointer-events:none lets outside clicks close the menu. */
 .mega-shade { position:absolute; left:0; top:0; width:0; height:0; z-index:30; border-radius:20px;
-  box-shadow:0 0 0 200vmax rgba(0,0,0,.15); pointer-events:none; opacity:0; transition:opacity .3s ease; }
+  box-shadow:0 0 0 200vmax rgba(0,0,0,.20); pointer-events:none; opacity:0; transition:opacity .3s ease; }
 .mega-shade.is-on { opacity:1; }
 @media (max-width:1200px) { .mega-shade { display:none; } }
 
