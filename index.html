@@ -788,6 +788,36 @@
     .md-tile, .md-tile-wide { flex-direction:column; justify-content:center; height:128px; gap:10px; padding:0 8px; text-align:center; }
     .md-label { font-size:13px; line-height:17px; }
   }
+  /* Marquee: each row drifts sideways forever (rows 1 and 3 left, row 2
+     right) and pauses under the pointer. JS adds .is-marquee, repeats each
+     row's tiles until they cover the card, and stretches the rows to the
+     card's full width so tiles slide in from, and out to, its edges. Without
+     JS, or with reduced motion, the static layout above stays. */
+  .md-tiles.is-marquee { display:flex; flex-direction:column; gap:calc(var(--u) * 18.6);
+    padding:14px 0; margin-top:51px;
+    -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+            mask-image:linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%); }
+  .md-tiles.is-marquee .md-row { display:block; padding-left:0; }
+  .md-track { display:flex; width:max-content; will-change:transform;
+    animation:md-marquee var(--md-dur, 40s) linear infinite; animation-delay:var(--md-delay, 0s); }
+  .md-row-2 .md-track { animation-direction:reverse; }
+  .md-row:hover .md-track { animation-play-state:paused; }
+  .md-set { display:flex; gap:calc(var(--u) * 18.61); padding-right:calc(var(--u) * 18.61); }
+  @keyframes md-marquee { from { transform:translateX(0); } to { transform:translateX(calc(-1 * var(--md-shift, 50%))); } }
+  @media (max-width:1439px) {
+    .md-tiles.is-marquee { gap:16px; }
+    .md-tiles.is-marquee .md-set { gap:16px; padding-right:16px; }
+    .md-tiles.is-marquee .md-tile { width:216px; height:110px; justify-content:flex-start; padding:0 20px; }
+    .md-tiles.is-marquee .md-tile-wide { width:236px; }
+  }
+  @media (max-width:1023px) { .md-tiles.is-marquee { margin-top:30px; gap:14px; } }
+  @media (max-width:480px) {
+    .md-tiles.is-marquee { gap:10px; }
+    .md-tiles.is-marquee .md-set { gap:10px; padding-right:10px; }
+    .md-tiles.is-marquee .md-tile, .md-tiles.is-marquee .md-tile-wide { width:172px; height:88px; flex-direction:row;
+      justify-content:flex-start; gap:12px; padding:0 14px; text-align:left; }
+    .md-tiles.is-marquee .md-ico { width:44px; height:44px; border-radius:11px; }
+  }
 
   /* ---- Featured (Figma frame 2106260906) ---- */
   .ft-section { display:flex; flex-direction:column; align-items:center; gap:55px; padding:100px 20px 165px; background:#fff; }
@@ -1862,6 +1892,54 @@
     });
   });
 
+  /* Modules marquee — see the .is-marquee CSS. Each row's tiles move into a
+     .md-set, repeated until two sets more than cover the card, and the track
+     slides by exactly one set width per loop, so the seam never shows. */
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var tiles = document.querySelector('.md-tiles'), card = document.querySelector('.md-card');
+    if (!tiles || !card) return;
+    var rows = [].slice.call(tiles.querySelectorAll('[data-row]'));
+    tiles.classList.add('is-marquee');
+    rows.forEach(function (row) {
+      var track = document.createElement('div'), set = document.createElement('div');
+      track.className = 'md-track'; set.className = 'md-set';
+      while (row.firstChild) set.appendChild(row.firstChild);
+      track.appendChild(set); row.appendChild(track);
+    });
+    function layout() {
+      /* rows span the whole card, edge to edge; the tile scale (--u) stays
+         tied to the content column, as in the design, not to the wider rows */
+      tiles.style.marginLeft = '0px'; tiles.style.width = '';
+      if (window.innerWidth >= 1440) tiles.style.setProperty('--u', (tiles.parentElement.clientWidth / 1537) + 'px');
+      else tiles.style.removeProperty('--u');
+      var off = tiles.getBoundingClientRect().left - card.getBoundingClientRect().left;
+      tiles.style.marginLeft = (-off) + 'px';
+      tiles.style.width = card.clientWidth + 'px';
+      var cw = card.clientWidth, speed = Math.max(28, Math.min(46, cw * .026));   /* px per second */
+      rows.forEach(function (row, i) {
+        var track = row.firstElementChild, sets = track.children;
+        var w = sets[0].getBoundingClientRect().width;
+        if (!w) return;
+        var need = Math.max(2, Math.ceil(cw / w) + 1);
+        while (sets.length < need) {
+          var c = sets[0].cloneNode(true);
+          c.setAttribute('aria-hidden', 'true');
+          track.appendChild(c);
+        }
+        while (sets.length > need) track.removeChild(track.lastElementChild);
+        var dur = w / speed;
+        track.style.setProperty('--md-shift', w + 'px');
+        track.style.setProperty('--md-dur', dur.toFixed(2) + 's');
+        track.style.setProperty('--md-delay', (-dur * [0, .37, .68][i % 3]).toFixed(2) + 's');
+      });
+    }
+    layout();
+    var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(layout, 150); });
+    window.addEventListener('load', layout);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+  })();
+
   // ---------- Testimonial stars ----------
   for (var i = 0; i < 5; i++) {
     var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -2061,7 +2139,7 @@
     document.querySelectorAll(sel).forEach(function (el) { el.classList.add(cls); });
   }
   tag('#discover-cards > article', 'hv-lift');
-  tag('[data-row] > div', 'hv-lift');                 // module tiles
+  tag('[data-row] .md-tile', 'hv-lift');              // module tiles (incl. marquee copies)
   tag('.shadow-lite', 'hv-lift');                     // discover pills
   /* Arrow nudge only on text+icon actions — not on nav chevrons, the
      icon-only prev/next buttons, or the nav / mega menus (their icons
@@ -2072,7 +2150,7 @@
   });
 
   /* Module tiles: scale the icon on hover */
-  document.querySelectorAll('[data-row] > div').forEach(function (t) {
+  document.querySelectorAll('[data-row] .md-tile').forEach(function (t) {
     var icon = t.querySelector('span');
     if (!icon) return;
     icon.style.transition = 'transform .35s cubic-bezier(.22,.61,.36,1)';
@@ -2348,12 +2426,19 @@
     });
   });
 
-  document.querySelectorAll('[data-row]').forEach(function (row) {
-    gsap.from(row.children, {
-      y: 26, opacity: 0, scale: .96, duration: .6, ease: ease, stagger: .06, immediateRender: false,
-      scrollTrigger: { trigger: row, start: 'top 88%', once: true }
+  if (document.querySelector('.md-tiles.is-marquee')) {
+    gsap.from('.md-tiles [data-row]', {
+      y: 26, opacity: 0, duration: .7, ease: ease, stagger: .1, immediateRender: false,
+      scrollTrigger: { trigger: '.md-tiles', start: 'top 88%', once: true }
     });
-  });
+  } else {
+    document.querySelectorAll('[data-row]').forEach(function (row) {
+      gsap.from(row.children, {
+        y: 26, opacity: 0, scale: .96, duration: .6, ease: ease, stagger: .06, immediateRender: false,
+        scrollTrigger: { trigger: row, start: 'top 88%', once: true }
+      });
+    });
+  }
 
   /* Award badges + interface panel + CTA + map */
   reveal('.shadow-medium, [alt*="World map"], [alt*="Amazon"], .iface-stage',
