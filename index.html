@@ -275,6 +275,9 @@
      the Highlights section, not on #reasons, so the pinned rail's layout is
      untouched; at ≤1024px the section rhythm above (64/48px) still applies. */
   @media (min-width:1025px) { .hl-section.py-\[120px\] { padding-bottom:256px; } }
+  /* Marketplaces box -> "Dokan Interface" heading: 192px on desktop (the box is
+     pinned inside .mk-pin, so this padding is the gap once the pin releases). */
+  @media (min-width:1025px) { #marketplaces.mk-section { padding-bottom:192px; } }
 
 
   /* ---- Motion primitives (no initial hiding in CSS: if GSAP fails to
