@@ -286,6 +286,7 @@
   @media (hover:hover) {
     .hv-lift { transition:transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s; }
     .hv-lift:hover { transform:translateY(-6px); box-shadow:0 22px 44px -22px rgba(20,20,40,.30); }
+    #discover-cards > article.hv-lift:hover { box-shadow:none; }   /* Discover cards: lift only, no shadow */
 
     .hv-card { transition:transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s; }
     .hv-card:hover { transform:translateY(-8px); box-shadow:0 26px 52px -24px rgba(20,20,40,.28); }
