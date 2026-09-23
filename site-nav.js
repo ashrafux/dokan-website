@@ -536,11 +536,12 @@
    transforms move, so the button's size, colours and the circle are untouched.
    Add a selector here, or mark a button with data-primary-icon. */
 (function () {
-  var SEL = '[data-primary-icon], .btn-primary, .dd-b1, .mdh-buy .b1, .mh-b1, .ai-b1, .btn-dl, .cta-btn, .th-cta-btn, .btn-nudge';
+  var SEL = '[data-primary-icon], .btn-primary, .dd-b1, .mdh-buy .b1, .mh-b1, .ai-b1, .btn-dl, .cta-btn, .th-cta-btn, .btn-nudge, .iface-demo';
 
   function enhance(b) {
     if (b.classList.contains('pb')) return;
-    var icon = b.querySelector('.circle');
+    /* the icon holder is .circle on most buttons, *-circle on a few */
+    var icon = b.querySelector('.circle, [class$="-circle"]');
     if (!icon) return;
     var svg = icon.querySelector('svg');
     if (!svg) return;
@@ -563,7 +564,9 @@
     mask.appendChild(t1); mask.appendChild(t2); label.appendChild(mask);
     b.insertBefore(label, icon);
 
-    /* arrow: swap inside the circle */
+    /* arrow: swap inside the circle. The masks sit against the circle, so only
+       promote it when it is static — a circle the page positions itself stays put. */
+    if (getComputedStyle(icon).position === 'static') icon.style.position = 'relative';
     var box = document.createElement('span'), i1 = document.createElement('span'), i2 = document.createElement('span');
     box.className = 'pb-ico'; i1.className = 'pb-i'; i2.className = 'pb-i pb-clone';
     i2.setAttribute('aria-hidden', 'true');

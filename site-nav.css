@@ -469,7 +469,7 @@ html.is-loading.is-released #site-nav { visibility:visible; }   /* header enters
 .pb-mask { position:relative; display:block; overflow:hidden; margin:-.18em 0 -.22em; }
 .pb-t { display:block; padding:.18em 0 .22em; white-space:nowrap; }
 .pb-t.pb-clone { position:absolute; left:0; top:100%; }
-.pb .circle { position:relative; overflow:hidden; }          /* the arrow is clipped by the circle */
+.pb .circle, .pb [class$="-circle"] { overflow:hidden; }     /* the arrow is clipped by the circle */
 .pb-ico { position:absolute; inset:0; overflow:hidden; border-radius:inherit; }
 .pb-i { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
 .pb-i > svg { display:block; transform:none !important; transition:none !important; }   /* page arrow nudges off */
