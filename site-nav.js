@@ -496,7 +496,6 @@
         '<div><h5 class="sf-news-title">Keep Updated</h5>' +
           '<div class="sf-ring">' +
           '<form class="sf-form" onsubmit="return false" aria-label="Newsletter">' +
-            '<svg class="sf-at" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 006 0v-1a10 10 0 10-3.92 7.94"/></svg>' +
             '<label class="sr-only" for="sf-email">Email address</label>' +
             '<input id="sf-email" type="email" placeholder="Enter your email..." autocomplete="email" />' +
             '<button type="submit">Stay Updated</button>' +

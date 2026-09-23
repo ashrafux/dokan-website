@@ -420,8 +420,7 @@ html.is-loading.is-released #site-nav { visibility:visible; }   /* header enters
 @keyframes sf-ring { to { --sf-a:360deg; } }
 .sf-form:focus-within { box-shadow:0 0 0 3px rgba(112,71,235,.25); }
 @media (prefers-reduced-motion: reduce) { .sf-form, .sf-ring::before { animation:none; } }
-.sf-at { width:18px; height:18px; flex:none; color:#8B8E97; }
-.sf-form input { flex:1; min-width:0; height:100%; padding:0 14px 0 13px; border:0; background:transparent; outline:none;
+.sf-form input { flex:1; min-width:0; height:100%; padding:0 14px 0 6px; border:0; background:transparent; outline:none;
   font-family:'Lato',sans-serif; font-size:17px; color:#fff; }
 .sf-form input::placeholder { color:#8B8E97; }
 .sf-form button { flex:none; width:133px; max-width:45%; height:49px; border:0; border-radius:999px; background:#7047EB; color:#fff; cursor:pointer;
