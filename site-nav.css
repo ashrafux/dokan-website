@@ -403,9 +403,23 @@ html.is-loading.is-released #site-nav { visibility:visible; }   /* header enters
 @media (hover:hover) { .sf-links a:hover { transform:translateX(3px); } }
 .sf-news { margin-top:90px; display:flex; align-items:flex-start; justify-content:space-between; gap:40px; }
 .sf-news-title { margin:0 0 14px; font-family:'Poppins',sans-serif; font-weight:700; font-size:25px; line-height:1.2; color:#fff; }
-.sf-form { display:flex; align-items:center; width:466px; max-width:100%; height:66px; box-sizing:border-box; padding:8.5px 8.5px 8.5px 22px;
-  background:#25272C; border:1px solid #3A3D45; border-radius:999px; transition:border-color .25s, box-shadow .25s; }
-.sf-form:focus-within { border-color:#7047EB; box-shadow:0 0 0 3px rgba(112,71,235,.25); }
+/* Newsletter field: a colour runs around the 1px ring, with a soft glow of the
+   same colours under the pill (reference video). The ring is a conic gradient
+   drawn in the border box; only its angle animates, one turn every 8s. */
+@property --sf-a { syntax:"<angle>"; inherits:false; initial-value:0deg; }
+.sf-ring { position:relative; display:inline-block; width:466px; max-width:100%; }
+.sf-ring::before { content:''; position:absolute; inset:2px; border-radius:999px; pointer-events:none;
+  background:conic-gradient(from var(--sf-a), rgba(255,125,146,.72), rgba(227,57,125,.72), rgba(128,12,210,.72), rgba(21,93,252,.72), rgba(128,12,210,.72), rgba(227,57,125,.72), rgba(255,125,146,.72));
+  filter:blur(12px); opacity:.38; animation:sf-ring 8s linear infinite; }
+.sf-form { position:relative; display:flex; align-items:center; width:100%; height:66px; box-sizing:border-box; padding:8.5px 8.5px 8.5px 22px;
+  border:1px solid transparent; border-radius:999px;
+  background:
+    linear-gradient(#25272C, #25272C) padding-box,
+    conic-gradient(from var(--sf-a), rgba(255,125,146,.72), rgba(227,57,125,.72), rgba(128,12,210,.72), rgba(21,93,252,.72), rgba(128,12,210,.72), rgba(227,57,125,.72), rgba(255,125,146,.72)) border-box;
+  animation:sf-ring 8s linear infinite; transition:box-shadow .25s; }
+@keyframes sf-ring { to { --sf-a:360deg; } }
+.sf-form:focus-within { box-shadow:0 0 0 3px rgba(112,71,235,.25); }
+@media (prefers-reduced-motion: reduce) { .sf-form, .sf-ring::before { animation:none; } }
 .sf-at { width:18px; height:18px; flex:none; color:#8B8E97; }
 .sf-form input { flex:1; min-width:0; height:100%; padding:0 14px 0 13px; border:0; background:transparent; outline:none;
   font-family:'Lato',sans-serif; font-size:17px; color:#fff; }
