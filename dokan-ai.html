@@ -124,6 +124,9 @@
   .req-box b { font-family:ui-monospace,Menlo,monospace; font-weight:700; font-size:14px;
     color:#3A3D42; white-space:nowrap; }
   .ai-req-note { margin:8px 0 0; font-family:'Lato',sans-serif; font-size:14px; color:#9A9DA3; }
+  /* The two halves slide in from ±60px, which pushed the page sideways while the
+     reveal ran (a scrollbar flash at 1201–1379px); clip that movement. */
+  .ai-reqs-wrap { overflow-x:clip; }
   /* floating "AI Agent" cursor chip (inspiration's cursor label) */
   .ai-cursor { position:absolute; right:13%; top:472px; display:flex; flex-direction:column;
     align-items:flex-start; gap:2px; pointer-events:none; z-index:6;
