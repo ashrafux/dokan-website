@@ -536,20 +536,20 @@
    transforms move, so the button's size, colours and the circle are untouched.
    Add a selector here, or mark a button with data-primary-icon. */
 (function () {
-  var SEL = '[data-primary-icon], .btn-primary, .dd-b1, .mdh-buy .b1, .mh-b1, .ai-b1, .btn-dl, .cta-btn, .th-cta-btn, .btn-nudge, .iface-demo';
+  var SEL = '[data-primary-icon], .btn-primary, .dd-b1, .mdh-buy .b1, .mh-b1, .ai-b1, .btn-dl, .cta-btn, .th-cta-btn, .btn-nudge, .iface-demo, .menu-pricing';
 
   function enhance(b) {
     if (b.classList.contains('pb')) return;
-    /* the icon holder is .circle on most buttons, *-circle on a few */
+    /* the icon holder is .circle on most buttons, *-circle on a few; a button
+       without one (the nav's Pricing pill) just gets the label roll */
     var icon = b.querySelector('.circle, [class$="-circle"]');
-    if (!icon) return;
-    var svg = icon.querySelector('svg');
-    if (!svg) return;
+    var svg = icon && icon.querySelector('svg');
+    if (icon && !svg) return;
 
     /* label = everything in the button that is not the icon */
     var text = '';
     [].slice.call(b.childNodes).forEach(function (n) {
-      if (n === icon) return;
+      if (icon && (n === icon || n.contains && n.contains(icon))) return;
       if (n.nodeType === 3) { text += n.textContent; b.removeChild(n); }
       else if (n.nodeType === 1) { text += n.textContent; b.removeChild(n); }
     });
@@ -562,10 +562,11 @@
     t1.textContent = t2.textContent = text;
     t2.setAttribute('aria-hidden', 'true');
     mask.appendChild(t1); mask.appendChild(t2); label.appendChild(mask);
-    b.insertBefore(label, icon);
+    if (icon) b.insertBefore(label, icon); else b.appendChild(label);
 
     /* arrow: swap inside the circle. The masks sit against the circle, so only
        promote it when it is static — a circle the page positions itself stays put. */
+    if (!icon) { finish(); return; }
     if (getComputedStyle(icon).position === 'static') icon.style.position = 'relative';
     var box = document.createElement('span'), i1 = document.createElement('span'), i2 = document.createElement('span');
     box.className = 'pb-ico'; i1.className = 'pb-i'; i2.className = 'pb-i pb-clone';
@@ -574,8 +575,12 @@
     i1.appendChild(svg); i2.appendChild(svg.cloneNode(true));
     box.appendChild(i1); box.appendChild(i2);
 
-    if (!b.getAttribute('aria-label')) b.setAttribute('aria-label', text);
-    b.classList.add('pb');
+    finish();
+
+    function finish() {
+      if (!b.getAttribute('aria-label')) b.setAttribute('aria-label', text);
+      b.classList.add('pb');
+    }
   }
 
   function run(root) { (root || document).querySelectorAll(SEL).forEach(enhance); }
