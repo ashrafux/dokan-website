@@ -172,10 +172,12 @@ html.is-loading.is-released #site-nav { visibility:visible; }   /* header enters
   }
   /* Below the desktop nav breakpoint the hamburger list takes over */
   @media (max-width:1200px) { .mega { display:none !important; } }
-  /* Full-bleed heroes: match the home page, whose card is inset 20px */
+  /* Full-bleed heroes: match the home page, whose hero card is inset 20px on
+     every side — the sheet keeps a 20px gap above it and the nav row sits
+     30px inside the sheet, exactly as on the home page. */
   @media (min-width:1201px) {
-    .site-nav.nav-bleed .hero-menu { padding-left:83.3px; padding-right:83.3px; }
-    .site-nav.nav-bleed .mega { left:20px; right:20px; }
+    .site-nav.nav-bleed .hero-menu { padding:50px 83.3px 30px; }
+    .site-nav.nav-bleed .mega { top:20px; left:20px; right:20px; }
   }
 
   /* ═══════════ Mega menus: Solutions (48:1323) + Resource (48:6733) ═══════════
