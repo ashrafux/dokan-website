@@ -172,6 +172,11 @@ html.is-loading.is-released #site-nav { visibility:visible; }   /* header enters
   }
   /* Below the desktop nav breakpoint the hamburger list takes over */
   @media (max-width:1200px) { .mega { display:none !important; } }
+  /* Full-bleed heroes: match the home page, whose card is inset 20px */
+  @media (min-width:1201px) {
+    .site-nav.nav-bleed .hero-menu { padding-left:83.3px; padding-right:83.3px; }
+    .site-nav.nav-bleed .mega { left:20px; right:20px; }
+  }
 
   /* ═══════════ Mega menus: Solutions (48:1323) + Resource (48:6733) ═══════════
      Figma panel spans x 17.7..1682.3 (1665 wide) with the rule at x 102..1598,

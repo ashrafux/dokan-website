@@ -105,6 +105,22 @@
     }
   });
 
+  /* The home page's header sits inside a hero card inset 20px from the window,
+     so its nav row and mega sheet are 20px in and the sheet is 40px narrower.
+     Pages with a full-bleed hero get the same inset (class below), so the menu
+     and the mega sheet have identical geometry everywhere. */
+  (function () {
+    function bleed() {
+      var box = host.parentElement;
+      if (!box) return;
+      var r = box.getBoundingClientRect();
+      host.classList.toggle('nav-bleed', r.left <= 1 && r.width >= document.documentElement.clientWidth - 1);
+    }
+    bleed();
+    window.addEventListener('resize', bleed);
+    window.addEventListener('load', bleed);
+  })();
+
   /* ---------- Mega menus (Product / Solutions / Resource) ---------- */
   (function () {
     var triggers = [].slice.call(host.querySelectorAll('.menu-links li[data-mega]'));
