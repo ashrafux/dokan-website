@@ -1080,6 +1080,57 @@
     .hl-stats { column-gap:32px; }
     .hl-stats .text-\[72px\] { font-size:clamp(44px, 4.4vw, 72px) !important; }
   }
+  /* ---- Proof strip (award / numbers / ratings) — 3 boxes, reference layout ---- */
+  .pf-section { background:#fff; padding-bottom:120px; }
+  .pf-grid { display:grid; grid-template-columns:0.92fr 1fr 1fr; gap:22px; align-items:stretch; }
+  .pf-card { border-radius:20px; padding:40px; box-sizing:border-box; }
+  .pf-dark { background:#0B0B0D; color:#fff; display:flex; flex-direction:column; }
+  .pf-eyebrow { margin:0; font-family:'Lato',sans-serif; font-size:15px; color:rgba(255,255,255,.62); }
+  .pf-dark h3 { margin:14px 0 0; font-family:'Poppins',sans-serif; font-weight:600; font-size:27px;
+    line-height:1.3; color:#fff; }
+  .pf-dark p { margin:22px 0 0; font-family:'Lato',sans-serif; font-size:16px; line-height:1.6;
+    color:rgba(255,255,255,.66); }
+  .pf-awards { margin-top:auto; padding-top:40px; display:flex; flex-direction:column; gap:10px; }
+  .pf-awards-row { display:flex; gap:10px; }
+  .pf-awards-row img { flex:1 1 0; min-width:0; }
+  .pf-awards img { display:block; width:100%; height:auto; border-radius:12px; background:#fff; object-fit:contain; }
+  .pf-light { background:#F5F5F8; display:flex; flex-direction:column; }
+  .pf-light h3, .pf-white h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:600; font-size:27px;
+    line-height:1.3; color:#0F172A; }
+  .pf-stats { margin-top:auto; padding-top:44px; display:grid; grid-template-columns:1fr 1fr; gap:40px 28px; }
+  .pf-stats .n { font-family:'Poppins',sans-serif; font-weight:500; font-size:44px; line-height:1.2; color:#0F172A; }
+  .pf-stats .l { margin:10px 0 0; font-family:'Lato',sans-serif; font-size:16px; color:#334155; }
+  .pf-col3 { display:grid; grid-template-rows:1fr auto; gap:22px; min-width:0; }
+  .pf-white { background:#fff; border:1px solid #EDEDF0; box-shadow:0 2px 5px rgba(0,0,0,.04);
+    display:flex; flex-direction:column; }
+  .pf-white p { margin:18px 0 0; font-family:'Lato',sans-serif; font-size:16px; line-height:1.6; color:#575757; }
+  .pf-rating-art { flex:1; display:flex; align-items:center; padding-top:32px; }   /* fills the card, art centred */
+  .pf-rating-art img { display:block; width:100%; height:auto; border-radius:14px; }
+  .pf-mini-row { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  .pf-mini { padding:28px 30px; }
+  .pf-mini .n { font-family:'Poppins',sans-serif; font-weight:600; font-size:34px; line-height:1.2; color:#0F172A; }
+  .pf-mini .n span { color:#FF6A15; }
+  .pf-mini .l { margin:8px 0 0; font-family:'Lato',sans-serif; font-size:15px; color:#575757; }
+  @media (max-width:1200px) {
+    .pf-card { padding:32px; }
+    .pf-dark h3, .pf-light h3, .pf-white h3 { font-size:24px; }
+    .pf-stats .n { font-size:38px; }
+  }
+  @media (max-width:1023px) {
+    .pf-section { padding-bottom:80px; }
+    .pf-grid { grid-template-columns:1fr 1fr; }
+    .pf-col3 { grid-column:1 / -1; grid-template-rows:auto auto; }
+  }
+  @media (max-width:640px) {
+    .pf-section { padding-bottom:64px; }
+    .pf-grid { grid-template-columns:1fr; gap:14px; }
+    .pf-card { padding:26px; }
+    .pf-col3 { gap:14px; }
+    .pf-mini-row { gap:14px; }
+    .pf-stats { padding-top:32px; gap:26px 18px; }
+    .pf-stats .n { font-size:34px; }
+    .pf-mini .n { font-size:28px; }
+  }
 </style>
 </head>
 <body class="font-body">
@@ -1197,6 +1248,60 @@
      past the right edge. On desktop the section pins and vertical scroll
      drives the rail (down = left, up = right); below 1024 it is a native
      swipe row. -->
+<!-- ══════════════════════ PROOF STRIP ══════════════════════
+     Three boxes in the reference layout: awards (dark card), the numbers, and
+     the review-platform ratings with two small cards under it. -->
+<section class="pf-section" aria-labelledby="pf-title">
+  <div class="wrap">
+    <div class="pf-grid" id="proof-cards">
+
+      <article class="pf-card pf-dark">
+        <p class="pf-eyebrow">Our Milestones</p>
+        <h3 id="pf-title">Recognised by the WordPress community</h3>
+        <p>Independent juries and the people who build with Dokan every day keep putting it at the top &mdash; for what it gives admins, vendors and customers alike.</p>
+        <div class="pf-awards">
+          <div class="pf-awards-row">
+            <img src="Media/Highlights%20of%20Our%20Success-1.png" alt="Great User Experience 2018 Award, awarded by FinancesOnline" width="232" height="135" loading="lazy" />
+            <img src="Media/Highlights%20of%20Our%20Success-2.png" alt="The WP Awards 2023" width="232" height="135" loading="lazy" />
+          </div>
+          <img src="Media/Highlights%20of%20Our%20Success.png" alt="Monster's Award 2023" width="476" height="135" loading="lazy" />
+        </div>
+      </article>
+
+      <article class="pf-card pf-light">
+        <h3>Dokan by the numbers</h3>
+        <div class="pf-stats">
+          <div><div class="n">50K+</div><p class="l">Active Marketplaces</p></div>
+          <div><div class="n">60%+</div><p class="l">Lower Startup Costs</p></div>
+          <div><div class="n">90%+</div><p class="l">Customer Satisfaction</p></div>
+          <div><div class="n">3.97M+</div><p class="l">Total Downloads</p></div>
+        </div>
+      </article>
+
+      <div class="pf-col3">
+        <article class="pf-card pf-white">
+          <h3>Rated 4.5 to 4.9 by real users</h3>
+          <p>Marketplace owners score Dokan on the platforms they trust &mdash; Capterra, WordPress.org, G2 and Trustpilot.</p>
+          <div class="pf-rating-art">
+            <img src="Media/Proof/ratings.png" alt="Ratings: Capterra 4.5, WordPress 4.6, G2 4.8, Trustpilot 4.9" width="856" height="232" loading="lazy" />
+          </div>
+        </article>
+        <div class="pf-mini-row">
+          <article class="pf-card pf-white pf-mini">
+            <div class="n">42+</div>
+            <p class="l">Premium modules</p>
+          </article>
+          <article class="pf-card pf-white pf-mini">
+            <div class="n">4.7 <span>&#9733;</span></div>
+            <p class="l">Average user rating</p>
+          </article>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <section class="bg-white pb-[120px] overflow-hidden" id="reasons">
   <div class="wrap rs-wrap">
     <h2 class="font-display font-bold text-[52px] leading-[1.2] text-title max-w-[700px]">
@@ -2420,7 +2525,7 @@
   reveal('section > .wrap > p, section .wrap > div > p, .dc-lead');
 
   /* Grids stagger their children */
-  [['#reason-cards', .12], ['#discover-cards', .14], ['#inf-track', .12],
+  [['#proof-cards', .12], ['#reason-cards', .12], ['#discover-cards', .14], ['#inf-track', .12],
    ['#theme-grid', .05], ['#globe-grid', .1]].forEach(function (pair) {
     var host = document.querySelector(pair[0]);
     if (!host || !host.children.length) return;
