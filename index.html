@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&family=Inter:wght@700&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="site-nav.css?v=25" />
+<link rel="stylesheet" href="site-nav.css?v=26" />
 <!-- Page loader: only the header shows until site-nav.js reveals the page (5s failsafe) -->
 <script>(function(d){if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000)})(document.documentElement)</script>
 <script>
@@ -102,7 +102,7 @@
   .btn-primary .circle { position:absolute; right:11.37px; top:50%; transform:translateY(-50%);
     width:45.86px; height:45.64px; background:#FFFFFF; border-radius:135.185px;
     display:flex; align-items:center; justify-content:center; transition:transform .25s; }
-  .btn-primary:hover .circle { transform:translateY(-50%) translateX(3px); }
+  /* hover: label roll + arrow swap (site-nav.js) */
   .btn-primary .circle svg { width:22.98px; height:22.98px; color:#7047EB; }
   .btn-secondary { display:flex; align-items:center; justify-content:center;
     width:173px; height:68px; background:#FFFFFF; border:1px solid #E9E9E9;
@@ -421,7 +421,7 @@
   .cta-btn .circle { position:absolute; right:11.68px; top:50%; transform:translateY(-50%);
     width:45.86px; height:45.86px; border-radius:135.19px; background:#0E0E0F;
     display:grid; place-items:center; transition:transform .25s; }
-  .cta-btn:hover .circle { transform:translateY(-50%) translateX(3px); }
+  /* hover: label roll + arrow swap (site-nav.js) */
   .cta-btn .circle svg { width:22.98px; height:22.98px; color:#FFFFFF; }
   /* "Launch Your" storefront, shown whole (no crop): bottom-right of the
      band, 61px from the right, at its own 1356:1186 ratio. At full size that
@@ -2108,7 +2108,7 @@
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="site-nav.js?v=22"></script>
+<script src="site-nav.js?v=23"></script>
 <script>
 /* ═══════════ Motion layer ═══════════
    Runs after the section builders above, so JS-generated cards are

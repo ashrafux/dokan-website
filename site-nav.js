@@ -528,3 +528,55 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
+
+/* ══════════ Primary buttons with an icon — label roll + arrow swap on hover ══════════
+   The label and the arrow are each duplicated inside their own overflow:hidden
+   mask: the label rolls up (copy in from below) while the arrow leaves the
+   circle to the right (copy in from the left); leaving reverses it. Only
+   transforms move, so the button's size, colours and the circle are untouched.
+   Add a selector here, or mark a button with data-primary-icon. */
+(function () {
+  var SEL = '[data-primary-icon], .btn-primary, .dd-b1, .mdh-buy .b1, .mh-b1, .ai-b1, .btn-dl, .cta-btn, .th-cta-btn, .btn-nudge';
+
+  function enhance(b) {
+    if (b.classList.contains('pb')) return;
+    var icon = b.querySelector('.circle');
+    if (!icon) return;
+    var svg = icon.querySelector('svg');
+    if (!svg) return;
+
+    /* label = everything in the button that is not the icon */
+    var text = '';
+    [].slice.call(b.childNodes).forEach(function (n) {
+      if (n === icon) return;
+      if (n.nodeType === 3) { text += n.textContent; b.removeChild(n); }
+      else if (n.nodeType === 1) { text += n.textContent; b.removeChild(n); }
+    });
+    text = text.replace(/\s+/g, ' ').trim();
+    if (!text) return;
+    var label = document.createElement('span'), mask = document.createElement('span');
+    label.className = 'pb-label'; mask.className = 'pb-mask';
+    var t1 = document.createElement('span'), t2 = document.createElement('span');
+    t1.className = 'pb-t'; t2.className = 'pb-t pb-clone';
+    t1.textContent = t2.textContent = text;
+    t2.setAttribute('aria-hidden', 'true');
+    mask.appendChild(t1); mask.appendChild(t2); label.appendChild(mask);
+    b.insertBefore(label, icon);
+
+    /* arrow: swap inside the circle */
+    var box = document.createElement('span'), i1 = document.createElement('span'), i2 = document.createElement('span');
+    box.className = 'pb-ico'; i1.className = 'pb-i'; i2.className = 'pb-i pb-clone';
+    i2.setAttribute('aria-hidden', 'true');
+    icon.insertBefore(box, svg);
+    i1.appendChild(svg); i2.appendChild(svg.cloneNode(true));
+    box.appendChild(i1); box.appendChild(i2);
+
+    if (!b.getAttribute('aria-label')) b.setAttribute('aria-label', text);
+    b.classList.add('pb');
+  }
+
+  function run(root) { (root || document).querySelectorAll(SEL).forEach(enhance); }
+  window.dokanPrimaryIcon = run;
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { run(); });
+  else run();
+})();

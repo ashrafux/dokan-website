@@ -460,10 +460,27 @@ html.is-loading.is-released #site-nav { visibility:visible; }   /* header enters
 .rb-inverse .rb-fill .rb-label { color:#0E0E0F; }
 .rb-inverse.is-active > .rb-label { color:rgba(255,255,255,.55); }
 
-/* ── Primary buttons: the home page's arrow nudge on every page (circle slides 3px right) ── */
-.dd-b1 .circle, .btn-dl .circle, .mdh-buy .b1 .circle, .mh-b1 .circle, .cta-btn .circle, .th-cta-btn .circle, .btn-nudge .circle {
-  transition:transform .3s cubic-bezier(.22,.61,.36,1); }
+/* ══════════ Primary buttons with an icon: label roll + arrow swap (markup by site-nav.js) ══════════
+   Matches the reference motion: on hover the label rolls up while a copy rises
+   from below, and the arrow leaves the circle to the right while a copy enters
+   from the left. Leaving reverses both. Nothing else moves — the circle, the
+   colours and the button box stay exactly as they are. ~200ms, ease-out. */
+.pb-label { position:relative; display:inline-block; }
+.pb-mask { position:relative; display:block; overflow:hidden; margin:-.18em 0 -.22em; }
+.pb-t { display:block; padding:.18em 0 .22em; white-space:nowrap; }
+.pb-t.pb-clone { position:absolute; left:0; top:100%; }
+.pb .circle { position:relative; overflow:hidden; }          /* the arrow is clipped by the circle */
+.pb-ico { position:absolute; inset:0; overflow:hidden; border-radius:inherit; }
+.pb-i { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+.pb-i > svg { display:block; transform:none !important; transition:none !important; }   /* page arrow nudges off */
+.pb-i.pb-clone { transform:translateX(-100%); }
+.pb-t, .pb-i { transition:transform .2s cubic-bezier(.22, .61, .36, 1); }
 @media (hover:hover) {
-  .dd-b1:hover .circle, .btn-dl:hover .circle { transform:translateY(-50%) translateX(3px); }
-  .mdh-buy .b1:hover .circle, .mh-b1:hover .circle, .cta-btn:hover .circle, .th-cta-btn:hover .circle, .btn-nudge:hover .circle { transform:translateX(3px); }
+  .pb:hover .pb-t { transform:translateY(-100%); }
+  .pb:hover .pb-i { transform:translateX(100%); }
+  .pb:hover .pb-i.pb-clone { transform:translateX(0); }
 }
+.pb:focus-visible .pb-t { transform:translateY(-100%); }
+.pb:focus-visible .pb-i { transform:translateX(100%); }
+.pb:focus-visible .pb-i.pb-clone { transform:translateX(0); }
+@media (prefers-reduced-motion: reduce) { .pb-t, .pb-i { transition:none; } }
