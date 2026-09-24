@@ -1064,18 +1064,8 @@
     font-size:clamp(24px, 7.37cqw, 36px); line-height:120%; }
 
   /* card 1 — numbers on the prism backdrop */
-  .tb-num { border-radius:20px; overflow:hidden; padding:clamp(28px, 11.05cqw, 54px) clamp(20px, 7.41cqw, 36px) clamp(20px, 7.41cqw, 36px); background:#070708; }
-  /* a thin prism flare across the black card, plus a fainter one lower-left */
-  .tb-num::before { content:''; position:absolute; inset:-10%; pointer-events:none;
-    background:linear-gradient(107deg, transparent 49%, rgba(255,72,104,.75) 50.6%, rgba(255,186,64,.62) 51.8%,
-      rgba(150,255,180,.5) 53%, rgba(74,167,255,.68) 54.2%, rgba(176,104,255,.6) 55.4%, transparent 57%);
-    filter:blur(9px); opacity:.85; }
-  .tb-num::after { content:''; position:absolute; inset:-10%; pointer-events:none;
-    background:
-      linear-gradient(107deg, transparent 63%, rgba(255,150,70,.42) 64.4%, rgba(255,235,150,.34) 65.4%,
-        rgba(120,255,205,.3) 66.4%, rgba(120,160,255,.36) 67.4%, transparent 69%),
-      radial-gradient(40% 30% at 16% 90%, rgba(255,170,90,.22), transparent 72%);
-    filter:blur(16px); opacity:.7; }
+  .tb-num { border-radius:20px; overflow:hidden; background:#070708 url('Media/Dokan%20by%20the%20numbers.png') center/cover no-repeat;
+    padding:clamp(28px, 11.05cqw, 54px) clamp(20px, 7.41cqw, 36px) clamp(20px, 7.41cqw, 36px); }
   .tb-num > * { position:relative; z-index:1; }
   .tb-num .tb-card-t { color:#fff; max-width:52cqw; padding-left:clamp(0px, 3.7cqw, 18px); }
   .tb-stats { margin-top:auto; display:grid; grid-template-columns:1fr 1fr; gap:4.52px 5.43px; }
@@ -1090,13 +1080,7 @@
   .tb-awards { background:#E2DDF1; border:0.9px solid #E5E7EB; border-radius:18.09px;
     padding:clamp(28px, 11.05cqw, 54px) clamp(20px, 7.41cqw, 36px) clamp(20px, 7.41cqw, 36px); }
   .tb-awards .tb-card-t { color:#0F172A; max-width:53cqw; padding-left:clamp(0px, 2.66cqw, 13px); }
-  .tb-aw-grid { margin-top:auto; display:grid; grid-template-columns:1fr 1fr; gap:8.49px 11.32px; }
-  .tb-aw { background:#fff; border-radius:10px; min-height:127.41px; display:grid; place-items:center;
-    padding:16px; box-sizing:border-box; }
-  .tb-aw:last-child { grid-column:1 / -1; }
-  /* the award PNGs carry a #F5F5F5 plate; 5% brightness lifts it to the tile's white */
-  .tb-aw img { display:block; max-width:100%; height:auto; filter:brightness(1.05); }
-  .tb-aw--1 img { width:94.02px; } .tb-aw--2 img { width:102.33px; } .tb-aw--3 img { width:183.41px; }
+  .tb-aw-art { margin-top:auto; display:block; width:100%; height:auto; }
 
   /* card 3 — score + platform tiles */
   .tb-rate { background:#F3F3F3; border:0.9px solid #E5E7EB; border-radius:18.09px;
@@ -1143,7 +1127,7 @@
     .tb-cards { grid-template-columns:1fr 1fr; }
     .tb-cards > :last-child { grid-column:1 / -1; }
     .tb-card { min-height:0; }
-    .tb-stats, .tb-aw-grid { margin-top:40px; }
+    .tb-stats, .tb-aw-art { margin-top:40px; }
     .tb-plats { margin-top:32px; }
   }
   @media (max-width:1023px) { .tb-section { padding:80px 0 128px; } }
@@ -1223,11 +1207,9 @@
 
       <article class="tb-card tb-awards">
         <h3 class="tb-card-t">Highlights of Our Success</h3>
-        <div class="tb-aw-grid">
-          <div class="tb-aw tb-aw--1"><img src="Media/Highlights%20of%20Our%20Success-1.png" alt="Great User Experience 2018 Award, awarded by FinancesOnline" width="232" height="135" loading="lazy" /></div>
-          <div class="tb-aw tb-aw--2"><img src="Media/Highlights%20of%20Our%20Success-2.png" alt="The WP Awards 2023" width="232" height="135" loading="lazy" /></div>
-          <div class="tb-aw tb-aw--3"><img src="Media/Highlights%20of%20Our%20Success.png" alt="Monster's Award 2023" width="476" height="135" loading="lazy" /></div>
-        </div>
+        <img class="tb-aw-art" src="Media/Highlights%20of%20%20Our%20Success.png"
+             alt="Great User Experience 2018 Award by FinancesOnline, The WP Awards 2023 and Monster's Award 2023"
+             width="831" height="527" loading="lazy" />
       </article>
 
       <article class="tb-card tb-rate">
