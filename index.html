@@ -1051,7 +1051,7 @@
   /* ---- Trusted by Thousands (Figma frame 2106260934) ----
      Three cards, 488.54x568.15 at 18px gaps inside a 1500px group; the fixed
      Figma paddings are kept, the columns flex. */
-  .tb-section { background:#fff; padding:120px 0 256px; }
+  .tb-section { background:#fff; padding:120px 0 0; }
   .tb-wrap { width:100%; max-width:1704px; margin:0 auto; padding:0 102px; box-sizing:border-box;
     display:flex; flex-direction:column; align-items:center; gap:56px; }
   .tb-title { margin:0; max-width:657px; font-family:'Poppins',sans-serif; font-weight:700;
@@ -1156,6 +1156,64 @@
     .tb-plat .who b { font-size:11px; }
     .tb-plat--more { flex:0 0 58px; }
   }
+  /* ---- Money: commission + payouts (own pattern: copy left, live calculator right) ---- */
+  .cm-section { background:#fff; padding:120px 0 256px; }
+  .cm-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,480px); gap:64px; align-items:start; }
+  .cm-h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px; line-height:1.2; color:#0F172A; }
+  .cm-lead { margin:24px 0 0; max-width:560px; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#334155; }
+  .cm-points { margin:56px 0 0; padding:0; list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:36px 40px; }
+  .cm-point h3 { margin:0; display:flex; align-items:center; gap:10px; font-family:'Poppins',sans-serif;
+    font-weight:600; font-size:20px; line-height:1.3; color:#0F172A; }
+  .cm-point h3 svg { width:20px; height:20px; flex:none; color:#7047EB; }
+  .cm-point p { margin:10px 0 0; font-family:'Lato',sans-serif; font-size:16px; line-height:1.6; color:#575757; }
+  .cm-works { margin:56px 0 0; padding-top:32px; border-top:1px solid #E9E9E9; display:flex; align-items:center;
+    flex-wrap:wrap; gap:12px; }
+  .cm-works span { font-family:'Lato',sans-serif; font-size:16px; color:#575757; margin-right:4px; }
+  .cm-works b { font-family:'Lato',sans-serif; font-weight:700; font-size:15px; color:#0E0E0F;
+    padding:10px 18px; border:1px solid #E9E9E9; border-radius:9999px; background:#fff; }
+
+  .cm-calc { background:#F7F6FD; border:1px solid #EAE6FB; border-radius:20px; padding:36px; }
+  .cm-calc-h { display:flex; align-items:baseline; justify-content:space-between; gap:16px; }
+  .cm-calc-h h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:600; font-size:18px; color:#0F172A; }
+  .cm-rate { font-family:'Poppins',sans-serif; font-weight:600; font-size:18px; color:#7047EB; }
+  .cm-slider { -webkit-appearance:none; appearance:none; width:100%; height:6px; margin:22px 0 0;
+    border-radius:9999px; background:linear-gradient(#E4E4EA,#E4E4EA); outline:none; cursor:pointer; }
+  .cm-slider::-webkit-slider-thumb { -webkit-appearance:none; width:20px; height:20px; border-radius:50%;
+    background:#7047EB; border:3px solid #fff; box-shadow:0 1px 4px rgba(20,20,40,.25); cursor:pointer; }
+  .cm-slider::-moz-range-thumb { width:20px; height:20px; border:3px solid #fff; border-radius:50%;
+    background:#7047EB; box-shadow:0 1px 4px rgba(20,20,40,.25); cursor:pointer; }
+  .cm-slider:focus-visible { outline:2px solid #7047EB; outline-offset:4px; }
+  .cm-order { margin:26px 0 0; display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+    font-family:'Lato',sans-serif; font-size:16px; color:#575757; }
+  .cm-order b { font-family:'Poppins',sans-serif; font-weight:600; font-size:28px; color:#0F172A; }
+  .cm-split { margin:26px 0 0; display:flex; height:54px; border-radius:12px; overflow:hidden;
+    font-family:'Lato',sans-serif; font-weight:700; font-size:15px; }
+  .cm-split .v { display:flex; align-items:center; padding:0 16px; background:#EDEAFB; color:#25252D;
+    transition:flex-basis .25s ease; }
+  .cm-split .y { display:flex; align-items:center; justify-content:flex-end; padding:0 16px; background:#12B76A;
+    color:#fff; transition:flex-basis .25s ease; }
+  .cm-out { margin:16px 0 0; display:flex; justify-content:space-between; gap:16px;
+    font-family:'Lato',sans-serif; font-size:15px; color:#575757; }
+  .cm-out b { font-family:'Lato',sans-serif; font-weight:700; color:#0F172A; }
+  .cm-out .keep b { color:#12B76A; }
+  .cm-note { margin:18px 0 0; font-family:'Lato',sans-serif; font-size:14px; line-height:1.5; color:#828282; }
+
+  @media (max-width:1200px) {
+    .cm-grid { grid-template-columns:1fr; gap:48px; }
+    .cm-h2 { font-size:clamp(30px,4.4vw,52px); }
+    .cm-calc { max-width:520px; }
+  }
+  @media (max-width:1023px) { .cm-section { padding:80px 0 128px; } .cm-points { margin-top:40px; gap:28px 32px; } }
+  @media (max-width:640px) {
+    .cm-section { padding:64px 0 88px; }
+    .cm-lead { font-size:17px; }
+    .cm-points { grid-template-columns:1fr; gap:24px; }
+    .cm-works { margin-top:40px; padding-top:24px; }
+    .cm-calc { padding:24px; }
+    .cm-order b { font-size:24px; }
+    .cm-split { height:48px; font-size:14px; }
+    .cm-out { flex-direction:column; gap:6px; }
+  }
 </style>
 </head>
 <body class="font-body">
@@ -1239,6 +1297,59 @@
       </article>
 
     </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ MONEY: commission + payouts ══════════════════════ -->
+<section class="cm-section" aria-labelledby="cm-title">
+  <div class="wrap cm-grid">
+    <div class="cm-copy">
+      <h2 class="cm-h2" id="cm-title">You earn on every order.<br />Vendors get paid automatically.</h2>
+      <p class="cm-lead">The hardest part of running a marketplace is moving money between you, your vendors and your customers. Dokan takes care of it.</p>
+
+      <ul class="cm-points">
+        <li class="cm-point">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Split payments at checkout</h3>
+          <p>The customer pays once. Your commission and the vendor's share are separated automatically through Stripe Connect, PayPal Marketplace, Mangopay or Razorpay.</p>
+        </li>
+        <li class="cm-point">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Commission your way</h3>
+          <p>Charge a percentage, a flat fee, or both &mdash; for the whole marketplace, per vendor or per category.</p>
+        </li>
+        <li class="cm-point">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Payouts without the spreadsheet</h3>
+          <p>Vendors request withdrawals or get paid on a schedule. You set the minimums and the methods.</p>
+        </li>
+        <li class="cm-point">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Vendor subscriptions</h3>
+          <p>Charge vendors a monthly fee to sell on your marketplace, on top of commission or instead of it.</p>
+        </li>
+      </ul>
+
+      <div class="cm-works">
+        <span>Works with</span>
+        <b>Stripe Connect</b><b>PayPal Marketplace</b><b>Mangopay</b><b>Razorpay</b>
+      </div>
+    </div>
+
+    <aside class="cm-calc" id="cm-calc">
+      <div class="cm-calc-h">
+        <h3><label for="cm-range">Your commission</label></h3>
+        <output class="cm-rate" id="cm-rate" for="cm-range">19% per order</output>
+      </div>
+      <input class="cm-slider" id="cm-range" type="range" min="0" max="40" step="1" value="19"
+             aria-describedby="cm-note" />
+      <p class="cm-order">Customer pays <b id="cm-total">$120.00</b></p>
+      <div class="cm-split" aria-hidden="true">
+        <div class="v" id="cm-bar-v" style="flex:0 0 81%">Vendor</div>
+        <div class="y" id="cm-bar-y" style="flex:0 0 19%">You</div>
+      </div>
+      <p class="cm-out">
+        <span>Vendor receives <b id="cm-vendor">$97.20</b></span>
+        <span class="keep">You keep <b id="cm-keep">$22.80</b></span>
+      </p>
+      <p class="cm-note" id="cm-note">Split instantly at checkout. No manual transfers.</p>
+    </aside>
   </div>
 </section>
 
@@ -1987,6 +2098,30 @@
     var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(layout, 150); });
     window.addEventListener('load', layout);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+  })();
+
+
+  // ---------- Commission calculator ----------
+  (function () {
+    var range = document.getElementById('cm-range');
+    if (!range) return;
+    var ORDER = 120, rate = document.getElementById('cm-rate'), vendor = document.getElementById('cm-vendor'),
+        keep = document.getElementById('cm-keep'), barV = document.getElementById('cm-bar-v'),
+        barY = document.getElementById('cm-bar-y');
+    var money = function (n) { return '$' + n.toFixed(2); };
+    function paint() {
+      var pct = +range.value;
+      var yours = ORDER * pct / 100;
+      rate.textContent = pct + '% per order';
+      vendor.textContent = money(ORDER - yours);
+      keep.textContent = money(yours);
+      barV.style.flexBasis = (100 - pct) + '%';
+      barY.style.flexBasis = pct + '%';
+      range.style.background = 'linear-gradient(90deg, #7047EB 0 ' + (pct / 40 * 100) + '%, #E4E4EA ' + (pct / 40 * 100) + '% 100%)';
+      range.setAttribute('aria-valuetext', pct + '% commission, vendor receives ' + money(ORDER - yours));
+    }
+    range.addEventListener('input', paint);
+    paint();
   })();
 
   // ---------- Testimonial stars ----------
