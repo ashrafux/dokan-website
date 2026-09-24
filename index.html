@@ -84,7 +84,7 @@
   /* left edge = the menu logo's (script sets --hero-x; the fallback is the same
      formula without the logo's few px of centring inside the menu row) */
   .hero-copy { position:absolute; left:var(--hero-x, calc(67px + max(0px, (100cqw - 1658.6px) / 2)));
-    top:calc(50% - 35.5px); transform:translateY(-50%);
+    top:calc(50% - 35.5px + 50px); transform:translateY(-50%);   /* 50px lower, away from the nav */
     width:608px; display:flex; flex-direction:column; gap:56px; z-index:10; }
   .hero-copy-top { display:flex; flex-direction:column; gap:20px; }
   .hero-h1 { margin:0; width:608px; font-family:'Poppins',sans-serif; font-weight:700;
