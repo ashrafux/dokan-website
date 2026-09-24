@@ -1048,56 +1048,129 @@
   }
   /* Small desktops: the 476 + 155 + 126px desktop columns left the stats only
      ~60px per figure at 1024, so the numbers spilled past the viewport. */
-  /* ---- Proof strip (award / numbers / ratings) — 3 boxes, reference layout ---- */
-  .pf-section { background:#fff; padding:120px 0 256px; }
-  .pf-grid { display:grid; grid-template-columns:0.92fr 1fr 1fr; gap:22px; align-items:stretch; }
-  .pf-card { border-radius:20px; padding:40px; box-sizing:border-box; }
-  .pf-dark { background:#0B0B0D; color:#fff; display:flex; flex-direction:column; }
-  .pf-eyebrow { margin:0; font-family:'Lato',sans-serif; font-size:15px; color:rgba(255,255,255,.62); }
-  .pf-dark h3 { margin:14px 0 0; font-family:'Poppins',sans-serif; font-weight:600; font-size:27px;
-    line-height:1.3; color:#fff; }
-  .pf-dark p { margin:22px 0 0; font-family:'Lato',sans-serif; font-size:16px; line-height:1.6;
-    color:rgba(255,255,255,.66); }
-  .pf-awards { margin-top:auto; padding-top:40px; display:flex; flex-direction:column; gap:10px; }
-  .pf-awards-row { display:flex; gap:10px; }
-  .pf-awards-row img { flex:1 1 0; min-width:0; }
-  .pf-awards img { display:block; width:100%; height:auto; border-radius:12px; background:#fff; object-fit:contain; }
-  .pf-light { background:#F5F5F8; display:flex; flex-direction:column; }
-  .pf-light h3, .pf-white h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:600; font-size:27px;
-    line-height:1.3; color:#0F172A; }
-  .pf-stats { margin-top:auto; padding-top:44px; display:grid; grid-template-columns:1fr 1fr; gap:40px 28px; }
-  .pf-stats .n { font-family:'Poppins',sans-serif; font-weight:500; font-size:44px; line-height:1.2; color:#0F172A; }
-  .pf-stats .l { margin:10px 0 0; font-family:'Lato',sans-serif; font-size:16px; color:#334155; }
-  .pf-col3 { display:grid; grid-template-rows:1fr auto; gap:22px; min-width:0; }
-  .pf-white { background:#fff; border:1px solid #EDEDF0; box-shadow:0 2px 5px rgba(0,0,0,.04);
+  /* ---- Trusted by Thousands (Figma frame 2106260934) ----
+     Three cards, 488.54x568.15 at 18px gaps inside a 1500px group; the fixed
+     Figma paddings are kept, the columns flex. */
+  .tb-section { background:#fff; padding:120px 0 256px; }
+  .tb-wrap { width:100%; max-width:1704px; margin:0 auto; padding:0 102px; box-sizing:border-box;
+    display:flex; flex-direction:column; align-items:center; gap:56px; }
+  .tb-title { margin:0; max-width:657px; font-family:'Poppins',sans-serif; font-weight:700;
+    font-size:52px; line-height:120%; text-align:center; color:#0F172A; }
+  .tb-cards { width:100%; max-width:1500px; display:grid; grid-template-columns:repeat(3, minmax(0,1fr));
+    gap:18.09px; }
+  .tb-card { position:relative; container-type:inline-size; height:568.15px; box-sizing:border-box;
     display:flex; flex-direction:column; }
-  .pf-white p { margin:18px 0 0; font-family:'Lato',sans-serif; font-size:16px; line-height:1.6; color:#575757; }
-  .pf-rating-art { flex:1; display:flex; align-items:center; padding-top:32px; }   /* fills the card, art centred */
-  .pf-rating-art img { display:block; width:100%; height:auto; border-radius:14px; }
-  .pf-mini-row { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
-  .pf-mini { padding:28px 30px; }
-  .pf-mini .n { font-family:'Poppins',sans-serif; font-weight:600; font-size:34px; line-height:1.2; color:#0F172A; }
-  .pf-mini .n span { color:#FF6A15; }
-  .pf-mini .l { margin:8px 0 0; font-family:'Lato',sans-serif; font-size:15px; color:#575757; }
-  @media (max-width:1200px) {
-    .pf-card { padding:32px; }
-    .pf-dark h3, .pf-light h3, .pf-white h3 { font-size:24px; }
-    .pf-stats .n { font-size:38px; }
+  .tb-card-t { margin:0; font-family:'Poppins',sans-serif; font-weight:700;
+    font-size:clamp(24px, 7.37cqw, 36px); line-height:120%; }
+
+  /* card 1 — numbers on the prism backdrop */
+  .tb-num { border-radius:20px; overflow:hidden; padding:clamp(28px, 11.05cqw, 54px) clamp(20px, 7.41cqw, 36px) clamp(20px, 7.41cqw, 36px); background:#070708; }
+  /* a thin prism flare across the black card, plus a fainter one lower-left */
+  .tb-num::before { content:''; position:absolute; inset:-10%; pointer-events:none;
+    background:linear-gradient(107deg, transparent 49%, rgba(255,72,104,.75) 50.6%, rgba(255,186,64,.62) 51.8%,
+      rgba(150,255,180,.5) 53%, rgba(74,167,255,.68) 54.2%, rgba(176,104,255,.6) 55.4%, transparent 57%);
+    filter:blur(9px); opacity:.85; }
+  .tb-num::after { content:''; position:absolute; inset:-10%; pointer-events:none;
+    background:
+      linear-gradient(107deg, transparent 63%, rgba(255,150,70,.42) 64.4%, rgba(255,235,150,.34) 65.4%,
+        rgba(120,255,205,.3) 66.4%, rgba(120,160,255,.36) 67.4%, transparent 69%),
+      radial-gradient(40% 30% at 16% 90%, rgba(255,170,90,.22), transparent 72%);
+    filter:blur(16px); opacity:.7; }
+  .tb-num > * { position:relative; z-index:1; }
+  .tb-num .tb-card-t { color:#fff; max-width:52cqw; padding-left:clamp(0px, 3.7cqw, 18px); }
+  .tb-stats { margin-top:auto; display:grid; grid-template-columns:1fr 1fr; gap:4.52px 5.43px; }
+  .tb-stat { min-height:141.59px; box-sizing:border-box; padding:25px 28px; border-radius:10px;
+    background:rgba(255,255,255,.08); display:flex; flex-direction:column; }
+  .tb-stat .n { font-family:'Poppins',sans-serif; font-weight:600; font-size:clamp(19px, 4.91cqw, 24px); line-height:130%;
+    color:#fff; opacity:.9; }
+  .tb-stat .l { margin:clamp(12px, 5.1cqw, 25px) 0 0; font-family:'Lato',sans-serif; font-size:clamp(12.5px, 2.87cqw, 14px); line-height:130%;
+    color:rgba(255,255,255,.5); }
+
+  /* card 2 — awards */
+  .tb-awards { background:#E2DDF1; border:0.9px solid #E5E7EB; border-radius:18.09px;
+    padding:clamp(28px, 11.05cqw, 54px) clamp(20px, 7.41cqw, 36px) clamp(20px, 7.41cqw, 36px); }
+  .tb-awards .tb-card-t { color:#0F172A; max-width:53cqw; padding-left:clamp(0px, 2.66cqw, 13px); }
+  .tb-aw-grid { margin-top:auto; display:grid; grid-template-columns:1fr 1fr; gap:8.49px 11.32px; }
+  .tb-aw { background:#fff; border-radius:10px; min-height:127.41px; display:grid; place-items:center;
+    padding:16px; box-sizing:border-box; }
+  .tb-aw:last-child { grid-column:1 / -1; }
+  /* the award PNGs carry a #F5F5F5 plate; 5% brightness lifts it to the tile's white */
+  .tb-aw img { display:block; max-width:100%; height:auto; filter:brightness(1.05); }
+  .tb-aw--1 img { width:94.02px; } .tb-aw--2 img { width:102.33px; } .tb-aw--3 img { width:183.41px; }
+
+  /* card 3 — score + platform tiles */
+  .tb-rate { background:#F3F3F3; border:0.9px solid #E5E7EB; border-radius:18.09px;
+    padding:clamp(26px, 10.74cqw, 52.47px) clamp(20px, 7.41cqw, 36px) clamp(20px, 7.41cqw, 36px); }
+  .tb-rate-head { display:flex; align-items:flex-start; justify-content:space-between; gap:16px;
+    padding:0 clamp(0px, 3.7cqw, 18px); }
+  .tb-score { display:flex; flex-direction:column; gap:5.43px; }
+  .tb-score .v { font-family:'Poppins',sans-serif; font-weight:700; font-size:clamp(34px, 9.63cqw, 47.04px); line-height:120%;
+    color:#0F172A; }
+  .tb-stars { display:flex; align-items:center; gap:1.85px; }
+  .tb-stars svg { width:13.18px; height:13.18px; flex:none; color:#FF7400; }
+  .tb-avatars { position:relative; width:149.98px; height:58.3px; flex:none; margin-top:9px; }
+  .tb-avatars img { position:absolute; top:0; width:58.3px; height:58.3px; border-radius:50%;
+    border:3.72px solid #fff; box-sizing:border-box; object-fit:cover; }
+  .tb-lede { margin:clamp(18px, 5.7cqw, 28px) 0 0; padding:0 clamp(0px, 3.7cqw, 18px); max-width:60cqw;
+    font-family:'Lato',sans-serif; font-size:clamp(15px, 3.68cqw, 18px); line-height:140%; color:#475569; }
+  .tb-plats { margin-top:auto; display:flex; flex-direction:column; gap:4.29px; }
+  .tb-plat-row { display:flex; gap:5.23px; }
+  .tb-plat { background:#fff; box-shadow:0 1.71px 4.28px rgba(0,0,0,.06); border-radius:8.57px;
+    min-height:112.26px; box-sizing:border-box; padding:17px 19.7px; display:flex; flex-direction:column; }
+  .tb-plat .v { font-family:'Lato',sans-serif; font-size:clamp(17px, 4.21cqw, 20.57px); line-height:150%; color:#0F172A; }
+  .tb-plat .who { margin-top:auto; display:flex; align-items:center; gap:6.86px; }
+  .tb-plat .who span { width:27.19px; height:27.19px; border-radius:50%; flex:none; display:flex;
+    align-items:center; justify-content:center; }
+  .tb-plat .who b { font-family:'Lato',sans-serif; font-weight:400; font-size:13.26px; line-height:130%;
+    color:#475569; white-space:nowrap; }
+  .tb-plat--capterra { flex:127.74 1 0; } .tb-plat--wp { flex:136.31 1 0; }
+  .tb-plat--tp { flex:136.31 1 0; } .tb-plat--g2 { flex:118.26 1 0; }
+  .tb-plat--more { flex:112.26 1 0; align-items:center; justify-content:center; padding:0; }
+  .tb-more-btn { width:30.62px; height:30.62px; border-radius:50%; background:#000; display:flex;
+    align-items:center; justify-content:center; }
+  .tb-more-btn svg { width:10.75px; height:10.75px; color:#fff; }
+
+  @media (max-width:1439px) {
+    .tb-wrap { padding:0 48px; }
+    .tb-title { font-size:clamp(32px,3.6vw,52px); }
+    .tb-card { height:auto; min-height:520px; }
+    .tb-card-t { font-size:30px; }
+    .tb-num, .tb-awards, .tb-rate { padding:40px 28px 28px; }
+    .tb-score .v { font-size:40px; }
+    .tb-rate-head, .tb-lede { padding:0 8px; }
   }
-  @media (max-width:1023px) {
-    .pf-section { padding:80px 0 128px; }
-    .pf-grid { grid-template-columns:1fr 1fr; }
-    .pf-col3 { grid-column:1 / -1; grid-template-rows:auto auto; }
+  @media (max-width:1100px) {
+    .tb-cards { grid-template-columns:1fr 1fr; }
+    .tb-cards > :last-child { grid-column:1 / -1; }
+    .tb-card { min-height:0; }
+    .tb-stats, .tb-aw-grid { margin-top:40px; }
+    .tb-plats { margin-top:32px; }
   }
-  @media (max-width:640px) {
-    .pf-section { padding:64px 0 88px; }
-    .pf-grid { grid-template-columns:1fr; gap:14px; }
-    .pf-card { padding:26px; }
-    .pf-col3 { gap:14px; }
-    .pf-mini-row { gap:14px; }
-    .pf-stats { padding-top:32px; gap:26px 18px; }
-    .pf-stats .n { font-size:34px; }
-    .pf-mini .n { font-size:28px; }
+  @media (max-width:1023px) { .tb-section { padding:80px 0 128px; } }
+  @media (max-width:760px) {
+    .tb-cards { grid-template-columns:1fr; gap:14px; }
+    .tb-cards > :last-child { grid-column:auto; }
+    .tb-title { font-size:clamp(26px,7vw,40px); }
+    .tb-card-t { font-size:26px; }
+    .tb-num, .tb-awards, .tb-rate { padding:28px 20px 20px; }
+    .tb-num .tb-card-t, .tb-awards .tb-card-t, .tb-rate-head, .tb-lede { padding-left:0; }
+    .tb-stat { min-height:0; padding:18px 20px; }
+    .tb-stat .l { margin-top:14px; }
+    .tb-aw { min-height:104px; }
+    .tb-plat { min-height:96px; padding:14px 16px; }
+    .tb-plat .who b { font-size:12px; }
+  }
+  @media (max-width:640px) { .tb-section { padding:64px 0 88px; } }
+  @media (max-width:420px) {
+    .tb-avatars { width:110px; height:44px; }
+    .tb-avatars img { width:44px; height:44px; border-width:3px; }
+    .tb-avatars img:nth-child(2) { left:34px !important; }
+    .tb-avatars img:nth-child(3) { left:68px !important; }
+    .tb-plat { padding:12px 13px; min-height:86px; }
+    .tb-plat .who { gap:5px; }
+    .tb-plat .who span { width:22px; height:22px; }
+    .tb-plat .who b { font-size:11px; }
+    .tb-plat--more { flex:0 0 58px; }
   }
 </style>
 </head>
@@ -1131,55 +1204,57 @@
   </div>
 </header>
 
-<!-- ══════════════════════ PROOF STRIP ══════════════════════
-     Three boxes in the reference layout: awards (dark card), the numbers, and
-     the review-platform ratings with two small cards under it. -->
-<section class="pf-section" aria-labelledby="pf-title">
-  <div class="wrap">
-    <div class="pf-grid" id="proof-cards">
+<!-- ══════════════════════ TRUSTED BY THOUSANDS (Figma 2106260934) ══════════════════════ -->
+<section class="tb-section" aria-labelledby="tb-title">
+  <div class="tb-wrap">
+    <h2 class="tb-title" id="tb-title">Trusted by Thousands.<br />Proven by Results.</h2>
 
-      <article class="pf-card pf-dark">
-        <p class="pf-eyebrow">Our Milestones</p>
-        <h3 id="pf-title">Recognised by the WordPress community</h3>
-        <p>Independent juries and the people who build with Dokan every day keep putting it at the top &mdash; for what it gives admins, vendors and customers alike.</p>
-        <div class="pf-awards">
-          <div class="pf-awards-row">
-            <img src="Media/Highlights%20of%20Our%20Success-1.png" alt="Great User Experience 2018 Award, awarded by FinancesOnline" width="232" height="135" loading="lazy" />
-            <img src="Media/Highlights%20of%20Our%20Success-2.png" alt="The WP Awards 2023" width="232" height="135" loading="lazy" />
-          </div>
-          <img src="Media/Highlights%20of%20Our%20Success.png" alt="Monster's Award 2023" width="476" height="135" loading="lazy" />
+    <div class="tb-cards" id="trusted-cards">
+
+      <article class="tb-card tb-num">
+        <h3 class="tb-card-t">Dokan by the numbers</h3>
+        <div class="tb-stats">
+          <div class="tb-stat"><div class="n font-display font-medium">50K+</div><p class="l">Active Marketplaces</p></div>
+          <div class="tb-stat"><div class="n font-display font-medium">60%+</div><p class="l">Lower Startup Costs</p></div>
+          <div class="tb-stat"><div class="n font-display font-medium">90%+</div><p class="l">Customer Satisfaction</p></div>
+          <div class="tb-stat"><div class="n font-display font-medium">3.97M+</div><p class="l">Total Downloads</p></div>
         </div>
       </article>
 
-      <article class="pf-card pf-light">
-        <h3>Dokan by the numbers</h3>
-        <div class="pf-stats">
-          <div><div class="n font-display font-medium">50K+</div><p class="l">Active Marketplaces</p></div>
-          <div><div class="n font-display font-medium">60%+</div><p class="l">Lower Startup Costs</p></div>
-          <div><div class="n font-display font-medium">90%+</div><p class="l">Customer Satisfaction</p></div>
-          <div><div class="n font-display font-medium">3.97M+</div><p class="l">Total Downloads</p></div>
+      <article class="tb-card tb-awards">
+        <h3 class="tb-card-t">Highlights of Our Success</h3>
+        <div class="tb-aw-grid">
+          <div class="tb-aw tb-aw--1"><img src="Media/Highlights%20of%20Our%20Success-1.png" alt="Great User Experience 2018 Award, awarded by FinancesOnline" width="232" height="135" loading="lazy" /></div>
+          <div class="tb-aw tb-aw--2"><img src="Media/Highlights%20of%20Our%20Success-2.png" alt="The WP Awards 2023" width="232" height="135" loading="lazy" /></div>
+          <div class="tb-aw tb-aw--3"><img src="Media/Highlights%20of%20Our%20Success.png" alt="Monster's Award 2023" width="476" height="135" loading="lazy" /></div>
         </div>
       </article>
 
-      <div class="pf-col3">
-        <article class="pf-card pf-white">
-          <h3>Rated 4.5 to 4.9 by real users</h3>
-          <p>Marketplace owners score Dokan on the platforms they trust &mdash; Capterra, WordPress.org, G2 and Trustpilot.</p>
-          <div class="pf-rating-art">
-            <img src="Media/Proof/ratings.png" alt="Ratings: Capterra 4.5, WordPress 4.6, G2 4.8, Trustpilot 4.9" width="856" height="232" loading="lazy" />
+      <article class="tb-card tb-rate">
+        <div class="tb-rate-head">
+          <div class="tb-score">
+            <div class="v">4.9</div>
+            <div class="tb-stars" role="img" aria-label="4.9 out of 5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.32" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.85-4.45 4.25 1.05 6.05L12 16.9 6.6 19.75l1.05-6.05L3.2 9.45l6.1-.85z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.32" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.85-4.45 4.25 1.05 6.05L12 16.9 6.6 19.75l1.05-6.05L3.2 9.45l6.1-.85z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.32" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.85-4.45 4.25 1.05 6.05L12 16.9 6.6 19.75l1.05-6.05L3.2 9.45l6.1-.85z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.32" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.85-4.45 4.25 1.05 6.05L12 16.9 6.6 19.75l1.05-6.05L3.2 9.45l6.1-.85z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.32" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.85-4.45 4.25 1.05 6.05L12 16.9 6.6 19.75l1.05-6.05L3.2 9.45l6.1-.85z"/></svg></div>
           </div>
-        </article>
-        <div class="pf-mini-row">
-          <article class="pf-card pf-white pf-mini">
-            <div class="n">42+</div>
-            <p class="l">Premium modules</p>
-          </article>
-          <article class="pf-card pf-white pf-mini">
-            <div class="n">4.7 <span>&#9733;</span></div>
-            <p class="l">Average user rating</p>
-          </article>
+          <div class="tb-avatars" aria-hidden="true">
+            <img src="Media/Ellipse%202943.png" alt="" width="68" height="68" loading="lazy" style="left:0" />
+            <img src="Media/Ellipse%202944.png" alt="" width="68" height="68" loading="lazy" style="left:45.84px" />
+            <img src="Media/Ellipse%202945.png" alt="" width="68" height="68" loading="lazy" style="left:91.68px" />
+          </div>
         </div>
-      </div>
+        <p class="tb-lede">Marketplace owners score Dokan on the platforms they trust &mdash; Capterra, WordPress.org, G2 and Trustpilot.</p>
+        <div class="tb-plats">
+          <div class="tb-plat-row">
+            <div class="tb-plat tb-plat--capterra"><div class="v">4.5</div><div class="who"><span style="background:#E6EDF2"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:13.37px;height:13.37px"><path fill="#FF9D28" d="M2 11.2l9.1.1 5.5-5.3z"/><path fill="#68C5ED" d="M16.6 6l5.4-3.8-6.9 17.7z"/><path fill="#044D80" d="M11.1 11.3l5.5-5.3-1.5 13.9z"/><path fill="#E54747" d="M2 11.2l9.1.1 1.5 3.9z"/></svg></span><b>Capterra</b></div></div>
+            <div class="tb-plat tb-plat--wp"><div class="v">4.6</div><div class="who"><span style="background:#F0F0F0"><svg viewBox="0 0 24 24" fill="#1D1D1B" aria-hidden="true" style="width:15.28px;height:15.28px"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-8.6 10a8.6 8.6 0 01.75-3.5l4.1 11.2A8.6 8.6 0 013.4 12zm8.6 8.6c-.84 0-1.66-.12-2.43-.35l2.58-7.5 2.64 7.24c.02.04.04.08.06.11-.89.32-1.85.5-2.85.5zm1.19-12.63c.52-.03.99-.08.99-.08.46-.6.41-.74-.05-.71 0 0-1.4.11-2.3.11-.85 0-2.27-.11-2.27-.11-.47-.03-.52.68-.6.71 0 0 .44.05.91.08l1.36 3.73-1.91 5.73L6.72 7.97c.52-.3.99-.08.99-.8.46-.6.41-.74-.06-.71 0 0-1.39.11-2.29.11-.16 0-.35 0-.55-.01A8.6 8.6 0 0112 3.4c2.24 0 4.28.86 5.81 2.26h-.14c-.85 0-1.46.74-1.46 1.54 0 .71.41 1.32.85 2.03.33.58.72 1.33.72 2.4 0 .75-.28 1.61-.66 2.82l-.87 2.9-3.16-9.38zm3.13 11.58l2.65-7.65c.49-1.24.66-2.23.66-3.11 0-.32-.02-.62-.06-.9A8.56 8.56 0 0120.6 12a8.6 8.6 0 01-4.28 7.45z"/></svg></span><b>WordPress</b></div></div>
+          </div>
+          <div class="tb-plat-row">
+            <div class="tb-plat tb-plat--tp"><div class="v">4.9</div><div class="who"><span style="background:#E5F7F1"><svg viewBox="0 0 24 24" fill="#00B67A" aria-hidden="true" style="width:16.61px;height:15.23px"><path d="M12 1.8l3.1 6.4 7 1-5.1 4.9 1.2 6.9L12 17.7 5.8 21l1.2-6.9L1.9 9.2l7-1z"/></svg></span><b>Trustpilot</b></div></div>
+            <div class="tb-plat tb-plat--g2"><div class="v">4.8</div><div class="who"><span style="background:transparent"><svg viewBox="0 0 32 32" aria-hidden="true" style="width:27.19px;height:27.93px"><rect width="32" height="32" rx="8" fill="#FF492C"/><text x="16" y="21.5" text-anchor="middle" font-family="Poppins, sans-serif" font-weight="700" font-size="14" fill="#fff">G2</text></svg></span><b>G2</b></div></div>
+            <div class="tb-plat tb-plat--more"><a class="tb-more-btn" href="testimonials.html" aria-label="See all reviews"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></a></div>
+          </div>
+        </div>
+      </article>
 
     </div>
   </div>
@@ -2407,7 +2482,7 @@
   reveal('section > .wrap > p, section .wrap > div > p, .dc-lead');
 
   /* Grids stagger their children */
-  [['#proof-cards', .12], ['#reason-cards', .12], ['#discover-cards', .14], ['#inf-track', .12],
+  [['#trusted-cards', .12], ['#reason-cards', .12], ['#discover-cards', .14], ['#inf-track', .12],
    ['#theme-grid', .05], ['#globe-grid', .1]].forEach(function (pair) {
     var host = document.querySelector(pair[0]);
     if (!host || !host.children.length) return;
