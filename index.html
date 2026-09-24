@@ -274,7 +274,6 @@
   /* Highlights → "A few reasons…" heading: 256px on desktop (design). Kept on
      the Highlights section, not on #reasons, so the pinned rail's layout is
      untouched; at ≤1024px the section rhythm above (64/48px) still applies. */
-  @media (min-width:1025px) { .hl-section.py-\[120px\] { padding-bottom:256px; } }
   /* Marketplaces box -> "Dokan Interface" heading: 192px on desktop (the box is
      pinned inside .mk-pin, so this padding is the gap once the pin releases). */
   @media (min-width:1025px) { #marketplaces.mk-section { padding-bottom:192px; } }
@@ -1061,27 +1060,11 @@
   }
   @media (max-width:640px) {
     .hero-copy { padding-top:6px; }
-    .hl-awards { flex-wrap:nowrap; }
-    .hl-awards > img { flex:1 1 0; min-width:0; width:auto; height:auto; aspect-ratio:232/135; }
-  }
-  @media (max-width:639px) {
-    .hl-stats { grid-template-columns:1fr 1fr; column-gap:18px; }
-    .hl-stats .text-\[72px\] { font-size:40px !important; }
-    .hl-stats p { margin-top:8px; font-size:15px !important; }
   }
   /* Small desktops: the 476 + 155 + 126px desktop columns left the stats only
      ~60px per figure at 1024, so the numbers spilled past the viewport. */
-  @media (min-width:1024px) and (max-width:1439px) {
-    .hl-section > .wrap { grid-template-columns:minmax(0,400px) minmax(0,1fr); column-gap:64px; }
-    .hl-section > .wrap > div:last-child { padding-left:56px; }
-    .hl-section .h-px { margin-left:-56px; }
-    .hl-awards { flex-wrap:nowrap; }
-    .hl-awards > img { flex:1 1 0; min-width:0; width:auto; height:auto; aspect-ratio:232/135; }
-    .hl-stats { column-gap:32px; }
-    .hl-stats .text-\[72px\] { font-size:clamp(44px, 4.4vw, 72px) !important; }
-  }
   /* ---- Proof strip (award / numbers / ratings) — 3 boxes, reference layout ---- */
-  .pf-section { background:#fff; padding-bottom:120px; }
+  .pf-section { background:#fff; padding:120px 0 256px; }
   .pf-grid { display:grid; grid-template-columns:0.92fr 1fr 1fr; gap:22px; align-items:stretch; }
   .pf-card { border-radius:20px; padding:40px; box-sizing:border-box; }
   .pf-dark { background:#0B0B0D; color:#fff; display:flex; flex-direction:column; }
@@ -1117,12 +1100,12 @@
     .pf-stats .n { font-size:38px; }
   }
   @media (max-width:1023px) {
-    .pf-section { padding-bottom:80px; }
+    .pf-section { padding:80px 0 128px; }
     .pf-grid { grid-template-columns:1fr 1fr; }
     .pf-col3 { grid-column:1 / -1; grid-template-rows:auto auto; }
   }
   @media (max-width:640px) {
-    .pf-section { padding-bottom:64px; }
+    .pf-section { padding:64px 0 88px; }
     .pf-grid { grid-template-columns:1fr; gap:14px; }
     .pf-card { padding:26px; }
     .pf-col3 { gap:14px; }
@@ -1199,55 +1182,6 @@
   </div>
 </header>
 
-<!-- ══════════════════════ HIGHLIGHTS ══════════════════════ -->
-<section class="bg-white py-[120px] hl-section">
-  <div class="wrap grid lg:grid-cols-[476px_1fr] gap-x-[155px] gap-y-12">
-    <div>
-      <h2 class="font-display font-medium text-[52px] leading-[1.2] text-title max-w-[358px]">Highlights of<br />Our Success</h2>
-      <div class="mt-10 flex flex-col gap-[9px]">
-        <div class="hl-awards flex flex-wrap items-center gap-[12px]">
-          <img src="Media/Highlights%20of%20Our%20Success-1.png" alt="Great User Experience 2018 Award, awarded by FinancesOnline"
-               class="w-[232px] h-[135px] object-contain rounded-[12px]" />
-          <img src="Media/Highlights%20of%20Our%20Success-2.png" alt="The WP Awards 2023"
-               class="w-[232px] h-[135px] object-contain rounded-[12px]" />
-        </div>
-        <img src="Media/Highlights%20of%20Our%20Success.png" alt="Monster's Award 2023"
-             class="w-[476px] max-w-full h-[135px] object-contain object-left rounded-[12px]" />
-      </div>
-    </div>
-    <div class="lg:border-l lg:border-stroke lg:pl-[126px]">
-      <!-- two rows split by a rule that runs from the column's left border
-           (hence the -126px pull on lg) to the right edge, as in the design -->
-      <div class="hl-stats grid sm:grid-cols-2 gap-x-[49px] gap-y-12">
-          <div>
-            <div class="font-display font-medium text-[72px] leading-[1.25] text-title">50K<span>+</span></div>
-            <p class="mt-6 font-body text-[20px] leading-[1.5] text-para">Active Marketplaces</p>
-          </div>
-          <div>
-            <div class="font-display font-medium text-[72px] leading-[1.25] text-title">60%<span>+</span></div>
-            <p class="mt-6 font-body text-[20px] leading-[1.5] text-para">Lower Startup Costs</p>
-          </div>
-      </div>
-      <div class="h-px bg-stroke my-12 lg:my-[77px] lg:-ml-[126px]" aria-hidden="true"></div>
-      <div class="hl-stats grid sm:grid-cols-2 gap-x-[49px] gap-y-12">
-          <div>
-            <div class="font-display font-medium text-[72px] leading-[1.25] text-title">90%<span>+</span></div>
-            <p class="mt-6 font-body text-[20px] leading-[1.5] text-para">Customer Satisfaction</p>
-          </div>
-          <div>
-            <div class="font-display font-medium text-[72px] leading-[1.25] text-title">3.97M<span>+</span></div>
-            <p class="mt-6 font-body text-[20px] leading-[1.5] text-para">Total Downloads</p>
-          </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════ REASONS ══════════════════════
-     Horizontal rail: two cards fill the content width and the third peeks
-     past the right edge. On desktop the section pins and vertical scroll
-     drives the rail (down = left, up = right); below 1024 it is a native
-     swipe row. -->
 <!-- ══════════════════════ PROOF STRIP ══════════════════════
      Three boxes in the reference layout: awards (dark card), the numbers, and
      the review-platform ratings with two small cards under it. -->
@@ -1271,10 +1205,10 @@
       <article class="pf-card pf-light">
         <h3>Dokan by the numbers</h3>
         <div class="pf-stats">
-          <div><div class="n">50K+</div><p class="l">Active Marketplaces</p></div>
-          <div><div class="n">60%+</div><p class="l">Lower Startup Costs</p></div>
-          <div><div class="n">90%+</div><p class="l">Customer Satisfaction</p></div>
-          <div><div class="n">3.97M+</div><p class="l">Total Downloads</p></div>
+          <div><div class="n font-display font-medium">50K+</div><p class="l">Active Marketplaces</p></div>
+          <div><div class="n font-display font-medium">60%+</div><p class="l">Lower Startup Costs</p></div>
+          <div><div class="n font-display font-medium">90%+</div><p class="l">Customer Satisfaction</p></div>
+          <div><div class="n font-display font-medium">3.97M+</div><p class="l">Total Downloads</p></div>
         </div>
       </article>
 
