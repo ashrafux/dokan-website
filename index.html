@@ -112,17 +112,6 @@
 
   /* Rating — Frame 2087325670: 325.82x130 at left 100.71 / bottom 61, radius 20;
      lowered 30px on review -> bottom 31 */
-  .rating-card { position:absolute; left:var(--hero-x, calc(67px + max(0px, (100cqw - 1658.6px) / 2)));
-    bottom:31px; width:325.82px; height:130px;
-    background:#FFFFFF; border-radius:20px; z-index:10; }
-  .rating-score { position:absolute; left:35px; top:calc(50% - 69.56px/2 + 0.78px);
-    width:89px; height:69.56px; display:flex; flex-direction:column; gap:19px; }
-  .rating-score .score { font-family:'Poppins',sans-serif; font-weight:500; font-size:52px;
-    line-height:36px; height:36px; color:#0F172A; }
-  .rating-stars { display:flex; align-items:center; gap:2.05px; height:14.56px; }
-  .rating-stars svg { width:14.56px; height:14.56px; flex:none; color:#FF7400; }
-  .rating-social { position:absolute; left:151px; top:calc(50% - 76.27px/2 + 0.14px);
-    width:138.05px; height:76.27px; display:flex; flex-direction:column; gap:13px; }
   .avatars { position:relative; width:81.16px; height:31.55px; }
   /* the source PNGs already carry the 2px white ring, so no CSS border here —
      adding one would double the ring and shrink the portrait */
@@ -167,7 +156,6 @@
     .hero-copy { width:520px; gap:40px; }
     .hero-h1 { width:520px; font-size:52px; }
     .hero-sub { width:400px; font-size:18px; }
-    .rating-card { bottom:20px; }   /* was 40; lowered too, but kept 20px off the card edge */
     .hero-art { --aw:clamp(440px, min(calc(122.25cqw - 804px), 95.3cqh, 60.8cqw), 1600px); }
   }
   @media (min-width:1024px) and (max-width:1279px) {
@@ -175,7 +163,6 @@
     .hero-h1 { width:520px; font-size:52px; }
     .hero-sub { width:400px; font-size:18px; }
     .hero-art { --aw:clamp(440px, min(calc(122.25cqw - 804px), 95.3cqh, 60.8cqw), 1600px); }
-    .rating-card { bottom:20px; }
   }
 
   /* ---- Responsive: same structure, reflowed (tablet portrait + mobile) ---- */
@@ -189,7 +176,6 @@
     .hero-cta { top:auto; }          /* stacked layout keeps its own rhythm */
     .hero-h1 { width:auto; font-size:clamp(34px,4.4vw,62px); }
     .hero-sub { width:auto; max-width:427px; font-size:18px; }
-    .rating-card { position:relative; left:auto; bottom:auto; margin:40px 32px 0; }
     .hero-art { position:relative; right:auto; bottom:auto; width:100%; display:block;
       margin-top:32px; }
   }
@@ -202,7 +188,6 @@
     .hero-copy { padding:40px 20px 0; gap:32px; }
     .hero-cta { flex-wrap:wrap; height:auto; gap:12px; }
     .btn-primary, .btn-secondary { width:100%; max-width:246px; }
-    .rating-card { margin:32px 20px 0; width:auto; max-width:325.82px; }
   }
   @media (max-width:430px) {
     .menu-login { display:none; }          /* keeps Pricing + menu reachable on small phones */
@@ -1138,42 +1123,6 @@
           </span>
         </a>
         <a href="demo.html" class="btn-secondary">Try Demo</a>
-      </div>
-    </div>
-
-    <!-- Rating (Figma: Frame 2087325670) -->
-    <div class="rating-card">
-      <div class="rating-score">
-        <div class="score">4.9</div>
-        <div class="rating-stars">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.6l2.9 6 6.5.9-4.7 4.5 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5L2.6 9.5l6.5-.9z"/></svg>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.6l2.9 6 6.5.9-4.7 4.5 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5L2.6 9.5l6.5-.9z"/></svg>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.6l2.9 6 6.5.9-4.7 4.5 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5L2.6 9.5l6.5-.9z"/></svg>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.6l2.9 6 6.5.9-4.7 4.5 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5L2.6 9.5l6.5-.9z"/></svg>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2.6l2.9 6 6.5.9-4.7 4.5 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5L2.6 9.5l6.5-.9z"/></svg>
-        </div>
-      </div>
-
-      <div class="rating-social">
-        <div class="avatars">
-          <span style="left:0"><img src="Media/Ellipse%202943.png" alt="" width="68" height="68"></span>
-          <span style="left:24.81px"><img src="Media/Ellipse%202944.png" alt="" width="68" height="68"></span>
-          <span style="left:49.61px"><img src="Media/Ellipse%202945.png" alt="" width="68" height="68"></span>
-        </div>
-        <div class="badges">
-          <span style="background:#F0F0F0">
-            <svg width="17.83" height="17.83" viewBox="0 0 24 24" fill="#1D1D1B"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-8.6 10a8.6 8.6 0 01.75-3.5l4.1 11.2A8.6 8.6 0 013.4 12zm8.6 8.6c-.84 0-1.66-.12-2.43-.35l2.58-7.5 2.64 7.24c.02.04.04.08.06.11-.89.32-1.85.5-2.85.5zm1.19-12.63c.52-.03.98-.08.98-.08.46-.06.41-.74-.05-.71 0 0-1.4.11-2.3.11-.85 0-2.27-.11-2.27-.11-.47-.03-.52.68-.06.71 0 0 .44.05.9.08l1.34 3.66-1.87 5.62-3.12-9.28c.52-.03.99-.08.99-.08.46-.06.4-.74-.06-.71 0 0-1.39.11-2.29.11-.16 0-.35 0-.56-.01A8.6 8.6 0 0112 3.4c2.24 0 4.28.86 5.81 2.26h-.11c-.84 0-1.44.73-1.44 1.52 0 .71.41 1.31.84 2.02.33.57.71 1.31.71 2.37 0 .73-.28 1.58-.65 2.77l-.86 2.85-3.11-9.22zm3.32 11.63l2.63-7.6c.49-1.23.65-2.21.65-3.08 0-.32-.02-.61-.06-.88a8.6 8.6 0 01-3.22 11.56z"/></svg>
-          </span>
-          <span style="background:#E5F7F1">
-            <svg width="19.38" height="17.77" viewBox="0 0 24 24" fill="#00B67A"><path d="M12 1.8l3.1 6.4 7 1-5.1 4.9 1.2 6.9L12 17.7 5.8 21l1.2-6.9L1.9 9.2l7-1z"/></svg>
-          </span>
-          <span style="background:#E6EDF2">
-            <svg width="15.6" height="15.6" viewBox="0 0 24 24" fill="#2AABEE"><path d="M21.6 4.2L2.9 11.4c-.9.35-.9.9-.15 1.12l4.8 1.5 1.86 5.7c.22.6.4.83 1.02.83.48 0 .69-.22.96-.48l2.3-2.24 4.8 3.55c.88.48 1.5.23 1.72-.81l3.1-14.6c.32-1.28-.48-1.86-1.7-1.77z"/></svg>
-          </span>
-          <span style="background:#000000">
-            <svg width="11.14" height="11.14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-          </span>
-        </div>
       </div>
     </div>
 
@@ -2380,7 +2329,7 @@
   var ease = 'power3.out';
 
   /* ---------- Hero intro ---------- */
-  var HERO_INTRO = '.menu-row > *, .hero-h1, .hero-sub, .hero-cta > *, .rating-card';
+  var HERO_INTRO = '.menu-row > *, .hero-h1, .hero-sub, .hero-cta > *';
   var heroTl = gsap.timeline({
     defaults: { ease: ease },
     /* Clear the inline transforms afterwards so the hero measures exactly as
@@ -2392,8 +2341,7 @@
     .from('.hero-h1',       { y: 36, opacity: 0, duration: .9 }, '-=.35')
     .from('.hero-sub',      { y: 24, opacity: 0, duration: .8 }, '-=.6')
     .from('.hero-cta > *',  { y: 20, opacity: 0, duration: .7, stagger: .1 }, '-=.55')
-    .from('.rating-card',   { y: 26, opacity: 0, duration: .8 }, '-=.5')
-    .from('.hero-art',      { opacity: 0, scale: .96, transformOrigin: '100% 100%', duration: 1.1 }, '-=1');   /* grows from its corner, so it never pokes past the card */
+    .from('.hero-art',      { opacity: 0, scale: .96, transformOrigin: '100% 100%', duration: 1.1 }, '-=.8');   /* grows from its corner, so it never pokes past the card */
 
   /* If rAF is throttled (loaded in a background tab) the intro can stall and
      strand those transforms. Snap it to its end state instead. */
