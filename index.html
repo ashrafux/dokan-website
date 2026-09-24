@@ -1159,14 +1159,15 @@
   /* ---- Commission + payouts (Figma frame 2106260558) ----
      Lavender band, 1495px content at 102px, 74px under the heading, then the
      white calculator card (694x580) and the feature column (713) at 88px. */
-  .mn-section { background:#E2DDF1; padding:144px 0; }
+  .mn-section { background:#E2DDF1; padding:144px 0 192px; }
   .mn-wrap { width:100%; max-width:1704px; margin:0 auto; padding:0 102px; box-sizing:border-box;
     display:flex; flex-direction:column; gap:74px; }
   .mn-h2 { margin:0; max-width:904px; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
     line-height:120%; color:#0F172A; }
-  .mn-row { display:flex; align-items:center; gap:88px; }
+  /* the two columns keep the design's 694:713 ratio, so they narrow together */
+  .mn-row { display:grid; grid-template-columns:minmax(0,694fr) minmax(0,713fr); gap:88px; align-items:center; }
 
-  .mn-card { position:relative; flex:0 0 694px; max-width:694px; height:580px; box-sizing:border-box;
+  .mn-card { position:relative; width:100%; max-width:694px; height:580px; box-sizing:border-box;
     padding:59px 69px 45px; background:#fff; box-shadow:0 2px 5px rgba(0,0,0,.06); border-radius:20px;
     display:flex; flex-direction:column; }
   .mn-card h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:36px; line-height:120%;
@@ -1199,13 +1200,13 @@
   .mn-out b { font-weight:700; color:#475569; }
   .mn-note { margin:27px 0 0; font-family:'Lato',sans-serif; font-size:14px; line-height:130%; color:#475569; opacity:.98; }
 
-  .mn-side { flex:1 1 713px; min-width:0; display:flex; flex-direction:column; align-items:flex-end; gap:95px; }
-  .mn-feats { width:100%; display:grid; grid-template-columns:repeat(2, minmax(0,336.5px)); gap:40px; }
+  .mn-side { width:100%; min-width:0; display:flex; flex-direction:column; align-items:flex-end; gap:95px; }
+  .mn-feats { width:100%; display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:40px; justify-content:end; }
   .mn-feat { display:grid; grid-template-columns:36.67px minmax(0,1fr); gap:15px; align-items:start; }
   .mn-feat svg { width:36.67px; height:34px; flex:none; color:#000; }
-  .mn-feat h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:20px; line-height:130%;
+  .mn-feat h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:clamp(17px, 1.28vw, 20px); line-height:130%;
     color:#334155; opacity:.98; }
-  .mn-feat p { margin:9px 0 0; font-family:'Lato',sans-serif; font-size:18px; line-height:140%; color:#334155; opacity:.98; }
+  .mn-feat p { margin:9px 0 0; font-family:'Lato',sans-serif; font-size:clamp(15px, 1.15vw, 18px); line-height:140%; color:#334155; opacity:.98; }
   .mn-works { width:100%; max-width:665px; display:flex; flex-direction:column; gap:32px; }
   .mn-works hr { width:100%; height:0; margin:0; border:0; border-top:1px solid #000; }
   .mn-works-row { display:flex; align-items:flex-start; gap:145px; }
@@ -1215,15 +1216,17 @@
     border-radius:100px; font-family:'Poppins',sans-serif; font-weight:600; font-size:18px; line-height:130%;
     color:#334155; white-space:nowrap; }
 
-  @media (max-width:1500px) {
+  @media (max-width:1600px) {
     .mn-wrap { padding:0 48px; gap:56px; }
-    .mn-row { gap:48px; align-items:stretch; }
-    .mn-card { flex:0 1 620px; }
+    .mn-row { gap:48px; }
     .mn-side { gap:56px; }
     .mn-works-row { gap:40px; }
+    .mn-card { padding:44px 44px 36px; }
+    .mn-card h3 { font-size:32px; }
   }
   @media (max-width:1180px) {
-    .mn-section { padding:96px 0; }
+    .mn-section { padding:96px 0 128px; }
+    .mn-row { grid-template-columns:minmax(0,1fr); }
     .mn-h2 { font-size:clamp(30px,4.4vw,52px); }
     .mn-row { flex-direction:column; }
     .mn-card { flex:0 0 auto; width:100%; max-width:694px; }
@@ -1231,7 +1234,7 @@
     .mn-works { max-width:none; }
   }
   @media (max-width:760px) {
-    .mn-section { padding:72px 0; }
+    .mn-section { padding:72px 0 88px; }
     .mn-wrap { padding:0 20px; gap:40px; }
     .mn-card { height:auto; padding:32px 24px; }
     .mn-card h3 { font-size:28px; }
