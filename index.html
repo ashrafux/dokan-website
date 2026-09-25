@@ -445,7 +445,7 @@
   .wf-lead { margin:0; max-width:560px; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#475569; }
 
   .wf-scroll { margin-top:104px; }
-  .wf-grid { position:relative; display:grid; grid-template-columns:minmax(0,1fr) repeat(3, 292px); column-gap:20px;
+  .wf-grid { position:relative; display:grid; grid-template-columns:minmax(0,1fr) repeat(3, 252px); column-gap:18px;
     grid-template-rows:auto repeat(5, auto) auto; }
   .wf-row { display:contents; }
   /* explicit placement: auto-placement would route the cells around .wf-hl */
@@ -459,12 +459,12 @@
   .wf-row.is-foot .wf-cell { border-top:0; min-height:0; padding-top:28px; padding-bottom:0; }
 
   /* one box per option, header to foot: Dokan in solid lavender, the other
-     two in a neutral grey; all three the same width, set to the right */
+     two in a neutral grey; all three the same narrow width, set to the right */
   .wf-hl, .wf-box { grid-row:1 / -1; z-index:0; margin:-40px 0 -32px; border-radius:24px; }
   .wf-hl { grid-column:2; background:#F3EEFF; box-shadow:inset 0 0 0 1.5px rgba(112,71,235,.3); }
   .wf-box { background:#F7F7FA; box-shadow:inset 0 0 0 1px rgba(15,23,42,.07); }
   .wf-box.c3 { grid-column:3; } .wf-box.c4 { grid-column:4; }
-  .wf-row > .wf-cell:nth-child(n+2) { padding-left:32px; padding-right:32px; border-top-color:rgba(15,23,42,.07); }
+  .wf-row > .wf-cell:nth-child(n+2) { padding-left:28px; padding-right:24px; border-top-color:rgba(15,23,42,.07); }
   .wf-cell.is-dokan { border-top-color:rgba(112,71,235,.16) !important; }
   .wf-row.is-head .wf-cell:nth-child(n+2) { flex-direction:column; align-items:flex-start; justify-content:flex-end; gap:14px; }
 
@@ -511,7 +511,7 @@
     .wf-lead { font-size:18px; max-width:560px; }
     .wf-scroll { margin-top:84px; }
     .wf-cell { padding:0 18px; font-size:16px; min-height:80px; }
-    .wf-grid { grid-template-columns:minmax(0,1fr) repeat(3, 224px); column-gap:14px; }
+    .wf-grid { grid-template-columns:minmax(0,1fr) repeat(3, 208px); column-gap:14px; }
     .wf-row > .wf-cell:nth-child(n+2) { padding-left:22px; padding-right:22px; }
     .wf-label { font-size:16px; gap:12px; } .wf-label i { width:34px; height:34px; }
     .wf-col i { width:36px; height:36px; } .wf-col b { font-size:16px; } .wf-col small { font-size:13px; }
