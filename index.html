@@ -1214,9 +1214,13 @@
     align-items:center; justify-content:center; }
   .tb-plat .who b { font-family:'Lato',sans-serif; font-weight:400; font-size:13.26px; line-height:130%;
     color:#475569; white-space:nowrap; }
-  .tb-plat--capterra { flex:127.74 1 0; } .tb-plat--wp { flex:136.31 1 0; }
-  .tb-plat--tp { flex:136.31 1 0; } .tb-plat--g2 { flex:118.26 1 0; }
-  .tb-plat--more { flex:112.26 1 0; align-items:center; justify-content:center; padding:0; }
+  /* the design's own tile widths (127.74 / 136.31 and 136.31 / 118.26 / 112.26
+     inside the card's 414px content box), kept as a share of that box (cqw =
+     the card's content width) so they scale with it; the rows no longer
+     stretch to the card's full width */
+  .tb-plat--capterra { flex:0 1 30.86cqw; } .tb-plat--wp { flex:0 1 32.93cqw; }
+  .tb-plat--tp { flex:0 1 32.93cqw; } .tb-plat--g2 { flex:0 1 28.57cqw; }
+  .tb-plat--more { flex:0 1 27.12cqw; align-items:center; justify-content:center; padding:0; }
   .tb-more-btn { width:30.62px; height:30.62px; border-radius:50%; background:#000; display:flex;
     align-items:center; justify-content:center; }
   .tb-more-btn svg { width:10.75px; height:10.75px; color:#fff; }
