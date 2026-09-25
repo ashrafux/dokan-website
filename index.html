@@ -444,7 +444,7 @@
   .wf-h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px; line-height:1.2; color:#0F172A; }
   .wf-lead { margin:0; max-width:560px; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#475569; }
 
-  .wf-scroll { margin-top:104px; }
+  .wf-scroll { margin-top:88px; }
   .wf-grid { position:relative; display:grid; grid-template-columns:minmax(0,1fr) repeat(3, 226px); column-gap:16px;
     grid-template-rows:auto repeat(5, auto) auto; }
   .wf-row { display:contents; }
@@ -460,13 +460,17 @@
 
   /* one box per option, header to foot: Dokan in solid lavender, the other
      two in a neutral grey; all three the same narrow width, set to the right */
-  .wf-hl, .wf-box { grid-row:1 / -1; z-index:0; margin:-40px 0 -32px; border-radius:20px; }
+  .wf-hl, .wf-box { grid-row:1 / -1; z-index:0; margin:-24px 0 -32px; border-radius:20px; }
   .wf-hl { grid-column:2; background:#F3EEFF; box-shadow:inset 0 0 0 1.5px rgba(112,71,235,.3); }
   .wf-box { background:#F7F7FA; box-shadow:inset 0 0 0 1px rgba(15,23,42,.07); }
   .wf-box.c3 { grid-column:3; } .wf-box.c4 { grid-column:4; }
   .wf-row > .wf-cell:nth-child(n+2) { padding-left:24px; padding-right:20px; border-top-color:rgba(15,23,42,.07); }
   .wf-cell.is-dokan { border-top-color:rgba(112,71,235,.16) !important; }
-  .wf-row.is-head .wf-cell:nth-child(n+2) { flex-direction:column; align-items:flex-start; justify-content:flex-end; gap:14px; }
+  .wf-row.is-head .wf-cell:nth-child(n+2) { flex-direction:column; align-items:flex-start; justify-content:flex-start; gap:14px; }
+  /* Recommended sits in the top-right corner, in the slot the icon takes in
+     the other boxes, so the logo lines up with their names */
+  .wf-row.is-head .wf-cell.is-dokan { padding-right:24px; }
+  .wf-row.is-head .wf-cell.is-dokan .wf-tag { align-self:flex-end; margin-bottom:16px; }
 
   /* column headers */
   .wf-tag { display:inline-flex; align-items:center; height:26px; padding:0 12px; border-radius:999px; background:#7047EB;
@@ -510,7 +514,7 @@
     .wf-section { padding:96px 0 88px; }
     .wf-h2 { font-size:clamp(30px,4.4vw,52px); }
     .wf-lead { font-size:18px; max-width:560px; }
-    .wf-scroll { margin-top:84px; }
+    .wf-scroll { margin-top:68px; }
     .wf-cell { padding:0 18px; font-size:15px; min-height:74px; }
     .wf-grid { grid-template-columns:minmax(0,1fr) repeat(3, 196px); column-gap:12px; }
     .wf-row > .wf-cell:nth-child(n+2) { padding-left:22px; padding-right:22px; }
