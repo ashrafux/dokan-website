@@ -616,47 +616,27 @@
     font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#334155; opacity:.98; }
   .dc-row { position:relative; display:flex; gap:17px; }
   .dc-card { position:relative; flex:0 0 481px; height:clamp(460px, calc(100vh - 150px), 564px); border-radius:20px; overflow:hidden;
-    display:flex; align-items:center; justify-content:center; background-size:cover; background-position:center; }
-  .dc-inner { display:flex; flex-direction:column; align-items:center; gap:24px; width:274px; }
-  .dc-title { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:30px; line-height:1.3; text-align:center; color:#25252D; }
-  .dc-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; align-items:center; gap:9px; }
-  .dc-pill { --tick:#fff; display:flex; align-items:center; gap:15.08px; height:50.25px; box-sizing:border-box;
-    padding:0 29px 0 9.04px; border-radius:75.37px; background:#fff; white-space:nowrap;
-    font-family:'Lato',sans-serif; font-size:16.08px; line-height:1.5; color:#393939; }
-  .dc-check { width:32.16px; height:32.16px; flex:none; color:#19B363; }
-  .dc-check svg { display:block; width:100%; height:100%; }
-  /* dark cards: white title, frosted pills */
-  .dc-service .dc-title, .dc-auction .dc-title { color:#fff; }
-  .dc-service .dc-pill, .dc-auction .dc-pill { background:rgba(255,255,255,.15); color:#fff; }
-  /* card colourways — the tilted highlight pill carries each card's accent */
-  .dc-digital { background-image:url('Media/BG%20of%20Digital%20%20Marketplace.png'); }
-  .dc-digital .dc-pill.is-hi { background:#7047EB; color:#fff; --tick:#7047EB; }
-  .dc-digital .dc-pill.is-hi .dc-check { color:#fff; }
-  .dc-service { background:#0F1225; }
-  .dc-service .dc-pill.is-hi { background:#FAAE15; color:#000; --tick:#fff; }
-  .dc-service .dc-pill.is-hi .dc-check { color:#000; }
-  .dc-traditional { background-image:url('Media/bg%20of%20Traditional%20Marketplace.png'); }
-  .dc-traditional .dc-pill.is-hi { background:#1D4ED8; color:#fff; --tick:#1D4ED8; }
-  .dc-traditional .dc-pill.is-hi .dc-check { color:#fff; }
-  .dc-rental { background:
-      radial-gradient(60% 48% at 22% 14%, #FFFFFF 0%, rgba(255,255,255,0) 70%),
-      radial-gradient(58% 56% at 86% 62%, #4FD9AE 0%, rgba(79,217,174,0) 72%),
-      radial-gradient(46% 40% at 18% 92%, #9AF0D5 0%, rgba(154,240,213,0) 70%),
-      linear-gradient(160deg, #E6FFF5 0%, #B9F2DC 100%); }
-  .dc-rental .dc-pill.is-hi { background:#E64B5F; color:#fff; --tick:#E64B5F; }
-  .dc-rental .dc-pill.is-hi .dc-check { color:#fff; }
-  .dc-auction { background:
-      radial-gradient(62% 56% at 82% 18%, rgba(139,92,246,.62) 0%, rgba(139,92,246,0) 70%),
-      radial-gradient(52% 48% at 14% 88%, rgba(236,72,153,.38) 0%, rgba(236,72,153,0) 70%),
-      #1A1238; }
-  .dc-auction .dc-pill.is-hi { background:#3DDC97; color:#052E1F; --tick:#fff; }
-  .dc-auction .dc-pill.is-hi .dc-check { color:#052E1F; }
-  .dc-wholesale { background:
-      radial-gradient(56% 48% at 24% 16%, #FFFFFF 0%, rgba(255,255,255,0) 70%),
-      radial-gradient(60% 56% at 82% 74%, #FFB3C7 0%, rgba(255,179,199,0) 72%),
-      linear-gradient(160deg, #FFF4C4 0%, #FFD9C4 100%); }
-  .dc-wholesale .dc-pill.is-hi { background:#0F172A; color:#fff; --tick:#0F172A; }
-  .dc-wholesale .dc-pill.is-hi .dc-check { color:#FFE994; }
+    display:flex; align-items:stretch; background-size:cover; background-position:center; }
+  /* copy at the top, the illustration tile parked at the bottom of the card */
+  .dc-inner { display:flex; flex-direction:column; align-items:flex-start; width:100%; box-sizing:border-box; padding:56px 52px; }
+  .dc-title { margin:0; max-width:330px; font-family:'Poppins',sans-serif; font-weight:700; font-size:38px;
+    line-height:1.2; color:#0F172A; }
+  .dc-body { margin:22px 0 0; max-width:362px; font-family:'Lato',sans-serif; font-size:22px; line-height:1.45; color:#475569; }
+  .dc-like { margin:22px 0 0; font-family:'Poppins',sans-serif; font-weight:700; font-size:16px; line-height:1.4; color:#0F172A; }
+  .dc-art { margin:auto 0 0; flex:none; width:224px; height:120px; border-radius:14px; background:#fff;
+    box-shadow:0 6px 18px rgba(15,23,42,.10); display:flex; align-items:center; justify-content:center; }
+  .dc-art svg { display:block; width:176px; height:96px; }
+  /* card colourways */
+  .dc-physical { background:#F8E8C8; }
+  .dc-digital  { background:#D5E8F0; }
+  .dc-booking  { background:#EAE1E1; }
+  .dc-services { background:#DFD8FF; }
+  .dc-food     { background:#F7F7C5; }
+  .dc-b2b      { background:#E0E9E5; }
+  /* left copy CTA */
+  .dc-cta { margin:32px 0 0; display:inline-flex; align-items:center; gap:8px; font-family:'Poppins',sans-serif;
+    font-weight:600; font-size:16px; line-height:1.4; color:#0F172A; }
+  .dc-cta svg { width:18px; height:18px; }
   /* Below the pin breakpoint: copy on top, the cards a native swipe row */
   @media (max-width:1023px) {
     .dc-section { padding:96px 0; }
@@ -669,8 +649,14 @@
     .dc-row { gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; }
     .dc-row::-webkit-scrollbar { display:none; }
     .dc-card { flex:0 0 min(481px, 86%); height:480px; scroll-snap-align:start; }
+    .dc-inner { padding:40px 36px; }
+    .dc-title { font-size:30px; }
+    .dc-body { margin-top:16px; font-size:19px; }
+    .dc-like { margin-top:18px; }
+    .dc-art { width:196px; height:104px; }
+    .dc-art svg { width:152px; height:83px; }
   }
-  @media (max-width:400px) { .dc-pill { font-size:15px; padding-right:22px; } .dc-title { font-size:26px; } }
+  @media (max-width:400px) { .dc-title { font-size:26px; } .dc-body { font-size:17px; } .dc-inner { padding:32px 28px; } }
 
   /* ---- Worldwide (Figma frame 2106260905) ---- */
   .ww-section { padding-top:42px; }
@@ -1611,8 +1597,9 @@
     <div class="wrap">
       <div class="dc-track">
         <div class="dc-copy">
-          <h2 class="dc-h2 font-display font-bold text-title">Discover <br />Endless <br />Potential <br />with Dokan</h2>
-          <p class="dc-lead">Explore Infinite Possibilities with Dokan! Whether you're selling products or bookings, Dokan empowers you to create any marketplace you can imagine, effortlessly. It's that simple!</p>
+          <h2 class="dc-h2 font-display font-bold text-title">Whatever <br />you want to <br />sell, there's a <br />marketplace <br />for it</h2>
+          <p class="dc-lead">From physical and digital products to services, rentals, bookings, and B2B&mdash;Dokan gives you the tools to build the marketplace your business needs.</p>
+          <a class="dc-cta" href="demo.html" data-tertiary>Explore all use cases <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
         <div class="dc-row" id="discover-cards" aria-label="Marketplace types"></div>
       </div>
@@ -2149,20 +2136,35 @@
   });
 
   // ---------- Discover cards ----------
-  var CHECK = '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="currentColor"/><path d="M9.6 16.4l4.4 4.3 8.4-9" fill="none" stroke="var(--tick)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  /* One card per marketplace type: title, one-line description, the "Like …"
+     reference, and a white tile at the bottom with a flat illustration drawn
+     in the same language as the design (navy line art, one blue accent). */
+  var ART = function (body) {
+    return '<svg viewBox="0 0 176 96" fill="none" stroke="#101B2B" stroke-width="3" stroke-linecap="round" ' +
+           'stroke-linejoin="round" aria-hidden="true">' + body + '</svg>';
+  };
   var discover = [
-    { key: 'digital', t: 'Digital<br>Marketplace', tilt: 2.86,
-      items: ['Audio and Songs', 'Themes, Plugins, Software', 'Paintings, Photography', 'Videos, 3D animations', 'Apps, eBooks, PDF'] },
-    { key: 'service', t: 'Service Based<br>Marketplace', tilt: -2.86,
-      items: ['Technician, Assistance', 'Spa Service, Therapist', 'Consulting Services', 'Child Care Services', 'Tour and Travel operations'] },
-    { key: 'traditional', t: 'Traditional<br>Marketplace', tilt: -2.86,
-      items: ['Readymade Garments', 'Laptop, iPhone, Electronics', 'Books, Magazines, Comics', 'Beauty Care Items', 'Shoes and Handicrafts'] },
-    { key: 'rental', t: 'Rental<br>Marketplace', tilt: 2.86,
-      items: ['Car and Bike Rentals', 'Holiday Homes, Rooms', 'Cameras and Gear', 'Event Venues, Halls', 'Tools and Equipment'] },
-    { key: 'auction', t: 'Auction<br>Marketplace', tilt: -2.86,
-      items: ['Art and Collectibles', 'Vintage Watches', 'Rare Coins, Stamps', 'Antique Furniture', 'Sports Memorabilia'] },
-    { key: 'wholesale', t: 'B2B Wholesale<br>Marketplace', tilt: 2.86,
-      items: ['Bulk Raw Materials', 'Office Supplies', 'Industrial Equipment', 'Restaurant Supplies', 'Packaging and Labels'] },
+    { key: 'physical', t: 'Physical<br>products', d: 'Handmade goods, fashion, electronics.', like: 'Like Etsy or Amazon',
+      art: ART('<path d="M30 36h116v40a4 4 0 0 1-4 4H34a4 4 0 0 1-4-4z"/><path d="M30 36l14-14h88l14 14"/>' +
+               '<path d="M88 22v14"/><path d="M88 36v44" stroke="#3B63D6"/>') },
+    { key: 'digital', t: 'Digital<br>products', d: 'Templates, ebooks, courses and downloads.', like: 'Like Creative Market',
+      art: ART('<rect x="26" y="18" width="124" height="60" rx="8"/><path d="M26 34h124"/>' +
+               '<circle cx="38" cy="26" r="2.6" fill="#101B2B" stroke="none"/><circle cx="48" cy="26" r="2.6" fill="#101B2B" stroke="none"/>' +
+               '<circle cx="58" cy="26" r="2.6" fill="#101B2B" stroke="none"/>' +
+               '<path d="M88 44v22M79 57l9 9 9-9" stroke="#3B63D6"/>') },
+    { key: 'booking', t: 'Bookings and<br>appointments', d: 'Tours, classes, consultations.', like: 'Like Airbnb Experiences',
+      art: ART('<rect x="30" y="22" width="116" height="60" rx="8"/><path d="M30 40h116"/>' +
+               '<path d="M56 14v14M120 14v14"/><path d="M66 60l12 12 24-24" stroke="#3B63D6"/>') },
+    { key: 'services', t: 'Services', d: 'Freelancers and local pros sell their time.', like: 'Like Fiverr',
+      art: ART('<circle cx="88" cy="48" r="30"/><circle cx="88" cy="48" r="2.6" fill="#101B2B" stroke="none"/>' +
+               '<path d="M88 30v18l14 8" stroke="#3B63D6"/><path d="M88 18v5"/>') },
+    { key: 'food', t: 'Food and<br>grocery', d: 'Restaurants and farms deliver to nearby customers.', like: '',
+      art: ART('<path d="M46 36h84l-7 44a6 6 0 0 1-6 5H59a6 6 0 0 1-6-5z"/><path d="M70 36a18 18 0 0 1 36 0"/>' +
+               '<path d="M78 70c0-13 10-23 23-23 0 13-10 23-23 23zM78 70l15-15" stroke="#3B63D6"/>') },
+    { key: 'b2b', t: 'B2B and<br>wholesale', d: 'Bulk pricing, quotes and trade accounts.', like: '',
+      art: ART('<rect x="36" y="42" width="48" height="30" rx="3"/><rect x="92" y="42" width="48" height="30" rx="3"/>' +
+               '<rect x="64" y="10" width="48" height="30" rx="3"/><path d="M30 78h116v10H30z"/>' +
+               '<path d="M30 83h116" stroke="#3B63D6"/>') },
   ];
   var dc = $('#discover-cards');
   discover.forEach(function (c) {
@@ -2171,10 +2173,9 @@
     el.innerHTML =
       '<div class="dc-inner">' +
         '<h3 class="dc-title">' + c.t + '</h3>' +
-        '<ul class="dc-list">' + c.items.map(function (it, i) {
-          return '<li class="dc-pill' + (i === 2 ? ' is-hi" style="transform:rotate(' + c.tilt + 'deg)' : '') + '">' +
-                   '<span class="dc-check">' + CHECK + '</span><span>' + it + '</span></li>';
-        }).join('') + '</ul>' +
+        '<p class="dc-body">' + c.d + '</p>' +
+        (c.like ? '<p class="dc-like">' + c.like + '</p>' : '') +
+        '<div class="dc-art">' + c.art + '</div>' +
       '</div>';
     dc.appendChild(el);
   });
