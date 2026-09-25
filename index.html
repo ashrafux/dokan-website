@@ -432,6 +432,53 @@
     .cta-art { margin-top:32px; }
   }
 
+  /* ---- Why founders choose Dokan: a three-way comparison table ----
+     Same furniture as the rest of the page: 20px card, hairline rules, the
+     Dokan column tinted in the brand lavender so the eye lands there first. */
+  .wf-section { background:#fff; padding:144px 0 120px; }
+  .wf-wrap { width:100%; max-width:1704px; margin:0 auto; padding:0 102px; box-sizing:border-box; }
+  .wf-h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px; line-height:1.2; color:#0F172A; }
+  .wf-card { margin-top:56px; border:1px solid #E8E8F0; border-radius:20px; overflow:hidden; background:#fff; }
+  .wf-table { width:100%; border-collapse:collapse; table-layout:fixed; }
+  .wf-table th, .wf-table td { padding:26px 32px; text-align:left; vertical-align:middle; }
+  .wf-table col.c1 { width:32%; } .wf-table col.c2 { width:21%; }
+  .wf-table col.c3 { width:21%; } .wf-table col.c4 { width:26%; }
+  .wf-table thead th { font-family:'Poppins',sans-serif; font-weight:600; font-size:19px; line-height:1.4; color:#475569; }
+  .wf-table thead th.is-dokan { color:#7047EB; }
+  .wf-table tbody th { font-family:'Lato',sans-serif; font-weight:400; font-size:20px; line-height:1.5; color:#475569; }
+  .wf-table tbody td { font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#334155; }
+  .wf-table tbody td.is-dokan { background:#F5F2FE; font-family:'Poppins',sans-serif; font-weight:600; color:#0F172A; }
+  .wf-table tbody tr th, .wf-table tbody tr td { border-top:1px solid #EDEDF4; }
+  .wf-yes, .wf-no { display:inline-flex; align-items:center; gap:10px; }
+  .wf-yes svg, .wf-no svg { flex:none; width:20px; height:20px; }
+  .wf-yes { color:#334155; } .wf-yes svg { color:#94A3B8; }
+  .is-dokan .wf-yes svg { color:#7047EB; }
+  .wf-no { color:#64748B; } .wf-no svg { color:#CBD5E1; }
+  .wf-table tbody tr { transition:background-color .25s ease; }
+  .wf-table tbody tr:hover { background:#FAFAFD; }
+  .wf-table tbody tr:hover td.is-dokan { background:#EFEAFD; }
+  .wf-note { margin:28px 0 0; font-family:'Lato',sans-serif; font-size:18px; line-height:1.5; color:#475569; }
+  .wf-note a { margin-left:6px; font-family:'Poppins',sans-serif; font-weight:600; color:#7047EB; }
+  @media (max-width:1600px) { .wf-wrap { padding:0 48px; } }
+  @media (max-width:1180px) {
+    .wf-section { padding:96px 0 88px; }
+    .wf-h2 { font-size:clamp(30px,4.4vw,52px); }
+    .wf-card { margin-top:40px; }
+    .wf-table th, .wf-table td { padding:20px 22px; }
+    .wf-table thead th { font-size:17px; }
+    .wf-table tbody th, .wf-table tbody td { font-size:18px; }
+  }
+  @media (max-width:900px) {
+    /* the table keeps its shape and scrolls inside the card */
+    .wf-card { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    .wf-table { min-width:720px; }
+  }
+  @media (max-width:760px) {
+    .wf-section { padding:72px 0 64px; }
+    .wf-wrap { padding:0 20px; }
+    .wf-note { font-size:16px; }
+  }
+
   /* ── Ecommerce Scale (scale-section package) ──────────────────────────
      Everything is sized from the panel width via container units, so the
      1660x1049 Figma panel scales as one piece at every viewport. */
@@ -1864,6 +1911,36 @@
   </div>
 </section>
 
+<!-- ══════════════════════ WHY FOUNDERS CHOOSE DOKAN ══════════════════════
+     A plain three-way comparison: the Dokan column is tinted and set in the
+     display face so it reads as the recommendation without a badge. ═══════ -->
+<section class="wf-section" id="why-dokan">
+  <div class="wf-wrap">
+    <h2 class="wf-h2">Why founders choose Dokan</h2>
+    <div class="wf-card">
+      <table class="wf-table">
+        <colgroup><col class="c1" /><col class="c2" /><col class="c3" /><col class="c4" /></colgroup>
+        <thead>
+          <tr>
+            <th scope="col"><span class="sr-only">Comparison</span></th>
+            <th scope="col" class="is-dokan">Dokan</th>
+            <th scope="col">Custom build</th>
+            <th scope="col">SaaS platform</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Time to launch</th><td class="is-dokan">Days</td><td>6+ months</td><td>Days</td></tr>
+          <tr><th scope="row">Upfront cost</th><td class="is-dokan">Free to start</td><td>$50,000+</td><td>Low</td></tr>
+          <tr><th scope="row">Ongoing fees</th><td class="is-dokan">Flat yearly licence</td><td>Dev + hosting</td><td>Monthly, grows with you</td></tr>
+          <tr><th scope="row">You own your store and data</th><td class="is-dokan"><span class="wf-yes"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M6 10.4l2.7 2.6L14 7.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Yes</span></td><td><span class="wf-yes"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M6 10.4l2.7 2.6L14 7.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Yes</span></td><td><span class="wf-no"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 7l6 6M13 7l-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>No</span></td></tr>
+          <tr><th scope="row">Customize anything</th><td class="is-dokan"><span class="wf-yes"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M6 10.4l2.7 2.6L14 7.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Yes</span></td><td><span class="wf-yes"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M6 10.4l2.7 2.6L14 7.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Yes</span></td><td>Limited</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="wf-note">Comparing WooCommerce plugins? <a href="blog.html" data-tertiary>See Dokan vs WCFM</a></p>
+  </div>
+</section>
+
 <!-- ══════════════════════ ECOMMERCE SCALE ══════════════════════
      From the "scale-section" package: a fluid black panel (container units,
      1 unit = 1/1660 of the panel width) carrying four stat lines. Hovering or
@@ -2710,6 +2787,7 @@
   }
 
   /* Award badges + interface panel + CTA + map */
+  reveal('.wf-card, .wf-note', { y: 26 });
   reveal('.shadow-medium, [alt*="World map"], [alt*="Amazon"], .iface-stage',
          { y: 34, duration: .9 });
 
