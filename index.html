@@ -623,50 +623,26 @@
     line-height:1.2; color:#0F172A; }
   .dc-body { margin:22px 0 0; max-width:362px; font-family:'Lato',sans-serif; font-size:22px; line-height:1.45; color:#475569; }
   .dc-like { margin:22px 0 0; font-family:'Poppins',sans-serif; font-weight:700; font-size:16px; line-height:1.4; color:#0F172A; }
-  /* illustrations: a small slice of the product UI per card, in the same
-     language as the design system — white cards, soft shadow, tinted icon
-     chips, one blue accent. All six occupy the same 344x200 box. */
-  .dc-art { margin:auto 0 0; flex:none; width:344px; height:200px; }
-  .dcx { position:relative; width:344px; height:200px; font-family:'Inter','Lato',sans-serif; color:#0F172A; }
-  .dcx-card { position:absolute; box-sizing:border-box; background:#fff; border-radius:14px;
-    box-shadow:0 12px 28px rgba(15,23,42,.14); }
-  .dcx-row { display:flex; align-items:center; gap:10px; }
-  .dcx-chip { flex:none; width:30px; height:30px; border-radius:9px; display:flex; align-items:center; justify-content:center; }
-  .dcx-chip svg { width:15px; height:15px; }
-  .dcx-tx { min-width:0; }
-  .dcx-t { display:block; font-size:12.5px; font-weight:700; line-height:1.35; letter-spacing:-.1px; }
-  .dcx-s { display:block; margin-top:1px; font-size:10.5px; font-weight:500; line-height:1.35; color:#94A3B8; }
-  .dcx-p { margin-left:auto; font-size:12.5px; font-weight:700; white-space:nowrap; }
-  .dcx-hr { height:1px; margin:11px 0; background:#EEF2F7; }
-  .dcx-pill { display:inline-flex; align-items:center; gap:4px; padding:4px 9px; border-radius:999px;
-    font-size:10px; font-weight:700; white-space:nowrap; }
-  .dcx-btn { display:inline-flex; align-items:center; gap:6px; padding:9px 14px; border-radius:10px;
-    background:#2563EB; color:#fff; font-size:11.5px; font-weight:700; box-shadow:0 10px 20px rgba(37,99,235,.32); }
-  .dcx-btn svg { width:14px; height:14px; }
-  .dcx-bar { height:6px; border-radius:99px; background:#EEF2F7; overflow:hidden; }
-  .dcx-bar i { display:block; height:100%; border-radius:99px; background:#2563EB; }
-  .dcx-date { flex:1; padding:7px 0; border-radius:10px; background:#F5F7FA; text-align:center; }
-  .dcx-date b { display:block; font-size:12.5px; font-weight:700; line-height:1.2; }
-  .dcx-date span { display:block; margin-top:1px; font-size:9.5px; font-weight:600; color:#94A3B8; }
-  .dcx-date.is-on { background:#2563EB; }
-  .dcx-date.is-on b, .dcx-date.is-on span { color:#fff; }
-  .dcx-slot { flex:1; padding:7px 0; border-radius:9px; border:1px solid #E5EAF2; text-align:center;
-    font-size:11px; font-weight:700; color:#475569; }
-  .dcx-slot.is-on { border-color:#2563EB; background:#EEF3FF; color:#1D4ED8; }
-  .dcx-step { display:flex; align-items:center; gap:0; }
-  .dcx-step i { width:9px; height:9px; border-radius:50%; background:#E2E8F0; flex:none; }
-  .dcx-step i.on { background:#2563EB; }
-  .dcx-step u { flex:1; height:2px; background:#E2E8F0; }
-  .dcx-step u.on { background:#2563EB; }
-  .dcx-tier { display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:10px; }
-  .dcx-tier.is-on { background:#EEF3FF; }
+  /* illustrations: the photo that belongs to each use case. Three cards carry
+     a small shot at the bottom, the other three are full-bleed photo cards
+     with the copy resting on the artwork's own soft scrim. */
+  .dc-shot { display:block; margin:auto 0 0; flex:none; width:236px; height:138px; border-radius:10px;
+    object-fit:cover; box-shadow:0 10px 24px rgba(15,23,42,.12); }
+  .dc-photo { background-size:cover; background-position:center; }
+  /* a soft scrim under the copy — the artwork's own blur is not always dark
+     enough for white type (the warehouse shot is the tight case) */
+  .dc-photo::after { content:''; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(to top, rgba(12,14,18,.62) 0%, rgba(12,14,18,.30) 34%, rgba(12,14,18,0) 60%); }
+  .dc-photo .dc-inner { position:relative; z-index:1; justify-content:flex-end; }
+  .dc-photo .dc-title, .dc-photo .dc-like { color:#fff; }
+  .dc-photo .dc-body { color:rgba(255,255,255,.92); }
   /* card colourways */
   .dc-physical { background:#F8E8C8; }
-  .dc-digital  { background:#D5E8F0; }
   .dc-booking  { background:#EAE1E1; }
-  .dc-services { background:#DFD8FF; }
-  .dc-food     { background:#F7F7C5; }
-  .dc-b2b      { background:#E0E9E5; }
+  .dc-food     { background:#E0E9E5; }
+  .dc-digital  { background:#D5E8F0 url('Media/Whatever%20you%20want%20to%20sell/Digital%20products.png'); }
+  .dc-services { background:#DFD8FF url('Media/Whatever%20you%20want%20to%20sell/Services.png'); }
+  .dc-b2b      { background:#E0E9E5 url('Media/Whatever%20you%20want%20to%20sell/B2B%20and%20wholesale.png'); }
   /* left copy CTA */
   .dc-cta { margin:32px 0 0; display:inline-flex; align-items:center; gap:8px; font-family:'Poppins',sans-serif;
     font-weight:600; font-size:16px; line-height:1.4; color:#0F172A; }
@@ -687,7 +663,7 @@
     .dc-title { font-size:30px; }
     .dc-body { margin-top:16px; font-size:19px; }
     .dc-like { margin-top:18px; }
-    .dc-art { width:344px; height:152px; transform:scale(.76); transform-origin:left top; }
+    .dc-shot { width:100%; max-width:236px; height:auto; aspect-ratio:472/276; }
   }
   @media (max-width:400px) { .dc-title { font-size:26px; } .dc-body { font-size:17px; } .dc-inner { padding:32px 28px; } }
 
@@ -2163,134 +2139,33 @@
   });
 
   // ---------- Discover cards ----------
-  /* Each card carries a small slice of the product UI for its use case, built
-     from the .dcx-* primitives (white card, tinted icon chip, one blue accent)
-     so all six read as one family. Same 344x200 box in every card. */
-  var I = function (d, w) {
-    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + (w || 2) +
-           '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>';
-  };
-  var ICO = {
-    box:   I('<path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>'),
-    truck: I('<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/>'),
-    cart:  I('<path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.2a2 2 0 0 0 2-1.6L20 8H6"/><circle cx="10" cy="19" r="1.4"/><circle cx="17" cy="19" r="1.4"/>'),
-    file:  I('<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/>'),
-    down:  I('<path d="M12 4v11M7.5 11l4.5 4.5 4.5-4.5M5 20h14"/>'),
-    cal:   I('<rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/>'),
-    check: I('<path d="M5 12.5l4.5 4.5L19 7"/>'),
-    star:  I('<path d="M12 4l2.5 5 5.5.8-4 3.9.95 5.5L12 16.6 7.05 19.2 8 13.7 4 9.8l5.5-.8z"/>'),
-    bag:   I('<path d="M5 8h14l-1.2 11.2A2 2 0 0 1 15.8 21H8.2a2 2 0 0 1-2-1.8z"/><path d="M8.5 8a3.5 3.5 0 0 1 7 0"/>'),
-    bike:  I('<circle cx="5.5" cy="17" r="3"/><circle cx="18.5" cy="17" r="3"/><path d="M8 17l3.5-7h4M10 10h4l3 7"/>'),
-    layer: I('<path d="M12 3l9 4.5-9 4.5-9-4.5z"/><path d="M3 12.5l9 4.5 9-4.5M3 17l9 4.5 9-4.5"/>'),
-    quote: I('<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>')
-  };
-  var TX = function (t, sub) { return '<span class="dcx-tx"><span class="dcx-t">' + t + '</span><span class="dcx-s">' + sub + '</span></span>'; };
-  var CHIP = function (bg, fg, ico) { return '<span class="dcx-chip" style="background:' + bg + ';color:' + fg + '">' + ico + '</span>'; };
-
-  var ART = {
-    physical:
-      '<div class="dcx">' +
-        '<div class="dcx-card" style="left:0;top:4px;width:300px;padding:14px 16px">' +
-          '<div class="dcx-row">' + CHIP('#FDF0DC', '#B45309', ICO.box) + TX('Denim Jacket', 'SKU &middot; DJ-204') +
-            '<span class="dcx-p">$49.00</span></div>' +
-          '<div class="dcx-hr"></div>' +
-          '<div class="dcx-row">' + CHIP('#E7F5EC', '#15803D', ICO.truck) + TX('Ships in 2 days', 'Tracked delivery') +
-            '<span class="dcx-pill" style="margin-left:auto;background:#E7F5EC;color:#15803D">In stock</span></div>' +
-        '</div>' +
-        '<span class="dcx-btn" style="position:absolute;right:6px;bottom:16px">' + ICO.cart + 'Add to cart</span>' +
-      '</div>',
-    digital:
-      '<div class="dcx">' +
-        '<div class="dcx-card" style="left:0;top:2px;width:300px;padding:14px 16px">' +
-          '<div class="dcx-row">' + CHIP('#E8EFFE', '#2563EB', ICO.file) + TX('Brand-Kit.zip', '24.6 MB &middot; 12 files') +
-            '<span class="dcx-pill" style="margin-left:auto;background:#E8EFFE;color:#1D4ED8">Instant</span></div>' +
-          '<div style="margin-top:14px" class="dcx-bar"><i style="width:78%"></i></div>' +
-          '<div class="dcx-row" style="margin-top:9px"><span class="dcx-s">Delivered right after checkout</span>' +
-            '<span class="dcx-p" style="font-size:11px;color:#2563EB">78%</span></div>' +
-        '</div>' +
-        '<span class="dcx-btn" style="position:absolute;right:6px;bottom:14px">' + ICO.down + 'Download</span>' +
-      '</div>',
-    booking:
-      '<div class="dcx">' +
-        '<div class="dcx-card" style="left:0;top:0;width:300px;padding:14px 16px">' +
-          '<div class="dcx-row">' + CHIP('#F3E9FB', '#7E22CE', ICO.cal) + TX('City Food Tour', 'March 2026 &middot; 2 guests') + '</div>' +
-          '<div class="dcx-row" style="gap:8px;margin-top:12px">' +
-            '<span class="dcx-date"><b>11</b><span>Tue</span></span>' +
-            '<span class="dcx-date is-on"><b>12</b><span>Wed</span></span>' +
-            '<span class="dcx-date"><b>13</b><span>Thu</span></span>' +
-            '<span class="dcx-date"><b>14</b><span>Fri</span></span></div>' +
-          '<div class="dcx-row" style="gap:8px;margin-top:9px">' +
-            '<span class="dcx-slot">9:00 AM</span><span class="dcx-slot is-on">11:30 AM</span><span class="dcx-slot">2:00 PM</span></div>' +
-        '</div>' +
-        '<span class="dcx-pill" style="position:absolute;right:4px;bottom:8px;background:#fff;color:#15803D;padding:8px 12px;' +
-          'box-shadow:0 10px 22px rgba(15,23,42,.14)"><span style="display:flex;width:13px;height:13px">' + ICO.check + '</span>Booked</span>' +
-      '</div>',
-    services:
-      '<div class="dcx">' +
-        '<div class="dcx-card" style="left:0;top:6px;width:300px;padding:14px 16px">' +
-          '<div class="dcx-row">' +
-            '<span class="dcx-chip" style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#A78BFA,#6366F1)"></span>' +
-            TX('Maya Rahman', 'Photographer &middot; Dhaka') +
-            '<span class="dcx-p">$45<span style="font-weight:600;color:#94A3B8">/hr</span></span></div>' +
-          '<div class="dcx-hr"></div>' +
-          '<div class="dcx-row">' +
-            '<span class="dcx-pill" style="background:#FEF3D7;color:#B45309"><span style="display:flex;width:12px;height:12px">' + ICO.star + '</span>4.9</span>' +
-            '<span class="dcx-s">168 jobs &middot; next slot today</span></div>' +
-        '</div>' +
-        '<span class="dcx-btn" style="position:absolute;right:6px;bottom:12px">Book now</span>' +
-      '</div>',
-    food:
-      '<div class="dcx">' +
-        '<div class="dcx-card" style="left:0;top:0;width:300px;padding:14px 16px">' +
-          '<div class="dcx-row">' + CHIP('#FDECEC', '#DC2626', ICO.bag) + TX('Order #1042', 'Bella&rsquo;s Kitchen') +
-            '<span class="dcx-pill" style="margin-left:auto;background:#FEF3D7;color:#B45309">25 min</span></div>' +
-          '<div class="dcx-hr"></div>' +
-          '<div class="dcx-row"><span class="dcx-s" style="font-size:11px;color:#475569">2&times; Margherita pizza</span>' +
-            '<span class="dcx-p" style="font-size:11.5px">$24.00</span></div>' +
-          '<div class="dcx-row" style="margin-top:6px"><span class="dcx-s" style="font-size:11px;color:#475569">1&times; Garden salad</span>' +
-            '<span class="dcx-p" style="font-size:11.5px">$8.50</span></div>' +
-          '<div class="dcx-step" style="margin-top:13px"><i class="on"></i><u class="on"></u><i class="on"></i><u></u><i></i></div>' +
-          '<div class="dcx-row" style="margin-top:6px;justify-content:space-between">' +
-            '<span class="dcx-s" style="font-size:9.5px">Preparing</span>' +
-            '<span class="dcx-s" style="font-size:9.5px;color:#2563EB">On the way</span>' +
-            '<span class="dcx-s" style="font-size:9.5px">Delivered</span></div>' +
-        '</div>' +
-        '<span class="dcx-pill" style="position:absolute;right:2px;bottom:6px;background:#fff;color:#2563EB;padding:8px 11px;' +
-          'box-shadow:0 10px 22px rgba(15,23,42,.14)"><span style="display:flex;width:13px;height:13px">' + ICO.bike + '</span>Rider assigned</span>' +
-      '</div>',
-    b2b:
-      '<div class="dcx">' +
-        '<div class="dcx-card" style="left:0;top:2px;width:300px;padding:14px 16px">' +
-          '<div class="dcx-row">' + CHIP('#E9F0F8', '#0F766E', ICO.layer) + TX('Kraft boxes &middot; 200gsm', 'Tiered wholesale pricing') + '</div>' +
-          '<div style="margin-top:10px">' +
-            '<span class="dcx-tier"><span class="dcx-t" style="font-weight:600">50 &ndash; 249 units</span><span class="dcx-p">$12.00</span></span>' +
-            '<span class="dcx-tier is-on"><span class="dcx-t">250+ units</span>' +
-              '<span class="dcx-pill" style="background:#2563EB;color:#fff">Best</span>' +
-              '<span class="dcx-p" style="color:#1D4ED8">$10.50</span></span>' +
-          '</div>' +
-        '</div>' +
-        '<span class="dcx-btn" style="position:absolute;right:6px;bottom:10px">' + ICO.quote + 'Request quote</span>' +
-      '</div>'
-  };
-
+  /* Three cards keep their pastel background with the use case's photo sitting
+     at the bottom; the other three are full-bleed photo cards (the artwork is
+     the card background, set in CSS) with the copy resting at the bottom. */
+  var SHOT = 'Media/Whatever you want to sell/';
   var discover = [
-    { key: 'physical', t: 'Physical<br>products', d: 'Handmade goods, fashion, electronics.', like: 'Like Etsy or Amazon' },
-    { key: 'digital', t: 'Digital<br>products', d: 'Templates, ebooks, courses and downloads.', like: 'Like Creative Market' },
-    { key: 'booking', t: 'Bookings and<br>appointments', d: 'Tours, classes, consultations.', like: 'Like Airbnb Experiences' },
-    { key: 'services', t: 'Services', d: 'Freelancers and local pros sell their time.', like: 'Like Fiverr' },
-    { key: 'food', t: 'Food and<br>grocery', d: 'Restaurants and farms deliver to nearby customers.', like: '' },
-    { key: 'b2b', t: 'B2B and<br>wholesale', d: 'Bulk pricing, quotes and trade accounts.', like: '' },
+    { key: 'physical', t: 'Physical<br>products', d: 'Handmade goods, fashion, electronics.', like: 'Like Etsy or Amazon',
+      img: 'Physical products.png' },
+    { key: 'digital', t: 'Digital<br>products', d: 'Templates, ebooks, courses and downloads.', like: 'Like Creative Market',
+      photo: true },
+    { key: 'booking', t: 'Bookings and<br>appointments', d: 'Tours, classes, consultations.', like: 'Like Airbnb Experiences',
+      img: 'Bookings and appointments.png' },
+    { key: 'services', t: 'Services', d: 'Freelancers and local pros sell their time.', like: 'Like Fiverr',
+      photo: true },
+    { key: 'food', t: 'Food and<br>grocery', d: 'Restaurants and farms deliver to nearby customers.', like: '',
+      img: 'Food and grocery.png' },
+    { key: 'b2b', t: 'B2B and<br>wholesale', d: 'Bulk pricing, quotes and trade accounts.', like: '', photo: true },
   ];
   var dc = $('#discover-cards');
   discover.forEach(function (c) {
     var el = document.createElement('article');
-    el.className = 'dc-card dc-' + c.key;
+    el.className = 'dc-card dc-' + c.key + (c.photo ? ' dc-photo' : '');
     el.innerHTML =
       '<div class="dc-inner">' +
         '<h3 class="dc-title">' + c.t + '</h3>' +
         '<p class="dc-body">' + c.d + '</p>' +
         (c.like ? '<p class="dc-like">' + c.like + '</p>' : '') +
-        '<div class="dc-art">' + ART[c.key] + '</div>' +
+        (c.img ? '<img class="dc-shot" src="' + encodeURI(SHOT + c.img) + '" alt="" width="236" height="138" loading="lazy" />' : '') +
       '</div>';
     dc.appendChild(el);
   });
