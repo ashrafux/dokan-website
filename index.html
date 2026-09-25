@@ -432,50 +432,104 @@
     .cta-art { margin-top:32px; }
   }
 
-  /* ---- Why founders choose Dokan: a three-way comparison table ----
-     Same furniture as the rest of the page: 20px card, hairline rules, the
-     Dokan column tinted in the brand lavender so the eye lands there first. */
+  /* ---- Why founders choose Dokan: three-way comparison ----
+     Patterns from Mobbin (Height, 1Password, Seed, ClickUp): the Dokan column
+     is one raised card that rises above the header and drops below the last
+     row to hold the CTA; every answer carries a status mark so the grid scans
+     without reading; the other columns stay quiet. Built on a CSS grid so
+     the raised card can span all rows behind the cells. */
   .wf-section { background:#fff; padding:144px 0 120px; }
   .wf-wrap { width:100%; max-width:1704px; margin:0 auto; padding:0 102px; box-sizing:border-box; }
+  .wf-head { display:flex; align-items:flex-end; justify-content:space-between; gap:40px; }
   .wf-h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px; line-height:1.2; color:#0F172A; }
-  .wf-card { margin-top:56px; border:1px solid #E8E8F0; border-radius:20px; overflow:hidden; background:#fff; }
-  .wf-table { width:100%; border-collapse:collapse; table-layout:fixed; }
-  .wf-table th, .wf-table td { padding:26px 32px; text-align:left; vertical-align:middle; }
-  .wf-table col.c1 { width:32%; } .wf-table col.c2 { width:21%; }
-  .wf-table col.c3 { width:21%; } .wf-table col.c4 { width:26%; }
-  .wf-table thead th { font-family:'Poppins',sans-serif; font-weight:600; font-size:19px; line-height:1.4; color:#475569; }
-  .wf-table thead th.is-dokan { color:#7047EB; }
-  .wf-table tbody th { font-family:'Lato',sans-serif; font-weight:400; font-size:20px; line-height:1.5; color:#475569; }
-  .wf-table tbody td { font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#334155; }
-  .wf-table tbody td.is-dokan { background:#F5F2FE; font-family:'Poppins',sans-serif; font-weight:600; color:#0F172A; }
-  .wf-table tbody tr th, .wf-table tbody tr td { border-top:1px solid #EDEDF4; }
-  .wf-yes, .wf-no { display:inline-flex; align-items:center; gap:10px; }
-  .wf-yes svg, .wf-no svg { flex:none; width:20px; height:20px; }
-  .wf-yes { color:#334155; } .wf-yes svg { color:#94A3B8; }
-  .is-dokan .wf-yes svg { color:#7047EB; }
-  .wf-no { color:#64748B; } .wf-no svg { color:#CBD5E1; }
-  .wf-table tbody tr { transition:background-color .25s ease; }
-  .wf-table tbody tr:hover { background:#FAFAFD; }
-  .wf-table tbody tr:hover td.is-dokan { background:#EFEAFD; }
-  .wf-note { margin:28px 0 0; font-family:'Lato',sans-serif; font-size:18px; line-height:1.5; color:#475569; }
+  .wf-lead { margin:0; max-width:440px; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#475569; }
+
+  .wf-scroll { margin-top:72px; }
+  .wf-grid { position:relative; display:grid; grid-template-columns:minmax(0,1.45fr) repeat(3, minmax(0,1fr));
+    grid-template-rows:auto repeat(5, auto) auto; }
+  .wf-row { display:contents; }
+  /* explicit placement: auto-placement would route the cells around .wf-hl */
+  .wf-row > .wf-cell { grid-row:var(--r); }
+  .wf-row > .wf-cell:nth-child(1) { grid-column:1; } .wf-row > .wf-cell:nth-child(2) { grid-column:2; }
+  .wf-row > .wf-cell:nth-child(3) { grid-column:3; } .wf-row > .wf-cell:nth-child(4) { grid-column:4; }
+  .wf-cell { position:relative; z-index:1; display:flex; align-items:center; min-height:88px; padding:0 28px;
+    box-sizing:border-box; border-top:1px solid #EDEDF4; font-family:'Lato',sans-serif; font-size:18px;
+    line-height:1.45; color:#334155; }
+  .wf-row.is-head .wf-cell { border-top:0; min-height:0; padding-top:0; padding-bottom:28px; align-items:flex-end; }
+  .wf-row.is-foot .wf-cell { border-top:0; min-height:0; padding-top:28px; padding-bottom:0; }
+
+  /* the raised Dokan card, sitting behind column 2 from header to CTA */
+  .wf-hl { grid-column:2; grid-row:1 / -1; z-index:0; margin:-40px 10px -32px;
+    border-radius:24px; background:linear-gradient(180deg, #F3EEFF 0%, #FAF8FF 55%, #F6F2FF 100%);
+    box-shadow:inset 0 0 0 1.5px rgba(112,71,235,.28), 0 40px 70px -40px rgba(112,71,235,.45); }
+  .wf-cell.is-dokan { padding:0 38px; border-top-color:rgba(112,71,235,.14); }
+  .wf-row.is-head .wf-cell.is-dokan { flex-direction:column; align-items:flex-start; justify-content:flex-end; gap:14px; }
+  .wf-row.is-foot .wf-cell.is-dokan { padding-bottom:0; }
+
+  /* column headers */
+  .wf-tag { display:inline-flex; align-items:center; height:26px; padding:0 12px; border-radius:999px; background:#7047EB;
+    font-family:'Poppins',sans-serif; font-weight:600; font-size:12px; letter-spacing:.02em; color:#fff; }
+  .wf-logo { display:block; width:118px; height:auto; }
+  .wf-col { display:flex; align-items:center; gap:14px; }
+  .wf-col i { flex:none; width:42px; height:42px; border-radius:12px; background:#F3F4F8; color:#64748B;
+    display:flex; align-items:center; justify-content:center; }
+  .wf-col i svg { width:20px; height:20px; }
+  .wf-col b { display:block; font-family:'Poppins',sans-serif; font-weight:600; font-size:18px; line-height:1.3; color:#0F172A; }
+  .wf-col small { display:block; margin-top:2px; font-family:'Lato',sans-serif; font-size:14px; line-height:1.3; color:#94A3B8; }
+
+  /* row labels */
+  .wf-label { gap:16px; font-family:'Poppins',sans-serif; font-weight:500; font-size:18px; color:#0F172A; }
+  .wf-label i { flex:none; width:40px; height:40px; border-radius:11px; background:#F5F2FE; color:#7047EB;
+    display:flex; align-items:center; justify-content:center; }
+  .wf-label i svg { width:19px; height:19px; }
+
+  /* answers: a status mark + the value */
+  .wf-v { display:inline-flex; align-items:center; gap:12px; }
+  .wf-v svg { flex:none; width:22px; height:22px; }
+  .wf-v.g svg { color:#94A3B8; } .wf-v.b svg { color:#E2E8F0; } .wf-v.p svg { color:#F5B544; }
+  .wf-v.b { color:#94A3B8; }
+  .is-dokan .wf-v { font-family:'Poppins',sans-serif; font-weight:600; color:#0F172A; }
+  .is-dokan .wf-v svg { color:#7047EB; }
+
+  /* row hover: a soft band across the quiet columns */
+  .wf-row:not(.is-head):not(.is-foot):hover .wf-cell:not(.is-dokan) { background:#FAFAFD; }
+
+  .wf-cta { display:inline-flex; align-items:center; justify-content:center; gap:10px; width:100%; height:56px;
+    border-radius:999px; background:#7047EB; font-family:'Lato',sans-serif; font-weight:700; font-size:16px; color:#fff;
+    box-shadow:0 14px 28px -14px rgba(112,71,235,.8); transition:background-color .25s, transform .25s; }
+  .wf-cta:hover { background:#5d36d6; transform:translateY(-2px); }
+  .wf-cta svg { width:18px; height:18px; }
+
+  .wf-note { margin:64px 0 0; font-family:'Lato',sans-serif; font-size:18px; line-height:1.5; color:#475569; }
   .wf-note a { margin-left:6px; font-family:'Poppins',sans-serif; font-weight:600; color:#7047EB; }
+
   @media (max-width:1600px) { .wf-wrap { padding:0 48px; } }
   @media (max-width:1180px) {
     .wf-section { padding:96px 0 88px; }
+    .wf-head { flex-direction:column; align-items:flex-start; gap:18px; }
     .wf-h2 { font-size:clamp(30px,4.4vw,52px); }
-    .wf-card { margin-top:40px; }
-    .wf-table th, .wf-table td { padding:20px 22px; }
-    .wf-table thead th { font-size:17px; }
-    .wf-table tbody th, .wf-table tbody td { font-size:18px; }
+    .wf-lead { font-size:18px; max-width:560px; }
+    .wf-scroll { margin-top:60px; }
+    .wf-cell { padding:0 18px; font-size:16px; min-height:80px; }
+    .wf-cell.is-dokan { padding:0 26px; }
+    .wf-label { font-size:16px; gap:12px; } .wf-label i { width:34px; height:34px; }
+    .wf-col i { width:36px; height:36px; } .wf-col b { font-size:16px; } .wf-col small { font-size:13px; }
   }
   @media (max-width:900px) {
-    /* the table keeps its shape and scrolls inside the card */
-    .wf-card { overflow-x:auto; -webkit-overflow-scrolling:touch; }
-    .wf-table { min-width:720px; }
+    /* the grid keeps its shape and scrolls sideways; the row labels stay put */
+    .wf-scroll { overflow-x:auto; margin:44px -48px 0; padding:32px 48px 40px; scrollbar-width:none; }
+    .wf-scroll::-webkit-scrollbar { display:none; }
+    .wf-grid { min-width:780px; }
+    .wf-label { position:sticky; left:-48px; z-index:2; background:#fff; }
+    .wf-row.is-head .wf-cell:first-child { position:sticky; left:-48px; z-index:2; background:#fff; }
+    .wf-note { margin-top:24px; }
   }
   @media (max-width:760px) {
     .wf-section { padding:72px 0 64px; }
     .wf-wrap { padding:0 20px; }
+    .wf-scroll { margin:36px -20px 0; padding:32px 20px 40px; }
+    .wf-label, .wf-row.is-head .wf-cell:first-child { left:-20px; }
+    .wf-grid { grid-template-columns:200px repeat(3, 190px); min-width:0; }
     .wf-note { font-size:16px; }
   }
 
@@ -1912,30 +1966,60 @@
 </section>
 
 <!-- ══════════════════════ WHY FOUNDERS CHOOSE DOKAN ══════════════════════
-     A plain three-way comparison: the Dokan column is tinted and set in the
-     display face so it reads as the recommendation without a badge. ═══════ -->
+     Three ways to a marketplace, five questions. The Dokan column is one
+     raised card (.wf-hl) behind grid column 2, from the header to the CTA. -->
 <section class="wf-section" id="why-dokan">
   <div class="wf-wrap">
-    <h2 class="wf-h2">Why founders choose Dokan</h2>
-    <div class="wf-card">
-      <table class="wf-table">
-        <colgroup><col class="c1" /><col class="c2" /><col class="c3" /><col class="c4" /></colgroup>
-        <thead>
-          <tr>
-            <th scope="col"><span class="sr-only">Comparison</span></th>
-            <th scope="col" class="is-dokan">Dokan</th>
-            <th scope="col">Custom build</th>
-            <th scope="col">SaaS platform</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><th scope="row">Time to launch</th><td class="is-dokan">Days</td><td>6+ months</td><td>Days</td></tr>
-          <tr><th scope="row">Upfront cost</th><td class="is-dokan">Free to start</td><td>$50,000+</td><td>Low</td></tr>
-          <tr><th scope="row">Ongoing fees</th><td class="is-dokan">Flat yearly licence</td><td>Dev + hosting</td><td>Monthly, grows with you</td></tr>
-          <tr><th scope="row">You own your store and data</th><td class="is-dokan"><span class="wf-yes"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M6 10.4l2.7 2.6L14 7.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Yes</span></td><td><span class="wf-yes"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M6 10.4l2.7 2.6L14 7.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Yes</span></td><td><span class="wf-no"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 7l6 6M13 7l-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>No</span></td></tr>
-          <tr><th scope="row">Customize anything</th><td class="is-dokan"><span class="wf-yes"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M6 10.4l2.7 2.6L14 7.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Yes</span></td><td><span class="wf-yes"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="currentColor"/><path d="M6 10.4l2.7 2.6L14 7.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Yes</span></td><td>Limited</td></tr>
-        </tbody>
-      </table>
+    <div class="wf-head">
+      <h2 class="wf-h2">Why founders choose Dokan</h2>
+      <p class="wf-lead">One marketplace, three ways to build it. Here&rsquo;s how they compare on time, money and control.</p>
+    </div>
+    <div class="wf-scroll">
+      <div class="wf-grid" role="table" aria-label="Dokan compared with a custom build and a SaaS platform">
+        <div class="wf-hl" aria-hidden="true"></div>
+        <div class="wf-row is-head" role="row" style="--r:1">
+          <div class="wf-cell" role="columnheader"><span class="sr-only">Question</span></div>
+          <div class="wf-cell is-dokan" role="columnheader"><span class="wf-tag">Recommended</span><img class="wf-logo" src="Media/Dokan%20Logos/Dokan%20Logo-Lite%20Menu.svg" alt="Dokan" width="118" height="32" /></div>
+          <div class="wf-cell" role="columnheader"><span class="wf-col"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/></svg></i><span><b>Custom build</b><small>Agency or in-house</small></span></span></div>
+          <div class="wf-cell" role="columnheader"><span class="wf-col"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18h10.5a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.3 9.2 4.5 4.5 0 0 0 7 18z"/></svg></i><span><b>SaaS platform</b><small>Hosted, pay monthly</small></span></span></div>
+        </div>
+        <div class="wf-row" role="row" style="--r:2">
+          <div class="wf-cell wf-label" role="rowheader"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg></i>Time to launch</div>
+          <div class="wf-cell is-dokan" role="cell"><span class="wf-v g"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="currentColor"/><path d="M6.6 11.3l3 2.9 5.8-6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Days</span></div>
+          <div class="wf-cell" role="cell"><span class="wf-v b"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="currentColor"/><path d="M8 8l6 6M14 8l-6 6" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round"/></svg>6+ months</span></div>
+          <div class="wf-cell" role="cell"><span class="wf-v g"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="currentColor"/><path d="M6.6 11.3l3 2.9 5.8-6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Days</span></div>
+        </div>
+        <div class="wf-row" role="row" style="--r:3">
+          <div class="wf-cell wf-label" role="rowheader"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M7 15h3"/></svg></i>Upfront cost</div>
+          <div class="wf-cell is-dokan" role="cell"><span class="wf-v g"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="currentColor"/><path d="M6.6 11.3l3 2.9 5.8-6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Free to start</span></div>
+          <div class="wf-cell" role="cell"><span class="wf-v b"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="currentColor"/><path d="M8 8l6 6M14 8l-6 6" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round"/></svg>$50,000+</span></div>
+          <div class="wf-cell" role="cell"><span class="wf-v g"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="currentColor"/><path d="M6.6 11.3l3 2.9 5.8-6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Low</span></div>
+        </div>
+        <div class="wf-row" role="row" style="--r:4">
+          <div class="wf-cell wf-label" role="rowheader"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4"/><path d="M12 8v8M14.5 9.5c-.5-.9-1.5-1.3-2.5-1.3-1.4 0-2.5.7-2.5 1.8 0 2.6 5 1.4 5 4 0 1.1-1.1 1.8-2.5 1.8-1 0-2-.4-2.5-1.3"/></svg></i>Ongoing fees</div>
+          <div class="wf-cell is-dokan" role="cell"><span class="wf-v g"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="currentColor"/><path d="M6.6 11.3l3 2.9 5.8-6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Flat yearly licence</span></div>
+          <div class="wf-cell" role="cell"><span class="wf-v p"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="currentColor"/><path d="M7 11h8" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>Dev + hosting</span></div>
+          <div class="wf-cell" role="cell"><span class="wf-v b"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="currentColor"/><path d="M8 8l6 6M14 8l-6 6" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round"/></svg>Monthly, grows with you</span></div>
+        </div>
+        <div class="wf-row" role="row" style="--r:5">
+          <div class="wf-cell wf-label" role="rowheader"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></i>You own your store and data</div>
+          <div class="wf-cell is-dokan" role="cell"><span class="wf-v g"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="currentColor"/><path d="M6.6 11.3l3 2.9 5.8-6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Yes</span></div>
+          <div class="wf-cell" role="cell"><span class="wf-v g"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="currentColor"/><path d="M6.6 11.3l3 2.9 5.8-6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Yes</span></div>
+          <div class="wf-cell" role="cell"><span class="wf-v b"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="currentColor"/><path d="M8 8l6 6M14 8l-6 6" fill="none" stroke="#94A3B8" stroke-width="1.8" stroke-linecap="round"/></svg>No</span></div>
+        </div>
+        <div class="wf-row" role="row" style="--r:6">
+          <div class="wf-cell wf-label" role="rowheader"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></i>Customize anything</div>
+          <div class="wf-cell is-dokan" role="cell"><span class="wf-v g"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="currentColor"/><path d="M6.6 11.3l3 2.9 5.8-6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Yes</span></div>
+          <div class="wf-cell" role="cell"><span class="wf-v g"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="currentColor"/><path d="M6.6 11.3l3 2.9 5.8-6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Yes</span></div>
+          <div class="wf-cell" role="cell"><span class="wf-v p"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="currentColor"/><path d="M7 11h8" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>Limited</span></div>
+        </div>
+        <div class="wf-row is-foot" role="row" style="--r:7">
+          <div class="wf-cell" role="cell"></div>
+          <div class="wf-cell is-dokan" role="cell"><a class="wf-cta" href="#">Start for free <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+          <div class="wf-cell" role="cell"></div>
+          <div class="wf-cell" role="cell"></div>
+        </div>
+      </div>
     </div>
     <p class="wf-note">Comparing WooCommerce plugins? <a href="blog.html" data-tertiary>See Dokan vs WCFM</a></p>
   </div>
@@ -2787,7 +2871,7 @@
   }
 
   /* Award badges + interface panel + CTA + map */
-  reveal('.wf-card, .wf-note', { y: 26 });
+  reveal('.wf-scroll, .wf-note', { y: 26 });
   reveal('.shadow-medium, [alt*="World map"], [alt*="Amazon"], .iface-stage',
          { y: 34, duration: .9 });
 
