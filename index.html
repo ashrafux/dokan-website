@@ -460,7 +460,7 @@
 
   /* one box per option, header to foot: Dokan in solid lavender, the other
      two in a neutral grey; all three the same narrow width, set to the right */
-  .wf-hl, .wf-box { grid-row:1 / -1; z-index:0; margin:-40px 0 -32px; border-radius:24px; }
+  .wf-hl, .wf-box { grid-row:1 / -1; z-index:0; margin:-40px 0 -32px; border-radius:20px; }
   .wf-hl { grid-column:2; background:#F3EEFF; box-shadow:inset 0 0 0 1.5px rgba(112,71,235,.3); }
   .wf-box { background:#F7F7FA; box-shadow:inset 0 0 0 1px rgba(15,23,42,.07); }
   .wf-box.c3 { grid-column:3; } .wf-box.c4 { grid-column:4; }
@@ -480,14 +480,14 @@
   .wf-col small { display:block; margin-top:2px; font-family:'Lato',sans-serif; font-size:14px; line-height:1.3; color:#94A3B8; }
 
   /* row labels */
-  .wf-label { gap:14px; font-family:'Poppins',sans-serif; font-weight:500; font-size:16px; color:#0F172A; }
-  .wf-label i { flex:none; width:36px; height:36px; border-radius:11px; background:#F5F2FE; color:#7047EB;
+  .wf-label { gap:16px; font-family:'Poppins',sans-serif; font-weight:500; font-size:16px; color:#0F172A; }
+  .wf-label i { flex:none; width:44px; height:44px; border-radius:12px; background:#F4F5F8; color:#475569;
     display:flex; align-items:center; justify-content:center; }
-  .wf-label i svg { width:17px; height:17px; }
+  .wf-label i svg { width:22px; height:22px; }
 
   /* answers: a status mark + the value */
-  .wf-v { display:inline-flex; align-items:center; gap:12px; }
-  .wf-v svg { flex:none; width:24px; height:24px; }
+  .wf-v { display:inline-flex; align-items:center; gap:11px; }
+  .wf-v svg { flex:none; width:21px; height:21px; }
   /* rival columns stay neutral: grey check / grey dash / pale cross */
   .wf-v.g svg { color:#94A3B8; } .wf-v.b svg { color:#E2E8F0; } .wf-v.p svg { color:#B6C0CE; }
   .wf-v.b { color:#94A3B8; }
@@ -514,7 +514,7 @@
     .wf-cell { padding:0 18px; font-size:15px; min-height:74px; }
     .wf-grid { grid-template-columns:minmax(0,1fr) repeat(3, 196px); column-gap:12px; }
     .wf-row > .wf-cell:nth-child(n+2) { padding-left:22px; padding-right:22px; }
-    .wf-label { font-size:15px; gap:12px; } .wf-label i { width:32px; height:32px; }
+    .wf-label { font-size:15px; gap:12px; } .wf-label i { width:38px; height:38px; } .wf-label i svg { width:19px; height:19px; }
     .wf-col i { width:36px; height:36px; } .wf-col b { font-size:16px; } .wf-col small { font-size:13px; }
   }
   @media (max-width:900px) {
