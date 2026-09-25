@@ -1278,13 +1278,8 @@
   .bw-rule { margin-top:auto; width:427px; max-width:100%; height:0; border:0; border-top:1px solid rgba(0,0,0,.15); }
   .bw-note { margin:20px 0 0; max-width:332px; font-family:'Lato',sans-serif; font-size:14px; line-height:130%; color:#455B04; }
 
-  /* dark card — drop the artwork in here when it lands: background:#050806 url('…') center/cover no-repeat */
-  .bw-dokan { background:#04070A; }
-  .bw-dokan::before { content:''; position:absolute; inset:0; pointer-events:none;
-    background:
-      radial-gradient(70% 55% at 88% 6%, rgba(255,247,222,.95), rgba(214,233,196,.55) 26%, rgba(46,104,84,.45) 52%, transparent 76%),
-      radial-gradient(90% 70% at 72% 40%, rgba(24,92,74,.75), rgba(10,44,38,.6) 45%, transparent 78%),
-      linear-gradient(115deg, #04070A 34%, rgba(10,38,32,.9) 56%, rgba(19,74,60,.75) 72%, rgba(6,14,12,.95) 96%); }
+  /* dark card — the artwork itself, so the glow lands exactly as designed */
+  .bw-dokan { background:#04070A url('Media/The%20Dokan%20way.png') center/cover no-repeat; }
   .bw-dokan > * { position:relative; z-index:1; }
   .bw-steps { margin:56px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; }
   .bw-step { display:grid; grid-template-columns:40px minmax(0,1fr); gap:24px; }
