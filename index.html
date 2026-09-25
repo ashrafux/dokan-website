@@ -2454,6 +2454,14 @@
       q: 'Dokan Multivendor Marketplace is super flexible and super powerful and easy to use.' },
     { n: 'Mr. Wallace', img: 'Media/footer/Mr.%20Web.png', fit: 'contain', flag: '\u{1F1EC}\u{1F1E7}', flagLeft: 279.5, bg: 'linear-gradient(90deg,#508ADC 0%,#5A92DE 30%,#72A7EA 70%,#84B2F0 100%)',
       q: 'If you\u2019re looking to build a marketplace, you\u2019ll find a powerful solution in Dokan that is easy to run.' },
+    { n: 'Franklin Emmanuel', img: 'Media/Influencers/franklin-emmanuel.png', flag: '\u{1F1F3}\u{1F1EC}', flagLeft: 277, bg: '#A48BD9',
+      q: 'If you want to create a multivendor site without coding and start earning commission from each sale, try Dokan.' },
+    { n: 'Nayyar Sheikh', img: 'Media/Influencers/nayyar-sheikh.png', flag: '\u{1F1EE}\u{1F1F3}', flagLeft: 277, bg: '#D6F0B8',
+      q: 'If you want to create a professional-looking multivendor website like Amazon or Flipkart then you should try Dokan.' },
+    { n: 'WP Simple Hacks', img: 'Media/Influencers/wp-simple-hacks.png', flag: '\u{1F1EA}\u{1F1EA}', flagLeft: 277, bg: '#3A3A3C',
+      q: 'Build your own Amazon like marketplace without any hassles. It offers top-notch features and let you build with ease.' },
+    { n: 'David Ibiza', img: 'Media/Influencers/david-ibiza.png', flag: '\u{1F1EA}\u{1F1F8}', flagLeft: 277, bg: '#B07A90',
+      q: 'Super easy to use and packed with dynamic features. You can start your own multivendor marketplace with Dokan.' },
   ];
   var track = $('#inf-track');
   influencers.forEach(function (p) {
@@ -2469,7 +2477,8 @@
     track.appendChild(el);
   });
   (function () {
-    var vp = $('#inf-viewport'), dots = $('#inf-dots'), N = 4;
+    /* one dot per scroll stop: the promo + cards, less the ~3 that fit at once */
+    var vp = $('#inf-viewport'), dots = $('#inf-dots'), N = Math.max(2, track.children.length - 3);
     for (var i = 0; i < N; i++) {
       var d = document.createElement('button');
       d.type = 'button'; d.setAttribute('aria-label', 'Show set ' + (i + 1));
