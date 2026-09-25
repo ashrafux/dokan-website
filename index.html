@@ -438,10 +438,15 @@
   /* 20px gutter on the sides and 20px to the section above; the CTA shell
      below carries its own 20px, so every card-to-card gap reads as 20. */
   .scale-section{width:100%;padding:20px 20px 0;box-sizing:border-box}
-  .scale-panel{--u:calc(100% / 1660);position:relative;width:100%;aspect-ratio:1660/1049;margin:0 auto;background:#000;border-radius:20px;overflow:hidden;container-type:inline-size}
-  .scale-rule{position:absolute;left:0;width:100%;height:0;border-top:1px solid #fff;opacity:.25;pointer-events:none}
-  .scale-stack{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:4.06cqw;width:63.8cqw}
-  .rev-line{position:relative;width:100%;display:flex;justify-content:center;font-family:'Poppins',sans-serif;font-weight:600;font-size:7.9cqw;line-height:.7;white-space:nowrap;opacity:1;transition:opacity .45s ease;outline:none;cursor:default}
+  .scale-panel{--u:calc(100% / 1660);position:relative;width:100%;aspect-ratio:1660/1109;margin:0 auto;background:#000;border-radius:20px;overflow:hidden;container-type:inline-size}
+  /* the panel's own title and standfirst, centred above the stats */
+  .scale-head{position:absolute;left:50%;top:8.6cqw;transform:translateX(-50%);width:43cqw;text-align:center}
+  .scale-head h2{margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:3.4cqw;line-height:1.2;color:#fff}
+  .scale-head p{margin:1.3cqw 0 0;font-family:'Lato',sans-serif;font-size:1.15cqw;line-height:1.6;color:rgba(255,255,255,.72)}
+  .scale-stack{position:absolute;left:50%;top:22.9cqw;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:3.8cqw;width:63.8cqw}
+  .rev-line{position:relative;width:100%;display:flex;justify-content:center;font-family:'Poppins',sans-serif;font-weight:600;font-size:7.16cqw;line-height:.7;white-space:nowrap;opacity:1;transition:opacity .45s ease;outline:none;cursor:default}
+  /* each stat is ruled off at its own bottom, the line running the panel's width */
+  .rev-line::after{content:'';position:absolute;left:50%;bottom:0;width:100cqw;transform:translateX(-50%);border-top:1px solid #fff;opacity:.25;pointer-events:none}
   .rev-line .rt{position:relative;display:inline-block;transition:transform .55s cubic-bezier(.22,.8,.2,1);will-change:transform}
   /* dim siblings while one is hovered/focused */
   .scale-stack:hover .rev-line:not(:hover),.scale-stack:has(.rev-line:focus-visible) .rev-line:not(:focus-visible):not(:hover){opacity:.4}
@@ -460,12 +465,26 @@
   .rev-pill.p2{margin-left:2.07cqw;top:4.32cqw;background:#7047EB;transition-delay:.06s}
   .rev-line:hover .rev-circle,.rev-line:focus-visible .rev-circle{opacity:1;transform:translateY(-50%) scale(1)}
   .rev-line:hover .rev-pill,.rev-line:focus-visible .rev-pill{opacity:1;transform:none}
+  /* Phones and small tablets: the panel would squeeze the new standfirst down
+     to a few pixels, so it drops the fixed aspect and stacks in flow instead. */
+  @media (max-width:820px){
+    .scale-panel{aspect-ratio:auto;padding:48px 0 52px}
+    .scale-head{position:static;transform:none;width:auto;max-width:520px;margin:0 auto;padding:0 24px}
+    .scale-head h2{font-size:clamp(22px,5.6vw,30px)}
+    .scale-head p{margin-top:12px;font-size:clamp(13px,3.4vw,15px);line-height:1.55}
+    .scale-stack{position:static;transform:none;width:100%;margin-top:38px;gap:26px}
+    .rev-line{font-size:clamp(24px,9.2vw,44px)}
+  }
   @media (prefers-reduced-motion:reduce){.rev-line,.rev-line .rt,.rev-circle,.rev-pill{transition:none}}
   /* Fallback for browsers without container units: fixed desktop sizing (original Figma values) */
   @supports not (width:1cqw){
-    .scale-panel{width:1660px;height:1049px;aspect-ratio:auto}
-    .scale-stack{gap:67.42px;width:1059.17px}
-    .rev-line{font-size:131.072px}
+    .scale-panel{width:1660px;height:1109px;aspect-ratio:auto}
+    .scale-head{top:143px;width:714px}
+    .scale-head h2{font-size:56px}
+    .scale-head p{margin-top:22px;font-size:19px}
+    .scale-stack{top:380px;gap:63px;width:1059.17px}
+    .rev-line{font-size:119px}
+    .rev-line::after{width:1660px}
     .rev-line:nth-child(odd) .rev-circle{right:calc(100% + 27.5px)}
     .rev-circle{left:calc(100% + 27.5px);width:131px;height:131px}
     .rev-line:nth-child(odd):hover .rt{transform:translateX(34px)}
@@ -1853,10 +1872,10 @@
      text and fades in two small pills beneath it. ═══════════════════════ -->
 <section class="scale-section" aria-label="Ecommerce scale statistics">
   <div class="scale-panel">
-    <div class="scale-rule" style="top:30.46%"></div>
-    <div class="scale-rule" style="top:45.71%"></div>
-    <div class="scale-rule" style="top:62.96%"></div>
-    <div class="scale-rule" style="top:78.22%"></div>
+    <div class="scale-head">
+      <h2>Always on the Rise</h2>
+      <p>In recent years, eCommerce has grown rapidly. According to stats, eCommerce business is the safest &amp; smartest way to earn. Why not be a part of it?</p>
+    </div>
     <div class="scale-stack">
       <div class="rev-line l1" tabindex="0">
         <span class="rt">$6.33T Revenue<span class="rev-circle"><img src="Media/Scale/revenue.png" alt="" loading="lazy" width="229" height="229"></span></span>
