@@ -1321,9 +1321,9 @@
   .mn-feat p { margin:9px 0 0; font-family:'Lato',sans-serif; font-size:clamp(15px, 1.15vw, 18px); line-height:140%; color:#334155; opacity:.98; }
   .mn-works { width:100%; max-width:665px; display:flex; flex-direction:column; gap:32px; }
   .mn-works hr { width:100%; height:0; margin:0; border:0; border-top:1px solid #000; }
-  .mn-works-row { display:flex; align-items:flex-start; gap:145px; }
+  .mn-works-row { display:flex; align-items:flex-start; justify-content:space-between; gap:145px; }
   .mn-works-row > span { flex:none; font-family:'Lato',sans-serif; font-size:20px; line-height:150%; color:#334155; opacity:.98; }
-  .mn-pills { display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+  .mn-pills { display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap:10px; }   /* flush to the rule's right end */
   .mn-pills b { display:flex; align-items:center; justify-content:center; padding:7px 15px; background:#fff;
     border-radius:100px; font-family:'Poppins',sans-serif; font-weight:600; font-size:15px; line-height:130%;
     color:#334155; white-space:nowrap; }
@@ -1359,6 +1359,7 @@
     .mn-feats { grid-template-columns:1fr; gap:28px; }
     .mn-feat p { font-size:16px; }
     .mn-works-row { flex-direction:column; gap:16px; }
+    .mn-pills { justify-content:flex-start; }
   }
   /* ---- Build vs Dokan (Figma frame 2106260976) ----
      Heading row (723 + 386 at 386 apart), then the 547 / 920 cards at 28px. */
