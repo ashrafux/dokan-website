@@ -925,49 +925,81 @@
   }
 
   /* ---- Testimonial (Figma group 2106260514) ---- */
-  /* ---- What our members say: three stories side by side ----
-     Keeps the old slider's furniture — ruled frame, Inter eyebrow, gold stars,
-     vertical rules between columns — but shows all three at once. The author
-     block is pinned to the bottom so the three bylines line up. */
-  .tm-section { padding:110px 36px; background:#fff; }
-  .tm-head { display:flex; flex-direction:column; align-items:center; gap:22px; margin-bottom:56px; text-align:center; }
+  /* ---- What our members say: bento (one wide story + a stat panel on top,
+     two stories below), after the inspiration board. White cards on a soft
+     grey panel inset 20px like the hero; each card: quote mark, the quote,
+     then byline on the left and rating on the right. ---- */
+  .tm-section { padding:0 20px; background:#fff; }
+  .tm-panel { border-radius:20px; padding:120px 48px; background:linear-gradient(180deg, #F4F6FA 0%, #EEF1F6 100%); }
+  .tm-head { display:flex; flex-direction:column; align-items:center; gap:14px; margin:0 auto 56px; text-align:center; }
   .tm-eyebrow { margin:0; font-family:'Inter',sans-serif; font-weight:700; font-size:13.57px; line-height:20px; letter-spacing:1.7px; text-transform:uppercase; color:#555; }
-  .tm-stars { display:flex; gap:6.78px; }
-  .tm-stars svg { width:24.87px; height:24.87px; }
-  .tm-frame { max-width:1628px; margin:0 auto; border-top:1px solid #E5E7EB; border-bottom:1px solid #E5E7EB; }
-  .tm-cols { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); }
-  .tm-card { margin:0; padding:56px 52px 52px; display:flex; flex-direction:column; align-items:flex-start; min-width:0; }
-  .tm-card + .tm-card { border-left:1px solid #E5E7EB; }
-  .tm-where { margin:0; font-family:'Inter',sans-serif; font-weight:700; font-size:12.5px; line-height:18px; letter-spacing:1.4px; text-transform:uppercase; color:#7047EB; }
-  .tm-stat { margin:14px 0 0; font-family:'Poppins',sans-serif; font-weight:700; font-size:30px; line-height:1.22; color:#0F172A; }
-  .tm-chip { margin-top:18px; display:inline-flex; align-items:center; height:32px; padding:0 14px; border-radius:999px; background:#F3EEFF;
-    font-family:'Poppins',sans-serif; font-weight:600; font-size:14px; color:#5B34D6; }
-  .tm-text { margin:28px 0 0; font-family:'Lato',sans-serif; font-size:18px; line-height:1.6; color:#475569; }
-  .tm-by { margin-top:auto; padding-top:36px; display:flex; align-items:center; gap:14px; }
-  .tm-ini { flex:none; width:46px; height:46px; border-radius:50%; background:#F4F5F8; display:grid; place-items:center;
-    font-family:'Inter',sans-serif; font-weight:700; font-size:15px; color:#475569; }
-  .tm-by b { display:block; font-family:'Inter',sans-serif; font-weight:700; font-size:16px; line-height:24px; color:#111; }
-  .tm-by small { display:block; font-family:'Inter',sans-serif; font-weight:400; font-size:14px; line-height:20px; color:#888; }
-  .tm-story { margin-top:26px; display:inline-flex; align-items:center; gap:8px; font-family:'Poppins',sans-serif; font-weight:600; font-size:15px; color:#0F172A; }
-  .tm-story svg { width:18px; height:18px; }
+  .tm-h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px; line-height:1.2; color:#0F172A; }
+  .tm-bento { max-width:1496px; margin:0 auto; display:grid; grid-template-columns:repeat(12, minmax(0,1fr)); gap:20px; }
+  .tm-card { grid-column:span 6; margin:0; position:relative; display:flex; flex-direction:column; min-width:0; box-sizing:border-box;
+    padding:48px 52px 44px; border-radius:24px; background:#fff; box-shadow:0 1px 2px rgba(15,23,42,.04), 0 0 0 1px rgba(15,23,42,.04); }
+  .tm-card.is-wide { grid-column:span 8; }
+  .tm-mark { width:46px; height:36px; color:#7047EB; }
+  .tm-story { position:absolute; top:48px; right:52px; display:inline-flex; align-items:center; gap:8px;
+    font-family:'Poppins',sans-serif; font-weight:600; font-size:14px; color:#0F172A; }
+  .tm-story svg { width:16px; height:16px; }
+  .tm-text { margin:36px 0 0; font-family:'Poppins',sans-serif; font-weight:500; font-size:26px; line-height:1.38; letter-spacing:-.01em; color:#0F172A; }
+  .tm-card.is-wide .tm-text { font-size:32px; line-height:1.34; }
+  .tm-foot { margin-top:auto; padding-top:44px; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; }
+  .tm-by { display:flex; align-items:center; gap:14px; min-width:0; }
+  .tm-ini { flex:none; width:48px; height:48px; border-radius:12px; background:#F1EDFD; display:grid; place-items:center;
+    font-family:'Inter',sans-serif; font-weight:700; font-size:15px; color:#5B34D6; }
+  .tm-by b { display:block; font-family:'Inter',sans-serif; font-weight:700; font-size:17px; line-height:24px; color:#111; }
+  .tm-by small { display:block; font-family:'Inter',sans-serif; font-size:14px; line-height:20px; color:#8A8F98; }
+  .tm-rate { flex:none; text-align:right; }
+  .tm-rate-row { display:flex; align-items:center; justify-content:flex-end; gap:10px; font-family:'Inter',sans-serif; font-size:14px; color:#8A8F98; }
+  .tm-stars { display:flex; gap:4px; }
+  .tm-stars svg { width:19px; height:19px; }
+  .tm-rate small { display:block; margin-top:6px; font-family:'Inter',sans-serif; font-size:14px; line-height:20px; color:#8A8F98; }
+
+  /* the top-right slot: a stat panel for the lead story (a photo or video can drop in here) */
+  .tm-media { grid-column:span 4; position:relative; overflow:hidden; border-radius:24px; padding:44px 44px 40px; box-sizing:border-box;
+    display:flex; flex-direction:column; color:#fff;
+    background:radial-gradient(120% 90% at 100% 0%, #8B6CF5 0%, rgba(139,108,245,0) 60%), linear-gradient(160deg, #6A3FE8 0%, #3B1FA6 100%); }
+  .tm-media::after { content:''; position:absolute; right:-80px; bottom:-80px; width:260px; height:260px; border-radius:50%;
+    border:1px solid rgba(255,255,255,.18); box-shadow:0 0 0 40px rgba(255,255,255,.05), 0 0 0 80px rgba(255,255,255,.035); pointer-events:none; }
+  .tm-media-k { margin:0; font-family:'Inter',sans-serif; font-weight:700; font-size:12.5px; letter-spacing:1.4px; text-transform:uppercase; color:rgba(255,255,255,.72); }
+  .tm-big { margin:auto 0 0; font-family:'Poppins',sans-serif; font-weight:700; font-size:72px; line-height:1; letter-spacing:-.02em; }
+  .tm-big-l { margin:8px 0 0; font-family:'Lato',sans-serif; font-size:18px; color:rgba(255,255,255,.8); }
+  .tm-mini { margin-top:28px; padding-top:22px; border-top:1px solid rgba(255,255,255,.2); display:flex; gap:40px; }
+  .tm-mini b { display:block; font-family:'Poppins',sans-serif; font-weight:700; font-size:30px; line-height:1.1; }
+  .tm-mini span { display:block; margin-top:4px; font-family:'Lato',sans-serif; font-size:15px; color:rgba(255,255,255,.75); }
+
   @media (max-width:1280px) {
-    .tm-card { padding:48px 36px 44px; }
-    .tm-stat { font-size:26px; }
-    .tm-text { font-size:17px; }
+    .tm-panel { padding:96px 32px; }
+    .tm-card { padding:40px 40px 36px; }
+    .tm-story { top:40px; right:40px; }
+    .tm-card.is-wide .tm-text { font-size:28px; }
+    .tm-text { font-size:22px; }
+    .tm-big { font-size:60px; }
   }
-  @media (max-width:1023px) {
-    .tm-section { padding:88px 20px; }
-    .tm-head { margin-bottom:40px; }
-    .tm-card { padding:40px 26px 38px; }
-    .tm-stat { font-size:22px; }
-    .tm-text { font-size:16px; }
+  @media (max-width:1180px) {
+    /* half-width cards: rating goes under the byline instead of beside it */
+    .tm-card:not(.is-wide) .tm-foot { flex-direction:column; align-items:flex-start; gap:16px; }
+    .tm-card:not(.is-wide) .tm-rate { text-align:left; }
+    .tm-card:not(.is-wide) .tm-rate-row { justify-content:flex-start; }
+  }
+  @media (max-width:1100px) {
+    .tm-card.is-wide, .tm-media { grid-column:span 12; }
+    .tm-media { min-height:320px; }
   }
   @media (max-width:820px) {
-    /* phones and small tablets: one story per row, ruled between */
-    .tm-cols { grid-template-columns:minmax(0,1fr); }
-    .tm-card { padding:40px 4px; }
-    .tm-card + .tm-card { border-left:0; border-top:1px solid #E5E7EB; }
-    .tm-stat { font-size:24px; }
+    .tm-section { padding:0 12px; }
+    .tm-panel { padding:72px 16px; }
+    .tm-h2 { font-size:clamp(30px,7vw,44px); }
+    .tm-head { margin-bottom:36px; }
+    .tm-bento { gap:14px; }
+    .tm-card { grid-column:span 12; padding:32px 24px 28px; border-radius:20px; }
+    .tm-story { position:static; order:3; margin-top:22px; }
+    .tm-card.is-wide .tm-text, .tm-text { font-size:20px; margin-top:24px; }
+    .tm-foot { flex-direction:column; align-items:flex-start; gap:18px; padding-top:28px; }
+    .tm-rate { text-align:left; } .tm-rate-row { justify-content:flex-start; }
+    .tm-media { padding:32px 24px; border-radius:20px; min-height:280px; }
+    .tm-big { font-size:52px; }
   }
 
   /* ---- Influencers (Figma frame 2106260928) ---- */
@@ -1826,40 +1858,48 @@
 </section>
 
 <!-- ══════════════════════ TESTIMONIAL ══════════════════════
-     What our members say: three customer stories side by side inside the
-     ruled frame (top and bottom rules, vertical rules between columns).
-     Below 820px they stack, ruled between. ═══════════════════════════════ -->
-<section class="tm-section" id="testimonial" aria-label="What our members say">
-  <div class="tm-head">
-    <p class="tm-eyebrow">What Our Members Say</p>
-    <div class="tm-stars" id="tm-stars" role="img" aria-label="Rated 5 out of 5"></div>
-  </div>
-  <div class="tm-frame">
-    <div class="tm-cols" id="tm-cols">
-        <figure class="tm-card">
-          <p class="tm-where">Starten Development &middot; Greece</p>
-          <h3 class="tm-stat">5 Years, 240,000 Orders</h3>
-          <span class="tm-chip">0 Bugs</span>
-          <blockquote class="tm-text">&ldquo;I&rsquo;ve been using Dokan for five years and I&rsquo;ve got zero problems, zero bugs. That doesn&rsquo;t happen with any plugin I&rsquo;ve used. I&rsquo;ve been doing this business for 26 years and trust me, I know.&rdquo;</blockquote>
-          <figcaption class="tm-by"><span class="tm-ini" aria-hidden="true">AS</span><span><b>Anastasios Schinas</b><small>Co-Founder, Starten Development</small></span></figcaption>
-          <a class="tm-story" href="#" data-tertiary>Read the story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </figure>
-        <figure class="tm-card">
-          <p class="tm-where">Hawk and Peddle &middot; UK</p>
-          <h3 class="tm-stat">One of the fastest growing marketplaces</h3>
-          <span class="tm-chip">6 years</span>
-          <blockquote class="tm-text">&ldquo;The functionality delivers everything that you need to grow your marketplace.&rdquo;</blockquote>
-          <figcaption class="tm-by"><span class="tm-ini" aria-hidden="true">MM</span><span><b>Melissa McGovern</b><small>Founding Partner, Hawk and Peddle</small></span></figcaption>
-          <a class="tm-story" href="#" data-tertiary>Read the story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </figure>
-        <figure class="tm-card">
-          <p class="tm-where">Forstep Style &middot; Europe</p>
-          <h3 class="tm-stat">Popular eCommerce platforms like Amazon</h3>
-          <span class="tm-chip">25+ categories</span>
-          <blockquote class="tm-text">&ldquo;Of course, none of this would be a reality if we haven&rsquo;t use Dokan marketplace plugin which, in our opinion, is one of the best marketplace tools you can have.&rdquo;</blockquote>
-          <figcaption class="tm-by"><span class="tm-ini" aria-hidden="true">SM</span><span><b>Sara Mehandzieva</b><small>Co-Founder of Forstep Style</small></span></figcaption>
-          <a class="tm-story" href="#" data-tertiary>Read the story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </figure>
+     What our members say — bento: the lead story wide with a stat panel
+     beside it, two stories below. ════════════════════════════════════════ -->
+<section class="tm-section" id="testimonial" aria-labelledby="tm-title">
+  <div class="tm-panel">
+    <div class="tm-head">
+      <p class="tm-eyebrow">What Our Members Say</p>
+      <h2 class="tm-h2" id="tm-title">Built on Dokan, in their words</h2>
+    </div>
+    <div class="tm-bento" id="tm-cols">
+      <figure class="tm-card is-wide">
+        <svg class="tm-mark" viewBox="0 0 46 36" aria-hidden="true"><path fill="currentColor" d="M0 36V22.6C0 9.9 5.6 2.4 16.8 0l2 5.1C12.7 6.9 9.9 10.6 9.7 16H19v20H0zm27 0V22.6C27 9.9 32.6 2.4 43.8 0l2 5.1c-6.1 1.8-8.9 5.5-9.1 10.9H46v20H27z"/></svg>
+        <a class="tm-story" href="#" data-tertiary>Read the story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <blockquote class="tm-text">I&rsquo;ve been using Dokan for five years and I&rsquo;ve got zero problems, zero bugs. That doesn&rsquo;t happen with any plugin I&rsquo;ve used. I&rsquo;ve been doing this business for 26 years and trust me, I know.</blockquote>
+        <figcaption class="tm-foot">
+          <span class="tm-by"><span class="tm-ini" aria-hidden="true">AS</span><span><b>Anastasios Schinas</b><small>Co-Founder, Starten Development &middot; Greece</small></span></span>
+          <span class="tm-rate"><span class="tm-rate-row"><span class="tm-stars" role="img" aria-label="Rated 5 out of 5"></span>5 out of 5</span><small>Five years without a single bug</small></span>
+        </figcaption>
+      </figure>
+      <div class="tm-media" aria-label="Starten Development in numbers">
+        <p class="tm-media-k">Starten Development &middot; Greece</p>
+        <p class="tm-big">240,000</p>
+        <p class="tm-big-l">orders on Dokan</p>
+        <div class="tm-mini"><span><b>5</b><span>years</span></span><span><b>0</b><span>bugs</span></span></div>
+      </div>
+      <figure class="tm-card">
+        <svg class="tm-mark" viewBox="0 0 46 36" aria-hidden="true"><path fill="currentColor" d="M0 36V22.6C0 9.9 5.6 2.4 16.8 0l2 5.1C12.7 6.9 9.9 10.6 9.7 16H19v20H0zm27 0V22.6C27 9.9 32.6 2.4 43.8 0l2 5.1c-6.1 1.8-8.9 5.5-9.1 10.9H46v20H27z"/></svg>
+        <a class="tm-story" href="#" data-tertiary>Read the story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <blockquote class="tm-text">The functionality delivers everything that you need to grow your marketplace.</blockquote>
+        <figcaption class="tm-foot">
+          <span class="tm-by"><span class="tm-ini" aria-hidden="true">MM</span><span><b>Melissa McGovern</b><small>Founding Partner, Hawk and Peddle &middot; UK</small></span></span>
+          <span class="tm-rate"><span class="tm-rate-row"><span class="tm-stars" role="img" aria-label="Rated 5 out of 5"></span>5 out of 5</span><small>6 years on Dokan</small></span>
+        </figcaption>
+      </figure>
+      <figure class="tm-card">
+        <svg class="tm-mark" viewBox="0 0 46 36" aria-hidden="true"><path fill="currentColor" d="M0 36V22.6C0 9.9 5.6 2.4 16.8 0l2 5.1C12.7 6.9 9.9 10.6 9.7 16H19v20H0zm27 0V22.6C27 9.9 32.6 2.4 43.8 0l2 5.1c-6.1 1.8-8.9 5.5-9.1 10.9H46v20H27z"/></svg>
+        <a class="tm-story" href="#" data-tertiary>Read the story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <blockquote class="tm-text">Of course, none of this would be a reality if we haven&rsquo;t use Dokan marketplace plugin which, in our opinion, is one of the best marketplace tools you can have.</blockquote>
+        <figcaption class="tm-foot">
+          <span class="tm-by"><span class="tm-ini" aria-hidden="true">SM</span><span><b>Sara Mehandzieva</b><small>Co-Founder of Forstep Style &middot; Europe</small></span></span>
+          <span class="tm-rate"><span class="tm-rate-row"><span class="tm-stars" role="img" aria-label="Rated 5 out of 5"></span>5 out of 5</span><small>25+ categories, Amazon-style</small></span>
+        </figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -2357,13 +2397,15 @@
   })();
 
   // ---------- Testimonial stars ----------
-  for (var i = 0; i < 5; i++) {
-    var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('fill', '#EAB308');
-    s.setAttribute('aria-hidden', 'true');
-    s.innerHTML = '<path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.4L5.7 21 7 14.2 2 9.4l7-.9z"/>';
-    $('#tm-stars').appendChild(s);
-  }
+  document.querySelectorAll('.tm-stars').forEach(function (host) {
+    for (var i = 0; i < 5; i++) {
+      var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('fill', '#F59E0B');
+      s.setAttribute('aria-hidden', 'true');
+      s.innerHTML = '<path d="M12 2l3 6.5 7 .9-5 4.8 1.3 7-6.3-3.4L5.7 21 7 14.2 2 9.4l7-.9z"/>';
+      host.appendChild(s);
+    }
+  });
 
   // ---------- Influencer cards ----------
   var influencers = [
