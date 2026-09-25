@@ -1159,9 +1159,13 @@
   /* ---- Commission + payouts (Figma frame 2106260558) ----
      Lavender band, 1495px content at 102px, 74px under the heading, then the
      white calculator card (694x580) and the feature column (713) at 88px. */
-  /* the band keeps the frame's own 144px inset; the 144/192 gaps sit outside it */
-  .mn-section { background:#E2DDF1; padding:144px 0; margin:144px 0 192px; }
-  .mn-wrap { width:100%; max-width:1704px; margin:0 auto; padding:0 102px; box-sizing:border-box;
+  /* the band is a rounded card like the hero: 20px off the left and right edges,
+     20px radius, the frame's own 144px inset kept inside it. The 144/192 gaps
+     above and below stay outside the box. The wrap drops 20px of its own
+     padding so the copy still starts 102px from the viewport edge. */
+  .mn-section { background:#E2DDF1; padding:144px 0; margin:144px 20px 192px;
+    border-radius:20px; }
+  .mn-wrap { width:100%; max-width:1664px; margin:0 auto; padding:0 82px; box-sizing:border-box;
     display:flex; flex-direction:column; gap:74px; }
   .mn-h2 { margin:0; max-width:904px; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
     line-height:120%; color:#0F172A; }
@@ -1218,7 +1222,7 @@
     color:#334155; white-space:nowrap; }
 
   @media (max-width:1600px) {
-    .mn-wrap { padding:0 48px; gap:56px; }
+    .mn-wrap { padding:0 28px; gap:56px; }
     .mn-row { gap:48px; }
     .mn-side { gap:56px; }
     .mn-works-row { gap:40px; }
@@ -1226,7 +1230,7 @@
     .mn-card h3 { font-size:32px; }
   }
   @media (max-width:1180px) {
-    .mn-section { padding:96px 0; margin:96px 0 128px; }
+    .mn-section { padding:96px 0; margin:96px 20px 128px; }
     .mn-row { grid-template-columns:minmax(0,1fr); }
     .mn-h2 { font-size:clamp(30px,4.4vw,52px); }
     .mn-row { flex-direction:column; }
@@ -1235,7 +1239,7 @@
     .mn-works { max-width:none; }
   }
   @media (max-width:760px) {
-    .mn-section { padding:72px 0; margin:72px 0 88px; }
+    .mn-section { padding:72px 0; margin:72px 16px 88px; border-radius:16px; }
     .mn-wrap { padding:0 20px; gap:40px; }
     .mn-card { height:auto; padding:32px 24px; }
     .mn-card h3 { font-size:28px; }
