@@ -925,65 +925,49 @@
   }
 
   /* ---- Testimonial (Figma group 2106260514) ---- */
+  /* ---- What our members say: three stories side by side ----
+     Keeps the old slider's furniture — ruled frame, Inter eyebrow, gold stars,
+     vertical rules between columns — but shows all three at once. The author
+     block is pinned to the bottom so the three bylines line up. */
   .tm-section { padding:110px 36px; background:#fff; }
-  .tm-frame { max-width:1628px; margin:0 auto; border-top:1px solid #E5E7EB; border-bottom:1.13px solid #E8E8E8; }
-  .tm-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,794px) minmax(0,1fr); }
-  .tm-grid > :nth-child(2) { border-left:1px solid #E5E7EB; border-right:1px solid #E5E7EB; }
-  .tm-main { min-height:555.5px; border-bottom:1.13px solid #E8E8E8; }
-  .tm-center { margin:0; box-sizing:border-box; padding:90.44px 12px 81.4px; display:flex; flex-direction:column; align-items:center; text-align:center; }
+  .tm-head { display:flex; flex-direction:column; align-items:center; gap:22px; margin-bottom:56px; text-align:center; }
   .tm-eyebrow { margin:0; font-family:'Inter',sans-serif; font-weight:700; font-size:13.57px; line-height:20px; letter-spacing:1.7px; text-transform:uppercase; color:#555; }
-  .tm-stars { margin-top:31.66px; display:flex; gap:6.78px; }
+  .tm-stars { display:flex; gap:6.78px; }
   .tm-stars svg { width:24.87px; height:24.87px; }
-  /* Figma's 172px text overhangs its 164.81px box; trimming 4px either side keeps the band at 555.5 */
-  .tm-quote { margin:36.7px 0 0; max-width:768.78px; font-family:'Poppins',sans-serif; font-weight:700; font-size:36px; line-height:1.2; color:#475569; }
-  .tm-author { margin-top:41.9px; display:flex; align-items:center; gap:15.83px; text-align:left; }
-  .tm-author img { width:54.27px; height:54.27px; border-radius:50%; object-fit:cover; }
-  .tm-author b { display:block; font-family:'Inter',sans-serif; font-weight:700; font-size:18.09px; line-height:27px; color:#111; }
-  .tm-author small { display:block; font-family:'Inter',sans-serif; font-weight:400; font-size:15.83px; line-height:24px; color:#888; }
-  .tm-foot { height:110.5px; }
-  .tm-foot > * { display:flex; align-items:center; min-width:0; }
-  .tm-count { margin:0; padding-left:63.31px; gap:4.52px; font-family:'Inter',sans-serif; font-weight:600; font-size:15.83px; line-height:24px; color:#BBB; }
-  .tm-count b { font-weight:600; color:#111; }
-  .tm-dots { justify-content:center; gap:9.04px; }
-  .tm-dots button { position:relative; width:9.04px; height:9.04px; padding:0; border:0; border-radius:4.52px; background:#D0D0D0;
-    cursor:pointer; transition:width .4s cubic-bezier(.22,.8,.2,1), background-color .3s ease; }
-  .tm-dots button::after { content:''; position:absolute; inset:-12px -4px; }   /* bigger tap target */
-  .tm-dots button:hover { background:#B9B9C3; }
-  .tm-dots button.is-active { width:31.66px; background:#7047EB; }
-  .tm-dots button:focus-visible { outline:2px solid #7047EB; outline-offset:4px; }
-  /* Slider: every slide sits in the same grid cell; the active one fades and
-     slides in from the side it was called from (--tx is set by the script). */
-  .tm-slides { display:grid; width:100%; justify-items:center; touch-action:pan-y;
-    overflow-x:clip; }   /* parked slides wait 28px aside; never let them widen the page */
-  .tm-slide { grid-area:1 / 1; margin:0; display:flex; flex-direction:column; align-items:center;
-    opacity:0; visibility:hidden; transform:translateX(var(--tx, 28px));
-    transition:opacity .45s ease, transform .6s cubic-bezier(.22,.8,.2,1), visibility 0s linear .6s; }
-  .tm-slide.is-active { opacity:1; visibility:visible; transform:none; transition-delay:0s; }
-  @media (prefers-reduced-motion:reduce) { .tm-slide { transform:none !important; transition:opacity .2s linear, visibility 0s linear .2s; } }
-  .tm-nav { justify-content:flex-end; gap:14.18px; padding-right:65.31px; }
-  .tm-nav button { width:53.25px; height:53px; box-sizing:border-box; display:grid; place-items:center; border-radius:50%;
-    background:#fff; border:2px solid #E5E7EB; color:#C8CCD3; transition:border-color .25s, color .25s; }
-  .tm-nav button:hover { border-color:#7047EB; color:#7047EB; }
-  .tm-nav button:focus-visible { outline:2px solid #7047EB; outline-offset:3px; }
-  .tm-nav svg { width:24px; height:24px; }
+  .tm-frame { max-width:1628px; margin:0 auto; border-top:1px solid #E5E7EB; border-bottom:1px solid #E5E7EB; }
+  .tm-cols { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); }
+  .tm-card { margin:0; padding:56px 52px 52px; display:flex; flex-direction:column; align-items:flex-start; min-width:0; }
+  .tm-card + .tm-card { border-left:1px solid #E5E7EB; }
+  .tm-where { margin:0; font-family:'Inter',sans-serif; font-weight:700; font-size:12.5px; line-height:18px; letter-spacing:1.4px; text-transform:uppercase; color:#7047EB; }
+  .tm-stat { margin:14px 0 0; font-family:'Poppins',sans-serif; font-weight:700; font-size:30px; line-height:1.22; color:#0F172A; }
+  .tm-chip { margin-top:18px; display:inline-flex; align-items:center; height:32px; padding:0 14px; border-radius:999px; background:#F3EEFF;
+    font-family:'Poppins',sans-serif; font-weight:600; font-size:14px; color:#5B34D6; }
+  .tm-text { margin:28px 0 0; font-family:'Lato',sans-serif; font-size:18px; line-height:1.6; color:#475569; }
+  .tm-by { margin-top:auto; padding-top:36px; display:flex; align-items:center; gap:14px; }
+  .tm-ini { flex:none; width:46px; height:46px; border-radius:50%; background:#F4F5F8; display:grid; place-items:center;
+    font-family:'Inter',sans-serif; font-weight:700; font-size:15px; color:#475569; }
+  .tm-by b { display:block; font-family:'Inter',sans-serif; font-weight:700; font-size:16px; line-height:24px; color:#111; }
+  .tm-by small { display:block; font-family:'Inter',sans-serif; font-weight:400; font-size:14px; line-height:20px; color:#888; }
+  .tm-story { margin-top:26px; display:inline-flex; align-items:center; gap:8px; font-family:'Poppins',sans-serif; font-weight:600; font-size:15px; color:#0F172A; }
+  .tm-story svg { width:18px; height:18px; }
+  @media (max-width:1280px) {
+    .tm-card { padding:48px 36px 44px; }
+    .tm-stat { font-size:26px; }
+    .tm-text { font-size:17px; }
+  }
   @media (max-width:1023px) {
     .tm-section { padding:88px 20px; }
-    .tm-grid { grid-template-columns:minmax(0,1fr) minmax(0,auto) minmax(0,1fr); }
-    .tm-main { grid-template-columns:0 minmax(0,1fr) 0; min-height:0; }
-    .tm-main > :nth-child(2) { border:0; }
-    .tm-quote { font-size:clamp(24px, 4vw, 32px); }
-    .tm-count { padding-left:20px; }
-    .tm-nav { padding-right:20px; }
-    .tm-dots { padding:0 20px; }
+    .tm-head { margin-bottom:40px; }
+    .tm-card { padding:40px 26px 38px; }
+    .tm-stat { font-size:22px; }
+    .tm-text { font-size:16px; }
   }
-  @media (max-width:560px) {
-    .tm-center { padding:56px 4px 52px; }
-    .tm-quote { font-size:22px; line-height:1.3; }
-    .tm-foot { height:88px; }
-    .tm-count { padding-left:4px; }
-    .tm-nav { padding-right:4px; gap:10px; }
-    .tm-nav button { width:44px; height:44px; }
-    .tm-dots { padding:0 12px; }
+  @media (max-width:820px) {
+    /* phones and small tablets: one story per row, ruled between */
+    .tm-cols { grid-template-columns:minmax(0,1fr); }
+    .tm-card { padding:40px 4px; }
+    .tm-card + .tm-card { border-left:0; border-top:1px solid #E5E7EB; }
+    .tm-stat { font-size:24px; }
   }
 
   /* ---- Influencers (Figma frame 2106260928) ---- */
@@ -1842,60 +1826,40 @@
 </section>
 
 <!-- ══════════════════════ TESTIMONIAL ══════════════════════
-     Figma group 2106260514: a 36px-inset frame ruled top and bottom, a
-     555.5px quote band and a 110.5px control row. Three columns run through
-     both rows so the two vertical rules are continuous; the side columns are
-     equal (417 at 1628) so the 768px quote sits inside the centre column. -->
+     What our members say: three customer stories side by side inside the
+     ruled frame (top and bottom rules, vertical rules between columns).
+     Below 820px they stack, ruled between. ═══════════════════════════════ -->
 <section class="tm-section" id="testimonial" aria-label="What our members say">
+  <div class="tm-head">
+    <p class="tm-eyebrow">What Our Members Say</p>
+    <div class="tm-stars" id="tm-stars" role="img" aria-label="Rated 5 out of 5"></div>
+  </div>
   <div class="tm-frame">
-    <div class="tm-grid tm-main">
-      <div></div>
-      <div class="tm-center">
-        <p class="tm-eyebrow">What Our Members Say</p>
-        <div class="tm-stars" id="tm-stars" role="img" aria-label="Rated 5 out of 5"></div>
-        <!-- Slides share one grid cell, so the frame keeps the tallest slide's
-             height and never jumps. Slides 2-4 are DEMO content (placeholder
-             stories + illustrated avatars) until real customer stories arrive. -->
-        <div class="tm-slides" id="tm-slides" aria-live="polite">
-          <figure class="tm-slide is-active" aria-label="Testimonial 1 of 4">
-            <blockquote class="tm-quote">A software developer created JOSHI, a marketplace where providers directly sell nutritious and healthy foods to customers.</blockquote>
-            <figcaption class="tm-author">
-              <img src="Media/footer/Bernd%20Payer.png" alt="" width="163" height="163" loading="lazy" />
-              <span><b>Bernd Payer</b><small>Founder</small></span>
-            </figcaption>
-          </figure>
-          <figure class="tm-slide" aria-label="Testimonial 2 of 4" aria-hidden="true">
-            <blockquote class="tm-quote">A fashion buyer launched Loomly, a marketplace where independent designers sell handmade clothing to shoppers across Europe.</blockquote>
-            <figcaption class="tm-author">
-              <img src="Media/Testimonial/amara-okafor.svg" alt="" width="120" height="120" loading="lazy" />
-              <span><b>Amara Okafor</b><small>Founder &amp; CEO</small></span>
-            </figcaption>
-          </figure>
-          <figure class="tm-slide" aria-label="Testimonial 3 of 4" aria-hidden="true">
-            <blockquote class="tm-quote">Two teachers built TutorNest, a marketplace where tutors sell live classes, courses and study packs to students worldwide.</blockquote>
-            <figcaption class="tm-author">
-              <img src="Media/Testimonial/daniel-reyes.svg" alt="" width="120" height="120" loading="lazy" />
-              <span><b>Daniel Reyes</b><small>Co-founder</small></span>
-            </figcaption>
-          </figure>
-          <figure class="tm-slide" aria-label="Testimonial 4 of 4" aria-hidden="true">
-            <blockquote class="tm-quote">A family farmer started FreshRoots, a marketplace where local farms deliver fresh seasonal produce straight to nearby homes.</blockquote>
-            <figcaption class="tm-author">
-              <img src="Media/Testimonial/sofia-lindqvist.svg" alt="" width="120" height="120" loading="lazy" />
-              <span><b>Sofia Lindqvist</b><small>Founder</small></span>
-            </figcaption>
-          </figure>
-        </div>
-      </div>
-      <div></div>
-    </div>
-    <div class="tm-grid tm-foot">
-      <p class="tm-count"><b id="tm-cur">01</b><span>/</span><span id="tm-total">04</span></p>
-      <div class="tm-dots" id="tm-dots" role="group" aria-label="Choose a testimonial"></div>
-      <div class="tm-nav">
-        <button type="button" id="tm-prev" aria-label="Previous testimonial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
-        <button type="button" id="tm-next" aria-label="Next testimonial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
-      </div>
+    <div class="tm-cols" id="tm-cols">
+        <figure class="tm-card">
+          <p class="tm-where">Starten Development &middot; Greece</p>
+          <h3 class="tm-stat">5 Years, 240,000 Orders</h3>
+          <span class="tm-chip">0 Bugs</span>
+          <blockquote class="tm-text">&ldquo;I&rsquo;ve been using Dokan for five years and I&rsquo;ve got zero problems, zero bugs. That doesn&rsquo;t happen with any plugin I&rsquo;ve used. I&rsquo;ve been doing this business for 26 years and trust me, I know.&rdquo;</blockquote>
+          <figcaption class="tm-by"><span class="tm-ini" aria-hidden="true">AS</span><span><b>Anastasios Schinas</b><small>Co-Founder, Starten Development</small></span></figcaption>
+          <a class="tm-story" href="#" data-tertiary>Read the story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </figure>
+        <figure class="tm-card">
+          <p class="tm-where">Hawk and Peddle &middot; UK</p>
+          <h3 class="tm-stat">One of the fastest growing marketplaces</h3>
+          <span class="tm-chip">6 years</span>
+          <blockquote class="tm-text">&ldquo;The functionality delivers everything that you need to grow your marketplace.&rdquo;</blockquote>
+          <figcaption class="tm-by"><span class="tm-ini" aria-hidden="true">MM</span><span><b>Melissa McGovern</b><small>Founding Partner, Hawk and Peddle</small></span></figcaption>
+          <a class="tm-story" href="#" data-tertiary>Read the story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </figure>
+        <figure class="tm-card">
+          <p class="tm-where">Forstep Style &middot; Europe</p>
+          <h3 class="tm-stat">Popular eCommerce platforms like Amazon</h3>
+          <span class="tm-chip">25+ categories</span>
+          <blockquote class="tm-text">&ldquo;Of course, none of this would be a reality if we haven&rsquo;t use Dokan marketplace plugin which, in our opinion, is one of the best marketplace tools you can have.&rdquo;</blockquote>
+          <figcaption class="tm-by"><span class="tm-ini" aria-hidden="true">SM</span><span><b>Sara Mehandzieva</b><small>Co-Founder of Forstep Style</small></span></figcaption>
+          <a class="tm-story" href="#" data-tertiary>Read the story <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </figure>
     </div>
   </div>
 </section>
@@ -2401,61 +2365,6 @@
     $('#tm-stars').appendChild(s);
   }
 
-  // ---------- Testimonial slider: arrows, dots, swipe ----------
-  (function () {
-    var box = document.getElementById('tm-slides');
-    if (!box) return;
-    var slides = [].slice.call(box.querySelectorAll('.tm-slide'));
-    var dotsBox = document.getElementById('tm-dots');
-    var cur = document.getElementById('tm-cur');
-    var at = 0, n = slides.length;
-    function pad(v) { return (v < 10 ? '0' : '') + v; }
-    document.getElementById('tm-total').textContent = pad(n);
-    var dots = slides.map(function (s, k) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.setAttribute('aria-label', 'Show testimonial ' + (k + 1));
-      b.addEventListener('click', function () { go(k); });
-      dotsBox.appendChild(b);
-      return b;
-    });
-    function paint() {
-      cur.textContent = pad(at + 1);
-      dots.forEach(function (d, k) {
-        d.classList.toggle('is-active', k === at);
-        d.setAttribute('aria-current', k === at ? 'true' : 'false');
-      });
-    }
-    function go(to, dir) {
-      to = (to + n) % n;
-      if (to === at) return;
-      dir = dir || (to > at ? 1 : -1);
-      var out = slides[at], inc = slides[to];
-      out.style.setProperty('--tx', (-dir * 28) + 'px');      // leave toward the far side
-      out.classList.remove('is-active');
-      out.setAttribute('aria-hidden', 'true');
-      inc.style.transition = 'none';                          // jump to the entry side first
-      inc.style.setProperty('--tx', (dir * 28) + 'px');
-      void inc.offsetWidth;
-      inc.style.transition = '';
-      inc.classList.add('is-active');
-      inc.removeAttribute('aria-hidden');
-      at = to;
-      paint();
-    }
-    document.getElementById('tm-prev').addEventListener('click', function () { go(at - 1, -1); });
-    document.getElementById('tm-next').addEventListener('click', function () { go(at + 1, 1); });
-    var sx = null;                                            // touch / pen swipe
-    box.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') sx = e.clientX; });
-    box.addEventListener('pointercancel', function () { sx = null; });
-    box.addEventListener('pointerup', function (e) {
-      if (sx === null) return;
-      var dx = e.clientX - sx; sx = null;
-      if (Math.abs(dx) > 40) go(at + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
-    });
-    paint();
-  })();
-
   // ---------- Influencer cards ----------
   var influencers = [
     { n: 'Darrel Wilson', img: 'Media/footer/Darrel%20Wilson.png', flag: '\u{1F1FA}\u{1F1F8}', flagLeft: 275.8, bg: '#6A93B5',
@@ -2876,7 +2785,7 @@
   reveal('section > .wrap > p, section .wrap > div > p, .dc-lead');
 
   /* Grids stagger their children */
-  [['#trusted-cards', .12], ['#reason-cards', .12], ['#discover-cards', .14], ['#inf-track', .12],
+  [['#trusted-cards', .12], ['#tm-cols', .12], ['#reason-cards', .12], ['#discover-cards', .14], ['#inf-track', .12],
    ['#theme-grid', .05], ['#globe-grid', .1]].forEach(function (pair) {
     var host = document.querySelector(pair[0]);
     if (!host || !host.children.length) return;
