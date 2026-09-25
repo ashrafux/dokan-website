@@ -440,12 +440,12 @@
      the raised card can span all rows behind the cells. */
   .wf-section { background:#fff; padding:144px 0 120px; }
   .wf-wrap { width:100%; max-width:1704px; margin:0 auto; padding:0 102px; box-sizing:border-box; }
-  .wf-head { display:flex; align-items:flex-end; justify-content:space-between; gap:40px; }
+  .wf-head { display:flex; flex-direction:column; align-items:center; gap:18px; text-align:center; }
   .wf-h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px; line-height:1.2; color:#0F172A; }
-  .wf-lead { margin:0; max-width:440px; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#475569; }
+  .wf-lead { margin:0; max-width:560px; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#475569; }
 
-  .wf-scroll { margin-top:72px; }
-  .wf-grid { position:relative; display:grid; grid-template-columns:minmax(0,1.45fr) repeat(3, minmax(0,1fr));
+  .wf-scroll { margin-top:104px; }
+  .wf-grid { position:relative; display:grid; grid-template-columns:minmax(0,1fr) repeat(3, 292px); column-gap:20px;
     grid-template-rows:auto repeat(5, auto) auto; }
   .wf-row { display:contents; }
   /* explicit placement: auto-placement would route the cells around .wf-hl */
@@ -458,20 +458,22 @@
   .wf-row.is-head .wf-cell { border-top:0; min-height:0; padding-top:0; padding-bottom:28px; align-items:flex-end; }
   .wf-row.is-foot .wf-cell { border-top:0; min-height:0; padding-top:28px; padding-bottom:0; }
 
-  /* the raised Dokan card, sitting behind column 2 from header to CTA */
-  .wf-hl { grid-column:2; grid-row:1 / -1; z-index:0; margin:-40px 10px -32px;
-    border-radius:24px; background:linear-gradient(180deg, #F3EEFF 0%, #FAF8FF 55%, #F6F2FF 100%);
-    box-shadow:inset 0 0 0 1.5px rgba(112,71,235,.28), 0 40px 70px -40px rgba(112,71,235,.45); }
-  .wf-cell.is-dokan { padding:0 38px; border-top-color:rgba(112,71,235,.14); }
-  .wf-row.is-head .wf-cell.is-dokan { flex-direction:column; align-items:flex-start; justify-content:flex-end; gap:14px; }
-  .wf-row.is-foot .wf-cell.is-dokan { padding-bottom:0; }
+  /* one box per option, header to foot: Dokan in solid lavender, the other
+     two in a neutral grey; all three the same width, set to the right */
+  .wf-hl, .wf-box { grid-row:1 / -1; z-index:0; margin:-40px 0 -32px; border-radius:24px; }
+  .wf-hl { grid-column:2; background:#F3EEFF; box-shadow:inset 0 0 0 1.5px rgba(112,71,235,.3); }
+  .wf-box { background:#F7F7FA; box-shadow:inset 0 0 0 1px rgba(15,23,42,.07); }
+  .wf-box.c3 { grid-column:3; } .wf-box.c4 { grid-column:4; }
+  .wf-row > .wf-cell:nth-child(n+2) { padding-left:32px; padding-right:32px; border-top-color:rgba(15,23,42,.07); }
+  .wf-cell.is-dokan { border-top-color:rgba(112,71,235,.16) !important; }
+  .wf-row.is-head .wf-cell:nth-child(n+2) { flex-direction:column; align-items:flex-start; justify-content:flex-end; gap:14px; }
 
   /* column headers */
   .wf-tag { display:inline-flex; align-items:center; height:26px; padding:0 12px; border-radius:999px; background:#7047EB;
     font-family:'Poppins',sans-serif; font-weight:600; font-size:12px; letter-spacing:.02em; color:#fff; }
   .wf-logo { display:block; width:118px; height:auto; }
-  .wf-col { display:flex; align-items:center; gap:14px; }
-  .wf-col i { flex:none; width:42px; height:42px; border-radius:12px; background:#F3F4F8; color:#64748B;
+  .wf-col { display:flex; flex-direction:column; align-items:flex-start; gap:14px; }
+  .wf-col i { flex:none; width:42px; height:42px; border-radius:12px; background:#fff; color:#64748B; box-shadow:0 1px 2px rgba(15,23,42,.06);
     display:flex; align-items:center; justify-content:center; }
   .wf-col i svg { width:20px; height:20px; }
   .wf-col b { display:block; font-family:'Poppins',sans-serif; font-weight:600; font-size:18px; line-height:1.3; color:#0F172A; }
@@ -492,7 +494,6 @@
   .is-dokan .wf-v svg { color:#7047EB; }
 
   /* row hover: a soft band across the quiet columns */
-  .wf-row:not(.is-head):not(.is-foot):hover .wf-cell:not(.is-dokan) { background:#FAFAFD; }
 
   .wf-cta { display:inline-flex; align-items:center; justify-content:center; gap:10px; width:100%; height:56px;
     border-radius:999px; background:#7047EB; font-family:'Lato',sans-serif; font-weight:700; font-size:16px; color:#fff;
@@ -506,12 +507,12 @@
   @media (max-width:1600px) { .wf-wrap { padding:0 48px; } }
   @media (max-width:1180px) {
     .wf-section { padding:96px 0 88px; }
-    .wf-head { flex-direction:column; align-items:flex-start; gap:18px; }
     .wf-h2 { font-size:clamp(30px,4.4vw,52px); }
     .wf-lead { font-size:18px; max-width:560px; }
-    .wf-scroll { margin-top:60px; }
+    .wf-scroll { margin-top:84px; }
     .wf-cell { padding:0 18px; font-size:16px; min-height:80px; }
-    .wf-cell.is-dokan { padding:0 26px; }
+    .wf-grid { grid-template-columns:minmax(0,1fr) repeat(3, 224px); column-gap:14px; }
+    .wf-row > .wf-cell:nth-child(n+2) { padding-left:22px; padding-right:22px; }
     .wf-label { font-size:16px; gap:12px; } .wf-label i { width:34px; height:34px; }
     .wf-col i { width:36px; height:36px; } .wf-col b { font-size:16px; } .wf-col small { font-size:13px; }
   }
@@ -519,7 +520,7 @@
     /* the grid keeps its shape and scrolls sideways; the row labels stay put */
     .wf-scroll { overflow-x:auto; margin:44px -48px 0; padding:32px 48px 40px; scrollbar-width:none; }
     .wf-scroll::-webkit-scrollbar { display:none; }
-    .wf-grid { min-width:780px; }
+    .wf-grid { min-width:860px; }
     .wf-label { position:sticky; left:-48px; z-index:2; background:#fff; }
     .wf-row.is-head .wf-cell:first-child { position:sticky; left:-48px; z-index:2; background:#fff; }
     .wf-note { margin-top:24px; }
@@ -529,7 +530,7 @@
     .wf-wrap { padding:0 20px; }
     .wf-scroll { margin:36px -20px 0; padding:32px 20px 40px; }
     .wf-label, .wf-row.is-head .wf-cell:first-child { left:-20px; }
-    .wf-grid { grid-template-columns:200px repeat(3, 190px); min-width:0; }
+    .wf-grid { grid-template-columns:190px repeat(3, 200px); column-gap:12px; min-width:0; }
     .wf-note { font-size:16px; }
   }
 
@@ -1967,7 +1968,7 @@
 
 <!-- ══════════════════════ WHY FOUNDERS CHOOSE DOKAN ══════════════════════
      Three ways to a marketplace, five questions. The Dokan column is one
-     raised card (.wf-hl) behind grid column 2, from the header to the CTA. -->
+     box (.wf-hl) behind grid column 2, the other two neutral (.wf-box). -->
 <section class="wf-section" id="why-dokan">
   <div class="wf-wrap">
     <div class="wf-head">
@@ -1977,6 +1978,8 @@
     <div class="wf-scroll">
       <div class="wf-grid" role="table" aria-label="Dokan compared with a custom build and a SaaS platform">
         <div class="wf-hl" aria-hidden="true"></div>
+        <div class="wf-box c3" aria-hidden="true"></div>
+        <div class="wf-box c4" aria-hidden="true"></div>
         <div class="wf-row is-head" role="row" style="--r:1">
           <div class="wf-cell" role="columnheader"><span class="sr-only">Question</span></div>
           <div class="wf-cell is-dokan" role="columnheader"><span class="wf-tag">Recommended</span><img class="wf-logo" src="Media/Dokan%20Logos/Dokan%20Logo-Lite%20Menu.svg" alt="Dokan" width="118" height="32" /></div>
