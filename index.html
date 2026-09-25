@@ -640,9 +640,11 @@
   .dc-physical { background:#F8E8C8; }
   .dc-booking  { background:#EAE1E1; }
   .dc-food     { background:#E0E9E5; }
-  .dc-digital  { background:#D5E8F0 url('Media/Whatever%20you%20want%20to%20sell/Digital%20products.png'); }
-  .dc-services { background:#DFD8FF url('Media/Whatever%20you%20want%20to%20sell/Services.png'); }
-  .dc-b2b      { background:#E0E9E5 url('Media/Whatever%20you%20want%20to%20sell/B2B%20and%20wholesale.png'); }
+  /* longhand on purpose: the background shorthand would reset background-size
+     and the 2x artwork would paint at its natural size */
+  .dc-digital  { background-color:#D5E8F0; background-image:url('Media/Whatever%20you%20want%20to%20sell/Digital%20products.png'); }
+  .dc-services { background-color:#DFD8FF; background-image:url('Media/Whatever%20you%20want%20to%20sell/Services.png'); }
+  .dc-b2b      { background-color:#E0E9E5; background-image:url('Media/Whatever%20you%20want%20to%20sell/B2B%20and%20wholesale.png'); }
   /* left copy CTA */
   .dc-cta { margin:32px 0 0; display:inline-flex; align-items:center; gap:8px; font-family:'Poppins',sans-serif;
     font-weight:600; font-size:16px; line-height:1.4; color:#0F172A; }
