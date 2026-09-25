@@ -797,6 +797,12 @@
 
   /* ---- Worldwide (Figma frame 2106260905) ---- */
   .ww-section { padding-top:42px; }
+  /* Under the pinned Discover row the space below the cards is whatever the
+     100vh stage leaves ((100vh - 564px) / 2), which shrinks on shorter
+     screens; top it up so cards -> "50,000+" is always at least 280px. */
+  @media (min-width:1024px) {
+    .ww-section { padding-top:max(60px, calc(280px - (100vh - 564px) / 2)); }
+  }
   .ww-head { display:flex; align-items:flex-start; gap:62px; }
   .ww-num { flex:none; font-family:'Poppins',sans-serif; font-weight:400; font-size:clamp(110px, calc(14.3vw - 43px), 200px);
     line-height:.755; color:#0F172A; letter-spacing:0; white-space:nowrap; padding-top:.03em; }
