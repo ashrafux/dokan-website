@@ -1249,6 +1249,84 @@
     .mn-feat p { font-size:16px; }
     .mn-works-row { flex-direction:column; gap:16px; }
   }
+  /* ---- Build vs Dokan (Figma frame 2106260976) ----
+     Heading row (723 + 386 at 386 apart), then the 547 / 920 cards at 28px. */
+  .bw-section { background:#fff; margin-top:144px; }
+  .bw-wrap { width:100%; max-width:1704px; margin:0 auto; padding:0 102px; box-sizing:border-box;
+    display:flex; flex-direction:column; gap:56px; }
+  .bw-head { display:flex; align-items:flex-end; justify-content:space-between; gap:56px; }
+  .bw-head h2 { margin:0; max-width:723px; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
+    line-height:120%; color:#0F172A; }
+  .bw-head p { margin:0; flex:0 0 386px; max-width:386px; font-family:'Lato',sans-serif; font-size:20px;
+    line-height:150%; color:#334155; opacity:.98; }
+  .bw-cards { display:grid; grid-template-columns:minmax(0,547fr) minmax(0,920fr); gap:28px; align-items:center; }
+  .bw-card { position:relative; height:617px; box-sizing:border-box; border-radius:20px; padding:60px;
+    display:flex; flex-direction:column; overflow:hidden; }
+  .bw-pill { align-self:flex-start; display:flex; align-items:center; justify-content:center; padding:10px 20px;
+    background:#fff; border-radius:100px; font-family:'Poppins',sans-serif; font-weight:600; font-size:18px;
+    line-height:130%; color:#334155; }
+
+  .bw-usual { background:#DBE8B5; padding-bottom:37px; }
+  .bw-list { margin:44px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:32px; max-width:447px; }
+  .bw-list h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:600; font-size:24px; line-height:130%; color:#0F172A; }
+  .bw-list p { margin:14px 0 0; font-family:'Lato',sans-serif; font-size:18px; line-height:140%; color:#475569; }
+  .bw-list li:first-child p { max-width:383px; } .bw-list li:last-child h3, .bw-list li:last-child p { max-width:354px; }
+  .bw-rule { margin-top:auto; width:427px; max-width:100%; height:0; border:0; border-top:1px solid rgba(0,0,0,.15); }
+  .bw-note { margin:20px 0 0; max-width:332px; font-family:'Lato',sans-serif; font-size:14px; line-height:130%; color:#455B04; }
+
+  /* dark card — drop the artwork in here when it lands: background:#050806 url('…') center/cover no-repeat */
+  .bw-dokan { background:#04070A; }
+  .bw-dokan::before { content:''; position:absolute; inset:0; pointer-events:none;
+    background:
+      radial-gradient(70% 55% at 88% 6%, rgba(255,247,222,.95), rgba(214,233,196,.55) 26%, rgba(46,104,84,.45) 52%, transparent 76%),
+      radial-gradient(90% 70% at 72% 40%, rgba(24,92,74,.75), rgba(10,44,38,.6) 45%, transparent 78%),
+      linear-gradient(115deg, #04070A 34%, rgba(10,38,32,.9) 56%, rgba(19,74,60,.75) 72%, rgba(6,14,12,.95) 96%); }
+  .bw-dokan > * { position:relative; z-index:1; }
+  .bw-steps { margin:56px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; }
+  .bw-step { display:grid; grid-template-columns:40px minmax(0,1fr); gap:24px; }
+  .bw-step-rail { display:flex; flex-direction:column; align-items:center; }
+  .bw-badge { flex:none; width:40px; height:40px; border-radius:9999px; background:#7047EB; display:flex;
+    align-items:center; justify-content:center; font-family:'Inter',sans-serif; font-weight:700; font-size:16px;
+    line-height:19px; color:#fff; }
+  .bw-step-rail i { flex:1; width:2px; background:rgba(255,255,255,.2); }
+  .bw-step-body { max-width:440px; padding-bottom:36px; }
+  .bw-step:last-child .bw-step-body { padding-bottom:0; }
+  .bw-step h3 { margin:6px 0 0; font-family:'Poppins',sans-serif; font-weight:600; font-size:24px; line-height:130%; color:#fff; }
+  .bw-step p { margin:8px 0 0; font-family:'Lato',sans-serif; font-size:18px; line-height:140%; color:#F3F3F3; opacity:.8; }
+  .bw-demo { margin:auto 0 0 64px; align-self:flex-start; display:inline-flex; align-items:center; gap:8px;
+    font-family:'Lato',sans-serif; font-weight:700; font-size:18px; line-height:150%; color:#fff;
+    text-decoration:underline; text-underline-offset:5px; }
+  .bw-demo svg { width:20px; height:20px; }
+
+  @media (max-width:1600px) {
+    .bw-wrap { padding:0 48px; gap:48px; }
+    .bw-head p { flex:0 1 386px; }
+    .bw-card { padding:44px; }
+    .bw-head h2 { font-size:clamp(32px,3.4vw,52px); }
+    .bw-step h3 { font-size:clamp(20px,1.55vw,24px); }
+    .bw-step p, .bw-list p { font-size:clamp(15px,1.15vw,18px); }
+    .bw-list h3 { font-size:clamp(20px,1.55vw,24px); }
+  }
+  @media (max-width:1180px) {
+    .bw-section { margin-top:96px; }
+    .bw-cards { grid-template-columns:minmax(0,1fr); }
+    .bw-card { height:auto; min-height:520px; }
+    .bw-head { flex-direction:column; align-items:flex-start; gap:24px; }
+    .bw-head p { flex:0 0 auto; max-width:560px; }
+    .bw-demo { margin-top:40px; }
+  }
+  @media (max-width:760px) {
+    .bw-section { margin-top:72px; }
+    .bw-wrap { padding:0 20px; gap:32px; }
+    .bw-card { padding:28px 24px; min-height:0; }
+    .bw-list { margin-top:32px; gap:24px; }
+    .bw-steps { margin-top:36px; }
+    .bw-step { grid-template-columns:32px minmax(0,1fr); gap:16px; }
+    .bw-badge { width:32px; height:32px; font-size:14px; }
+    .bw-step-body { padding-bottom:26px; }
+    .bw-demo { margin-left:48px; }
+    .bw-rule { margin-top:32px; }
+  }
 </style>
 </head>
 <body class="font-body">
@@ -1331,6 +1409,53 @@
         </div>
       </article>
 
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ USUAL OPTIONS vs THE DOKAN WAY (Figma 2106260976) ══════════════════════ -->
+<section class="bw-section" aria-labelledby="bw-title">
+  <div class="bw-wrap">
+    <div class="bw-head">
+      <h2 id="bw-title">Building a marketplace shouldn't take a year and a six-figure budget</h2>
+      <p>Vendors get rich sales-earning reports, analytics and statements which helps them with their on-going business and improve it.</p>
+    </div>
+
+    <div class="bw-cards">
+      <article class="bw-card bw-usual">
+        <span class="bw-pill">The usual options</span>
+        <ul class="bw-list">
+          <li>
+            <h3>Custom build</h3>
+            <p>[$50,000+] and 6+ months of development before your first vendor signs up.</p>
+          </li>
+          <li>
+            <h3>SaaS marketplace platforms</h3>
+            <p>Quick to start, but fees grow as you grow, and your store, data and design live on someone else's platform.</p>
+          </li>
+        </ul>
+        <hr class="bw-rule" />
+        <p class="bw-note">[Optional "why now" stat with source, e.g. share of online sales that happen on marketplaces.]</p>
+      </article>
+
+      <article class="bw-card bw-dokan">
+        <span class="bw-pill">The Dokan way</span>
+        <ol class="bw-steps">
+          <li class="bw-step">
+            <div class="bw-step-rail"><span class="bw-badge">1</span><i></i></div>
+            <div class="bw-step-body"><h3>Install Dokan on WooCommerce</h3><p>Your WordPress site becomes a marketplace in minutes.</p></div>
+          </li>
+          <li class="bw-step">
+            <div class="bw-step-rail"><span class="bw-badge">2</span><i></i></div>
+            <div class="bw-step-body"><h3>Set commissions and payments</h3><p>Pick how you earn and how vendors get paid. Money splits automatically at checkout.</p></div>
+          </li>
+          <li class="bw-step">
+            <div class="bw-step-rail"><span class="bw-badge">3</span></div>
+            <div class="bw-step-body"><h3>Invite your vendors</h3><p>Every seller gets their own store, dashboard and payouts. You approve, manage and earn.</p></div>
+          </li>
+        </ol>
+        <a class="bw-demo" href="demo.html" data-tertiary>See it in the Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
     </div>
   </div>
 </section>
