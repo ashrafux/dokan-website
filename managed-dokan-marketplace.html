@@ -870,9 +870,35 @@
 /* hero bento: narrower than the content column, centred under the copy */
 #mdm .hx-bento{max-width:1120px;margin-left:auto;margin-right:auto;margin-top:64px;grid-template-rows:268px 268px;gap:16px}
 #mdm .hx-c{padding:26px}
-@media (max-width:1200px){#mdm .hx-bento{grid-template-rows:260px 260px}}
-@media (max-width:1024px){#mdm .hx-bento{grid-template-rows:none;grid-auto-rows:260px}}
-@media (max-width:700px){#mdm .hx-bento{grid-auto-rows:auto;margin-top:40px}#mdm .hx-c{min-height:200px}}
+@media (max-width:1200px){#mdm .hx-bento{grid-template-rows:250px 250px}}
+/* tablet: same compact cards in a narrower 2-up grid */
+@media (max-width:1024px){
+  #mdm .hx-bento{max-width:720px;margin-top:48px;grid-template-rows:none;grid-auto-rows:226px;gap:14px}
+  #mdm .hx-c{padding:22px}
+  #mdm .hx-num{font-size:40px !important}
+  #mdm .hx-lbl{margin-top:10px;font-size:17px}
+  #mdm .hx-c h3{font-size:20px;margin-top:8px}
+  #mdm .hx-icons span{width:50px;height:50px}
+  #mdm .hx-icons svg{width:22px;height:22px}
+  #mdm .hx-ring{width:52px;height:52px}
+  #mdm .hx-spark{height:48px}
+}
+/* phone: launch, photo and 0% span the width; Lighthouse and Page Load share a row */
+@media (max-width:700px){
+  #mdm .hx-bento{margin-top:36px;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto;gap:12px}
+  #mdm .hx-c{min-height:0 !important;padding:20px}
+  #mdm .hx-launch,#mdm .hx-shot,#mdm .hx-up,#mdm .hx-wide{grid-column:1/-1 !important}
+  #mdm .hx-launch{gap:22px}
+  #mdm .hx-shot{height:210px}
+  #mdm .hx-green,#mdm .hx-dark{min-height:200px !important}
+  #mdm .hx-green .hx-ring{width:44px;height:44px}
+  #mdm .hx-dark .hx-bars{width:100%}
+  #mdm .hx-green .hx-num,#mdm .hx-dark .hx-num{font-size:34px !important}
+  #mdm .hx-green .hx-lbl,#mdm .hx-dark .hx-lbl{font-size:15px}
+  #mdm .hx-green p,#mdm .hx-dark p{font-size:13px}
+  #mdm .hx-up{gap:18px}
+  #mdm .hx-wide{min-height:210px !important}
+}
 @media (max-width:1024px){#mdm .mdm-top .bx-hero{padding:150px 0 48px}}
 @media (max-width:700px){#mdm .mdm-top{margin:12px 12px 0;border-radius:16px}#mdm .mdm-top .bx-hero{padding:120px 0 20px}#mdm .mdm-top + section{margin-top:72px}}
 
