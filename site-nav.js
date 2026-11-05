@@ -469,7 +469,8 @@
 (function () {
   var ROUTES = { 'Modules':'modules.html', 'Blogs':'blog.html', 'Testimonials':'testimonials.html',
     'Compatible Themes':'themes.html', 'Dokan WordPress Plugin':'demo.html', 'View All':'demo.html',
-    'Success Stories':'testimonials.html', 'Otel Theme':'themes.html' };
+    'Success Stories':'testimonials.html', 'Otel Theme':'themes.html',
+    'Marketplace (Hosted by us)':'managed-dokan-marketplace.html' };
   var COLS = [
     [['@logo'], ['', 'About Us|Brand Assets|Changelog|Contact Us|Career'], ['Use Cases', 'Fashion|Furniture|Print on demand|Electronics|Auction|Booking|View All'], ["Demo's", 'Dokan WordPress Plugin|Dokan Mobile App|Delivery Driver App|Otel Theme']],
     [['Resources', 'Blogs|Documentation|FAQs|Video Tutorials|Webinars'], ['Policies', 'Privacy Policy|Terms of Sevice|Support Policy|Affiliate Policy|Refund Policy'], ['Support &amp;<br />Success Stories', 'Success Stories|Testimonials|Support']],
