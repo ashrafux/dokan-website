@@ -959,6 +959,27 @@
 #mdm .hx-core{background:#7047EB}
 #mdm .step h3{margin-top:0}
 
+/* short laptop screens (e.g. MacBook Air 1512x860): a tighter hero so the bento
+   starts in the first screen — the site's own "short viewport" step, 52px H1 */
+@media (min-width:1025px) and (max-height:900px){
+  #mdm .mdm-top .bx-hero{padding-top:148px;padding-bottom:64px}
+  #mdm .bx-hero-copy{gap:18px}
+  #mdm .bx-hero .bx-h1{font-size:52px !important;line-height:1.2 !important}
+  #mdm .bx-hero .bx-lead{font-size:18px !important}
+  #mdm .bx-hero .mdm-b1,#mdm .bx-hero .mdm-b2{height:58px;font-size:16px}
+  #mdm .bx-hero .mdm-b1{padding-left:30px;gap:16px}
+  #mdm .bx-hero .mdm-b1 .circle{width:40px;height:40px}
+  #mdm .bx-hero .mdm-b1 .circle svg{width:20px;height:20px}
+  #mdm .bx-hero .mdm-b2{padding:0 30px}
+  #mdm .bx-chips{margin-top:0}
+  #mdm .hx-bento{margin-top:44px;grid-template-rows:236px 236px;gap:14px;max-width:1060px}
+  #mdm .hx-c{padding:24px}
+  #mdm .hx-num{font-size:44px}
+  #mdm .hx-c h3{font-size:21px}
+  #mdm .hx-ring{width:50px;height:50px}
+  #mdm .hx-lbl{margin-top:10px}
+}
+
 /* pricing: the features panel hugs its two columns, the dark price card takes
    the rest; plan, guarantees and note share one centred 1320px column */
 @media (min-width:1400px){
