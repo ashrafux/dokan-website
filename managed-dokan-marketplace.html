@@ -957,6 +957,16 @@
 #mdm .hx-core{background:#7047EB}
 #mdm .bx-steps .step .when{color:#7047EB}
 
+/* pricing: the features panel hugs its two columns, the dark price card takes
+   the rest; plan, guarantees and note share one centred 1320px column */
+@media (min-width:1400px){
+  #mdm .plan{grid-template-columns:max-content minmax(0,1fr)}
+  #mdm .plan .feats{grid-template-columns:repeat(2,max-content);column-gap:64px}
+  #mdm .plan-r{padding:44px 48px !important}
+  #mdm .plan-l{padding:44px 48px !important}
+}
+#mdm .plan,#mdm .bx-guar{max-width:1320px;margin-left:auto;margin-right:auto}
+
 /* trust row: shared .fw marquee, centred under its line */
 #mdm .bx-trust .fw-marquee{margin:6px auto -40px}
 </style>
