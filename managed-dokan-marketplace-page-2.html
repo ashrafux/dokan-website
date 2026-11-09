@@ -1113,6 +1113,10 @@
 #mdm .mdm-sv-save{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-top:6px;padding:12px 14px;border-radius:10px;background:#E3F8EC;font-weight:700;font-size:15px;color:#0B5D34}
 #mdm .mdm-sv-save .v{text-align:right;line-height:1.4;font-family:'Poppins',sans-serif;font-weight:600;font-size:14.5px}
 
+/* compare: wrapped lines start under the text, not under the check mark */
+#mdm td.hl .ck{float:left;display:block}
+#mdm td.hl>span{display:flow-root}
+
 /* custom work */
 #mdm .mdm-custom-in{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:64px;align-items:center}
 @media (min-width:1025px){#mdm .mdm-custom .bx-h2{font-size:clamp(34px,2.9vw,44px) !important}}
