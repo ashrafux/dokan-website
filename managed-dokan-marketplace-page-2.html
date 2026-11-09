@@ -1063,6 +1063,11 @@
 #mdm .mdm-t2{background:linear-gradient(180deg,#E9F7F1,#DFF3EA)}
 #mdm .mdm-stat .mdm-bar{background:rgba(255,255,255,.75)}
 #mdm .mdm-stat:hover{border:0}
+#mdm .mdm-stats .mdm-stat{min-height:400px;padding:34px}
+@media (max-width:1399px){#mdm .mdm-stats .mdm-stat{padding:30px}}
+@media (max-width:1024px){#mdm .mdm-stats .mdm-stat{min-height:340px}}
+@media (max-width:700px){#mdm .mdm-stats .mdm-stat{min-height:310px;padding:26px}}
+#mdm .mdm-stat .bars,#mdm .mdm-stat .mdm-bars{padding-top:28px}
 #mdm .mdm-stat{transition:background-color .35s var(--ease),border-color .35s var(--ease),translate .35s var(--ease)}
 
 /* pricing: savings pill and its breakdown (opens over the card) */
