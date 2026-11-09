@@ -7,7 +7,7 @@
 <meta name="description" content="We build, host and maintain your Dokan marketplace on a fast headless storefront. You focus on vendors and sales, with zero revenue share." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="site-nav.css?v=31" />
 <!-- Page loader: only the header shows until site-nav.js reveals the page (5s failsafe) -->
@@ -1312,6 +1312,18 @@
 #mdm .bx-hero .bx-eb{color:#C2410C}
 #mdm .mdm-cx .foot p{font-size:14px;color:#FFFFFF;opacity:.7}
 #mdm .step p{text-wrap:balance}
+/* custom work: note on three left-aligned lines; the white CTA turns primary on hover */
+#mdm .mdm-cx .foot p{flex:0 0 200px;max-width:200px;text-align:left;text-wrap:balance}
+#mdm .mdm-cx .foot .mdm-white,#mdm .mdm-cx .foot .mdm-white .circle{transition:background-color .25s,color .25s,transform .25s}
+@media (hover:hover){#mdm .mdm-cx .foot .mdm-white:hover{background:#7047EB;color:#FFFFFF;box-shadow:none}#mdm .mdm-cx .foot .mdm-white:hover .circle{background:#FFFFFF;color:#7047EB}}
+#mdm .mdm-cx .foot .mdm-white:focus-visible{background:#7047EB;color:#FFFFFF}
+#mdm .mdm-cx .foot .mdm-white:focus-visible .circle{background:#FFFFFF;color:#7047EB}
+/* how it works: step numbers in Poppins Light */
+#mdm .step .num{font-weight:300 !important}
+/* closing CTA tiles: neutral grey instead of purple */
+#mdm .fx-col i{background:linear-gradient(180deg,#ECEDF0,#C6C9D1)}
+#mdm .fx-col i:first-child{background:linear-gradient(180deg,#F6F6F8,#DEE0E5)}
+#mdm .fx-col.s i{background:linear-gradient(180deg,#EDEEF1,#C2C5CE)}
 </style>
 </head>
 <body class="font-body">
