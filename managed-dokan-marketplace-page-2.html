@@ -1216,12 +1216,12 @@
 #mdm .bx-chips{visibility:visible !important;opacity:1 !important;pointer-events:auto;justify-content:flex-start;gap:10px;margin-top:6px}
 #mdm .bx-chips .chip{padding:8px 14px;border:1px solid #E9E9E9;border-radius:9999px;background:rgba(255,255,255,.75)}
 #mdm .bx-chips .chip svg{width:16px;height:16px}
-@media (min-width:1025px){
+@media (min-width:900px){
   #mdm .mdm-top .bx-hero{padding:172px 0 96px}
-  #mdm .bx-hero .bx-h1{font-size:clamp(40px,3.7vw,56px) !important;line-height:1.18 !important}
+  #mdm .bx-hero .bx-h1{font-size:clamp(34px,3.7vw,56px) !important;line-height:1.18 !important}
   #mdm .bx-hero .bx-lead{max-width:none;text-wrap:balance}
 }
-@media (min-width:1025px) and (max-height:900px){#mdm .mdm-top .bx-hero{padding:136px 0 56px}#mdm .bx-hero .bx-h1{font-size:clamp(38px,3.3vw,48px) !important}}
+@media (min-width:900px) and (max-height:900px){#mdm .mdm-top .bx-hero{padding:136px 0 56px}#mdm .bx-hero .bx-h1{font-size:clamp(34px,3.3vw,48px) !important}}
 #mdm .mdm-lc{padding:30px 32px 14px;border-radius:20px;background:#FFFFFF;box-shadow:0 30px 60px -40px rgba(20,20,40,.28)}
 #mdm .lc-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:18px;font-family:'Lato',sans-serif;font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
 #mdm .lc-top .live{text-transform:none;letter-spacing:0}
@@ -1231,19 +1231,75 @@
 #mdm .mdm-lc .val{flex:none;font-family:'Poppins',sans-serif;font-weight:600;font-size:34px;line-height:1;white-space:nowrap;color:#7047EB}
 #mdm .lc-ring{flex:none;width:76px;height:76px}
 #mdm .lc-ring b{width:64px;height:64px;font-size:20px}
-@media (max-width:1024px){
-  #mdm .bx-hero>.wrap{grid-template-columns:minmax(0,1fr);gap:44px}
-  #mdm .mdm-lc{width:100%;max-width:640px;margin:0 auto}
+/* keep the whole hero inside the first screen, per device */
+@media (min-width:900px) and (max-width:1200px){
+  #mdm .bx-hero>.wrap{gap:40px}
+  #mdm .bx-hero .bx-lead{font-size:18px !important}
+  #mdm .bx-hero .mdm-b1,#mdm .bx-hero .mdm-b2{height:56px;font-size:15.5px}
+  #mdm .bx-hero .mdm-b1{padding-left:26px;gap:14px}
+  #mdm .bx-hero .mdm-b1 .circle{width:38px;height:38px}
+  #mdm .bx-hero .mdm-b2{padding:0 24px}
+  #mdm .mdm-demo{font-size:15.5px;margin-left:2px}
+  #mdm .mdm-lc{padding:24px 24px 8px}
+  #mdm .mdm-lc .val{font-size:28px}
+}
+@media (min-width:900px) and (max-height:760px){
+  #mdm .mdm-top .bx-hero{padding:104px 0 26px}
+  #mdm .bx-hero .bx-hero-copy{gap:14px}
+  #mdm .bx-hero .bx-h1{font-size:clamp(32px,3vw,42px) !important}
+  #mdm .bx-hero .bx-lead{font-size:17px !important}
+  #mdm .bx-hero .mdm-b1,#mdm .bx-hero .mdm-b2{height:50px;font-size:15px}
+  #mdm .bx-hero .mdm-b1 .circle{width:36px;height:36px}
+  #mdm .bx-chips .chip{padding:6px 12px;font-size:13px !important}
+  #mdm .mdm-lc{padding:18px 24px 4px}
+  #mdm .lc-top{padding-bottom:10px}
+  #mdm .mdm-lc .m{min-height:68px;padding:8px 0}
+  #mdm .mdm-lc h3{font-size:16px}
+  #mdm .mdm-lc p{margin-top:2px;font-size:13.5px}
+  #mdm .mdm-lc .val{font-size:26px}
+  #mdm .lc-ring{width:54px;height:54px}
+  #mdm .lc-ring b{width:46px;height:46px;font-size:15px}
+}
+/* below two columns the box's metrics sit 2x2 so copy and box fit one screen */
+@media (max-width:899px){
+  #mdm .mdm-top .bx-hero{padding:118px 0 32px}
+  #mdm .bx-hero>.wrap{grid-template-columns:minmax(0,1fr);gap:32px}
+  #mdm .mdm-lc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px;width:100%;padding:22px 26px 10px}
+  #mdm .lc-top{grid-column:1/-1;padding-bottom:12px}
+  #mdm .mdm-lc .m{flex-direction:column-reverse;align-items:flex-start;justify-content:flex-end;gap:8px;min-height:0;padding:14px 0}
+  #mdm .mdm-lc .val{font-size:30px}
+  #mdm .lc-ring{width:56px;height:56px}
+  #mdm .lc-ring b{width:47px;height:47px;font-size:15.5px}
 }
 @media (max-width:700px){
-  #mdm .bx-hero .bx-cta{align-items:stretch}
-  #mdm .mdm-lc{padding:24px 20px 8px}
-  #mdm .mdm-lc .m{min-height:84px;padding:14px 0}
-  #mdm .mdm-lc h3{font-size:16px}
-  #mdm .mdm-lc p{font-size:14px}
-  #mdm .mdm-lc .val{font-size:28px}
-  #mdm .lc-ring{width:64px;height:64px}
-  #mdm .lc-ring b{width:54px;height:54px;font-size:17px}
+  #mdm .mdm-top .bx-hero{padding:86px 0 12px}
+  #mdm .bx-hero>.wrap{gap:18px}
+  #mdm .bx-hero .bx-hero-copy{gap:10px}
+  #mdm .bx-hero .bx-h1{font-size:30px !important;line-height:1.18 !important}
+  #mdm .bx-hero .bx-lead{font-size:15.5px !important;line-height:1.45 !important}
+  #mdm .bx-hero .bx-cta{flex-direction:row;flex-wrap:wrap;align-items:center;width:100%;max-width:none;gap:8px}
+  #mdm .bx-hero .bx-cta .mdm-b1,#mdm .bx-hero .bx-cta .mdm-b2{width:auto;flex:1 1 auto;height:48px;font-size:14.5px}
+  #mdm .bx-hero .bx-cta .mdm-b1{justify-content:space-between;gap:6px;padding:0 6px 0 14px}
+  #mdm .bx-hero .bx-cta .mdm-b1 .circle{width:36px;height:36px}
+  #mdm .bx-hero .bx-cta .mdm-b2{padding:0 10px}
+  #mdm .bx-hero .bx-cta .mdm-demo{flex-basis:100%;justify-content:flex-start;align-self:auto;margin:2px 0 0;font-size:14.5px}
+  #mdm .bx-chips{gap:6px;margin-top:2px}
+  #mdm .bx-chips .chip{padding:4px 9px;font-size:12.5px !important}
+  #mdm .bx-chips .chip svg{width:13px;height:13px}
+  #mdm .mdm-lc{column-gap:14px;padding:14px 16px 4px}
+  #mdm .lc-top{padding-bottom:8px;font-size:11.5px}
+  #mdm .mdm-lc .m{gap:5px;padding:9px 0}
+  #mdm .mdm-lc h3{font-size:13.5px;line-height:1.25}
+  #mdm .mdm-lc p{display:none}
+  #mdm .mdm-lc .val{font-size:22px}
+  #mdm .lc-ring{width:40px;height:40px}
+  #mdm .lc-ring b{width:33px;height:33px;font-size:11.5px}
+}
+/* very short phones: the pills give way so the box stays on screen */
+@media (max-width:700px) and (max-height:760px){
+  #mdm .bx-chips{display:none}
+  #mdm .bx-hero .bx-lead{font-size:14.5px !important}
+  #mdm .bx-hero .bx-h1{font-size:27px !important}
 }
 </style>
 </head>
