@@ -1001,7 +1001,19 @@
 #mdm .mdm-trust img{height:26px;width:auto}
 #mdm .mdm-clock{display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,.1)}
 #mdm .mdm-clock svg{width:20px;height:20px}
-#mdm .hx-core{font-size:30px}
+/* savings card: smaller orbit, right-aligned and fully inside the card; every size follows --o */
+#mdm .hx-orbit{--o:228px;--e:38px;width:var(--o);height:var(--o);right:calc(var(--e) / 2 + 12px);top:50%}
+#mdm .hx-spin .o0{transform:rotate(200deg) translateX(calc(var(--o) * .36))}
+#mdm .hx-spin .o1{transform:rotate(290deg) translateX(calc(var(--o) * .36))}
+#mdm .hx-spin .o2{transform:rotate(155deg) translateX(calc(var(--o) * .5))}
+#mdm .hx-spin .o3{transform:rotate(55deg) translateX(calc(var(--o) * .5))}
+#mdm .hx-spin em{left:calc(var(--e) / -2);top:calc(var(--e) / -2);width:var(--e);height:var(--e)}
+#mdm .hx-spin em svg{width:calc(var(--e) * .44);height:calc(var(--e) * .44)}
+#mdm .hx-core{display:flex;width:calc(var(--o) * .25);height:calc(var(--o) * .25);margin:calc(var(--o) * -.125) 0 0 calc(var(--o) * -.125);font-size:calc(var(--o) * .1);box-shadow:0 0 0 calc(var(--o) * .03) rgba(255,255,255,.35)}
+@media (min-width:1025px) and (max-height:900px){#mdm .hx-orbit{--o:196px;--e:34px}}
+@media (max-width:1024px){#mdm .hx-orbit{--o:188px;--e:34px}}
+/* phone: too narrow to share a row with the text, so it sits in the top-right corner */
+@media (max-width:700px){#mdm .hx-orbit{--o:104px;--e:26px;top:calc(var(--o) / 2 + var(--e) / 2 + 10px)}#mdm .hx-wide{min-height:244px !important}#mdm .hx-wide-copy{max-width:none}}
 #mdm .hx-green .hx-ring{width:50px;height:50px}
 #mdm .hx-green .hx-lbl{margin-top:10px;font-size:17px;line-height:1.25}
 #mdm .bx-final .bx-lead{max-width:760px;text-wrap:balance}
