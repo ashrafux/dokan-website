@@ -1153,6 +1153,10 @@
 #mdm .bx-final .fx-left .bx-lead{max-width:540px}
 #mdm .fx-left .bx-cta{justify-content:flex-start;margin-top:8px}
 @media (min-width:1025px){#mdm .bx-final .bx-h1{font-size:clamp(36px,3.3vw,48px) !important}}
+/* tile valley runs almost edge to edge of the screen, past the content column */
+#mdm .bx-final .fx-valley{--vi:48px;left:50%;right:auto;width:calc(100vw - var(--vi) * 2);transform:translateX(-50%)}
+@media (max-width:1024px){#mdm .bx-final .fx-valley{--vi:20px}}
+@media (max-width:720px){#mdm .bx-final .fx-valley{--vi:0px}}
 #mdm .mdm-next{padding:34px;border-radius:20px;background:#F4F4F6}
 #mdm .mdm-next-h{font-family:'Poppins',sans-serif;font-weight:600;font-size:22px;color:#0F172A}
 #mdm .mdm-nr{display:grid;grid-template-columns:62px minmax(0,1fr);padding:22px 0;border-top:1px solid #E2E2E7}
