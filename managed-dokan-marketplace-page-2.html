@@ -1347,6 +1347,11 @@
   #mdm .plan,#mdm .bx-guar,#mdm .bx-cmp .bx-table,#mdm .bx-cmp .bx-swipe{max-width:1490px}
   #mdm .plan{grid-template-columns:minmax(max-content,1fr) 500px}
 }
+/* hero: 60px from the lead to the buttons (on top of the column's own gap); scaled down on tablet and phone */
+#mdm .bx-hero .bx-hero-copy .bx-cta{margin-top:40px}
+@media (min-width:900px) and (max-height:760px){#mdm .bx-hero .bx-hero-copy .bx-cta{margin-top:46px}}
+@media (max-width:899px){#mdm .bx-hero .bx-hero-copy .bx-cta{margin-top:20px}}
+@media (max-width:700px){#mdm .bx-hero .bx-hero-copy .bx-cta{margin-top:14px}}
 </style>
 </head>
 <body class="font-body">
