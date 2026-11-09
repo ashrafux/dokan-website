@@ -1305,6 +1305,10 @@
   #mdm .bx-hero .bx-lead{font-size:14.5px !important}
   #mdm .bx-hero .bx-h1{font-size:27px !important}
 }
+/* hero content lines up with the header: copy starts at the logo, box ends at the last header item (measured in heroAlign) */
+#mdm .bx-hero>.wrap{max-width:none;padding-left:var(--hero-l,var(--gut)) !important;padding-right:var(--hero-r,var(--gut)) !important}
+@media (min-width:1400px){#mdm .bx-hero>.wrap{grid-template-columns:minmax(0,1fr) 540px}}
+#mdm .bx-hero .bx-eb{color:#C2410C}
 </style>
 </head>
 <body class="font-body">
@@ -1596,6 +1600,20 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !pop.hidden) { show(false); btn.focus(); } });
     document.addEventListener('click', function (e) { if (!sv.contains(e.target)) show(false); });
   }
+  /* Hero content shares the header's left and right edges */
+  function heroAlign() {
+    var top = root.querySelector('.mdm-top'), logo = top && top.querySelector('.menu-logo');
+    if (!logo) return;
+    var last = [].slice.call(top.querySelectorAll('.menu-right > *')).filter(function (el) { return el.offsetWidth > 0; }).pop();
+    if (!last) return;
+    var t = top.getBoundingClientRect();
+    top.style.setProperty('--hero-l', Math.round(logo.getBoundingClientRect().left - t.left) + 'px');
+    top.style.setProperty('--hero-r', Math.round(t.right - last.getBoundingClientRect().right) + 'px');
+  }
+  heroAlign();
+  addEventListener('resize', heroAlign);
+  addEventListener('load', heroAlign);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(heroAlign);
   spotlight(root);
   tiles(root);
   lhTabs(root);
