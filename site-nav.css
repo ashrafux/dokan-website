@@ -504,3 +504,50 @@ html.is-loading.is-released #site-nav { visibility:visible; }   /* header enters
 .pb:focus-visible .pb-i { transform:translateX(100%); }
 .pb:focus-visible .pb-i.pb-clone { transform:translateX(0); }
 @media (prefers-reduced-motion: reduce) { .pb-t, .pb-i { transition:none; } }
+
+/* ── Launch CTA (shared) ─────────────────────────────────────────────────
+   The home page's final CTA (Figma Frame 2106260532), used on every page
+   that closes with the purple band. 20px white gutter, band 646 tall (grows
+   if a long title needs it), copy 84px in and centred, storefront art
+   678x593 bottom-anchored 61px from the right. Same content on every page. */
+.lc-shell { background:#FFFFFF; padding:20px; }
+.lc-band { position:relative; width:100%; min-height:646px; border-radius:20px; overflow:hidden;
+  background:#7047EB; display:flex; align-items:center; }
+.lc-waves { position:absolute; left:-22px; top:-35px; width:calc(100% + 44px); height:calc(100% + 78px);
+  opacity:.15; pointer-events:none; }
+.lc-copy { position:relative; z-index:2; margin-left:84px; padding:70px 0; width:443px;
+  display:flex; flex-direction:column; gap:56px; }
+.lc-top { display:flex; flex-direction:column; gap:28px; }
+.lc-title { margin:0; max-width:430px; font-family:'Poppins',sans-serif; font-weight:700;
+  font-size:62px; line-height:125%; color:#FFFFFF; text-wrap:balance; }
+.lc-text { margin:0; max-width:443px; font-family:'Lato',sans-serif; font-weight:400; font-size:20px;
+  line-height:150%; color:#FFFFFF; opacity:.7; }
+.lc-actions { display:flex; flex-wrap:wrap; align-items:center; gap:15px; }
+.lc-btn { position:relative; box-sizing:border-box; display:flex; align-items:center;
+  width:252.31px; height:68px; padding-left:39.31px; background:#FFFFFF;
+  border:.94px solid #E9E9E9; box-shadow:0 1.87px 5.62px rgba(0,0,0,.05); border-radius:187.18px;
+  font-family:'Lato',sans-serif; font-weight:700; font-size:16.85px; line-height:150%;
+  color:#0E0E0F; white-space:nowrap; text-decoration:none; transition:transform .25s, box-shadow .25s; }
+.lc-btn:hover { transform:translateY(-2px); box-shadow:0 14px 30px -12px rgba(0,0,0,.35); }
+.lc-btn .circle { position:absolute; right:11.68px; top:50%; transform:translateY(-50%);
+  width:45.86px; height:45.86px; border-radius:135.19px; background:#0E0E0F;
+  display:grid; place-items:center; transition:transform .25s; }
+.lc-btn .circle svg { width:22.98px; height:22.98px; color:#FFFFFF; }
+.lc-art { position:absolute; right:61px; bottom:0; top:auto; z-index:1;
+  width:min(678px, calc(100% - 620px)); height:auto; }
+@media (min-width:1024px) and (max-width:1279px) {
+  .lc-copy { width:380px; gap:40px; } .lc-top { gap:20px; }
+  .lc-title { max-width:380px; font-size:52px; } .lc-text { font-size:18px; }
+}
+@media (max-width:1023px) {
+  .lc-band { display:block; min-height:0; }
+  .lc-copy { margin:0; width:auto; max-width:443px; padding:56px 32px 0; }
+  .lc-title { width:430px; max-width:none; }
+  .lc-art { position:static; display:block; width:min(100%, 678px); height:auto; margin:40px 0 0 auto; }
+}
+@media (max-width:640px) {
+  .lc-copy { padding:40px 20px 0; gap:32px; }
+  .lc-title { width:auto; max-width:none; font-size:40px; }
+  .lc-btn { width:100%; max-width:252.31px; }
+  .lc-art { margin-top:32px; }
+}

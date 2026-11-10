@@ -553,7 +553,7 @@
    transforms move, so the button's size, colours and the circle are untouched.
    Add a selector here, or mark a button with data-primary-icon. */
 (function () {
-  var SEL = '[data-primary-icon], .btn-primary, .dd-b1, .mdh-buy .b1, .mh-b1, .ai-b1, .btn-dl, .cta-btn, .th-cta-btn, .btn-nudge, .iface-demo, .menu-pricing';
+  var SEL = '[data-primary-icon], .btn-primary, .dd-b1, .mdh-buy .b1, .mh-b1, .ai-b1, .btn-dl, .cta-btn, .lc-btn, .th-cta-btn, .btn-nudge, .iface-demo, .menu-pricing';
 
   function enhance(b) {
     if (b.classList.contains('pb')) return;
