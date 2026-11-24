@@ -6,9 +6,9 @@
 <title>Alibaba Demo — Build Big Like Alibaba Using Dokan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&family=Inter:wght@700&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="site-nav.css?v=32" />
+<link rel="stylesheet" href="site-nav.css?v=34" />
 <!-- Page loader: only the header shows until site-nav.js reveals the page (5s failsafe) -->
 <script>(function(d){if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.style.setProperty('--loader-bg','#06070C');d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000)})(document.documentElement)</script>
 <script>
@@ -21,7 +21,8 @@
   }}};
 </script>
 <style>
-  /* Canvas 1700, content gutter 102 (Figma 525:20760) */
+  /* Demo Details — Figma 525:20760 (1700 x 14385). Canvas 1700, content gutter 102.
+     Desktop values are the Figma numbers; responsive overrides are at the end. */
   .wrap { width:100%; max-width:1700px; margin:0 auto; padding-left:102px; padding-right:102px; }
   @media (max-width:1200px){ .wrap { padding-left:48px; padding-right:48px; } }
   @media (max-width:700px){ .wrap { padding-left:20px; padding-right:20px; } }
@@ -30,279 +31,308 @@
   html.lenis, html.lenis body { height:auto; }
   html.lenis-smooth { scroll-behavior:auto !important; }
 
-  .ph { position:relative; background:linear-gradient(135deg,#eef0f6 0%,#e5e8f2 100%); overflow:hidden; }
-  .ph::after { content:attr(data-asset); position:absolute; inset:0; display:flex; align-items:center;
-    justify-content:center; font-family:'Lato',sans-serif; font-size:12px; letter-spacing:.04em;
-    text-transform:uppercase; color:#9aa0b2; text-align:center; padding:14px; line-height:1.5; }
-
-  /* ── HERO (525:20770) — full-bleed dark, 1316 tall ── */
-  /* Export is 3400x2632 = the 1700x1316 hero frame at 2x */
+  /* ── HERO (738:20902) — full-bleed dark, 1316 tall ──
+     hero bg.png is the 1700x1316 hero frame at 2x. Copy row (738:20898) is
+     840 wide, centred, top 213; screenshot 1366x568 at y 748. */
   .dd-hero { position:relative; color:#fff; overflow:hidden;
-    background:#06070C url('Media/Demo%20Details%20Page/hero%20bg.png') center/cover no-repeat; }
+    background:#06070C url('Media/Demo%20Details%20Page/hero%20bg.png') center top/cover no-repeat; }
   .dd-hero > * { position:relative; z-index:2; }
-
-  .dd-nav { display:flex; align-items:center; justify-content:center;
-    gap:clamp(16px, calc((100% - 824px)/2), 336px); max-width:1532px; height:42px; margin:0 auto;
-    padding-top:30px; }
-  .dd-nav .logo { width:121px; height:33px; flex:none; }
-  .dd-links { display:flex; align-items:center; gap:35px; flex:none; }
-  .dd-links li { display:flex; align-items:center; gap:10px; }
-  .dd-links a { font-family:'Poppins',sans-serif; font-weight:600; font-size:16px; line-height:120%;
-    color:#fff; white-space:nowrap; transition:color .2s; }
-  .dd-links a:hover { color:#B49DFF; }
-  .dd-chev { width:10px; height:6px; flex:none; color:rgba(255,255,255,.6); }
-  .dd-right { display:flex; align-items:center; gap:31px; flex:none; }
-  .dd-login { font-family:'Poppins',sans-serif; font-weight:600; font-size:16px; color:#fff; }
-  .dd-pricing { display:flex; align-items:center; justify-content:center; width:97px; height:42px;
-    background:#7047EB; border-radius:9999px; font-family:'Lato',sans-serif; font-weight:700;
-    font-size:14px; color:#fff; transition:background-color .2s, transform .2s; }
-  .dd-pricing:hover { background:#5d36d6; transform:translateY(-1px); }
-
-  /* Badge 140x41 at x=428 y=198; heading block 658 wide at x=610 y=188 */
-  .dd-heroband { display:flex; justify-content:center; gap:42px; padding-top:188px; }
-  .dd-badge { flex:none; margin-top:10px; display:inline-flex; align-items:center; justify-content:center;
-    min-width:140px; height:41px; padding:0 20px; border-radius:9999px; background:#F8A66B;
-    font-family:'Lato',sans-serif; font-weight:700; font-size:15px; color:#25252D; }
+  .dd-heroband { display:flex; justify-content:center; align-items:flex-start; gap:42px; padding-top:213px; }
+  .dd-badge { flex:none; display:inline-flex; align-items:center; justify-content:center; height:41px;
+    padding:0 20px; border-radius:9999px; background:#FF9B53; white-space:nowrap;
+    font-family:'Lato',sans-serif; font-weight:400; font-size:16px; line-height:1.3; color:#FFFFFF; }
   .dd-copy { width:658px; max-width:100%; flex:none; }
   .dd-h1 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
     line-height:1.2; color:#fff; }
   .dd-sub { margin:28px 0 0; width:517px; max-width:100%; font-family:'Lato',sans-serif;
-    font-size:20px; line-height:1.5; color:rgba(255,255,255,.62); }
+    font-size:20px; line-height:1.5; color:#fff; opacity:.7; }
   .dd-cta { display:flex; align-items:center; gap:15px; margin-top:56px; }
-  .dd-b1 { position:relative; display:flex; align-items:center; padding-left:40px; width:294px;
-    height:70px; background:#7047EB; border-radius:9999px; font-family:'Lato',sans-serif;
-    font-weight:700; font-size:16.85px; color:#fff; transition:background-color .25s, transform .25s; }
-  .dd-b1:hover { background:#5d36d6; transform:translateY(-2px); }
-  .dd-b1 .circle { position:absolute; right:12px; top:50%; transform:translateY(-50%);
-    width:45.9px; height:45.6px; border-radius:9999px; background:#fff; display:flex;
-    align-items:center; justify-content:center; }
-  .dd-b1 .circle svg { width:23px; height:23px; color:#7047EB; }
-  .dd-b2 { display:flex; align-items:center; justify-content:center; width:175px; height:68px;
-    border-radius:9999px; background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.16);
-    font-family:'Lato',sans-serif; font-weight:700; font-size:16.85px; color:#fff;
+  .dd-b1 { position:relative; box-sizing:border-box; display:flex; align-items:center; padding-left:40px;
+    width:294px; height:70px; background:#7047EB; border-radius:187.18px; white-space:nowrap;
+    font-family:'Lato',sans-serif; font-weight:700; font-size:20px; line-height:1.5; color:#fff;
     transition:background-color .25s, transform .25s; }
-  /* hover: radial fill only (site-nav.js) */
-
-  /* Screenshot 1366x568 at x=168 y=748 */
-  .dd-shot { margin:129px auto 0; width:1366px; max-width:calc(100% - 60px); aspect-ratio:1366/568;
-    border-radius:18px 18px 0 0; overflow:hidden; }
+  .dd-b1:hover { background:#5d36d6; transform:translateY(-2px); }
+  .dd-b1 .circle { position:absolute; right:11.37px; top:50%; transform:translateY(-50%);
+    width:45.86px; height:45.64px; border-radius:135.19px; background:#fff; display:flex;
+    align-items:center; justify-content:center; }
+  .dd-b1 .circle svg { width:15.43px; height:15.42px; }
+  .dd-b2 { box-sizing:border-box; display:flex; align-items:center; justify-content:center; width:175px; height:68px;
+    border-radius:187.18px; background:rgba(255,255,255,.10); white-space:nowrap;
+    font-family:'Lato',sans-serif; font-weight:700; font-size:16.846px; line-height:1.5; color:#fff; }
+  /* hover: radial fill (site-nav.js, inverse on the dark hero) */
+  .dd-shot { margin:104px auto 0; width:min(1366px, calc(100% - 40px)); aspect-ratio:1366/568; }
   .dd-shot img { width:100%; height:100%; object-fit:cover; object-position:top center; display:block; }
 
-  /* ── COMPARISON (525:21434) — 2 x 733x615, gap 28 ── */
+  /* ── COMPARISON (525:21434) — pt 192 / pb 144, cards 733x616, gap 28 ── */
+  .sec-cmp { padding:192px 0 144px; }
   .cmp-title { margin:0 auto; max-width:960px; text-align:center; font-family:'Poppins',sans-serif;
-    font-weight:700; font-size:52px; line-height:1.2; color:#0f172a; }
-  .cmp-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:28px; margin-top:56px; }
-  .cmp-card { border:1px solid #ECEDF1; border-radius:18px; padding:60px; min-height:615px;
-    background:#fff; box-shadow:0 2px 5px 0 #0000000F; }
-  .cmp-h { margin:0 0 40px; font-family:'Poppins',sans-serif; font-weight:700; font-size:32px;
-    line-height:1.45; color:#0f172a; }
-  .cmp-row { display:flex; align-items:center; gap:18px; height:36px; margin-bottom:24px;
-    font-family:'Lato',sans-serif; font-size:19px; color:#334155; }
-  .cmp-ic { width:26px; height:26px; border-radius:9999px; flex:none; display:flex;
-    align-items:center; justify-content:center; }
-  .cmp-ic svg { width:14px; height:14px; }
-  .cmp-ic--no { background:#F1F2F5; color:#8A90A0; }
-  .cmp-ic--yes { background:#12B76A; color:#fff; }
+    font-weight:700; font-size:52px; line-height:1.2; color:#111827; }
+  .cmp-grid { display:grid; grid-template-columns:repeat(2, minmax(0,733px)); gap:28px; margin-top:56px; }
+  .cmp-card { box-sizing:border-box; min-height:616px; padding:60px 60px 70px; background:#fff;
+    border:1px solid #E5E7EB; border-radius:20px; }
+  .cmp-h { margin:0 0 41px; font-family:'Inter','Poppins',sans-serif; font-weight:700; font-size:35.06px;
+    line-height:46.745px; color:#111827; }
+  .cmp-list { display:flex; flex-direction:column; gap:24px; margin:0; padding:0; list-style:none; }
+  .cmp-row { display:flex; align-items:center; gap:18px; font-family:'Lato',sans-serif; font-size:24px;
+    line-height:1.5; color:#475569; }
+  .cmp-ic { flex:none; width:35.06px; height:35.06px; display:block; }
 
-  /* ── FEATURES (525:21298) — sticky left, 733-wide blocks ── */
-  .feat-wrap { display:grid; grid-template-columns:502px 1fr;
-    gap:clamp(24px, calc(100vw - 1439px), 260px); }
+  /* ── FEATURES (525:21298) — pt/pb 144, sticky side 502 + cards 733x705 ──
+     Each card is the fixed 733x705 Figma artboard scaled to its column
+     (--k = width / 733, set by a ResizeObserver), so every screenshot keeps
+     its own Figma rect at any width. Phones reflow instead (see below). */
+  .sec-feat { padding:143px 0 144px; }
+  .feat-wrap { display:grid; grid-template-columns:minmax(0,502px) minmax(0,733px);
+    column-gap:260px; align-items:start; }
   .feat-side { position:sticky; top:120px; align-self:start; }
   .feat-side h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
     line-height:1.2; color:#0f172a; }
-  .feat-side .accent { color:#FF6A15; }
-  .feat-side a { display:inline-flex; align-items:center; gap:10px; margin-top:28px;
-    font-family:'Poppins',sans-serif; font-weight:600; font-size:17px; color:#0E0E0F;
-    text-decoration:underline; text-underline-offset:5px; transition:color .2s, gap .2s; }
-  .feat-side a:hover { color:#7047EB; gap:14px; }
-  .feat-side a svg { width:18px; height:18px; }
+  .feat-side .accent { color:#FF5A00; }
+  .feat-side a { display:inline-flex; align-items:center; gap:8px; margin-top:28px;
+    font-family:'Lato',sans-serif; font-weight:700; font-size:18px; line-height:22px; color:#0E0E0F;
+    text-decoration:underline; text-decoration-skip-ink:none; text-underline-offset:4px; white-space:nowrap; }
+  .feat-side a svg { width:20px; height:20px; flex:none; }
   .feat-list { display:flex; flex-direction:column; gap:20px; }
-  .feat { position:relative; width:100%; max-width:733px; height:705px; background:#F2F2F4;
-    border-radius:20px; }
+  .feat { position:relative; width:100%; aspect-ratio:733/705; border-radius:20px; background:#F3F3F3;
+    overflow:hidden; }
+  .feat-in { position:absolute; left:0; top:0; width:733px; height:705px;
+    transform:scale(var(--k,1)); transform-origin:0 0; }
   .feat-head { position:absolute; left:50px; top:43px; width:563px; }
   .feat-t { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:30px;
-    line-height:1.3; color:#0f172a; }
-  .feat-d { margin:20px 0 0; font-family:'Lato',sans-serif; font-size:20px;
-    line-height:1.5; color:#575757; }
-  /* each screenshot sits at its own rect (Figma 525:21304 … 525:21346) */
-  .feat-shot { position:absolute; border-radius:12px; object-fit:cover; object-position:top left; }
+    line-height:1.3; color:#0f172a; white-space:nowrap; }
+  .feat-d { margin:20px 0 0; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#475569; }
+  .feat-shot { position:absolute; display:block; border-radius:10px; object-fit:cover; object-position:top left; }
 
-  /* ── WHY (525:21372) — 4 x 353x333, gap 28 ── */
-  .why-head { display:grid; grid-template-columns:828px 1fr; gap:197px; }
+  /* ── WHY (525:21372) — y 8689, 4 x 353x333 cards, gap 28 ── */
+  .sec-why { padding-top:172px; }
+  .why-head { display:grid; grid-template-columns:828px 441px; column-gap:197px; align-items:end; }
   .why-head h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
-    line-height:1.2; color:#0f172a; }
-  .why-head p { margin:4px 0 0; max-width:441px; font-family:'Lato',sans-serif; font-size:18px;
-    line-height:1.6; color:#575757; }
-  .why-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:28px; margin-top:56px; }
-  .why-card { position:relative; overflow:hidden; background:#F2F2F4; border-radius:16px;
-    min-height:333px; padding:33px 26px 35px; display:flex; flex-direction:column; }
-  /* Hover: the Figma gradient wash fades in (export is 706x666 = the 353x333
-     card at 2x). background-image can't transition, so it rides on a layer. */
-  .why-card::before {
-    content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+    line-height:1.2; color:#0f172a; white-space:nowrap; }
+  .why-head p { margin:0; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5;
+    color:#334155; opacity:.98; }
+  .why-grid { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:28px; margin-top:56px; }
+  .why-card { position:relative; overflow:hidden; height:333px; border-radius:20px; background:#F3F3F3; }
+  /* Hover: the Figma gradient wash (the "Ease of Use" card's fill; export is
+     the 353x333 card at 2x) fades in on a layer, since background-image can't transition. */
+  .why-card::before { content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
     background:url('Media/Demo%20Details%20Page/Why%20Dokan%20Is%20the%20Best%20Solution%20for%20Your%20Marketplace.png') center/cover no-repeat;
-    opacity:0; transition:opacity .35s ease;
-  }
-  .why-card > * { position:relative; z-index:1; }
+    opacity:0; transition:opacity .35s ease; }
   .why-card:hover::before, .why-card:focus-within::before { opacity:1; }
-  .why-ic { width:120px; height:120px; display:flex; align-items:center; justify-content:center;
-    color:#141B34; }
-  .why-ic svg { width:56px; height:56px; }
-  .why-t { margin:auto 0 0 9px; font-family:'Poppins',sans-serif; font-weight:700; font-size:24px;
-    line-height:1.3; color:#0f172a; }
+  .why-ic { position:absolute; left:26px; top:33px; width:120px; height:120px; display:block; z-index:1; }
+  .why-card:first-child .why-ic { left:27px; }
+  .why-t { position:absolute; left:35px; bottom:36px; z-index:1; margin:0; font-family:'Poppins',sans-serif;
+    font-weight:600; font-size:24px; line-height:1.3; color:#0f172a; white-space:nowrap; }
 
-  /* ── TEMPLATES (y 10010..10801) — lined bg + fanned cards ── */
+  /* ── TEMPLATES (525:21351 + lines 525:20761 + cards 525:21429-33) ──
+     head y 9755, lines y 10010-10801 (black @10%, 113px pitch) */
+  .sec-tpl { padding-top:191px; }
   .tpl-head { text-align:center; }
   .tpl-head h2 { margin:0 auto; max-width:578px; font-family:'Poppins',sans-serif; font-weight:700;
     font-size:52px; line-height:1.2; color:#0f172a; }
   .tpl-head p { margin:28px auto 0; max-width:424px; font-family:'Lato',sans-serif; font-size:20px;
-    line-height:1.5; color:#575757; }
-  .tpl-stage { position:relative; margin-top:44px; width:100%; aspect-ratio:1700/791; overflow:hidden;
-    background-image:repeating-linear-gradient(to bottom,#EFEFF3 0 1px,transparent 1px 113px);
-    -webkit-mask-image:linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
-    mask-image:linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%); }
-  /* The exports are already rotated and carry their own soft shadow on a
-     transparent canvas, so they are placed flat at their Figma rects — no CSS
-     rotate, no CSS box-shadow, no opaque backing. */
+    line-height:1.5; color:#334155; opacity:.98; }
+  .tpl-stage { position:relative; margin-top:43px; width:100%; aspect-ratio:1700/792; overflow:hidden;
+    background-image:repeating-linear-gradient(to bottom, rgba(0,0,0,.1) 0 1px, transparent 1px 113px); }
+  /* The exports are already rotated and carry their own white border + soft
+     shadow on a transparent canvas, so they sit flat at their Figma rects. */
   .tpl { position:absolute; height:auto; will-change:transform; }
 
-  /* ── FAQ (525:21355) — 952 wide, rows 119 tall ── */
+  /* ── FAQ (525:21355) — y 11041, 952 wide, rows 119 tall ── */
+  .sec-faq { padding-top:238px; }
   .faq-wrap { max-width:952px; margin:0 auto; }
   .faq-wrap h2 { margin:0; text-align:center; font-family:'Poppins',sans-serif; font-weight:700;
-    font-size:62px; line-height:1.25; color:#0f172a; }
+    font-size:62px; line-height:1.25; color:#25252D; }
   .faq-lede { margin:25px auto 0; max-width:798px; text-align:center; font-family:'Lato',sans-serif;
-    font-size:18px; line-height:1.22; color:#575757; }
+    font-size:20px; line-height:1.5; color:#575757; text-box:trim-both cap alphabetic; }
   .faq-list { margin-top:56px; display:flex; flex-direction:column; gap:20px; }
-  .faq-row { background:#F7F7F9; border-radius:14px; overflow:hidden; }
+  .faq-row { background:#F8F9F8; border-radius:10px; overflow:hidden; }
   .faq-q { width:100%; min-height:119px; display:flex; align-items:center; justify-content:space-between;
-    gap:24px; padding:0 36px; text-align:left; font-family:'Poppins',sans-serif; font-weight:600;
-    font-size:20px; color:#0f172a; transition:color .2s; }
+    gap:24px; padding:0 43px 0 42px; text-align:left; font-family:'Poppins',sans-serif; font-weight:600;
+    font-size:18px; line-height:1.2; color:#25252D; transition:color .2s; }
   .faq-q:hover { color:#7047EB; }
-  .faq-plus { flex:none; width:26px; height:26px; display:flex; align-items:center; justify-content:center;
+  .faq-plus { flex:none; width:17px; height:17px; color:#1E1E1E;
     transition:transform .3s cubic-bezier(.22,.61,.36,1), color .2s; }
-  .faq-plus svg { width:22px; height:22px; }
-  .faq-q[aria-expanded="true"] .faq-plus { transform:rotate(45deg); color:#7047EB; }
-  .faq-a { display:none; padding:0 36px 34px; font-family:'Lato',sans-serif; font-size:18px;
+  .faq-plus svg { display:block; width:17px; height:17px; overflow:visible; }
+  .faq-q:hover .faq-plus, .faq-q[aria-expanded="true"] .faq-plus { color:#7047EB; }
+  .faq-q[aria-expanded="true"] .faq-plus { transform:rotate(45deg); }
+  .faq-a { display:none; padding:0 42px 36px; margin-top:-16px; font-family:'Lato',sans-serif; font-size:18px;
     line-height:1.6; color:#575757; }
   .faq-a.is-open { display:block; }
-  .faq-ask { margin:56px auto 0; display:flex; align-items:center; gap:18px; width:274px; height:73px;
-    padding-left:38px; border-radius:9999px; background:#0B0B10; color:#fff;
-    font-family:'Poppins',sans-serif; font-weight:600; font-size:19px;
-    transition:transform .25s, background-color .25s; }
-  .faq-ask:hover { transform:translateY(-2px); background:#000; }
-  .faq-ask .faces { display:flex; }
-  .faq-ask .faces img { width:34.92px; height:34.92px; border-radius:9999px; display:block; }
-  .faq-ask .faces img + img { margin-left:-0.83px; }
+  .faq-ask { box-sizing:border-box; margin:56px auto 0; display:flex; align-items:center; justify-content:center;
+    gap:17px; width:274px; height:73px; padding:0 38px; border-radius:40px; background:#000;
+    border:1px solid #E9E9E9; color:#fff; white-space:nowrap; font-family:'Lato',sans-serif; font-weight:700;
+    font-size:18px; line-height:1.5; transition:transform .25s, box-shadow .25s; }
+  .faq-ask:hover { transform:translateY(-2px); box-shadow:0 18px 36px -16px rgba(0,0,0,.35); }
+  .faq-ask .ask-t { white-space:pre; }
+  .faq-ask .faces { display:flex; flex:none; }
+  .faq-ask .face { width:34.92px; height:34.92px; position:relative; flex:none; }
+  .faq-ask .face + .face { margin-left:-0.83px; }
+  /* the avatar exports carry their white ring (Figma image inset -6.21%) */
+  .faq-ask .face img { position:absolute; left:-2.17px; top:-2.17px; width:39.26px; height:39.26px;
+    max-width:none; display:block; }
 
-  /* ── CTA ── */
-  .dd-final { position:relative; overflow:hidden; border-radius:20px; background:#7047EB;
-    display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:center; min-height:646px; }
+  /* ── CTA (525:20777) — shared .lc band with this frame's copy ──
+     band x 21 w 1660 h 646, copy 603 wide 84 in; footer at 13045 */
+  .sec-cta { padding-top:192px; padding-bottom:20px; }
+  .sec-cta .lc-copy { width:603px; }
+  .sec-cta .lc-title { max-width:603px; font-size:52px; line-height:1.2; text-wrap:wrap; }
+  .sec-cta .lc-text { max-width:405px; }
+  .sec-cta .lc-btn { width:264px; height:70px; padding-left:40px; border:0; box-shadow:none;
+    font-size:20px; color:#7047EB; }
+  .sec-cta .lc-btn:hover { box-shadow:0 14px 30px -12px rgba(0,0,0,.35); }
+  .sec-cta .lc-btn .circle { right:11.37px; width:45.86px; height:45.64px; background:#7047EB; }
+  .sec-cta .lc-btn .circle svg { width:15.43px; height:15.42px; }
+  .lc-b2 { box-sizing:border-box; display:flex; align-items:center; justify-content:center; width:175px;
+    height:68px; border-radius:187.18px; background:#7E59ED; white-space:nowrap; font-family:'Lato',sans-serif;
+    font-weight:700; font-size:16.846px; line-height:1.5; color:#fff; }
 
-  @media (max-width:1400px) {
-    .feat-wrap { grid-template-columns:1fr; gap:48px; }
-    .feat-side { position:static; }
-    .feat { width:100%; min-height:0; padding:32px; }
-    .why-head { grid-template-columns:1fr; gap:24px; }
-    .why-head h2, .why-head p { max-width:none; }
-    .why-grid { grid-template-columns:repeat(2,1fr); }
-    .dd-heroband { flex-direction:column; gap:20px; padding-top:56px; }
-    .dd-badge { align-self:flex-start; margin-top:0; }
-    .dd-copy, .dd-sub { width:auto; }
-    .dd-h1 { font-size:clamp(30px,4.2vw,52px); }
-    .cmp-title, .feat-side h2, .why-head h2, .tpl-head h2 { font-size:clamp(28px,4.1vw,52px); }
-    .faq-wrap h2 { font-size:clamp(32px,5vw,62px); }
-    .cmp-card { padding:32px; min-height:0; }
-    .cmp-h { font-size:clamp(22px,2.4vw,32px); margin-bottom:28px; }
-    .feat-t { font-size:clamp(20px,2.4vw,30px); }
-    .feat-d, .tpl-head p { font-size:16px; }
-    .dd-shot { margin-top:64px; }
-    .why-t { font-size:clamp(18px,2vw,24px); }
-    .faq-q { font-size:17px; min-height:88px; padding:0 22px; }
+  /* ═════════════ Responsive ═════════════ */
+  @media (max-width:1499px) {
+    /* side column keeps >=340px; the cards scale with what is left (<=733) */
+    .feat-wrap { grid-template-columns:minmax(340px,1fr) minmax(0,733px); column-gap:56px; }
+    .feat-side h2 { font-size:clamp(36px, 3.4vw, 52px); }
+    .why-head { grid-template-columns:minmax(0,1fr) minmax(0,400px); column-gap:48px; }
+    .why-head h2 { font-size:clamp(36px, 3.2vw, 52px); }
+    .why-head p { font-size:18px; }
+    .why-t { left:26px; font-size:clamp(18px, 1.6vw, 24px); }
+    .sec-cta .lc-copy { width:min(603px, calc(100% - 84px - min(678px, 100% - 620px) - 80px)); }
+    .sec-cta .lc-title { font-size:clamp(36px, 3vw, 52px); }
   }
-  @media (max-width:760px) {
-    .cmp-grid, .why-grid { grid-template-columns:1fr; }
-    .dd-links, .dd-login { display:none; }
-    .dd-cta { flex-wrap:wrap; }
-    .dd-b1, .dd-b2 { width:100%; max-width:294px; }
-    .dd-final { grid-template-columns:1fr; min-height:0; }
-    .tpl-stage { aspect-ratio:1700/1000; }
+  @media (max-width:1339px) {
+    .why-head { grid-template-columns:minmax(0,1fr); row-gap:20px; }
+    .why-head p { max-width:560px; }
+  }
+  @media (max-width:1279px) {
+    .sec-cta .lc-copy { width:460px; }
+    .sec-cta .lc-title { font-size:36px; }
+    .sec-cta .lc-text { font-size:18px; }
+    .cmp-card { min-height:0; padding:40px 40px 50px; }
+    .cmp-h { font-size:30px; line-height:40px; margin-bottom:32px; }
+    .cmp-row { font-size:20px; gap:14px; }
+    .cmp-list { gap:18px; }
+    .cmp-ic { width:30px; height:30px; }
+    .why-card { height:auto; aspect-ratio:353/333; }
+    .why-ic { width:96px; height:96px; left:16px; top:20px; }
+    .why-card:first-child .why-ic { left:17px; }
+    .why-t { left:22px; bottom:26px; font-size:18px; }
+  }
+  @media (max-width:1199px) {
+    /* CTA stacks (copy, then the storefront art) like the shared band does <1024 */
+    .sec-cta .lc-band { display:block; min-height:0; }
+    .sec-cta .lc-copy { margin:0; width:auto; max-width:667px; padding:64px 32px 0; }
+    .sec-cta .lc-title { width:auto; max-width:603px; font-size:clamp(32px, 4.6vw, 44px); }
+    .sec-cta .lc-art { position:static; display:block; width:min(100%, 678px); height:auto; margin:40px 0 0 auto; }
+  }
+  @media (max-width:1100px) {
+    .dd-heroband { flex-direction:column; align-items:center; gap:24px; padding-top:160px; }
+    .dd-copy { text-align:center; }
+    .dd-sub { margin-left:auto; margin-right:auto; }
+    .dd-cta { justify-content:center; }
+    .dd-shot { margin-top:80px; }
+    /* features stack: heading on top, cards full width (<=733, still scaled) */
+    .feat-wrap { grid-template-columns:minmax(0,1fr); row-gap:48px; }
+    .feat-side { position:static; max-width:640px; }
+    .feat-side h2 { font-size:clamp(30px, 4.6vw, 44px); }
+    .feat-list { max-width:733px; width:100%; margin:0 auto; }
+  }
+  @media (max-width:1023px) {
+    .sec-cmp { padding:128px 0 104px; }
+    .sec-feat { padding:104px 0; }
+    .sec-why, .sec-tpl, .sec-faq { padding-top:128px; }
+    .sec-cta { padding-top:128px; }
+    .dd-heroband { padding-top:146px; }
+    .dd-shot { margin-top:72px; }
+    .cmp-title, .tpl-head h2 { font-size:clamp(30px, 4.6vw, 44px); }
+    .faq-wrap h2 { font-size:clamp(34px, 5.4vw, 52px); }
+    .why-head h2 { font-size:clamp(30px, 4.6vw, 44px); }
+    .why-grid { grid-template-columns:repeat(2, minmax(0,1fr)); gap:20px; margin-top:40px; }
+    .why-card { aspect-ratio:auto; height:240px; }
+    .why-t { font-size:20px; }
+    .tpl-head p, .faq-lede { font-size:18px; }
+    .faq-q { min-height:96px; padding:0 28px; font-size:17px; }
+    .faq-a { padding:0 28px 28px; margin-top:-8px; }
+  }
+  @media (max-width:900px) {
+    .cmp-grid { grid-template-columns:minmax(0,1fr); gap:20px; margin-top:40px; max-width:640px; margin-left:auto; margin-right:auto; }
+  }
+  @media (max-width:767px) {
+    /* templates: widen the stage past the screen so the centre cards stay legible */
+    .sec-tpl { overflow:hidden; }
+    .tpl-stage { width:170%; margin-left:-35%; }
+    .cmp-card { padding:31px 27px 35px; }
+    .cmp-h { font-size:26px; line-height:34px; margin-bottom:24px; }
+    .cmp-row { font-size:18px; }
+    .cmp-list { gap:14px; }
+    .cmp-ic { width:28px; height:28px; }
+  }
+  @media (max-width:640px) {
+    .sec-cmp { padding:88px 0 72px; }
+    .sec-feat { padding:72px 0; }
+    .sec-why, .sec-tpl, .sec-faq { padding-top:88px; }
+    .sec-cta { padding-top:88px; }
+    .dd-heroband { padding-top:118px; gap:20px; }
+    .dd-h1 { font-size:clamp(30px, 8.4vw, 40px); }
+    .dd-h1 br { display:none; }
+    .dd-sub { font-size:17px; margin-top:20px; }
+    .dd-cta { flex-direction:column; align-items:center; margin-top:36px; gap:12px; }
+    .dd-b1, .dd-b2 { width:100%; max-width:294px; height:60px; }
+    .dd-b1 { font-size:18px; }
+    .dd-b1 .circle { width:40px; height:40px; right:10px; }
+    .dd-shot { margin-top:48px; width:calc(100% - 24px); }
+    .cmp-title br, .why-head h2 br { display:none; }
+    .cmp-title, .feat-side h2, .why-head h2, .tpl-head h2 { font-size:clamp(26px, 7.4vw, 32px); }
+    .why-head h2 { white-space:normal; }
+    .why-head p, .tpl-head p, .faq-lede { font-size:17px; }
+    /* feature cards reflow: copy, then the screenshot full width */
+    .feat { aspect-ratio:auto; overflow:hidden; }
+    .feat-in { position:static; width:auto; height:auto; transform:none; padding:28px 20px 20px; }
+    .feat-head { position:static; width:auto; }
+    .feat-t { font-size:22px; white-space:normal; }
+    .feat-t br { display:none; }
+    .feat-d { font-size:16px; margin-top:12px; }
+    .feat-shot { position:static; width:100% !important; height:auto !important; margin-top:24px;
+      aspect-ratio:612/374; }
+    .why-grid { gap:12px; }
+    .why-card { height:auto; min-height:180px; }
+    .why-ic { width:72px; height:72px; left:8px; top:10px; }
+    .why-card:first-child .why-ic { left:8px; }
+    .why-t { left:16px; right:12px; bottom:18px; font-size:15px; white-space:normal; }
+    .why-t br { display:none; }
+    .faq-wrap h2 { font-size:34px; }
+    .faq-q { min-height:76px; padding:18px 20px; font-size:16px; }
+    .faq-a { padding:0 20px 22px; margin-top:0; font-size:16px; }
+    .faq-list { margin-top:36px; gap:12px; }
+    .sec-cta .lc-copy { padding:40px 20px 0; }
+    .sec-cta .lc-title { font-size:32px; }
+    .lc-b2 { width:100%; max-width:264px; }
+    .sec-cta .lc-btn { width:100%; max-width:264px; }
   }
   @media (prefers-reduced-motion: reduce) {
     *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
-  }
-
-  /* ── Section rhythm: gaps taken straight from the Figma canvas ──
-     hero ends 1316 · cmp title 1508 · featSide 2636 · why 8689
-     · tpl head 9755 · faq 11041 · cta 12379 · footer 13045       */
-  .sec-cmp   { padding-top:192px; padding-bottom:0; }
-  .sec-feat  { padding-top:333px; padding-bottom:0; }
-  .sec-why   { padding-top:273px; padding-bottom:0; }
-  .sec-tpl   { padding-top:192px; padding-bottom:0; }
-  .sec-faq   { padding-top:240px; padding-bottom:0; }
-  .sec-cta   { padding-top:192px; padding-bottom:20px; }
-  .cmp-card  { height:615px; }
-  .cmp-row:last-child { margin-bottom:0; }
-  /* CTA sits on 20px gutters (Figma x=21, w=1660), not the 102 content gutter */
-  .cta-wrap  { width:100%; max-width:1700px; margin:0 auto; padding:0 20px; }
-
-  @media (max-width:1400px) {
-    .sec-cmp, .sec-feat, .sec-why, .sec-tpl, .sec-faq, .sec-cta { padding-top:80px; }
-    .sec-cta { padding-bottom:16px; }
-    .cmp-card { height:auto; }
-    .feat { position:static; height:auto; padding:32px; }
-    .feat-head { position:static; width:auto; }
-    .feat-shot { position:static; width:100% !important; height:auto !important;
-      left:auto !important; top:auto !important; margin-top:28px; aspect-ratio:612/374; }
-    .cta-wrap { padding:0 20px; }
-  }
-
-  /* ── Mobile polish ── */
-  @media (max-width:760px) {
-    .why-grid { grid-template-columns:1fr 1fr; gap:12px; }
-    .why-card { min-height:0; padding:18px 14px 20px; }
-    .why-ic { width:64px; height:64px; } .why-ic svg { width:32px; height:32px; }
-    .why-t { margin:16px 0 0 4px; font-size:16px; }
-  }
-  @media (min-width:761px) and (max-width:1400px) { .why-card { min-height:220px; } }
-  @media (min-width:1025px) and (max-width:1400px) { .why-grid { grid-template-columns:repeat(4,1fr); gap:20px; } }
-  /* Below lg the storefront art was hidden but its empty grid column stayed,
-     squeezing the copy into half the card: stack copy + art like the other CTAs. */
-  @media (max-width:1023px) {
-    .dd-final { grid-template-columns:1fr; gap:0; min-height:0; }
-    .dd-final > div:last-child { display:block; height:auto; padding:0 24px 24px; }
-    .dd-final > div:last-child img { position:static; width:100%; height:auto; border-radius:10px; }
-  }
-  @media (min-width:641px) and (max-width:1200px) { h2.text-\[52px\].text-white { font-size:clamp(32px,4.6vw,52px) !important; } }
-  @media (max-width:640px) {
-    h2.text-\[52px\].text-white { font-size:30px !important; }
-    .pl-\[46px\].py-\[70px\] { padding:44px 24px !important; }
   }
 </style>
 </head>
 <body class="font-body">
 
-<!-- ═══════════ HERO (Figma 525:20770) ═══════════ -->
+<!-- ═══════════ HERO (Figma 738:20902) ═══════════ -->
 <header class="dd-hero">
-  <div id="site-nav" data-variant="dark"></div>
+  <div id="site-nav" data-variant="dark" data-top="30"></div>
   <div class="wrap">
-    <!-- header injected by site-nav.js -->
-
     <div class="dd-heroband">
-      <span class="dd-badge" data-anim>Alibaba Demo</span>
+      <span class="dd-badge">Alibaba Demo</span>
       <div class="dd-copy">
-        <h1 class="dd-h1" data-anim>Build Big Like Alibaba<br />Using Dokan, You&rsquo;re<br />Closer Than You Think</h1>
-        <p class="dd-sub" data-anim>With Dokan, you can easily build and grow your own multivendor marketplace like Alibaba. Manage products, vendors, and payments all from one simple platform.</p>
-        <div class="dd-cta" data-anim>
+        <h1 class="dd-h1">Build Big Like Alibaba <br />Using Dokan, You&rsquo;re <br />Closer Than You Think</h1>
+        <p class="dd-sub">With Dokan, you can easily build and grow your own multivendor marketplace like Alibaba. Manage products, vendors, and payments all from one simple platform.</p>
+        <div class="dd-cta">
           <a href="#" class="dd-b1">Start Building Now
-            <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 11l4.5 4.5 4.5-4.5M5 19h14"/></svg></span>
+            <span class="circle" style="color:#7047EB"><svg viewBox="0 0 15.4337 15.4198" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.71682 10.5756L7.71682 1M7.71682 10.5756C7.04631 10.5756 5.79359 8.66595 5.32292 8.18171M7.71682 10.5756C8.38733 10.5756 9.64005 8.66595 10.1107 8.18171" stroke="currentColor" stroke-width="2"/><path d="M1.01389 14.4059H14.4198" stroke="currentColor" stroke-width="2.02778"/></svg></span>
           </a>
           <a href="#" class="dd-b2">Try Demo</a>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="dd-shot" data-anim>
+  <div class="dd-shot">
     <img src="Media/Demo%20Details%20Page/header%20main%20image.png" alt="Alibaba.com storefront" width="1366" height="568" />
   </div>
 </header>
@@ -310,30 +340,30 @@
 <!-- ═══════════ COMPARISON (525:21434) ═══════════ -->
 <section class="bg-white sec-cmp">
   <div class="wrap">
-    <h2 class="cmp-title" data-anim>Building A Grocery Marketplace<br />Isn't Easy Without The Right Tool</h2>
+    <h2 class="cmp-title" data-anim>Building A Grocery Marketplace <br />Isn't Easy Without The Right Tool</h2>
     <div class="cmp-grid">
       <div class="cmp-card" data-anim>
         <h3 class="cmp-h">Without Dokan</h3>
-        <ul>
-            <li class="cmp-row"><span class="cmp-ic cmp-ic--no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span>No vendor dashboard</span></li>
-            <li class="cmp-row"><span class="cmp-ic cmp-ic--no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span>Manual product approvals</span></li>
-            <li class="cmp-row"><span class="cmp-ic cmp-ic--no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span>Complex commission setup</span></li>
-            <li class="cmp-row"><span class="cmp-ic cmp-ic--no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span>No shipping tools</span></li>
-            <li class="cmp-row"><span class="cmp-ic cmp-ic--no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span>Missing tax settings</span></li>
-            <li class="cmp-row"><span class="cmp-ic cmp-ic--no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span>No payout system</span></li>
-            <li class="cmp-row"><span class="cmp-ic cmp-ic--no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></svg></span><span>No sales reporting</span></li>
+        <ul class="cmp-list">
+          <li class="cmp-row"><img class="cmp-ic" src="Media/Demo%20Details%20Page/icons/cross-no.svg" width="35" height="35" alt="" /><span>No vendor dashboard</span></li>
+          <li class="cmp-row"><img class="cmp-ic" src="Media/Demo%20Details%20Page/icons/cross-no.svg" width="35" height="35" alt="" /><span>Manual product approvals</span></li>
+          <li class="cmp-row"><img class="cmp-ic" src="Media/Demo%20Details%20Page/icons/cross-no.svg" width="35" height="35" alt="" /><span>Complex commission setup</span></li>
+          <li class="cmp-row"><img class="cmp-ic" src="Media/Demo%20Details%20Page/icons/cross-no.svg" width="35" height="35" alt="" /><span>No shipping tools</span></li>
+          <li class="cmp-row"><img class="cmp-ic" src="Media/Demo%20Details%20Page/icons/cross-no.svg" width="35" height="35" alt="" /><span>Missing tax settings</span></li>
+          <li class="cmp-row"><img class="cmp-ic" src="Media/Demo%20Details%20Page/icons/cross-no.svg" width="35" height="35" alt="" /><span>No payout system</span></li>
+          <li class="cmp-row"><img class="cmp-ic" src="Media/Demo%20Details%20Page/icons/cross-no.svg" width="35" height="35" alt="" /><span>No sales reporting</span></li>
         </ul>
       </div>
       <div class="cmp-card" data-anim>
         <h3 class="cmp-h">With Dokan</h3>
-        <ul>
-            <li class="cmp-row"><span class="cmp-ic cmp-ic--yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Full vendor dashboard</span></li>
-            <li class="cmp-row"><span class="cmp-ic cmp-ic--yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Product approval control</span></li>
-            <li class="cmp-row"><span class="cmp-ic cmp-ic--yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Flexible commission rules</span></li>
-            <li class="cmp-row"><span class="cmp-ic cmp-ic--yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Built-in shipping options</span></li>
-            <li class="cmp-row"><span class="cmp-ic cmp-ic--yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Automated tax setup</span></li>
-            <li class="cmp-row"><span class="cmp-ic cmp-ic--yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Easy vendor payouts</span></li>
-            <li class="cmp-row"><span class="cmp-ic cmp-ic--yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span>Real-time performance reports</span></li>
+        <ul class="cmp-list">
+          <li class="cmp-row"><img class="cmp-ic" src="Media/Demo%20Details%20Page/icons/check-yes.svg" width="35" height="35" alt="" /><span>Full vendor dashboard</span></li>
+          <li class="cmp-row"><img class="cmp-ic" src="Media/Demo%20Details%20Page/icons/check-yes.svg" width="35" height="35" alt="" /><span>Product approval control</span></li>
+          <li class="cmp-row"><img class="cmp-ic" src="Media/Demo%20Details%20Page/icons/check-yes.svg" width="35" height="35" alt="" /><span>Flexible commission rules</span></li>
+          <li class="cmp-row"><img class="cmp-ic" src="Media/Demo%20Details%20Page/icons/check-yes.svg" width="35" height="35" alt="" /><span>Built-in shipping options</span></li>
+          <li class="cmp-row"><img class="cmp-ic" src="Media/Demo%20Details%20Page/icons/check-yes.svg" width="35" height="35" alt="" /><span>Automated tax setup</span></li>
+          <li class="cmp-row"><img class="cmp-ic" src="Media/Demo%20Details%20Page/icons/check-yes.svg" width="35" height="35" alt="" /><span>Easy vendor payouts</span></li>
+          <li class="cmp-row"><img class="cmp-ic" src="Media/Demo%20Details%20Page/icons/check-yes.svg" width="35" height="35" alt="" /><span>Real-time performance reports</span></li>
         </ul>
       </div>
     </div>
@@ -347,65 +377,81 @@
       <aside class="feat-side" data-anim>
         <h2>How Dokan Helps You Build a B2B Marketplace, Just Like <span class="accent">Alibaba</span></h2>
         <a href="index.html">Explore All Features
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.16667 10H15.8333M10 4.16667L15.8333 10L10 15.8333"/></svg>
         </a>
       </aside>
       <div class="feat-list">
-        <article class="feat">
-          <div class="feat-head">
-            <h3 class="feat-t">Vendor Storefronts with<br />Company Profiles</h3>
-            <p class="feat-d">Give each vendor a customizable storefront with their own company profile. Build trust, showcase credibility, and help buyers connect faster.</p>
+        <article class="feat" data-sw="733">
+          <div class="feat-in">
+            <div class="feat-head">
+              <h3 class="feat-t">Vendor Storefronts with <br />Company Profiles</h3>
+              <p class="feat-d">Give each vendor a customizable storefront with their own company profile. Build trust, showcase credibility, and help buyers connect faster.</p>
+            </div>
+            <img class="feat-shot" src="Media/Demo%20Details%20Page/Vendor%20Storefronts%20with%E2%80%A8Company%20Profiles.png" alt="Vendor Storefronts with Company Profiles" loading="lazy" width="612" height="374" style="left:50px;top:281px;width:612px;height:374px" />
           </div>
-          <img class="feat-shot" src="Media/Demo%20Details%20Page/Vendor%20Storefronts%20with%E2%80%A8Company%20Profiles.png" alt="Vendor Storefronts with Company Profiles" loading="lazy" style="left:50px;top:281px;width:612px;height:374px" />
         </article>
-        <article class="feat">
-          <div class="feat-head">
-            <h3 class="feat-t">Bulk Product Listings</h3>
-            <p class="feat-d">Let vendors upload hundreds of products at once using CSV files. Save time, cut manual work, and help sellers scale faster without the tech struggles.</p>
+        <article class="feat" data-sw="733">
+          <div class="feat-in">
+            <div class="feat-head">
+              <h3 class="feat-t">Bulk Product Listings</h3>
+              <p class="feat-d">Let vendors upload hundreds of products at once using CSV files. Save time, cut manual work, and help sellers scale faster without the tech struggles.</p>
+            </div>
+            <img class="feat-shot" src="Media/Demo%20Details%20Page/Bulk%20Product%20Listings.png" alt="Bulk Product Listings" loading="lazy" width="634" height="388" style="left:39px;top:284px;width:634px;height:388px" />
           </div>
-          <img class="feat-shot" src="Media/Demo%20Details%20Page/Bulk%20Product%20Listings.png" alt="Bulk Product Listings" loading="lazy" style="left:39px;top:284px;width:634px;height:388px" />
         </article>
-        <article class="feat">
-          <div class="feat-head">
-            <h3 class="feat-t">Request for Quotation<br />(RFQ) System</h3>
-            <p class="feat-d">Let buyers send custom quote requests directly to vendors. Perfect for bulk deals, negotiations, and B2B-style purchasing, just like Alibaba.</p>
+        <article class="feat" data-sw="733">
+          <div class="feat-in">
+            <div class="feat-head">
+              <h3 class="feat-t">Request for Quotation <br />(RFQ) System</h3>
+              <p class="feat-d">Let buyers send custom quote requests directly to vendors. Perfect for bulk deals, negotiations, and B2B-style purchasing, just like Alibaba.</p>
+            </div>
+            <img class="feat-shot" src="Media/Demo%20Details%20Page/Request%20for%20Quotation%20%20%28RFQ%29%20System.png" alt="Request for Quotation (RFQ) System" loading="lazy" width="638" height="390" style="left:48px;top:273px;width:638px;height:390px" />
           </div>
-          <img class="feat-shot" src="Media/Demo%20Details%20Page/Request%20for%20Quotation%20%20%28RFQ%29%20System.png" alt="Request for Quotation (RFQ) System" loading="lazy" style="left:48px;top:273px;width:638px;height:390px" />
         </article>
-        <article class="feat">
-          <div class="feat-head">
-            <h3 class="feat-t">Tiered &amp; Wholesale Pricing</h3>
-            <p class="feat-d">Offer different prices based on quantity. Vendors can set custom pricing tiers to encourage bulk purchases and grow their average order value.</p>
+        <article class="feat" data-sw="733">
+          <div class="feat-in">
+            <div class="feat-head">
+              <h3 class="feat-t">Tiered &amp; Wholesale Pricing</h3>
+              <p class="feat-d">Offer different prices based on quantity. Vendors can set custom pricing tiers to encourage bulk purchases and grow their average order value.</p>
+            </div>
+            <img class="feat-shot" src="Media/Demo%20Details%20Page/Tiered%20%26%20Wholesale%20Pricing.png" alt="Tiered &amp; Wholesale Pricing" loading="lazy" width="584" height="357" style="left:50px;top:298px;width:584px;height:357px" />
           </div>
-          <img class="feat-shot" src="Media/Demo%20Details%20Page/Tiered%20%26%20Wholesale%20Pricing.png" alt="Tiered &amp; Wholesale Pricing" loading="lazy" style="left:50px;top:298px;width:584px;height:357px" />
         </article>
-        <article class="feat">
-          <div class="feat-head">
-            <h3 class="feat-t">Multiple Commission Types</h3>
-            <p class="feat-d">Set flexible commission rates for vendors by percentage, flat fee, or a mix of both. Perfect for managing different seller types and pricing models.</p>
+        <article class="feat" data-sw="733">
+          <div class="feat-in">
+            <div class="feat-head">
+              <h3 class="feat-t">Multiple Commission Types</h3>
+              <p class="feat-d">Set flexible commission rates for vendors by percentage, flat fee, or a mix of both. Perfect for managing different seller types and pricing models.</p>
+            </div>
+            <img class="feat-shot" src="Media/Demo%20Details%20Page/Multiple%20Commission%20Types.png" alt="Multiple Commission Types" loading="lazy" width="589" height="360" style="left:50px;top:295px;width:589px;height:360px" />
           </div>
-          <img class="feat-shot" src="Media/Demo%20Details%20Page/Multiple%20Commission%20Types.png" alt="Multiple Commission Types" loading="lazy" style="left:50px;top:295px;width:589px;height:360px" />
         </article>
-        <article class="feat">
-          <div class="feat-head">
-            <h3 class="feat-t">Advanced Order Management</h3>
-            <p class="feat-d">Easily track, filter, and manage orders across multiple vendors. Dokan’s powerful order system keeps everything organized for smoother fulfillment.</p>
+        <article class="feat" data-sw="733">
+          <div class="feat-in">
+            <div class="feat-head">
+              <h3 class="feat-t">Advanced Order Management</h3>
+              <p class="feat-d">Easily track, filter, and manage orders across multiple vendors. Dokan&rsquo;s powerful order system keeps everything organized for smoother fulfillment.</p>
+            </div>
+            <img class="feat-shot" src="Media/Demo%20Details%20Page/Advanced%20Order%20Management.png" alt="Advanced Order Management" loading="lazy" width="509" height="385" style="left:50px;top:281px;width:509px;height:385px" />
           </div>
-          <img class="feat-shot" src="Media/Demo%20Details%20Page/Advanced%20Order%20Management.png" alt="Advanced Order Management" loading="lazy" style="left:50px;top:281px;width:509px;height:385px" />
         </article>
-        <article class="feat">
-          <div class="feat-head">
-            <h3 class="feat-t">Built-in Shipping Zones &amp; Rules</h3>
-            <p class="feat-d">Vendors can set shipping rates by location, product, or zone. Manage local and international deliveries with full control over shipping options.</p>
+        <article class="feat" data-sw="733">
+          <div class="feat-in">
+            <div class="feat-head">
+              <h3 class="feat-t">Built-in Shipping Zones &amp; Rules</h3>
+              <p class="feat-d">Vendors can set shipping rates by location, product, or zone. Manage local and international deliveries with full control over shipping options.</p>
+            </div>
+            <img class="feat-shot" src="Media/Demo%20Details%20Page/Built-in%20Shipping%20Zones%20%26%20Rules.png" alt="Built-in Shipping Zones &amp; Rules" loading="lazy" width="612" height="374" style="left:50px;top:281px;width:612px;height:374px" />
           </div>
-          <img class="feat-shot" src="Media/Demo%20Details%20Page/Built-in%20Shipping%20Zones%20%26%20Rules.png" alt="Built-in Shipping Zones &amp; Rules" loading="lazy" style="left:50px;top:281px;width:612px;height:374px" />
         </article>
-        <article class="feat">
-          <div class="feat-head">
-            <h3 class="feat-t">Real-Time Vendor Analytics</h3>
-            <p class="feat-d">Vendors get access to sales reports, earnings, and order stats from their dashboard. Help them make smarter decisions and grow their business faster.</p>
+        <article class="feat" data-sw="733">
+          <div class="feat-in">
+            <div class="feat-head">
+              <h3 class="feat-t">Real-Time Vendor Analytics</h3>
+              <p class="feat-d">Vendors get access to sales reports, earnings, and order stats from their dashboard. Help them make smarter decisions and grow their business faster.</p>
+            </div>
+            <img class="feat-shot" src="Media/Demo%20Details%20Page/Real-Time%20Vendor%20Analytics.png" alt="Real-Time Vendor Analytics" loading="lazy" width="565" height="374" style="left:50px;top:281px;width:565px;height:374px" />
           </div>
-          <img class="feat-shot" src="Media/Demo%20Details%20Page/Real-Time%20Vendor%20Analytics.png" alt="Real-Time Vendor Analytics" loading="lazy" style="left:50px;top:281px;width:565px;height:374px" />
         </article>
       </div>
     </div>
@@ -416,42 +462,42 @@
 <section class="bg-white sec-why">
   <div class="wrap">
     <div class="why-head">
-      <h2 data-anim>Why Dokan Is the Best<br />Solution for Your Marketplace</h2>
+      <h2 data-anim>Why Dokan Is the Best <br />Solution for Your Marketplace</h2>
       <p data-anim>Dokan gives you the tools, support, and flexibility to build and grow your marketplace with ease. Everything works out of the box, so you can move fast and scale confidently.</p>
     </div>
     <div class="why-grid">
-        <article class="why-card">
-          <span class="why-ic"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8v48M44 18c-2.6-3-7-4.6-12-4.6-7 0-12 3.6-12 9.4 0 13.4 25 6.6 25 20 0 6.6-6 10.2-13.4 10.2-5.4 0-10-2-13-5.4"/></svg></span>
-          <h3 class="why-t">Affordable Pricing</h3>
-        </article>
-        <article class="why-card">
-          <span class="why-ic"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="16" width="36" height="42" rx="6"/><rect x="24" y="6" width="16" height="14" rx="4"/></svg></span>
-          <h3 class="why-t">Resources to Grow<br />Your Marketplace</h3>
-        </article>
-        <article class="why-card">
-          <span class="why-ic"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M32 56S8 42 8 25.6A13.6 13.6 0 0132 17a13.6 13.6 0 0124 8.6C56 42 32 56 32 56z"/></svg></span>
-          <h3 class="why-t">Ease of Use</h3>
-        </article>
-        <article class="why-card">
-          <span class="why-ic"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 58h-6a4 4 0 01-4-4V34a4 4 0 014-4h6z"/><path d="M20 30l10-22a7 7 0 017 7v9h13a6 6 0 015.9 7l-3.4 20A6 6 0 0146.6 56H20z"/></svg></span>
-          <h3 class="why-t">Most Popular<br />Solution</h3>
-        </article>
-        <article class="why-card">
-          <span class="why-ic"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M50 8l6 6-32 32-9 3 3-9z"/></svg></span>
-          <h3 class="why-t">Hundreds of<br />Compatible Themes</h3>
-        </article>
-        <article class="why-card">
-          <span class="why-ic"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M32 6l8.4 17.6L60 26.2 45.6 39.4 49.4 58 32 48.6 14.6 58l3.8-18.6L4 26.2l19.6-2.6z"/></svg></span>
-          <h3 class="why-t">Top Rated Plugin</h3>
-        </article>
-        <article class="why-card">
-          <span class="why-ic"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="6" width="28" height="52" rx="7"/></svg></span>
-          <h3 class="why-t">Mobile App</h3>
-        </article>
-        <article class="why-card">
-          <span class="why-ic"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 40v-8a22 22 0 0144 0v8"/><rect x="4" y="38" width="16" height="20" rx="8"/><rect x="44" y="38" width="16" height="20" rx="8"/></svg></span>
-          <h3 class="why-t">Dedicated Support</h3>
-        </article>
+      <article class="why-card">
+        <img class="why-ic" src="Media/Demo%20Details%20Page/icons/why-affordable-pricing.svg" width="120" height="120" alt="" />
+        <h3 class="why-t">Affordable Pricing</h3>
+      </article>
+      <article class="why-card">
+        <img class="why-ic" src="Media/Demo%20Details%20Page/icons/why-resources.svg" width="120" height="120" alt="" />
+        <h3 class="why-t">Resources to Grow <br />Your Marketplace</h3>
+      </article>
+      <article class="why-card">
+        <img class="why-ic" src="Media/Demo%20Details%20Page/icons/why-ease-of-use.svg" width="120" height="120" alt="" />
+        <h3 class="why-t">Ease of Use</h3>
+      </article>
+      <article class="why-card">
+        <img class="why-ic" src="Media/Demo%20Details%20Page/icons/why-most-popular.svg" width="120" height="120" alt="" />
+        <h3 class="why-t">Most Popular <br />Solution</h3>
+      </article>
+      <article class="why-card">
+        <img class="why-ic" src="Media/Demo%20Details%20Page/icons/why-themes.svg" width="120" height="120" alt="" />
+        <h3 class="why-t">Hundreds of <br />Compatible Themes</h3>
+      </article>
+      <article class="why-card">
+        <img class="why-ic" src="Media/Demo%20Details%20Page/icons/why-top-rated.svg" width="120" height="120" alt="" />
+        <h3 class="why-t">Top Rated Plugin</h3>
+      </article>
+      <article class="why-card">
+        <img class="why-ic" src="Media/Demo%20Details%20Page/icons/why-mobile-app.svg" width="120" height="120" alt="" />
+        <h3 class="why-t">Mobile App</h3>
+      </article>
+      <article class="why-card">
+        <img class="why-ic" src="Media/Demo%20Details%20Page/icons/why-support.svg" width="120" height="120" alt="" />
+        <h3 class="why-t">Dedicated Support</h3>
+      </article>
     </div>
   </div>
 </section>
@@ -460,16 +506,16 @@
 <section class="bg-white sec-tpl">
   <div class="wrap">
     <div class="tpl-head">
-      <h2 data-anim>Amazing Templates<br />for Dokani Theme</h2>
+      <h2 data-anim>Amazing Templates <br />for Dokani Theme</h2>
       <p data-anim>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
     </div>
   </div>
   <div class="tpl-stage" id="tplStage">
-      <img class="tpl" src="Media/Demo%20Details%20Page/Amazing%20Templates%20for%20Dokani%20Theme/Rectangle%2034626509.png?v=2" alt="Dokani template 1" loading="lazy" style="left:-23.11%;top:3.48%;width:47.27%" />
-      <img class="tpl" src="Media/Demo%20Details%20Page/Amazing%20Templates%20for%20Dokani%20Theme/Rectangle%2034626508.png" alt="Dokani template 2" loading="lazy" style="left:6.94%;top:-3.45%;width:36.67%" />
-      <img class="tpl" src="Media/Demo%20Details%20Page/Amazing%20Templates%20for%20Dokani%20Theme/Rectangle%2034626505.png" alt="Dokani template 3" loading="lazy" style="left:32.88%;top:-8.93%;width:33.82%" />
-      <img class="tpl" src="Media/Demo%20Details%20Page/Amazing%20Templates%20for%20Dokani%20Theme/Rectangle%2034626506.png" alt="Dokani template 4" loading="lazy" style="left:55.72%;top:-5.79%;width:38.17%" />
-      <img class="tpl" src="Media/Demo%20Details%20Page/Amazing%20Templates%20for%20Dokani%20Theme/Rectangle%2034626507.png?v=2" alt="Dokani template 5" loading="lazy" style="left:78.72%;top:5.59%;width:42.49%" />
+    <img class="tpl" src="Media/Demo%20Details%20Page/Amazing%20Templates%20for%20Dokani%20Theme/Rectangle%2034626509.png?v=2" alt="Dokani template 1" decoding="async" style="left:-23.11%;top:3.48%;width:47.27%" />
+    <img class="tpl" src="Media/Demo%20Details%20Page/Amazing%20Templates%20for%20Dokani%20Theme/Rectangle%2034626508.png" alt="Dokani template 2" decoding="async" style="left:6.94%;top:-3.45%;width:36.67%" />
+    <img class="tpl" src="Media/Demo%20Details%20Page/Amazing%20Templates%20for%20Dokani%20Theme/Rectangle%2034626505.png" alt="Dokani template 3" decoding="async" style="left:32.88%;top:-8.93%;width:33.82%" />
+    <img class="tpl" src="Media/Demo%20Details%20Page/Amazing%20Templates%20for%20Dokani%20Theme/Rectangle%2034626506.png" alt="Dokani template 4" decoding="async" style="left:55.72%;top:-5.79%;width:38.17%" />
+    <img class="tpl" src="Media/Demo%20Details%20Page/Amazing%20Templates%20for%20Dokani%20Theme/Rectangle%2034626507.png?v=2" alt="Dokani template 5" decoding="async" style="left:78.72%;top:5.59%;width:42.49%" />
   </div>
 </section>
 
@@ -483,50 +529,50 @@
         <div class="faq-row">
           <button class="faq-q" aria-expanded="false">
             <span>Can Dokan handle a large number of vendors and products?</span>
-            <span class="faq-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+            <span class="faq-plus"><svg viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" aria-hidden="true"><path d="M0 8.5C4.4 8.5 9 8.9 17 8.9M8.5 0V17"/></svg></span>
           </button>
-          <div class="faq-a"><p>Dokan scales with your marketplace. Reach out to our team and we'll walk you through exactly how it works for your use case.</p></div>
+          <div class="faq-a"><p>Dokan scales with your marketplace. Reach out to our team and we&rsquo;ll walk you through exactly how it works for your use case.</p></div>
         </div>
         <div class="faq-row">
           <button class="faq-q" aria-expanded="false">
             <span>Do I need coding knowledge to set up my marketplace?</span>
-            <span class="faq-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+            <span class="faq-plus"><svg viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" aria-hidden="true"><path d="M0 8.5C4.4 8.5 9 8.9 17 8.9M8.5 0V17"/></svg></span>
           </button>
-          <div class="faq-a"><p>Dokan scales with your marketplace. Reach out to our team and we'll walk you through exactly how it works for your use case.</p></div>
+          <div class="faq-a"><p>Dokan scales with your marketplace. Reach out to our team and we&rsquo;ll walk you through exactly how it works for your use case.</p></div>
         </div>
         <div class="faq-row">
           <button class="faq-q" aria-expanded="false">
             <span>Can vendors manage their own stores?</span>
-            <span class="faq-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+            <span class="faq-plus"><svg viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" aria-hidden="true"><path d="M0 8.5C4.4 8.5 9 8.9 17 8.9M8.5 0V17"/></svg></span>
           </button>
-          <div class="faq-a"><p>Dokan scales with your marketplace. Reach out to our team and we'll walk you through exactly how it works for your use case.</p></div>
+          <div class="faq-a"><p>Dokan scales with your marketplace. Reach out to our team and we&rsquo;ll walk you through exactly how it works for your use case.</p></div>
         </div>
         <div class="faq-row">
           <button class="faq-q" aria-expanded="false">
             <span>Is there support if I get stuck?</span>
-            <span class="faq-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+            <span class="faq-plus"><svg viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" aria-hidden="true"><path d="M0 8.5C4.4 8.5 9 8.9 17 8.9M8.5 0V17"/></svg></span>
           </button>
-          <div class="faq-a"><p>Dokan scales with your marketplace. Reach out to our team and we'll walk you through exactly how it works for your use case.</p></div>
+          <div class="faq-a"><p>Dokan scales with your marketplace. Reach out to our team and we&rsquo;ll walk you through exactly how it works for your use case.</p></div>
         </div>
         <div class="faq-row">
           <button class="faq-q" aria-expanded="false">
             <span>Can I customize the design of my marketplace?</span>
-            <span class="faq-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+            <span class="faq-plus"><svg viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" aria-hidden="true"><path d="M0 8.5C4.4 8.5 9 8.9 17 8.9M8.5 0V17"/></svg></span>
           </button>
-          <div class="faq-a"><p>Dokan scales with your marketplace. Reach out to our team and we'll walk you through exactly how it works for your use case.</p></div>
+          <div class="faq-a"><p>Dokan scales with your marketplace. Reach out to our team and we&rsquo;ll walk you through exactly how it works for your use case.</p></div>
         </div>
         <div class="faq-row">
           <button class="faq-q" aria-expanded="false">
             <span>Is Dokan compatible with other WooCommerce plugins?</span>
-            <span class="faq-plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+            <span class="faq-plus"><svg viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" aria-hidden="true"><path d="M0 8.5C4.4 8.5 9 8.9 17 8.9M8.5 0V17"/></svg></span>
           </button>
-          <div class="faq-a"><p>Dokan scales with your marketplace. Reach out to our team and we'll walk you through exactly how it works for your use case.</p></div>
+          <div class="faq-a"><p>Dokan scales with your marketplace. Reach out to our team and we&rsquo;ll walk you through exactly how it works for your use case.</p></div>
         </div>
       </div>
-      <a href="#" class="faq-ask">Ask&nbsp; Question
-        <span class="faces">
-          <img src="Media/Demo%20Details%20Page/image.png" alt="" width="35" height="35" />
-          <img src="Media/Demo%20Details%20Page/image-1.png" alt="" width="35" height="35" />
+      <a href="#" class="faq-ask" aria-label="Ask Question"><span class="ask-t">Ask  Question</span>
+        <span class="faces" aria-hidden="true">
+          <span class="face"><img src="Media/Demo%20Details%20Page/image.png" alt="" width="39" height="39" /></span>
+          <span class="face"><img src="Media/Demo%20Details%20Page/image-1.png" alt="" width="39" height="39" /></span>
         </span>
       </a>
     </div>
@@ -542,16 +588,17 @@
     </svg>
     <div class="lc-copy">
       <div class="lc-top">
-        <h2 class="lc-title">Launch Your<br />Marketplace<br />Today!</h2>
-        <p class="lc-text">Scrolling from top to bottom, it seems you're eager to begin with Dokan. So, why wait any longer?</p>
+        <h2 class="lc-title">Dokani &ndash; Responsive WordPress Theme for Beautiful Website</h2>
+        <p class="lc-text">Start designing your website just the way you want without any cost!</p>
       </div>
       <div class="lc-actions">
-        <a href="#" class="lc-btn">Get Started Now
-          <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <a href="#" class="lc-btn">Download now
+          <span class="circle"><svg viewBox="0 0 15.4337 15.4198" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.71682 10.5756L7.71682 1M7.71682 10.5756C7.04631 10.5756 5.79359 8.66595 5.32292 8.18171M7.71682 10.5756C8.38733 10.5756 9.64005 8.66595 10.1107 8.18171" stroke="#FFFFFF" stroke-width="2"/><path d="M1.01389 14.4059H14.4198" stroke="#FFFFFF" stroke-width="2.02778"/></svg></span>
         </a>
+        <a href="dokani-theme.html" class="lc-b2" data-radial>Try Demo</a>
       </div>
     </div>
-    <img class="lc-art" src="Media/footer/Launch%20Your.png" width="1356" height="1186" alt="Dokani storefront built with Dokan" loading="lazy" />
+    <img class="lc-art" src="Media/footer/Launch%20Your.png" width="1356" height="1186" alt="Dokani storefront" loading="lazy" />
   </div>
 </section>
 
@@ -635,37 +682,39 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="demos.js"></script>
-<script src="site-nav.js?v=30"></script>
+<script src="site-nav.js?v=35"></script>
 <script>
-/* Personalise the page for the demo that was clicked (?demo=slug). */
+/* Personalise the page for the demo that was clicked (?demo=slug). Without a
+   (known) slug the page keeps the Figma copy (Alibaba). */
 (function () {
   var list = window.DOKAN_DEMOS || [];
   var slug = new URLSearchParams(location.search).get('demo');
-  var d = list.filter(function (x) { return x.slug === slug; })[0] || list[0];
+  var d = slug && list.filter(function (x) { return x.slug === slug; })[0];
   if (!d) return;
 
   document.title = d.name + ' Demo — Build Big Like ' + d.name + ' Using Dokan';
-
   var badge = document.querySelector('.dd-badge');
   if (badge) badge.textContent = d.name + ' Demo';
-
   var h1 = document.querySelector('.dd-h1');
-  if (h1) h1.innerHTML = 'Build Big Like ' + d.name + '<br />Using Dokan, You&rsquo;re<br />Closer Than You Think';
-
+  if (h1) h1.innerHTML = 'Build Big Like ' + d.name + ' <br />Using Dokan, You&rsquo;re <br />Closer Than You Think';
   var sub = document.querySelector('.dd-sub');
   if (sub) sub.textContent = 'With Dokan, you can easily build and grow your own multivendor ' +
     'marketplace like ' + d.name + '. Manage products, vendors, and payments all from one simple platform.';
-
   var cmp = document.querySelector('.cmp-title');
   if (cmp) cmp.innerHTML = 'Building A ' + d.cat.split(' ')[0] +
-    ' Marketplace<br />Isn\'t Easy Without The Right Tool';
-
+    ' Marketplace <br />Isn\'t Easy Without The Right Tool';
   var accent = document.querySelector('.feat-side .accent');
   if (accent) accent.textContent = d.name;
+})();
 
-  document.querySelectorAll('.ph[data-asset]').forEach(function (el) {
-    if (/Alibaba/i.test(el.dataset.asset)) el.dataset.asset = d.name + ' storefront';
-  });
+/* Feature cards: scale the fixed 733x705 Figma artboard to the card width. */
+(function () {
+  var boxes = document.querySelectorAll('[data-sw]');
+  function fit(el) { el.style.setProperty('--k', el.offsetWidth / parseFloat(el.dataset.sw)); }
+  if ('ResizeObserver' in window) {
+    var ro = new ResizeObserver(function (es) { es.forEach(function (e) { fit(e.target); }); });
+    boxes.forEach(function (el) { ro.observe(el); });
+  } else { boxes.forEach(fit); window.addEventListener('resize', function () { boxes.forEach(fit); }); }
 })();
 
 (function () {
@@ -709,6 +758,7 @@
     });
   });
 
+
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!window.gsap || !window.ScrollTrigger || reduced) return;
   gsap.registerPlugin(ScrollTrigger);
@@ -720,28 +770,20 @@
     gsap.ticker.lagSmoothing(0);
   }
 
-  /* Hero intro */
+  /* Hero intro (on load; site-nav.js parks it until the page is revealed) */
   gsap.timeline({ defaults: { ease: 'power3.out' } })
-    .from('.site-nav .menu-row > *', { y: -16, opacity: 0, duration: .6, stagger: .08 })
-    .from('.dd-badge',   { y: 20, opacity: 0, duration: .6 }, '-=.3')
+    .from('.dd-badge',   { y: 20, opacity: 0, duration: .6 })
     .from('.dd-h1',      { y: 34, opacity: 0, duration: .85 }, '-=.4')
     .from('.dd-sub',     { y: 22, opacity: 0, duration: .7 }, '-=.55')
-    .from('.dd-cta > *', { y: 18, opacity: 0, duration: .6, stagger: .1 }, '-=.45')
+    .from('.dd-cta',     { y: 18, opacity: 0, duration: .6 }, '-=.45')   /* wrapper: the buttons' own CSS transform transitions fight a tween */
     .from('.dd-shot',    { y: 60, opacity: 0, duration: 1 }, '-=.55');
 
-  /* immediateRender:false — nothing is pre-hidden, so a trigger that never
-     fires leaves content visible rather than stranded at opacity 0. */
-  gsap.utils.toArray('section [data-anim]').forEach(function (el) {
-    gsap.from(el, { y: 30, opacity: 0, duration: .8, ease: 'power3.out', immediateRender: false,
-      scrollTrigger: { trigger: el, start: 'top 88%', once: true } });
-  });
+  /* Scroll reveals replay on every pass (shared dokanReveal) */
+  gsap.utils.toArray('section [data-anim]').forEach(function (el) { dokanReveal(el); });
   ['.feat-list > .feat', '.why-grid > .why-card', '.faq-list > .faq-row'].forEach(function (sel) {
     var els = gsap.utils.toArray(sel); if (!els.length) return;
-    gsap.from(els, { y: 34, opacity: 0, duration: .7, ease: 'power3.out', stagger: .08,
-      immediateRender: false,
-      scrollTrigger: { trigger: els[0].parentElement, start: 'top 86%', once: true } });
+    dokanReveal(els, { trigger: els[0].parentElement, start: 'top 86%', y: 34, duration: .7, stagger: .08 });
   });
-
   /* Template marquee: the whole fan drifts slowly right-to-left and wraps
      seamlessly — a card that leaves on the left re-enters on the right after
      one full period, so the loop never jumps. Placement, sizes and the baked

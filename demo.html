@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="site-nav.css?v=32" />
+<link rel="stylesheet" href="site-nav.css?v=34" />
 <!-- Page loader: only the header shows until site-nav.js reveals the page (5s failsafe) -->
 <script>(function(d){if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000)})(document.documentElement)</script>
 <script>
@@ -27,7 +27,7 @@
   };
 </script>
 <style>
-  /* 1700px canvas, 102px gutters — matches Figma frame 525:20122 */
+  /* 1700px canvas, 102px gutters — Figma frame "Demo Page Design" (525:20122) */
   .wrap { width:100%; max-width:1700px; margin:0 auto; padding-left:102px; padding-right:102px; }
   @media (max-width:1200px){ .wrap { padding-left:48px; padding-right:48px; } }
   @media (max-width:700px){ .wrap { padding-left:20px; padding-right:20px; } }
@@ -36,157 +36,499 @@
   html.lenis, html.lenis body { height:auto; }
   .lenis.lenis-smooth { scroll-behavior:auto !important; }
 
-  /* Image slots (Figma asset export still blocked) */
-  .ph { position:relative; background:linear-gradient(135deg,#eef0f6 0%,#e5e8f2 100%); overflow:hidden; }
-  .ph::after { content:attr(data-asset); position:absolute; inset:0; display:flex; align-items:center;
-    justify-content:center; font-family:'Lato',sans-serif; font-size:11px; letter-spacing:.04em;
-    text-transform:uppercase; color:#9aa0b2; text-align:center; padding:10px; line-height:1.5; }
-  .ph-dark { background:linear-gradient(135deg,#1c2030 0%,#11141f 100%); }
-  .ph-dark::after { color:#6b7186; }
+  /* Scroll reveals: hidden until dokanReveal / the hero intro shows them.
+     Only opacity lives in CSS — the helper owns the y offset (and clears it). */
+  .reveal { opacity:0; }
+  .no-motion .reveal { opacity:1; }
 
-  /* Hero decorative grid band — Figma group 525:20123, 115px pitch, y 545→1277 */
-  .grid-band {
-    background-image:
-      linear-gradient(to right, #EFEFF3 1px, transparent 1px),
-      linear-gradient(to bottom, #EFEFF3 1px, transparent 1px),
-      linear-gradient(to top, #EFEFF3 1px, transparent 1px);
-    background-size: 115px 100%, 100% 100%, 100% 100%;
-    background-position: 102px 0, 0 0, 0 0;
-    background-repeat: repeat-x, no-repeat, no-repeat;
+  /* ── Hero copy (697:18807): eyebrow + H1 left, lead right, bottoms aligned ── */
+  .dh { position:relative; overflow:hidden; background:#fff; }
+  .dh-copy { display:flex; align-items:flex-end; gap:76px; padding-top:202px; }
+  .dh-l { flex:0 1 987px; min-width:0; }
+  .dh-eye { margin:0; font-family:'Poppins',sans-serif; font-weight:600; font-size:24px; line-height:1.3; color:#7047EB; }
+  .dh-h1 { margin:24px 0 0; font-family:'Poppins',sans-serif; font-weight:700; font-size:62px; line-height:1.25; color:#0f172a; }
+  .dh-sub { flex:0 0 432px; margin:0; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#334155; opacity:.98; }
+
+  /* ── Arc of five demo screenshots (525:20140) over the grid band (525:20123).
+     The 1700x732 artwork is a fixed stage scaled by --k and centred by --x
+     (set by the page script); the grid lines keep the 115px pitch at any width. */
+  .arc { position:relative; margin-top:55px; height:calc(732px * var(--k,1));
+    border-top:1px solid rgba(0,0,0,.08); border-bottom:1px solid rgba(0,0,0,.08);
+    background-image:linear-gradient(to right, rgba(0,0,0,.08) 1px, transparent 1px);
+    background-size:calc(115px * var(--k,1)) 100%;
+    background-position:calc(var(--x,0px) + 102px * var(--k,1)) 0; }
+  .arc-stg { position:absolute; top:-1px; left:var(--x,0px); width:1700px; height:732px;
+    transform:scale(var(--k,1)); transform-origin:0 0; }
+  .arc-it { position:absolute; width:362px; height:266px; }
+  .arc-card { width:100%; height:100%; }                     /* GSAP intro target */
+  .arc-rot { width:100%; height:100%; transform:rotate(var(--r,0deg)); border-radius:20px;
+    box-shadow:0 70px 100px -10px rgba(0,0,0,.09); }
+  .arc-rot img { display:block; width:100%; height:100%; object-fit:cover; border-radius:20px; }
+
+  /* ── Plan tabs (525:20152) ── */
+  .ds { padding-top:144px; padding-bottom:144px; }
+  .tabs { display:inline-flex; align-items:flex-start; gap:10px; padding:7px; border-radius:9999px;
+    background:#F3F3F3; box-shadow:inset 0 0 0 1.102px #FFFFFF; max-width:100%; }
+  .tab-btn { padding:8.816px 37.63px; border-radius:9999px; font-family:'Lato',sans-serif; font-size:20px;
+    line-height:1.5; color:#68687E; white-space:nowrap; transition:background-color .25s, color .25s, box-shadow .25s; }
+  .tab-btn:first-child { padding-left:27.63px; padding-right:27.63px; }
+  .tab-btn:hover { color:#464654; }
+  .tab-btn[aria-selected="true"] { background:#FFFFFF; color:#464654;
+    box-shadow:0 1.102px .551px rgba(0,0,0,.03), 0 1.102px .551px rgba(0,0,0,.03); }
+  .tab-btn:focus-visible { outline:2px solid #7047EB; outline-offset:2px; }
+
+  /* ── Demo cards (697:18808): 3x5 grid of 461x588 cards, 56px gaps.
+     Each card is a fixed 461x588 Figma stage scaled to its column by --k. ── */
+  .dgrid { max-width:1495px; margin-top:56px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:56px; }
+  .dc { position:relative; aspect-ratio:461/588; }
+  .dc[hidden] { display:none; }
+  .dc-in { position:absolute; inset:0; overflow:hidden; border-radius:20px; background:#F3F3F3; cursor:pointer;
+    transition:transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s cubic-bezier(.22,.61,.36,1); }
+  .dc-stg { position:absolute; left:0; top:0; width:461px; height:588px; transform:scale(var(--k,1)); transform-origin:0 0; }
+  .dc-copy { position:absolute; left:calc(50% + .5px); top:60px; width:244px; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:30px; text-align:center; }
+  .dc-t { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:30px; line-height:1.3; color:#0f172a; white-space:nowrap; }
+  .dc-d { margin:-20px 0 0; width:368px; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#475569; }
+  .dc-btn { position:relative; box-sizing:border-box; display:flex; align-items:center; width:176px; height:53px; padding-left:25px;
+    border-radius:187.179px; background:#7047EB; color:#FFFFFF; font-family:'Lato',sans-serif; font-weight:700;
+    font-size:16px; line-height:1.5; white-space:nowrap; text-decoration:none;
+    transition:background-color .25s, transform .25s cubic-bezier(.22,.61,.36,1), box-shadow .25s; }
+  .dc-btn .circle { position:absolute; right:6.89px; top:calc(50% + .5px); transform:translateY(-50%);
+    width:40.832px; height:40.64px; border-radius:120.365px; background:#FFFFFF; display:grid; place-items:center; }
+  .dc-btn .circle svg { width:20.462px; height:20.462px; }
+  .dc-shot { position:absolute; left:calc(50% + .5px); bottom:-1px; width:338px; height:248px; max-width:none;
+    transform:translateX(-50%); object-fit:cover; border-radius:10px 10px 0 0;
+    box-shadow:-10px 70px 100px rgba(0,0,0,.1); transition:transform .6s cubic-bezier(.22,.61,.36,1); transform-origin:50% 100%; }
+  @media (hover:hover) {
+    .dc-in:hover { transform:translateY(-6px); box-shadow:0 22px 44px -22px rgba(20,20,40,.30); }
+    .dc-in:hover .dc-shot { transform:translateX(-50%) scale(1.045); }
+    .dc-btn:hover { background:#5D36D6; transform:translateY(-2px); box-shadow:0 18px 36px -16px rgba(0,0,0,.35); }
   }
+  .dc-btn:focus-visible { outline:2px solid #7047EB; outline-offset:3px; }
 
-  /* Reveal defaults — neutralised when GSAP is unavailable or motion is reduced */
-  .reveal { opacity:0; transform:translateY(28px); }
-  .no-motion .reveal { opacity:1; transform:none; }
+  /* ── "Dokan Powered Marketplaces" (525:20204): black band, 2x2 grid 20px from the edges ── */
+  .gs { background:#000; color:#FFFFFF; padding-top:144px; padding-bottom:145.5px; }
+  .gs-head { display:flex; align-items:flex-end; gap:51px; }
+  .gs-h2 { flex:0 1 1013px; min-width:0; margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:62px; line-height:1.25; }
+  .gs-sub { flex:0 0 432px; margin:0; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; opacity:.7; }
+  .gs-grid { max-width:1700px; margin:56px auto 0; padding:0 20px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; }
+  .gc { display:flex; height:379px; border-radius:20px; overflow:hidden; }
+  .gc-rev { flex-direction:row-reverse; }
+  .gc-media { position:relative; flex:1 1 auto; min-width:0; background:#414141; overflow:hidden; container-type:size; }
+  .gc-media img { position:absolute; max-width:none; object-fit:cover; transition:transform .6s cubic-bezier(.22,.61,.36,1); }
+  .gc-panel { flex:0 0 var(--pw,335px); box-sizing:border-box; padding:40px; background:#7047EB;
+    display:flex; flex-direction:column; justify-content:space-between; align-items:flex-start; }
+  .gc-txt { max-width:255px; display:flex; flex-direction:column; gap:21px; }
+  .gc-txt h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:30px; line-height:1.3; opacity:.98; }
+  .gc-txt p { margin:0; font-family:'Lato',sans-serif; font-size:18px; line-height:1.4; opacity:.7; }
+  .gc-tag { display:inline-flex; align-items:center; justify-content:center; gap:6px; width:93px; height:34px; padding:0;
+    box-sizing:border-box; border-radius:9999px; background:#FFFFFF; filter:drop-shadow(0 2px 2.5px rgba(0,0,0,.06));
+    font-family:'Lato',sans-serif; font-size:14px; line-height:1.3; color:#0f172a; white-space:nowrap; }
+  .gc-flag { font-size:18px; line-height:1; }
+  @media (hover:hover) { .gc:hover .gc-media img { transform:scale(1.03); } }
 
-  .demo-card, .blog-card, .globe-card { will-change:transform; }
-  .demo-card .shot { transition:transform .6s cubic-bezier(.22,.61,.36,1); }
-  .demo-card:hover .shot { transform:scale(1.045); }
-  .blog-card .shot { transition:transform .6s cubic-bezier(.22,.61,.36,1); }
-  .blog-card:hover .shot { transform:scale(1.04); }
+  /* ── Blogs (697:18816) ── */
+  .bs { padding-top:144px; padding-bottom:172px; }      /* 172 + the CTA's 20px gutter = Figma's 192 */
+  .bs-head { display:flex; align-items:flex-end; gap:67px; }
+  .bs-h2 { flex:0 1 929px; min-width:0; margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px; line-height:1.2; color:#0f172a; }
+  .bs-sub { flex:0 0 500px; margin:0; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#334155; opacity:.98; }
+  .bs-grid { margin-top:56px; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; align-items:start; }
+  .bc-img { display:block; overflow:hidden; border-radius:20px; aspect-ratio:480/276; }
+  .bc-img img { display:block; width:100%; height:100%; object-fit:cover; transition:transform .6s cubic-bezier(.22,.61,.36,1); }
+  .blog-card h3 { margin:40px 0 0; max-width:413px; font-family:'Poppins',sans-serif; font-weight:700; font-size:30px; line-height:1.3; color:#0f172a; }
+  .blog-card a.underline { margin-top:20px; display:inline-flex; align-items:center; gap:8px; font-family:'Lato',sans-serif; font-weight:700;
+    font-size:16px; line-height:1.5; color:#0E0E0F; text-decoration:underline; text-underline-offset:3px; height:22px; }
+  .blog-card a.underline svg { width:20px; height:20px; flex:none; }
+  @media (hover:hover) { .blog-card:hover .bc-img img { transform:scale(1.04); } }
+  .bs-more { margin-top:56px; display:flex; justify-content:center; }
+  .bs-more .dc-btn { width:196px; }
 
-  .tab-btn { transition:background-color .25s, color .25s; }
-  .tab-btn[aria-selected="true"] { background:#7047EB; color:#fff; }
+  /* ── CTA (525:20254) — shared .lc-* band with this frame's copy ── */
+  .lc-copy { width:603px; }
+  .lc-title { max-width:603px; font-size:52px; line-height:1.2; }
+  .lc-text { max-width:405px; }
+  .lc-btn { width:274px; height:70px; padding-left:40px; font-size:20px; color:#7047EB; }
+  .lc-btn .circle { right:11.37px; width:45.859px; height:45.644px; background:#7047EB; }
+  .lc-btn .circle svg { width:15.43px; height:15.42px; }
 
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity:1 !important; transform:none !important; }
     * { animation-duration:.01ms !important; transition-duration:.01ms !important; }
   }
 
-  /* ── Mobile polish ── */
-  @media (max-width:767px) {             /* demo cards two-up */
-    #demo-grid { grid-template-columns:1fr 1fr; gap:14px; }
-    .demo-card { padding:10px 10px 14px !important; }
-    .demo-card h3 { margin-top:12px !important; font-size:16px !important; }
-    .demo-card p { font-size:13px !important; }
-    .demo-card a { margin-top:12px !important; padding:8px 14px !important; font-size:13px !important; }
+  /* ── Responsive ─────────────────────────────────────────────────────────── */
+  @media (max-width:1365px) {             /* small desktops (1280–1365): tighter copy columns */
+    .br-xl { display:none; }
+    .dh-h1 { font-size:52px; } .dh-sub { flex-basis:380px; font-size:18px; } .dh-copy { gap:48px; }
+    .gs-h2 { font-size:52px; } .gs-sub { flex-basis:380px; font-size:18px; } .gs-head { gap:40px; }
+    .bs-h2 { font-size:44px; } .bs-sub { flex-basis:400px; font-size:18px; } .bs-head { gap:40px; }
+    .blog-card h3 { font-size:26px; }
+    .lc-copy { width:440px; } .lc-title { font-size:42px; } .lc-text { font-size:18px; }
   }
-  @media (min-width:768px) and (max-width:1279px) { #demo-grid { gap:28px; } }
-  @media (min-width:960px) and (max-width:1279px) { #demo-grid { grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:1279px) {
+    .dh-h1 { font-size:44px; } .dh-copy { gap:40px; } .dh-sub { flex-basis:360px; }
+    .dgrid { gap:32px; }
+    .gs-grid { grid-template-columns:1fr; }
+  }
+  @media (max-width:1023px) {
+    .br-lg { display:none; }
+    .dh-copy, .gs-head, .bs-head { display:block; }
+    .dh-copy { padding-top:150px; }
+    .dh-h1 { margin-top:18px; font-size:clamp(34px,5.2vw,52px); }
+    .dh-sub, .gs-sub, .bs-sub { margin-top:20px; max-width:560px; }
+    .arc { margin-top:48px; }
+    .ds, .gs, .bs { padding-top:104px; padding-bottom:104px; }
+    .bs { padding-bottom:100px; }
+    .dgrid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px; }
+    .dgrid > .dc.is-last-odd { grid-column:1 / -1; justify-self:center; width:calc(50% - 14px); }
+    .gs-h2 { font-size:clamp(34px,5.2vw,52px); }
+    .bs-h2 { font-size:clamp(28px,4.6vw,44px); }
+    .bs-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .bs-grid > .blog-card:nth-child(3) { grid-column:1 / -1; display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+      column-gap:28px; align-items:center; }
+    .bs-grid > .blog-card:nth-child(3) .bc-img { grid-row:1 / 3; }
+    .bs-grid > .blog-card:nth-child(3) h3 { margin-top:0; align-self:end; }
+    .bs-grid > .blog-card:nth-child(3) a.underline { align-self:start; justify-self:start; }
+    .blog-card h3 { margin-top:28px; font-size:24px; }
+    .lc-copy { width:auto; max-width:560px; } .lc-title { width:auto; max-width:560px; font-size:44px; }
+  }
+  @media (max-width:767px) {
+    .dh-eye { font-size:20px; }
+    .dh-sub, .gs-sub, .bs-sub { font-size:17px; }
+    .gc, .gc-rev { flex-direction:column-reverse; height:auto; }
+    .gc-media { flex:none; height:250px; }
+    .gc-panel { flex:none; padding:28px 24px; gap:24px; }
+    .gc-txt { max-width:none; gap:12px; }
+    .gc-txt h3 { font-size:24px; }
+    .gc-txt p { font-size:16px; }
+  }
   @media (max-width:640px) {
-    [role=tablist][aria-label="Demo categories"] { display:flex; max-width:100%; overflow-x:auto; scrollbar-width:none; }
-    [role=tablist][aria-label="Demo categories"]::-webkit-scrollbar { display:none; }
-    .tab-btn { flex:none; padding:8px 18px !important; font-size:16px !important; }
-    #globe-grid { grid-template-columns:1fr 1fr; gap:12px; }
-    .globe-card { min-height:180px !important; padding:14px !important; }
-    .globe-card a { padding:8px 14px !important; font-size:12px !important; }
+    .dh-copy { padding-top:120px; }
+    .dh-h1 { font-size:30px; }
+    .gs-h2 { font-size:32px; }
+    .bs-h2 { font-size:30px; }
+    .ds, .gs { padding-top:72px; padding-bottom:72px; }
+    .bs { padding-top:72px; padding-bottom:60px; }
+    .dgrid { grid-template-columns:1fr; gap:24px; }
+    .dgrid > .dc.is-last-odd { grid-column:auto; width:auto; }
+    .tab-btn { padding:8px 22px; font-size:17px; }
+    .tab-btn:first-child { padding-left:18px; padding-right:18px; }
+    .gs-grid { margin-top:40px; gap:16px; }
+    .bs-grid { grid-template-columns:1fr; gap:40px; }
+    .bs-grid > .blog-card:nth-child(3) { display:block; grid-column:auto; }
+    .bs-grid > .blog-card:nth-child(3) h3 { margin-top:24px; }
+    .blog-card h3 { margin-top:24px; font-size:22px; }
+    .blog-card a.underline { margin-top:14px; }
+    .bs-more { margin-top:40px; }
+    .lc-title { font-size:34px; }
+    .lc-btn { width:100%; max-width:274px; height:62px; padding-left:28px; font-size:18px; }
   }
 </style>
 </head>
 <body class="font-body">
 
-<!-- ═══════════════ NAV ═══════════════ -->
-<!-- header injected by site-nav.js -->
-</div>
-
-<!-- ═══════════════ HERO ═══════════════ -->
-<header class="relative overflow-hidden bg-white">
-  <div id="site-nav" data-variant="light"></div>
-  <div class="wrap relative z-10 pt-[132px] sm:pt-[160px] lg:pt-[202px]">
-    <div class="lg:flex lg:items-start lg:justify-between lg:gap-16">
-      <div class="w-full lg:w-[685px] shrink-0">
-        <p class="reveal font-body font-bold text-[14px] lg:text-[16px] tracking-[.14em] uppercase text-dokan">Dokan Demo</p>
-        <h1 class="reveal mt-[18px] lg:mt-[24px] font-display font-bold text-[34px] sm:text-[44px] lg:text-[52px] xl:text-[62px] leading-[1.2] lg:leading-[1.25] text-title">
-          Build Your Dream Marketplace With Dokan Multi-vendor
-        </h1>
+<!-- ═══════════════ HERO (Figma 697:18807 + 525:20140 + 525:20123) ═══════════════ -->
+<header class="dh">
+  <div id="site-nav" data-variant="light" data-top="30"></div>
+  <div class="wrap relative z-10">
+    <div class="dh-copy">
+      <div class="dh-l">
+        <p class="dh-eye reveal">Dokan Demo</p>
+        <h1 class="dh-h1 reveal">Build Your Dream<br /> Marketplace With<br /> Dokan Multi-vendor</h1>
       </div>
-      <p class="reveal mt-8 lg:mt-[199px] w-full lg:w-[432px] shrink-0 font-body text-[18px] xl:text-[20px] leading-[1.5] text-para">
-        Explore live demos of every store type you can build with Dokan — browse the storefront, the vendor dashboard and the admin panel before you commit.
-      </p>
+      <p class="dh-sub reveal">You can create multiple types of Marketplaces with Dokan. Scroll down and pick any of the free 12+ available marketplaces’ demonstrations.</p>
     </div>
   </div>
 
-  <!-- Arc of demo screenshots — exact Figma coordinates (group 525:20140) -->
-  <div class="relative mt-[60px] lg:mt-0">
-    <!-- grid band: Figma y 545→1277 -->
-    <div class="grid-band absolute inset-x-0 top-0 bottom-0 hidden lg:block" aria-hidden="true"></div>
-    <div id="arc" class="relative w-full hidden lg:block" style="aspect-ratio:1700/721">
-      <div class="arc-item ph absolute rounded-[14px] shadow-medium" style="left:-8.18%;top:43.37%;width:26.22%;height:56.66%"  data-asset="Demo 19264"></div>
-      <div class="arc-item ph absolute rounded-[14px] shadow-medium" style="left:14.09%;top:15.91%;width:24.83%;height:49.52%"  data-asset="Demo 19265"></div>
-      <div class="arc-item ph absolute rounded-[14px] shadow-medium" style="left:39.41%;top:0%;width:21.29%;height:36.89%"      data-asset="Demo 19261"></div>
-      <div class="arc-item ph absolute rounded-[14px] shadow-medium" style="left:65.49%;top:1.39%;width:24.75%;height:49.16%"   data-asset="Demo 19262"></div>
-      <div class="arc-item ph absolute rounded-[14px] shadow-medium" style="left:89.49%;top:19.00%;width:26.18%;height:56.42%"  data-asset="Demo 19263"></div>
-    </div>
-    <!-- mobile: simple scroll strip instead of the arc -->
-    <div class="lg:hidden wrap">
-      <div class="flex gap-4 overflow-x-auto pb-4 -mx-5 px-5 snap-x">
-        <div class="ph rounded-[14px] shadow-medium shrink-0 w-[260px] h-[190px] snap-start" data-asset="Demo 19264"></div>
-        <div class="ph rounded-[14px] shadow-medium shrink-0 w-[260px] h-[190px] snap-start" data-asset="Demo 19265"></div>
-        <div class="ph rounded-[14px] shadow-medium shrink-0 w-[260px] h-[190px] snap-start" data-asset="Demo 19261"></div>
-        <div class="ph rounded-[14px] shadow-medium shrink-0 w-[260px] h-[190px] snap-start" data-asset="Demo 19262"></div>
-        <div class="ph rounded-[14px] shadow-medium shrink-0 w-[260px] h-[190px] snap-start" data-asset="Demo 19263"></div>
-      </div>
+  <!-- grid band 545→1277 with the arc of five tilted demo screenshots -->
+  <div class="arc" id="arc" aria-hidden="true">
+    <div class="arc-stg">
+        <div class="arc-it" style="left:-97.16px;top:298.83px"><div class="arc-card"><div class="arc-rot" style="--r:-29.12deg"><img src="Media/Demo%20Page/Demo%20Cards/04-awesome.png" width="724" height="532" alt="" /></div></div></div>
+        <div class="arc-it" style="left:269.64px;top:149.5px"><div class="arc-card"><div class="arc-rot" style="--r:-16.32deg"><img src="Media/Demo%20Page/Demo%20Cards/03-auction.png" width="724" height="532" alt="" /></div></div></div>
+        <div class="arc-it" style="left:670.0px;top:91.0px"><div class="arc-card"><div class="arc-rot" style="--r:0deg"><img src="Media/Demo%20Page/Hero/arc-center-udemy.png" width="362" height="265" alt="" /></div></div></div>
+        <div class="arc-it" style="left:1070.36px;top:145.2px"><div class="arc-card"><div class="arc-rot" style="--r:15.79deg"><img src="Media/Demo%20Page/Demo%20Cards/06-awesome.png" width="724" height="532" alt="" /></div></div></div>
+        <div class="arc-it" style="left:1435.57px;top:298.39px"><div class="arc-card"><div class="arc-rot" style="--r:28.58deg"><img src="Media/Demo%20Page/Demo%20Cards/05-awesome.png" width="724" height="532" alt="" /></div></div></div>
     </div>
   </div>
 </header>
 
-<!-- ═══════════════ TABS + DEMO GRID ═══════════════ -->
-<section class="bg-white pt-[64px] pb-[120px]">
+<!-- ═══════════════ TABS + DEMO GRID (525:20152, 697:18808) ═══════════════ -->
+<section class="ds">
   <div class="wrap">
-    <!-- Tab group — Figma 525:20152, container h 61.63, 7px inset pills -->
-    <div class="reveal inline-flex items-center gap-0 rounded-full bg-[#F4F4F7] p-[7px]" role="tablist" aria-label="Demo categories">
-      <button class="tab-btn rounded-full px-[27px] py-[9px] font-body text-[20px] leading-[1.5] text-para" role="tab" aria-selected="true"  data-filter="all">All</button>
-      <button class="tab-btn rounded-full px-[37px] py-[9px] font-body text-[20px] leading-[1.5] text-para" role="tab" aria-selected="false" data-filter="fashion">Fashion</button>
-      <button class="tab-btn rounded-full px-[37px] py-[9px] font-body text-[20px] leading-[1.5] text-para" role="tab" aria-selected="false" data-filter="marketplace">Marketplace</button>
+    <div class="tabs reveal" role="tablist" aria-label="Demo plans">
+      <button class="tab-btn" role="tab" aria-selected="true" data-filter="all">All</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-filter="starter">Starter</button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-filter="professional">Professional</button>
     </div>
 
-    <!-- 3 x 5 grid of 461x588 cards, 56px gaps — Figma 525:20171 … 525:20203 -->
-    <div id="demo-grid" class="mt-[56px] grid gap-[56px] grid-cols-1 md:grid-cols-2 xl:grid-cols-3"></div>
+    <div class="dgrid" id="demo-grid">
+      <article class="dc reveal" data-tag="professional">
+        <div class="dc-in" data-href="demo-details.html?demo=attebo-styo">
+          <div class="dc-stg">
+            <div class="dc-copy">
+              <h3 class="dc-t">Alibaba-Style</h3>
+              <p class="dc-d">Build a platform that<br />looks like Alibaba!</p>
+              <a href="demo-details.html?demo=attebo-styo" class="dc-btn" data-primary-icon aria-label="Try the Alibaba-Style demo">Try Demo<span class="circle"><svg viewBox="0 0 20.4621 20.4621" width="20.46" height="20.46" fill="none" aria-hidden="true"><path d="M4.26293 10.231H16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.231 4.26293L16.1991 10.231L10.231 16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            </div>
+            <img class="dc-shot" src="Media/Demo%20Page/Demo%20Cards/01-alibaba-style.png" width="676" height="496" alt="Alibaba-Style demo storefront preview" loading="lazy" />
+          </div>
+        </div>
+      </article>
+      <article class="dc reveal" data-tag="professional">
+        <div class="dc-in" data-href="demo-details.html?demo=amazon-kekoloko">
+          <div class="dc-stg">
+            <div class="dc-copy">
+              <h3 class="dc-t">Amazon lookalike</h3>
+              <p class="dc-d">Want to create a marketplace<br />like Amazon? Here is the demo!</p>
+              <a href="demo-details.html?demo=amazon-kekoloko" class="dc-btn" data-primary-icon aria-label="Try the Amazon lookalike demo">Try Demo<span class="circle"><svg viewBox="0 0 20.4621 20.4621" width="20.46" height="20.46" fill="none" aria-hidden="true"><path d="M4.26293 10.231H16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.231 4.26293L16.1991 10.231L10.231 16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            </div>
+            <img class="dc-shot" src="Media/Demo%20Page/Demo%20Cards/02-amazon-lookalike.png" width="676" height="496" alt="Amazon lookalike demo storefront preview" loading="lazy" />
+          </div>
+        </div>
+      </article>
+      <article class="dc reveal" data-tag="professional">
+        <div class="dc-in" data-href="demo-details.html?demo=auction">
+          <div class="dc-stg">
+            <div class="dc-copy">
+              <h3 class="dc-t">Auction</h3>
+              <p class="dc-d">See how an auction site will<br />look like with Dokan</p>
+              <a href="demo-details.html?demo=auction" class="dc-btn" data-primary-icon aria-label="Try the Auction demo">Try Demo<span class="circle"><svg viewBox="0 0 20.4621 20.4621" width="20.46" height="20.46" fill="none" aria-hidden="true"><path d="M4.26293 10.231H16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.231 4.26293L16.1991 10.231L10.231 16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            </div>
+            <img class="dc-shot" src="Media/Demo%20Page/Demo%20Cards/03-auction.png" width="676" height="496" alt="Auction demo storefront preview" loading="lazy" />
+          </div>
+        </div>
+      </article>
+      <article class="dc reveal" data-tag="starter">
+        <div class="dc-in" data-href="demo-details.html?demo=groceria">
+          <div class="dc-stg">
+            <div class="dc-copy">
+              <h3 class="dc-t">Awesome</h3>
+              <p class="dc-d">Widget design for store and<br />frontpage category</p>
+              <a href="demo-details.html?demo=groceria" class="dc-btn" data-primary-icon aria-label="Try the Awesome demo">Try Demo<span class="circle"><svg viewBox="0 0 20.4621 20.4621" width="20.46" height="20.46" fill="none" aria-hidden="true"><path d="M4.26293 10.231H16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.231 4.26293L16.1991 10.231L10.231 16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            </div>
+            <img class="dc-shot" src="Media/Demo%20Page/Demo%20Cards/04-awesome.png" width="676" height="496" alt="Awesome demo storefront preview" loading="lazy" />
+          </div>
+        </div>
+      </article>
+      <article class="dc reveal" data-tag="starter">
+        <div class="dc-in" data-href="demo-details.html?demo=wearly">
+          <div class="dc-stg">
+            <div class="dc-copy">
+              <h3 class="dc-t">Awesome</h3>
+              <p class="dc-d">Widget design for store and<br />frontpage category</p>
+              <a href="demo-details.html?demo=wearly" class="dc-btn" data-primary-icon aria-label="Try the Awesome demo">Try Demo<span class="circle"><svg viewBox="0 0 20.4621 20.4621" width="20.46" height="20.46" fill="none" aria-hidden="true"><path d="M4.26293 10.231H16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.231 4.26293L16.1991 10.231L10.231 16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            </div>
+            <img class="dc-shot" src="Media/Demo%20Page/Demo%20Cards/05-awesome.png" width="676" height="496" alt="Awesome demo storefront preview" loading="lazy" />
+          </div>
+        </div>
+      </article>
+      <article class="dc reveal" data-tag="starter">
+        <div class="dc-in" data-href="demo-details.html?demo=techmart">
+          <div class="dc-stg">
+            <div class="dc-copy">
+              <h3 class="dc-t">Awesome</h3>
+              <p class="dc-d">Widget design for store and<br />frontpage category</p>
+              <a href="demo-details.html?demo=techmart" class="dc-btn" data-primary-icon aria-label="Try the Awesome demo">Try Demo<span class="circle"><svg viewBox="0 0 20.4621 20.4621" width="20.46" height="20.46" fill="none" aria-hidden="true"><path d="M4.26293 10.231H16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.231 4.26293L16.1991 10.231L10.231 16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            </div>
+            <img class="dc-shot" src="Media/Demo%20Page/Demo%20Cards/06-awesome.png" width="676" height="496" alt="Awesome demo storefront preview" loading="lazy" />
+          </div>
+        </div>
+      </article>
+      <article class="dc reveal" data-tag="starter">
+        <div class="dc-in" data-href="demo-details.html?demo=bookhive">
+          <div class="dc-stg">
+            <div class="dc-copy">
+              <h3 class="dc-t">Awesome</h3>
+              <p class="dc-d">Widget design for store and<br />frontpage category</p>
+              <a href="demo-details.html?demo=bookhive" class="dc-btn" data-primary-icon aria-label="Try the Awesome demo">Try Demo<span class="circle"><svg viewBox="0 0 20.4621 20.4621" width="20.46" height="20.46" fill="none" aria-hidden="true"><path d="M4.26293 10.231H16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.231 4.26293L16.1991 10.231L10.231 16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            </div>
+            <img class="dc-shot" src="Media/Demo%20Page/Demo%20Cards/07-awesome.png" width="676" height="496" alt="Awesome demo storefront preview" loading="lazy" />
+          </div>
+        </div>
+      </article>
+      <article class="dc reveal" data-tag="starter">
+        <div class="dc-in" data-href="demo-details.html?demo=urban-threads">
+          <div class="dc-stg">
+            <div class="dc-copy">
+              <h3 class="dc-t">Awesome</h3>
+              <p class="dc-d">Widget design for store and<br />frontpage category</p>
+              <a href="demo-details.html?demo=urban-threads" class="dc-btn" data-primary-icon aria-label="Try the Awesome demo">Try Demo<span class="circle"><svg viewBox="0 0 20.4621 20.4621" width="20.46" height="20.46" fill="none" aria-hidden="true"><path d="M4.26293 10.231H16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.231 4.26293L16.1991 10.231L10.231 16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            </div>
+            <img class="dc-shot" src="Media/Demo%20Page/Demo%20Cards/08-awesome.png" width="676" height="496" alt="Awesome demo storefront preview" loading="lazy" />
+          </div>
+        </div>
+      </article>
+      <article class="dc reveal" data-tag="starter">
+        <div class="dc-in" data-href="demo-details.html?demo=freshly">
+          <div class="dc-stg">
+            <div class="dc-copy">
+              <h3 class="dc-t">Awesome</h3>
+              <p class="dc-d">Widget design for store and<br />frontpage category</p>
+              <a href="demo-details.html?demo=freshly" class="dc-btn" data-primary-icon aria-label="Try the Awesome demo">Try Demo<span class="circle"><svg viewBox="0 0 20.4621 20.4621" width="20.46" height="20.46" fill="none" aria-hidden="true"><path d="M4.26293 10.231H16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.231 4.26293L16.1991 10.231L10.231 16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            </div>
+            <img class="dc-shot" src="Media/Demo%20Page/Demo%20Cards/09-awesome.png" width="676" height="496" alt="Awesome demo storefront preview" loading="lazy" />
+          </div>
+        </div>
+      </article>
+      <article class="dc reveal" data-tag="starter">
+        <div class="dc-in" data-href="demo-details.html?demo=vintage-co">
+          <div class="dc-stg">
+            <div class="dc-copy">
+              <h3 class="dc-t">Awesome</h3>
+              <p class="dc-d">Widget design for store and<br />frontpage category</p>
+              <a href="demo-details.html?demo=vintage-co" class="dc-btn" data-primary-icon aria-label="Try the Awesome demo">Try Demo<span class="circle"><svg viewBox="0 0 20.4621 20.4621" width="20.46" height="20.46" fill="none" aria-hidden="true"><path d="M4.26293 10.231H16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.231 4.26293L16.1991 10.231L10.231 16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            </div>
+            <img class="dc-shot" src="Media/Demo%20Page/Demo%20Cards/10-awesome.png" width="676" height="496" alt="Awesome demo storefront preview" loading="lazy" />
+          </div>
+        </div>
+      </article>
+      <article class="dc reveal" data-tag="starter">
+        <div class="dc-in" data-href="demo-details.html?demo=homely">
+          <div class="dc-stg">
+            <div class="dc-copy">
+              <h3 class="dc-t">Awesome</h3>
+              <p class="dc-d">Widget design for store and<br />frontpage category</p>
+              <a href="demo-details.html?demo=homely" class="dc-btn" data-primary-icon aria-label="Try the Awesome demo">Try Demo<span class="circle"><svg viewBox="0 0 20.4621 20.4621" width="20.46" height="20.46" fill="none" aria-hidden="true"><path d="M4.26293 10.231H16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.231 4.26293L16.1991 10.231L10.231 16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            </div>
+            <img class="dc-shot" src="Media/Demo%20Page/Demo%20Cards/11-awesome.png" width="676" height="496" alt="Awesome demo storefront preview" loading="lazy" />
+          </div>
+        </div>
+      </article>
+      <article class="dc reveal" data-tag="starter">
+        <div class="dc-in" data-href="demo-details.html?demo=sportiq">
+          <div class="dc-stg">
+            <div class="dc-copy">
+              <h3 class="dc-t">Awesome</h3>
+              <p class="dc-d">Widget design for store and<br />frontpage category</p>
+              <a href="demo-details.html?demo=sportiq" class="dc-btn" data-primary-icon aria-label="Try the Awesome demo">Try Demo<span class="circle"><svg viewBox="0 0 20.4621 20.4621" width="20.46" height="20.46" fill="none" aria-hidden="true"><path d="M4.26293 10.231H16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.231 4.26293L16.1991 10.231L10.231 16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            </div>
+            <img class="dc-shot" src="Media/Demo%20Page/Demo%20Cards/12-awesome.png" width="676" height="496" alt="Awesome demo storefront preview" loading="lazy" />
+          </div>
+        </div>
+      </article>
+      <article class="dc reveal" data-tag="starter">
+        <div class="dc-in" data-href="demo-details.html?demo=petzone">
+          <div class="dc-stg">
+            <div class="dc-copy">
+              <h3 class="dc-t">Awesome</h3>
+              <p class="dc-d">Widget design for store and<br />frontpage category</p>
+              <a href="demo-details.html?demo=petzone" class="dc-btn" data-primary-icon aria-label="Try the Awesome demo">Try Demo<span class="circle"><svg viewBox="0 0 20.4621 20.4621" width="20.46" height="20.46" fill="none" aria-hidden="true"><path d="M4.26293 10.231H16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.231 4.26293L16.1991 10.231L10.231 16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            </div>
+            <img class="dc-shot" src="Media/Demo%20Page/Demo%20Cards/13-awesome.png" width="676" height="496" alt="Awesome demo storefront preview" loading="lazy" />
+          </div>
+        </div>
+      </article>
+      <article class="dc reveal" data-tag="starter">
+        <div class="dc-in" data-href="demo-details.html?demo=glowbox">
+          <div class="dc-stg">
+            <div class="dc-copy">
+              <h3 class="dc-t">Awesome</h3>
+              <p class="dc-d">Widget design for store and<br />frontpage category</p>
+              <a href="demo-details.html?demo=glowbox" class="dc-btn" data-primary-icon aria-label="Try the Awesome demo">Try Demo<span class="circle"><svg viewBox="0 0 20.4621 20.4621" width="20.46" height="20.46" fill="none" aria-hidden="true"><path d="M4.26293 10.231H16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.231 4.26293L16.1991 10.231L10.231 16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            </div>
+            <img class="dc-shot" src="Media/Demo%20Page/Demo%20Cards/14-awesome.png" width="676" height="496" alt="Awesome demo storefront preview" loading="lazy" />
+          </div>
+        </div>
+      </article>
+      <article class="dc reveal" data-tag="starter">
+        <div class="dc-in" data-href="demo-details.html?demo=craftly">
+          <div class="dc-stg">
+            <div class="dc-copy">
+              <h3 class="dc-t">Awesome</h3>
+              <p class="dc-d">Widget design for store and<br />frontpage category</p>
+              <a href="demo-details.html?demo=craftly" class="dc-btn" data-primary-icon aria-label="Try the Awesome demo">Try Demo<span class="circle"><svg viewBox="0 0 20.4621 20.4621" width="20.46" height="20.46" fill="none" aria-hidden="true"><path d="M4.26293 10.231H16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.231 4.26293L16.1991 10.231L10.231 16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            </div>
+            <img class="dc-shot" src="Media/Demo%20Page/Demo%20Cards/15-awesome.png" width="676" height="496" alt="Awesome demo storefront preview" loading="lazy" />
+          </div>
+        </div>
+      </article>
+    </div>
   </div>
 </section>
 
-<!-- ═══════════════ GLOBE (DARK) ═══════════════ -->
-<section class="bg-black text-white py-[110px]">
+<!-- ═══════════════ DOKAN POWERED MARKETPLACES (525:20204) ═══════════════ -->
+<section class="gs">
   <div class="wrap">
-    <div class="lg:flex lg:items-start lg:justify-between lg:gap-20">
-      <h2 class="reveal font-display font-bold text-[36px] sm:text-[44px] xl:text-[52px] leading-[1.2] max-w-[620px]">
-        Dokan Powered Marketplaces Across the Globe
-      </h2>
-      <p class="reveal mt-6 lg:mt-3 font-body text-[17px] xl:text-[18px] leading-[1.7] text-white/60 max-w-[500px]">
-        From fashion and electronics to groceries and digital goods — thousands of live marketplaces run on Dokan in every corner of the world.
-      </p>
+    <div class="gs-head">
+      <h2 class="gs-h2 reveal">Dokan Powered<br />Marketplaces<br />Across the Globe</h2>
+      <p class="gs-sub reveal">See what’s possible with Dokan Marketplace Plugin—these live marketplaces were built using our platform. Start your journey with Dokan and create a marketplace just like these today!</p>
     </div>
-    <div id="globe-grid" class="mt-[56px] grid gap-[22px] grid-cols-1 sm:grid-cols-2 xl:grid-cols-4"></div>
+  </div>
+  <div class="gs-grid">
+      <article class="gc reveal" style="--pw:335px">
+        <div class="gc-media"><img src="Media/Demo%20Page/Marketplaces/ifesty.png" style="top:14.51cqh;height:87.86cqh;width:152.66cqh;right:14.04cqh" width="1800" height="1036" alt="Ifesty marketplace homepage built with Dokan" loading="lazy" /></div>
+        <div class="gc-panel">
+          <div class="gc-txt">
+            <h3>Ifesty</h3>
+            <p>iFesty is a Brazilian marketplace offering trendy fashion, accessories, and lifestyle products for men and women, delivering a seamless shopping experience.</p>
+          </div>
+          <span class="gc-tag">Brazil<span class="gc-flag" aria-hidden="true">🇧🇷</span></span>
+        </div>
+      </article>
+      <article class="gc reveal" style="--pw:345px">
+        <div class="gc-media"><img src="Media/Demo%20Page/Marketplaces/bidcurios.png" style="top:14.51cqh;height:87.86cqh;width:152.51cqh;right:15.04cqh" width="1800" height="1036" alt="BidCurios marketplace homepage built with Dokan" loading="lazy" /></div>
+        <div class="gc-panel">
+          <div class="gc-txt">
+            <h3>BidCurios</h3>
+            <p>BidCurios is a marketplace for rare collectibles, antiques, artwork, coins, and stamps, connecting collectors with trusted sellers.</p>
+          </div>
+          <span class="gc-tag">India<span class="gc-flag" aria-hidden="true">🇮🇳</span></span>
+        </div>
+      </article>
+      <article class="gc gc-rev reveal" style="--pw:335px">
+        <div class="gc-media"><img src="Media/Demo%20Page/Marketplaces/parsiankala.png" style="top:13.98cqh;height:88.65cqh;width:154.35cqh;left:13.19cqh" width="1800" height="1036" alt="Parsiankala marketplace homepage built with Dokan" loading="lazy" /></div>
+        <div class="gc-panel">
+          <div class="gc-txt">
+            <h3>Parsiankala</h3>
+            <p>Parsiankala is an online marketplace for electronics, home essentials, and personal care products, offering a convenient shopping experience.</p>
+          </div>
+          <span class="gc-tag">Iran<span class="gc-flag" aria-hidden="true">🇮🇷</span></span>
+        </div>
+      </article>
+      <article class="gc gc-rev reveal" style="--pw:345px">
+        <div class="gc-media"><img src="Media/Demo%20Page/Marketplaces/zakarto.png" style="top:13.19cqh;height:88.92cqh;width:154.62cqh;left:13.19cqh" width="1800" height="1036" alt="Zakarto marketplace homepage built with Dokan" loading="lazy" /></div>
+        <div class="gc-panel">
+          <div class="gc-txt">
+            <h3>Zakarto</h3>
+            <p>Zakarto is a marketplace for home décor, furniture, and lifestyle products, helping customers create stylish living spaces.</p>
+          </div>
+          <span class="gc-tag">India<span class="gc-flag" aria-hidden="true">🇮🇳</span></span>
+        </div>
+      </article>
   </div>
 </section>
 
-<!-- ═══════════════ BLOGS ═══════════════ -->
-<section class="bg-white py-[110px]">
+<!-- ═══════════════ BLOGS (697:18816) ═══════════════ -->
+<section class="bs">
   <div class="wrap">
-    <div class="lg:flex lg:items-start lg:justify-between lg:gap-20">
-      <h2 class="reveal font-display font-bold text-[36px] sm:text-[44px] xl:text-[52px] leading-[1.2] text-title max-w-[572px]">
-        Exclusive Dokan Multi-vendor Blogs
-      </h2>
-      <p class="reveal mt-6 lg:mt-[64px] font-body text-[18px] xl:text-[20px] leading-[1.5] text-para max-w-[500px]">
-        Guides, comparisons and growth playbooks from the team that builds Dokan.
-      </p>
+    <div class="bs-head">
+      <h2 class="bs-h2 reveal">Exclusive Dokan<br />Multi-vendor Blogs</h2>
+      <p class="bs-sub reveal">Resourceful articles to introduce you to the different<br class="br-xl" /> Dokan features &amp; functionalities.</p>
     </div>
-    <!-- 3 x 480 cards, 28px gap — Figma 525:20184 / 525:20190 -->
-    <div id="blog-grid" class="mt-[56px] grid gap-[28px] grid-cols-1 md:grid-cols-2 xl:grid-cols-3"></div>
+    <div class="bs-grid">
+      <article class="blog-card reveal">
+        <a href="blog.html" class="bc-img"><img class="shot" src="Media/Demo%20Page/Blogs/dokan-plugin-integrations.png" width="1622" height="886" alt="" loading="lazy" /></a>
+        <h3>Top Dokan Plugin Integrations to Power Up Your Multivendor Marketplace</h3>
+        <a href="blog.html" class="underline">Continue Reading<svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><path d="M4.16667 10H15.8333" stroke="#0E0E0F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 4.16667L15.8333 10L10 15.8333" stroke="#0E0E0F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+      <article class="blog-card reveal">
+        <a href="blog.html" class="bc-img"><img class="shot" src="Media/Demo%20Page/Blogs/ecommerce-podcasts.png" width="1622" height="886" alt="" loading="lazy" /></a>
+        <h3>Top 25+ eCommerce Podcasts You Must Follow as a Founder</h3>
+        <a href="blog.html" class="underline">Continue Reading<svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><path d="M4.16667 10H15.8333" stroke="#0E0E0F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 4.16667L15.8333 10L10 15.8333" stroke="#0E0E0F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+      <article class="blog-card reveal">
+        <a href="blog.html" class="bc-img"><img class="shot" src="Media/Demo%20Page/Blogs/online-grocery-delivery-marketplace.png" width="811" height="443" alt="" loading="lazy" /></a>
+        <h3>Starting An Online<br class="br-lg" /> Grocery Delivery Marketplace</h3>
+        <a href="blog.html" class="underline">Continue Reading<svg viewBox="0 0 20 20" width="20" height="20" fill="none" aria-hidden="true"><path d="M4.16667 10H15.8333" stroke="#0E0E0F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 4.16667L15.8333 10L10 15.8333" stroke="#0E0E0F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </article>
+    </div>
+    <div class="bs-more reveal">
+      <a href="blog.html" class="dc-btn" data-primary-icon>View all blogs<span class="circle"><svg viewBox="0 0 20.4621 20.4621" width="20.46" height="20.46" fill="none" aria-hidden="true"><path d="M4.26293 10.231H16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.231 4.26293L16.1991 10.231L10.231 16.1991" stroke="#7047EB" stroke-width="1.78074" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+    </div>
   </div>
 </section>
 
-<!-- ═══════════════ CTA ═══════════════ -->
+<!-- ═══════════════ CTA (525:20254) ═══════════════ -->
 <section class="lc-shell">
   <div class="lc-band">
     <svg class="lc-waves" preserveAspectRatio="none" viewBox="0 0 1000 500" fill="none" stroke="#FFFFFF" stroke-width="2" aria-hidden="true">
@@ -195,13 +537,11 @@
     </svg>
     <div class="lc-copy">
       <div class="lc-top">
-        <h2 class="lc-title">Launch Your<br />Marketplace<br />Today!</h2>
-        <p class="lc-text">Scrolling from top to bottom, it seems you're eager to begin with Dokan. So, why wait any longer?</p>
+        <h2 class="lc-title">Create Your Own<br />Marketplace Today!</h2>
+        <p class="lc-text">Stay ahead in the game with the best WooCommerce Multi-vendor solution.</p>
       </div>
       <div class="lc-actions">
-        <a href="#" class="lc-btn">Get Started Now
-          <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-        </a>
+        <a href="#" class="lc-btn">Get started now<span class="circle"><svg viewBox="0 0 15.4337 15.4198" width="15.43" height="15.42" fill="none" aria-hidden="true"><path d="M7.71682 10.5756L7.71682 1M7.71682 10.5756C7.04631 10.5756 5.79359 8.66595 5.32292 8.18171M7.71682 10.5756C8.38733 10.5756 9.64005 8.66595 10.1107 8.18171" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M1.01389 14.4059H14.4198" stroke="#fff" stroke-width="2.02778" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
       </div>
     </div>
     <img class="lc-art" src="Media/footer/Launch%20Your.png" width="1356" height="1186" alt="Dokani storefront built with Dokan" loading="lazy" />
@@ -279,200 +619,109 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="demos.js"></script>
-<script src="site-nav.js?v=30"></script>
+<script src="site-nav.js?v=35"></script>
 <script>
 (function () {
   var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- Demo cards: 15 cards, 461x588 ---------- */
-  var demos = (window.DOKAN_DEMOS || []).map(function (d) {
-    return { n: d.name, c: d.cat, t: d.tag, slug: d.slug };
-  });
-  var grid = $('#demo-grid');
-  demos.forEach(function (d) {
-    var el = document.createElement('article');
-    el.className = 'demo-card reveal group rounded-[16px] bg-[#F4F4F7] p-[18px] pb-[26px] flex flex-col cursor-pointer';
-    el.dataset.tag = d.t;
-    el.tabIndex = 0;
-    el.setAttribute('role', 'link');
-    el.setAttribute('aria-label', d.n + ' — view demo details');
-    function go() { window.location.href = 'demo-details.html?demo=' + d.slug; }
-    el.addEventListener('click', go);
-    el.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
-    });
-    el.innerHTML =
-      // Figma card 461x588: 18px inset -> 425x398 image well (ratio kept so it scales down cleanly)
-      '<div class="rounded-[10px] overflow-hidden aspect-[425/398]">' +
-        '<div class="shot ph h-full w-full" data-asset="' + d.n + '"></div>' +
-      '</div>' +
-      '<h3 class="mt-[22px] px-1 font-display font-semibold text-[24px] leading-[1.3] text-heading">' + d.n + '</h3>' +
-      '<p class="mt-[6px] px-1 font-body text-[16px] leading-[1.3] text-lite">' + d.c + '</p>' +
-      '<a href="demo-details.html?demo=' + d.slug + '" class="mt-[22px] mx-1 inline-flex items-center justify-center gap-2 rounded-full bg-dokan px-[26px] py-[12px] font-body font-bold text-[15px] text-white self-start ' +
-        'transition-all duration-300 hover:bg-[#5d36d6] hover:gap-3">' +
-        'View Demo' +
-        '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>' +
-      '</a>';
-    grid.appendChild(el);
+  /* ---------- Fixed-size Figma artwork scaled to its box ----------
+     Arc: 1700x732 stage, 1:1 up to 1700px wide (centred beyond), and kept
+     larger on phones (1000px of it fills the screen, outer cards crop).
+     Demo cards: 461x588 stage scaled to the card's column. */
+  var arc = $('#arc');
+  function fitArc() {
+    var W = arc.clientWidth, k = W >= 768 ? Math.min(1, W / 1700) : W / 1000;
+    arc.style.setProperty('--k', k);
+    arc.style.setProperty('--x', ((W - 1700 * k) / 2) + 'px');
+  }
+  function fitCard(c) { c.style.setProperty('--k', c.offsetWidth / 461); }
+  var cards = $$('.dc');
+  if ('ResizeObserver' in window) {
+    var ro = new ResizeObserver(function (es) { es.forEach(function (e) { e.target === arc ? fitArc() : fitCard(e.target); }); });
+    ro.observe(arc); cards.forEach(function (c) { ro.observe(c); });
+  } else {
+    fitArc(); cards.forEach(fitCard);
+    window.addEventListener('resize', function () { fitArc(); cards.forEach(fitCard); });
+  }
+
+  /* ---------- Whole demo card opens its details page ---------- */
+  $$('.dc-in').forEach(function (c) {
+    c.addEventListener('click', function (e) { if (!e.target.closest('a')) location.href = c.dataset.href; });
   });
 
-  /* ---------- Globe bento cards ---------- */
-  var globe = [
-    { n:'Redberry',   bg:'#E2483D', span:'xl:col-span-2' },
-    { n:'Sneap',      bg:'#141824', span:'' },
-    { n:'Bikkubro',   bg:'#7047EB', span:'' },
-    { n:'Fashionable',bg:'#7047EB', span:'' },
-    { n:'Gearbox',    bg:'#141824', span:'xl:col-span-2' },
-    { n:'Colorly',    bg:'#F2F2F4', span:'', light:true },
-  ];
-  var gg = $('#globe-grid');
-  globe.forEach(function (g) {
-    var el = document.createElement('article');
-    el.className = 'globe-card reveal group relative overflow-hidden rounded-[16px] min-h-[300px] p-[26px] flex flex-col justify-end ' + g.span;
-    el.style.background = g.bg;
-    el.innerHTML =
-      '<span class="absolute inset-0 opacity-30 ' + (g.light ? 'ph' : 'ph-dark') + '" data-asset=""></span>' +
-      '<a href="#" class="relative z-10 self-start rounded-full bg-white px-[22px] py-[11px] font-body font-bold text-[14px] text-heading ' +
-        'transition-transform duration-300 group-hover:-translate-y-1">' + g.n + '</a>';
-    gg.appendChild(el);
-  });
-
-  /* ---------- Blog cards: 480x276 image + 30px/39px title ---------- */
-  var blogs = [
-    'Top Islam Plugin Integrations to Power Up Your Multivendor Marketplace',
-    'Top 20+ eCommerce Podcasts You Must Follow As A Founder',
-    'Starting An Online Grocery Delivery Marketplace',
-  ];
-  var bg2 = $('#blog-grid');
-  blogs.forEach(function (b) {
-    var el = document.createElement('article');
-    el.className = 'blog-card reveal group';
-    el.innerHTML =
-      '<div class="rounded-[14px] overflow-hidden aspect-[480/276]">' +
-        '<div class="shot ph h-full w-full" data-asset=""></div>' +
-      '</div>' +
-      '<h3 class="mt-[40px] font-display font-bold text-[26px] xl:text-[30px] leading-[1.3] text-title max-w-[413px]">' + b + '</h3>' +
-      '<a href="#" class="mt-[20px] inline-flex items-center gap-2 font-body font-bold text-[16px] text-heading underline underline-offset-4 ' +
-        'transition-all duration-300 hover:text-dokan hover:gap-3">Read More' +
-        '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>';
-    bg2.appendChild(el);
-  });
-
-  /* ---------- Footer links + socials ---------- */
-  var FOOTER_ROUTES = { 'Modules':'modules.html', 'Blogs':'blog.html',
-    'Testimonials':'testimonials.html', 'Compatible Themes':'themes.html',
-    'Dokan WordPress Plugin':'demo.html' };
-  document.querySelectorAll('[data-links]').forEach(function (ul) {
-    ul.dataset.links.split('|').forEach(function (t) {
-      var li = document.createElement('li');
-      li.innerHTML = '<a href="' + (FOOTER_ROUTES[t] || '#') + '" class="hover:text-white transition-colors">' + t + '</a>';
-      ul.appendChild(li);
-    });
-  });
-  var socials = [
-    ['#1877F2','<path fill="#fff" d="M13.5 21v-7h2.3l.4-2.7h-2.7V9.5c0-.8.2-1.3 1.4-1.3H16V5.8c-.3 0-1.1-.1-2-.1-2 0-3.4 1.2-3.4 3.5v1.9H8.3V14h2.3v7h2.9z"/>'],
-    ['#000000','<path fill="#fff" d="M14.2 10.6L19 5.5h-1.4l-3.7 4-3-4H7l4.5 6-4.5 5h1.4l3.9-4.3 3.1 4.3H19l-4.8-6.6z"/>'],
-    ['#FF0000','<path fill="#fff" d="M18.6 9.2c-.2-.7-.7-1.2-1.4-1.4C15.9 7.5 12 7.5 12 7.5s-3.9 0-5.2.3c-.7.2-1.2.7-1.4 1.4C5.1 10.5 5.1 12 5.1 12s0 1.5.3 2.8c.2.7.7 1.2 1.4 1.4 1.3.3 5.2.3 5.2.3s3.9 0 5.2-.3c.7-.2 1.2-.7 1.4-1.4.3-1.3.3-2.8.3-2.8s0-1.5-.3-2.8zM10.8 14.3V9.7l3.9 2.3-3.9 2.3z"/>'],
-    ['#0A66C2','<path fill="#fff" d="M9 10.5H6.7V18H9v-7.5zM7.8 9.4c.8 0 1.3-.5 1.3-1.2 0-.7-.5-1.2-1.3-1.2S6.6 7.5 6.6 8.2c0 .7.5 1.2 1.2 1.2zM18 18v-4.3c0-2.2-1.2-3.3-2.8-3.3-1.3 0-1.9.7-2.2 1.2v-1h-2.3c0 .6 0 7.4 0 7.4H13v-4.2c0-.2 0-.4.1-.6.2-.4.6-.9 1.3-.9.9 0 1.3.7 1.3 1.7V18H18z"/>'],
-    ['#111111','<path fill="#fff" d="M7.5 8.2c-1.4 0-2.4 1.6-2.4 3.4 0 1.5.7 2.5 1.8 2.5.9 0 1.5-.6 2.4-2.2l.9-1.6c.3.5.6 1 .9 1.5-.4.6-.8 1.2-1.1 1.5-.9 1-1.6 1.4-2.6 1.4-1.9 0-3-1.6-3-3.9 0-2.6 1.5-4.6 3.4-4.6 1.2 0 2 .6 2.9 1.9.6-.9 1.4-1.9 2.8-1.9 1.9 0 3.3 2 3.3 4.6 0 2.3-1.1 3.9-2.9 3.9-.6 0-1.1-.2-1.6-.6.3-.4.5-.7.8-1.1.3.2.5.3.8.3 1 0 1.5-1 1.5-2.5 0-1.8-.9-3.4-2.3-3.4-.8 0-1.4.6-2.2 1.9l-.8 1.4c-1 1.8-1.9 2.9-3.3 2.9z"/>'],
-  ];
-  socials.forEach(function (s) {
-    var a = document.createElement('a');
-    a.href = '#'; a.className = 'grid place-items-center h-[34px] w-[34px] rounded-full';
-    a.style.background = s[0];
-    a.innerHTML = '<svg viewBox="0 0 24 24" class="w-full h-full">' + s[1] + '</svg>';
-    $('#socials').appendChild(a);
-  });
-
-  /* ---------- Tab filtering ---------- */
-  var tabs = document.querySelectorAll('.tab-btn');
+  /* ---------- Plan tabs filter the grid ---------- */
+  function markOdd() {
+    var vis = cards.filter(function (c) { return !c.hidden; });
+    cards.forEach(function (c) { c.classList.remove('is-last-odd'); });
+    if (vis.length % 2) vis[vis.length - 1].classList.add('is-last-odd');
+  }
+  markOdd();
+  var tabs = $$('.tab-btn');
   tabs.forEach(function (t) {
     t.addEventListener('click', function () {
-      tabs.forEach(function (o) { o.setAttribute('aria-selected', 'false'); });
-      t.setAttribute('aria-selected', 'true');
+      tabs.forEach(function (o) { o.setAttribute('aria-selected', o === t ? 'true' : 'false'); });
       var f = t.dataset.filter;
-      document.querySelectorAll('.demo-card').forEach(function (c) {
-        var show = f === 'all' || c.dataset.tag === f;
-        if (window.gsap && !reduced) {
-          gsap.to(c, { autoAlpha: show ? 1 : 0, scale: show ? 1 : .96, duration: .3,
-            onComplete: function () { c.style.display = show ? '' : 'none'; } });
-          if (show) c.style.display = '';
-        } else {
-          c.style.display = show ? '' : 'none';
-        }
-      });
+      cards.forEach(function (c) { c.hidden = !(f === 'all' || c.dataset.tag === f); });
+      markOdd();
+      cards.forEach(function (c) { if (!c.hidden) { c.style.opacity = 1; c.style.transform = ''; } });
       if (window.ScrollTrigger) ScrollTrigger.refresh();
     });
   });
 
+  /* ---------- Old footer lists (site-nav.js swaps in the shared footer) ---------- */
+  $$('[data-links]').forEach(function (ul) {
+    ul.dataset.links.split('|').forEach(function (t) {
+      var li = document.createElement('li');
+      li.innerHTML = '<a href="#" class="hover:text-white transition-colors">' + t + '</a>';
+      ul.appendChild(li);
+    });
+  });
+
   /* ---------- Motion ---------- */
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var hasGsap = !!(window.gsap && window.ScrollTrigger);
+  if (!hasGsap || reduced) { document.documentElement.classList.add('no-motion'); return; }
+  gsap.registerPlugin(ScrollTrigger);
 
-  if (!hasGsap || reduced) {
-    document.documentElement.classList.add('no-motion');
-  } else {
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Lenis smooth scroll, driven by GSAP's ticker
-    if (window.Lenis) {
-      var lenis = new Lenis({ duration: 1.1, smoothWheel: true });
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
-      gsap.ticker.lagSmoothing(0);
-    }
-
-    // Hero intro
-    gsap.timeline({ defaults: { ease: 'power3.out' } })
-      .to('header .reveal', { opacity: 1, y: 0, duration: .9, stagger: .12 })
-      .from('#arc .arc-item', { opacity: 0, y: 70, scale: .93, duration: 1, stagger: .09 }, '-=.5');
-
-    // Arc parallax — outer cards drift more than the centre one
-    gsap.utils.toArray('#arc .arc-item').forEach(function (el, i) {
-      var depth = [40, 22, 0, 22, 40][i] || 0;
-      if (!depth) return;
-      gsap.to(el, {
-        y: depth, ease: 'none',
-        scrollTrigger: { trigger: '#arc', start: 'top bottom', end: 'bottom top', scrub: true },
-      });
-    });
-
-    // Section reveals
-    gsap.utils.toArray('section .reveal, footer .reveal').forEach(function (el) {
-      gsap.to(el, {
-        opacity: 1, y: 0, duration: .8, ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
-      });
-    });
-
-    /* Failsafe: .reveal starts at opacity 0 in CSS, so if a trigger never
-       fires (background tab, scroll desync, restored scroll position) make
-       sure nothing is stranded invisible. */
-    window.addEventListener('load', function () {
-      ScrollTrigger.refresh();
-      setTimeout(function () {
-        document.querySelectorAll('.reveal').forEach(function (el) {
-          if (parseFloat(getComputedStyle(el).opacity) < 0.05) {
-            var r = el.getBoundingClientRect();
-            if (r.top < window.innerHeight && r.bottom > 0) gsap.to(el, { opacity: 1, y: 0, duration: .4 });
-          }
-        });
-      }, 1200);
-    });
-    var rt; window.addEventListener('resize', function () {
-      clearTimeout(rt); rt = setTimeout(function () { ScrollTrigger.refresh(); }, 200);
-    });
-
-    // Card hover lift
-    document.querySelectorAll('.demo-card, .blog-card, .globe-card').forEach(function (c) {
-      var enter = function () { gsap.to(c, { y: -8, duration: .35, ease: 'power2.out' }); };
-      var leave = function () { gsap.to(c, { y: 0, duration: .45, ease: 'power2.out' }); };
-      c.addEventListener('mouseenter', enter);
-      c.addEventListener('mouseleave', leave);
-      c.addEventListener('focusin', enter);
-      c.addEventListener('focusout', leave);
-    });
+  if (window.Lenis && !window.matchMedia('(hover:none)').matches) {
+    var lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
   }
+
+  /* Hero intro on load (the loader parks it until the page is revealed) */
+  gsap.timeline({ defaults: { ease: 'power3.out' } })
+    .fromTo('header .reveal', { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: .9, stagger: .12, clearProps: 'transform' })
+    .from('#arc .arc-card', { opacity: 0, y: 70, scale: .93, duration: 1, stagger: .09, clearProps: 'transform' }, '-=.5');
+
+  /* Arc parallax — the outer cards drift more than the centre one */
+  $$('#arc .arc-it').forEach(function (el, i) {
+    var depth = [40, 22, 0, 22, 40][i] || 0;
+    if (!depth) return;
+    gsap.to(el, { y: depth, ease: 'none',
+      scrollTrigger: { trigger: '#arc', start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
+
+  /* Scroll reveals replay on every pass (shared helper in site-nav.js) */
+  $$('section .reveal').forEach(function (el) { dokanReveal(el, { start: 'top 90%' }); });
+
+  /* Failsafe: .reveal starts at opacity 0, so nothing in view may stay hidden */
+  window.addEventListener('load', function () {
+    ScrollTrigger.refresh();
+    setTimeout(function () {
+      $$('.reveal').forEach(function (el) {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.05) {
+          var r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) gsap.to(el, { opacity: 1, y: 0, duration: .4, clearProps: 'transform' });
+        }
+      });
+    }, 1200);
+  });
+  var rt; window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () { ScrollTrigger.refresh(); }, 200);
+  });
 })();
 </script>
 </body>

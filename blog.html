@@ -6,9 +6,9 @@
 <title>How to Ensure eCommerce Data Privacy — Dokan Blog</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700;900&family=Inter:wght@600&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="site-nav.css?v=32" />
+<link rel="stylesheet" href="site-nav.css?v=34" />
 <!-- Page loader: only the header shows until site-nav.js reveals the page (5s failsafe) -->
 <script>(function(d){if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000)})(document.documentElement)</script>
 <script>
@@ -25,283 +25,479 @@
   body { background:#fff; color:#0f172a; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
   html.lenis, html.lenis body { height:auto; }
   html.lenis-smooth { scroll-behavior:auto !important; }
-  .h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
-    line-height:1.2; color:#0f172a; }
-  .sub { font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#575757; }
-  .cta-wrap { width:100%; max-width:1700px; margin:0 auto; padding:0 20px; }
-  .cta-band { position:relative; overflow:hidden; border-radius:20px; background:#7047EB; min-height:646px; }
-  .cta-band svg.waves { position:absolute; inset:0; width:100%; height:100%; opacity:.25; pointer-events:none; }
-  .cta-copy { position:absolute; left:84px; top:139px; max-width:655px; z-index:2; }
-  .cta-copy h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:62px; line-height:1.25; color:#fff; }
-  .cta-copy p { margin:28px 0 0; max-width:527px; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:rgba(255,255,255,.8); }
-  .cta-btn { display:inline-flex; align-items:center; gap:14px; margin-top:56px; background:#fff;
-    border-radius:9999px; padding:10px 10px 10px 32px; font-family:'Lato',sans-serif; font-weight:700;
-    font-size:16px; color:#0E0E0F; transition:transform .25s, box-shadow .25s; }
-  .cta-btn:hover { transform:translateY(-2px); box-shadow:0 18px 36px -16px rgba(0,0,0,.35); }
-  .cta-btn .circle { width:45px; height:45px; border-radius:9999px; background:#0E0E0F; color:#fff;
-    display:flex; align-items:center; justify-content:center; }
-  .cta-btn .circle svg { width:17px; height:17px; }
-  .cta-art { position:absolute; right:0; bottom:0; width:678px; z-index:1; border-top-left-radius:10px; }
-  @media (max-width:1200px) {
-    .cta-copy { position:static; padding:56px 32px 0; }
-    .cta-copy h2 { font-size:clamp(30px,4.6vw,62px); }
-    .cta-band { min-height:0; padding-bottom:40px; }
-    .cta-art { position:static; width:calc(100% - 64px); margin:36px 32px 0; border-radius:10px; }
-  }
 
+  /* ── Figma "Blog Page (1700px)" (661:21846) ──────────────────────────────
+     One 801px reading column centred on the page (x 449.5 on the 1700 frame),
+     an "Outline" rail pinned to the frame's left edge, and a 20%-tinted hero
+     band that ends 274px into the featured image. Numbers are the frame's own;
+     the media queries at the end scale them down. */
+  .bl-col { width:min(801px, calc(100% - 40px)); margin:0 auto; }
 
-  .bl-hero { background:#EFEBFB; }
-  .bl-col { max-width:801px; margin:0 auto; padding:0 20px; }
-  .bl-title { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
-    line-height:1.2; color:#0f172a; padding-top:198px; }
-  .bl-meta { display:flex; align-items:center; gap:24px; margin-top:27px; padding-bottom:56px; }
-  .bl-ava { width:71px; height:71px; border-radius:9999px; flex:none;
-    background:linear-gradient(135deg,#8B7BF0,#F0839B); }
-  .bl-meta .who b { display:block; font-family:'Poppins',sans-serif; font-weight:600; font-size:24px;
-    color:#0f172a; }
-  .bl-meta .who span { display:inline-flex; align-items:center; gap:8px; margin-top:8px;
-    font-family:'Lato',sans-serif; font-size:15px; color:#575757; }
-  .bl-meta .who span i { width:5px; height:5px; border-radius:99px; background:#B7BCC9; }
-  .bl-right { margin-left:auto; text-align:right; }
-  .bl-chip { display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:9999px;
-    background:#fff; border:1px solid #E5E2F2; font-family:'Lato',sans-serif; font-size:13px;
-    color:#25252D; }
-  .bl-right small { display:block; margin-top:14px; font-family:'Lato',sans-serif; font-size:15px;
-    color:#575757; }
-  .bl-heroimg { width:100%; border-radius:16px; display:block; margin-top:0; }
-  .bl-body { font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#334155; }
-  .bl-body p { margin:34px 0 0; }
-  .bl-h2 { margin:96px 0 0; font-family:'Poppins',sans-serif; font-weight:700; font-size:32px;
-    line-height:1.2; color:#0f172a; }
-  .bl-quote { margin-top:96px; background:#F2F2F4; border-radius:20px; padding:63px 48px; }
-  .bl-quote svg { width:48px; height:39px; }
-  .bl-quote p { margin:10px 0 0 63px; font-family:'Poppins',sans-serif; font-weight:700;
-    font-size:24px; line-height:1.3; color:#1d2433; max-width:535px; }
-  .bl-checks { margin-top:38px; }
-  .bl-checks li { display:flex; gap:18px; padding:12px 0 24px; border-bottom:1px solid #ECECF0;
-    font-size:20px; line-height:1.5; color:#334155; }
-  .bl-checks li:last-child { border-bottom:0; }
-  .bl-checks svg { width:22px; height:22px; flex:none; margin-top:6px; }
-  .bl-code { margin-top:38px; background:#101425; border-radius:16px; padding:16px; position:relative; }
-  .bl-code .copy { position:absolute; right:24px; top:26px; font-family:'Lato',sans-serif;
-    font-size:15px; color:#B9BFD8; cursor:pointer; }
-  .bl-code .copy:hover { color:#fff; }
-  .bl-code .lang { display:inline-block; margin:14px 0 0 30px; font-family:'Lato',sans-serif;
-    font-size:15px; color:#8FA2FF; }
-  .bl-code pre { margin:12px 30px 24px; font-family:ui-monospace,Menlo,monospace; font-size:15px;
-    line-height:1.65; color:#D7DCF0; overflow-x:auto; }
-  .bl-shot { width:100%; border-radius:16px; border:1px solid #ECECF0; margin-top:38px; display:block; }
-  .bl-table { width:100%; margin-top:38px; border-radius:16px; overflow:hidden;
-    border-collapse:separate; border-spacing:0; }
-  .bl-table th { background:#7C4DEB; color:#fff; text-align:left; padding:22px 32px;
-    font-family:'Lato',sans-serif; font-weight:400; font-size:19px; }
-  .bl-table td { padding:22px 32px; font-family:'Lato',sans-serif; font-size:19px; color:#575757;
-    background:#F7F6FC; }
-  .bl-table tr:nth-child(even) td { background:#EFECFA; }
-  .bl-news { margin-top:96px; border-radius:20px; overflow:hidden; position:relative; color:#fff;
-    background:radial-gradient(70% 90% at 85% 20%, rgba(88,74,220,.5) 0%, rgba(6,7,12,0) 60%), #0A0912;
-    padding:63px 80px; }
-  .bl-news h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:36px;
-    line-height:1.2; }
-  .bl-news form { display:flex; align-items:center; margin-top:27px; background:#fff;
-    border-radius:9999px; padding:8px; max-width:461px; }
-  .bl-news input { flex:1; min-width:0; background:transparent; outline:none; padding:10px 20px;
-    font-family:'Lato',sans-serif; font-size:15px; color:#25252D; }
-  .bl-news button { background:#7047EB; color:#fff; border-radius:9999px; padding:12px 24px;
-    font-family:'Lato',sans-serif; font-weight:700; font-size:14px; white-space:nowrap;
-    transition:background-color .25s; }
-  .bl-news button:hover { background:#5d36d6; }
-  .bl-news small { display:block; margin-top:20px; font-family:'Lato',sans-serif; font-size:15px;
-    color:rgba(255,255,255,.65); }
+  /* hero band (661:21847 + 661:21899) */
+  .bl-hero { position:relative; background:rgba(112,71,235,.1); padding-top:198px;
+    padding-bottom:calc(min(800px, 100% - 40px) * .3425 + 51px); }
+  .bl-title { margin:0; max-width:726.344px; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
+    line-height:1.19231; color:#000; }
+  .bl-meta { position:relative; display:flex; align-items:flex-start; width:100%; max-width:800px; height:71px; margin-top:27px; }
+  .bl-ava { width:71px; height:71px; border-radius:9999px; flex:none; display:block; object-fit:cover; }
+  .bl-who { margin-left:23.957px; min-width:0; }
+  .bl-who b { display:block; font-family:'Poppins',sans-serif; font-weight:600; font-size:24px; line-height:1.3; letter-spacing:.4px;
+    color:#000; white-space:nowrap; }
+  .bl-who ul { display:flex; margin:9.97px 0 0 14.27px; padding:0; list-style:none; font-family:'Lato',sans-serif;
+    font-size:14px; line-height:1.3; color:#828282; white-space:nowrap; }
+  .bl-who li { position:relative; }
+  .bl-who li:first-child { width:108px; flex:none; }
+  .bl-who li::before { content:''; position:absolute; left:-11.3px; top:7.6px; width:3.5px; height:3.5px;
+    border-radius:9999px; background:currentColor; }
+  .bl-side { margin-left:auto; display:flex; flex-direction:column; align-items:flex-end; flex:none; }
+  .bl-chip { display:inline-flex; align-items:center; gap:6px; box-sizing:border-box; height:28px; margin-top:8.7px;
+    padding:0 8px; background:#fff; border:1px solid #E9E9E9; border-radius:20px;
+    font-family:'Inter',sans-serif; font-weight:600; font-size:12px; line-height:1.3; color:#575757; white-space:nowrap; }
+  .bl-chip img { width:12px; height:12px; display:block; }
+  .bl-side small { display:block; margin-top:13.6px; font-family:'Lato',sans-serif; font-size:14px; line-height:1.3;
+    color:#828282; text-align:right; white-space:nowrap; }
+
+  /* featured image (661:21910) — pulled up into the band */
+  .bl-featured { position:relative; display:block; width:min(800px, calc(100% - 40px)); margin:calc(min(800px, 100% - 40px) * -.3425) auto 0;
+    aspect-ratio:800/427; border-radius:20px; overflow:hidden; }
+  .bl-featured img { display:block; width:100%; height:100%; object-fit:cover; }
+
+  /* body flow (661:21909): 96px between blocks */
+  .bl-flow { position:relative; margin-top:96px; }
+  .bl-stack > :not(:first-child) { margin-top:96px; }
+  .bl-text { margin:0; max-width:796px; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#575757; }
+  .bl-text p { margin:0; }
+  .bl-text p + p { margin-top:30px; }
+  .bl-text.dark { color:#393939; }
+  .bl-text a { color:#7047EB; text-decoration:underline; text-underline-offset:auto; text-decoration-skip-ink:none;
+    transition:color .2s; }
+  .bl-text a:hover { color:#5D36D6; }
+  .bl-text .tail { color:#7047EB; }
+  .bl-sec > :not(:first-child) { margin-top:38px; }
+  .bl-head > :not(:first-child) { margin-top:20px; }
+  .bl-h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:30px; line-height:1.3; letter-spacing:.8px; color:#0f172a; }
+  .bl-h2.k { color:#000; }
+  .bl-h3 { margin:0; max-width:750.175px; font-family:'Poppins',sans-serif; font-weight:600; font-size:24px; line-height:1.3; color:#393939; }
+
+  /* quote (661:21912) */
+  .bl-quote { box-sizing:border-box; min-height:296px; padding:62.86px 48px 48px; background:#F3F3F3; border-radius:20px; }
+  .bl-quote img { display:block; width:48px; height:39px; }
+  .bl-quote p { margin:10px 0 0 63px; max-width:535px; font-family:'Poppins',sans-serif; font-weight:600; font-size:24px;
+    line-height:1.3; letter-spacing:.4px; color:#0f172a; }
+
+  /* checklist (661:21923) */
+  .bl-checks { margin:0; padding:0; list-style:none; }
+  .bl-checks li { position:relative; padding-left:39.84px; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#393939; }
+  .bl-checks li + li { margin-top:24px; padding-top:23px; border-top:1px solid #E5E7EB; }
+  .bl-checks li img { position:absolute; left:0; top:5.86px; width:22px; height:22px; padding:1.83px; box-sizing:border-box; }
+  .bl-checks li + li img { top:28.86px; }
+
+  /* code snippet (661:21943) */
+  .bl-code { position:relative; box-sizing:border-box; padding:15px; background:#fff; border:1px solid #D3D3D3; border-radius:10px; }
+  .bl-code-in { position:relative; box-sizing:border-box; min-height:524px; padding:27.35px 30px 22px 29.3px;
+    background:#F8F9F8; border:1px solid #D3D3D3; border-radius:10px; }
+  .bl-code .copy { position:absolute; right:23px; top:10px; padding:0; background:none; border:0; cursor:pointer;
+    font-family:'Lato',sans-serif; font-weight:900; font-size:18px; line-height:28px; color:#828282; transition:color .2s; }
+  .bl-code .copy:hover { color:#7047EB; }
+  .bl-code .lang { display:block; font-family:'Lato',sans-serif; font-weight:900; font-size:18px; line-height:28px; color:#828282; }
+  .bl-code pre { margin:24.17px 0 0; max-width:673.209px; font-family:Menlo,ui-monospace,monospace; font-size:16px;
+    line-height:1.3; color:#000; white-space:pre-wrap; word-break:normal; overflow-wrap:anywhere; tab-size:4; }
+  .bl-code .c1 { color:#986801; }
+  .bl-code .c2 { color:#50A14F; }
+
+  /* highlight box (661:21953) */
+  .bl-note { display:flex; justify-content:center; padding:40px 32px; background:rgba(112,71,235,.15); border-radius:10px; }
+  .bl-note p { margin:0; width:680px; max-width:100%; min-height:98px; font-family:'Poppins',sans-serif; font-weight:600;
+    font-size:18px; line-height:1.3; color:#240091; }
+
+  /* screenshot frames (661:21958, 661:21960) */
+  .bl-shot { position:relative; overflow:hidden; }
+  .bl-shot img { position:absolute; display:block; max-width:none; object-fit:cover; }
+  .bl-shot.s1 { aspect-ratio:801/409.813; border-radius:6.326px;
+    background:linear-gradient(120.25deg, #FFDDCB 0%, #9262ED 49.787%, #D0B7FF 100%); }
+  .bl-shot.s1 .wp { left:2.0029%; top:3.7200%; width:95.6351%; height:91.3409%; border-radius:7.277px; }
+  .bl-shot.s2 { aspect-ratio:801/416.492; border-radius:9.867px; background:#D8D8FE; }
+  .bl-shot.s2 .bg { left:-.039%; top:-10.0727%; width:99.9276%; height:120.1123%; }
+  .bl-shot.s2::after { content:''; position:absolute; inset:0; background:rgba(0,0,0,.2); }
+  .bl-shot.s2 .wp { z-index:1; left:13.4810%; top:15.6826%; width:72.9568%; height:68.5634%; border-radius:11.35px; }
+
+  /* comparison table (661:21971) */
+  .bl-table-wrap { position:relative; max-width:795.396px; border-radius:10.605px; overflow:hidden; background:#fff; }
+  .bl-table-wrap::after { content:''; position:absolute; inset:0; border:1.061px solid #D3D3D3; border-radius:inherit; pointer-events:none; }
+  .bl-table { width:100%; border-collapse:collapse; table-layout:fixed; font-family:'Lato',sans-serif; font-size:21.211px; line-height:1.5; }
+  .bl-table col.c { width:265.13px; }
+  .bl-table th, .bl-table td { box-sizing:border-box; padding:19.09px 25px 19.09px 29.69px; text-align:left; vertical-align:top; font-weight:400; }
+  .bl-table th + th, .bl-table td + td { border-left:1.061px solid #D8D8FE; }
+  .bl-table th { height:69.995px; background:#7047EB; color:#fff; white-space:nowrap; }
+  .bl-table td { color:#575757; background:rgba(216,216,254,.2); }
+  .bl-table tr:nth-child(even) td { background:rgba(216,216,254,.47); }
+
+  /* outline rail (661:21883) — sticky beside the article on wide screens */
+  .bl-rail { position:absolute; top:0; bottom:0; left:max(0px, calc((100% - 1700px) / 2)); width:285px; z-index:5; }
+  .bl-toc { position:sticky; top:40px; box-sizing:border-box; width:285px; min-height:299px; padding:20.83px 17px 20px 21.51px;
+    background:#fff; border-radius:10px; }
+  .bl-toc h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:600; font-size:24px; line-height:1.3; color:#25252D; }
+  .bl-toc-list { position:relative; margin-top:9.97px; }
+  .bl-toc ol { margin:0; padding:0 0 0 17.49px; list-style:none; }
+  .bl-toc .dash, .bl-toc .bar { position:absolute; left:-2px; width:1px; overflow:hidden; pointer-events:none; }
+  .bl-toc .dash { top:5.75px; height:207.248px; }
+  .bl-toc .bar { top:0; height:31.924px; transform:translateY(27.49px);
+    transition:transform .35s cubic-bezier(.22,.61,.36,1), height .35s cubic-bezier(.22,.61,.36,1); }
+  .bl-toc .dash img, .bl-toc .bar img { position:absolute; left:1px; top:0; height:1px; max-width:none; transform-origin:0 0; transform:rotate(90deg); }
+  .bl-toc .dash img { width:207.248px; }
+  .bl-toc .bar img { width:120px; }
+  .bl-toc li + li { margin-top:14px; }
+  .bl-toc a { display:block; max-width:229.378px; font-family:'Lato',sans-serif; font-size:16px; line-height:1.3; color:#575757;
+    transition:color .2s; }
+  .bl-toc a:hover, .bl-toc a.on { color:#7047EB; }
+
+  /* newsletter card (661:22015) */
+  .bl-news { position:relative; box-sizing:border-box; display:flex; align-items:center; min-height:345px; margin-top:192px;
+    padding:63px 80px 62px; border-radius:20px; overflow:hidden; color:#fff;
+    background:#0B0A1A url('Media/Blog/Article/newsletter-bg.png') center / cover no-repeat; }
+  .bl-news-in { width:554px; max-width:100%; }
+  .bl-news h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:36px; line-height:43px; letter-spacing:.75px; color:#fff; }
+  .bl-news form { position:relative; display:flex; align-items:center; box-sizing:border-box; width:461px; max-width:100%; height:66px;
+    margin-top:27px; padding:8px 8px 8px 35.23px; background:#fff; border-radius:85px; box-shadow:0 2px 5px rgba(0,0,0,.06); }
+  .bl-news input { flex:1; min-width:0; height:100%; padding:0; border:0; outline:none; background:transparent;
+    font-family:'Lato',sans-serif; font-size:16px; line-height:1.5; color:#25252D; }
+  .bl-news input::placeholder { color:#828282; opacity:1; }
+  .bl-news form:focus-within { box-shadow:0 2px 5px rgba(0,0,0,.06), 0 0 0 3px rgba(112,71,235,.25); }
+  .bl-news button { flex:none; height:50px; padding:0 25px; border:0; border-radius:50px; background:#7047EB; color:#fff; cursor:pointer;
+    font-family:'Lato',sans-serif; font-size:14px; line-height:1.5; white-space:nowrap;
+    transition:background-color .25s, transform .25s cubic-bezier(.22,.61,.36,1); }
+  .bl-news button:hover { background:#5D36D6; transform:translateY(-1px); }
+  .bl-news p { margin:20px 0 0; font-family:'Lato',sans-serif; font-size:16px; line-height:1.3; color:#CBD5E1; }
+
+  /* related posts (661:22023) */
   .bl-rel { margin-top:80px; }
-  .bl-rel-head { display:flex; align-items:center; justify-content:space-between; }
-  .bl-rel-head h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:32px;
-    color:#0f172a; }
-  .bl-rel-head .nav { display:flex; gap:10px; }
-  .bl-rel-head .nav button { width:43px; height:43px; border-radius:9999px; display:flex;
-    align-items:center; justify-content:center; transition:background-color .25s, color .25s; }
-  .bl-rel-head .nav .prev { background:#F1EFFA; color:#7047EB; }
-  .bl-rel-head .nav .next { background:#7047EB; color:#fff; }
-  .bl-rel-head .nav button:hover { opacity:.85; }
-  .bl-rel-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:37px; margin-top:33px; }
-  .bl-rel-card .thumb { border-radius:14px; height:222px;
-    background:linear-gradient(135deg,#7A3BF0,#B24BF0); transition:transform .35s cubic-bezier(.22,.61,.36,1); }
-  .bl-rel-card:hover .thumb { transform:translateY(-6px); }
-  .bl-rel-card:nth-child(2) .thumb { background:linear-gradient(135deg,#4F5BF0,#7A8CF8); }
-  .bl-rel-card h4 { margin:22px 0 0; font-family:'Poppins',sans-serif; font-weight:700;
-    font-size:22px; line-height:1.35; color:#0f172a; }
-  .bl-rel-card:hover h4 { color:#7047EB; }
-  .bl-rel-meta { display:flex; align-items:center; gap:22px; margin-top:18px; }
-  .bl-rel-meta .cat { padding:8px 16px; border-radius:9999px; background:#F2F2F4;
-    font-family:'Lato',sans-serif; font-size:14px; color:#334155; }
-  .bl-rel-meta .time { display:inline-flex; align-items:center; gap:7px;
-    font-family:'Lato',sans-serif; font-size:14px; color:#575757; }
-  @media (max-width:900px) {
-    .bl-title { font-size:clamp(28px,5.4vw,52px); padding-top:160px; }
-    .bl-meta { flex-wrap:wrap; }
-    .bl-news { padding:36px 24px; }
-    .bl-news h3 { font-size:clamp(24px,4.6vw,36px); }
-    .bl-rel-grid { grid-template-columns:1fr; }
-    .bl-quote { padding:28px 22px; }
-    .bl-quote p { margin-left:0; margin-top:22px; }
-    .bl-table th, .bl-table td { padding:14px 14px; font-size:15px; }
+  .bl-rel-head { display:flex; align-items:flex-start; justify-content:space-between; height:40px; }
+  .bl-rel-head h2 { margin:-0.5px 0 0; font-family:'Poppins',sans-serif; font-weight:700; font-size:30px; line-height:1.3; letter-spacing:.8px; color:#000; white-space:nowrap; }
+  .bl-rel-nav { display:flex; gap:19.28px; }
+  .bl-rel-nav button { box-sizing:border-box; display:flex; align-items:center; justify-content:center; width:42.834px; height:40px;
+    padding:0; border-radius:37.037px; cursor:pointer;
+    transition:background-color .25s, border-color .25s, opacity .25s, transform .25s cubic-bezier(.22,.61,.36,1); }
+  .bl-rel-nav img { width:17.778px; height:17.778px; display:block; }
+  .bl-rel-nav .prev img { transform:scaleX(-1); }
+  /* white = nothing more that way; purple = the way you can still page (Figma: start state) */
+  .bl-rel-nav button { background:#fff; border:.741px solid #E9E9E9; }
+  .bl-rel-nav button .on { display:none; }
+  .bl-rel-nav button.is-on { background:#7047EB; border-color:#7047EB; }
+  .bl-rel-nav button.is-on .on { display:block; }
+  .bl-rel-nav button.is-on .off { display:none; }
+  .bl-rel-nav button:not(:disabled):hover { border-color:#7047EB; }
+  .bl-rel-nav button.is-on:hover { background:#5D36D6; border-color:#5D36D6; }
+  .bl-rel-nav button:disabled { cursor:default; }
+  .bl-rel-track { display:flex; gap:37px; margin-top:38px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none;
+    -webkit-overflow-scrolling:touch; }
+  .bl-rel-track::-webkit-scrollbar { display:none; }
+  .bl-card { flex:0 0 calc((100% - 37px) / 2); min-width:0; scroll-snap-align:start; display:block; color:inherit; }
+  .bl-card .thumb { display:block; aspect-ratio:1622/886; border-radius:10px; overflow:hidden; }
+  .bl-card .thumb img { display:block; width:100%; height:100%; object-fit:cover; transition:transform .5s cubic-bezier(.22,.61,.36,1); }
+  .bl-card h3 { margin:30px 0 0; font-family:'Poppins',sans-serif; font-weight:600; font-size:18px; line-height:1.3; letter-spacing:.3px; color:#0f172a;
+    transition:color .2s; }
+  .bl-card .meta { display:flex; align-items:center; gap:22px; margin-top:28px; }
+  .bl-card .cat { display:inline-flex; align-items:center; padding:5px 16px; background:#F3F3F3; border:1px solid #E5E7EB; border-radius:9999px;
+    font-family:'Lato',sans-serif; font-size:14px; line-height:1.3; color:#334155; white-space:nowrap; }
+  .bl-card .time { display:inline-flex; align-items:center; gap:8px; font-family:'Lato',sans-serif; font-size:14px; line-height:1.3;
+    color:#334155; white-space:nowrap; }
+  .bl-card .time img { width:20px; height:20px; display:block; }
+  @media (hover:hover) {
+    .bl-card:hover .thumb img { transform:scale(1.045); }
+    .bl-card:hover h3 { color:#7047EB; }
   }
+  .bl-card:focus-visible h3 { color:#7047EB; }
+  @media (min-width:768px) { .bl-card { min-height:350px; } }
 
+  /* ── responsive ─────────────────────────────────────────────────────────── */
+  /* outline rail needs 285px beside the column: below that it sits inline */
+  @media (max-width:1339px) {
+    .bl-rail { position:static; width:min(801px, calc(100% - 40px)); margin:0 auto 56px; }
+    .bl-toc { position:relative; top:auto; width:100%; min-height:0; border:1px solid #E9E9E9; }
+  }
+  @media (max-width:1023px) {
+    .bl-hero { padding-top:150px; }
+    .bl-title { font-size:clamp(30px, 5.2vw, 52px); }
+    .bl-flow { margin-top:72px; }
+    .bl-stack > :not(:first-child) { margin-top:72px; }
+    .bl-news { margin-top:128px; }
+  }
+  @media (max-width:767px) {
+    .bl-text, .bl-checks li { font-size:18px; }
+    .bl-h2 { font-size:clamp(22px, 5.6vw, 30px); }
+    .bl-h3 { font-size:20px; }
+    .bl-quote { min-height:0; padding:32px 24px 36px; }
+    .bl-quote p { margin:16px 0 0; font-size:20px; }
+    .bl-note { padding:28px 22px; }
+    .bl-note p { min-height:0; font-size:16px; }
+    .bl-code-in { min-height:0; padding:20px 18px 18px; }
+    .bl-code .copy { right:14px; top:6px; font-size:16px; }
+    .bl-code .lang { font-size:16px; }
+    .bl-code pre { margin-top:16px; max-width:none; font-size:13px; white-space:pre; overflow-x:auto; overflow-wrap:normal;
+      -webkit-overflow-scrolling:touch; scrollbar-width:thin; padding-bottom:6px; }
+    .bl-table { font-size:15px; }
+    .bl-table col.c { width:34%; }
+    .bl-table th, .bl-table td { padding:14px 10px 14px 14px; }
+    .bl-table th { height:auto; }
+    .bl-news { min-height:0; padding:44px 28px; }
+    .bl-news h2 { font-size:clamp(26px, 6.4vw, 36px); }
+    .bl-card { flex-basis:calc((100% - 20px) / 2); }
+    .bl-rel-track { gap:20px; }
+    .bl-rel-head h2 { font-size:clamp(24px, 6vw, 30px); }
+  }
+  @media (max-width:640px) {
+    .bl-hero { padding-top:118px; }
+    .bl-meta { flex-wrap:wrap; height:auto; row-gap:14px; }
+    .bl-ava { width:56px; height:56px; }
+    .bl-who { margin-left:14px; }
+    .bl-who b { font-size:20px; }
+    .bl-side { margin-left:0; width:100%; flex-direction:row; align-items:center; justify-content:space-between; }
+    .bl-chip, .bl-side small { margin-top:0; }
+    .bl-flow { margin-top:56px; }
+    .bl-stack > :not(:first-child) { margin-top:56px; }
+    .bl-rail { margin-bottom:40px; }
+    .bl-text p + p { margin-top:22px; }
+    .bl-checks li { padding-left:34px; }
+    .bl-checks li + li { margin-top:18px; padding-top:17px; }
+    .bl-checks li + li img { top:22.86px; }
+    .bl-news { margin-top:88px; padding:36px 20px; }
+    .bl-news form { height:58px; padding:6px 6px 6px 20px; }
+    .bl-news button { height:46px; padding:0 18px; }
+    .bl-rel { margin-top:64px; }
+    .bl-card { flex-basis:86%; }
+    .bl-table { font-size:14px; }
+    .bl-table th, .bl-table td { padding:12px 8px 12px 10px; }
+  }
+  @media (max-width:380px) {
+    .bl-news form { flex-wrap:wrap; height:auto; border-radius:24px; padding:8px; gap:8px; }
+    .bl-news input { flex-basis:100%; height:44px; padding:0 12px; }
+    .bl-news button { width:100%; }
+  }
   @media (prefers-reduced-motion: reduce) {
     *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
-  }
-
-  /* ── Mobile polish: long code lines scroll instead of being cut ── */
-  .bl-code pre { overflow-x:auto; -webkit-overflow-scrolling:touch; }
-  @media (max-width:640px) {
-    .bl-code pre { margin:12px 16px 20px; font-size:13px; }
-    .bl-code .lang { margin-left:16px; }
-    .bl-code .copy { right:16px; }
   }
 </style>
 </head>
 <body class="font-body">
-<div class="bl-hero relative">
-  <div id="site-nav" data-variant="light"></div>
+<header class="bl-hero">
+  <div id="site-nav" data-variant="light" data-top="30"></div>
   <div class="bl-col">
     <h1 class="bl-title" data-anim>How to Ensure eCommerce Data Privacy: A Step-by-Step Guide for Beginners</h1>
     <div class="bl-meta" data-anim>
-      <span class="bl-ava"></span>
-      <div class="who">
+      <img class="bl-ava" src="Media/Blog/Article/author-shams-sumon-rinku.png" width="71" height="71" alt="Shams Sumon Rinku" />
+      <div class="bl-who">
         <b>Shams Sumon Rinku</b>
-        <span><i></i> eCommerce &nbsp;<i></i>&nbsp; 19 Oct 2024</span>
+        <ul><li>eCommerce</li><li>19 Oct 2024</li></ul>
       </div>
-      <div class="bl-right">
-        <span class="bl-chip"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-5.6 7-5.6s7 2 7 5.6"/></svg> Human Written</span>
+      <div class="bl-side">
+        <span class="bl-chip"><img src="Media/Blog/Article/icon-user.svg" width="12" height="12" alt="" />Human Written</span>
         <small>10 mins read</small>
       </div>
     </div>
   </div>
-</div>
+</header>
 
-<article class="bg-white pb-[80px]">
+<main class="pb-[192px]">
+  <figure class="bl-featured" data-anim>
+    <img src="Media/Blog/Article/featured-data-privacy.png" width="1536" height="839"
+         alt="How to Ensure eCommerce Data Privacy — A Step-by-Step Guide for Beginners" fetchpriority="high" />
+  </figure>
+
+  <div class="bl-flow">
+    <aside class="bl-rail" aria-label="Outline">
+      <nav class="bl-toc" id="bl-toc">
+        <h2>Outline</h2>
+        <div class="bl-toc-list">
+          <span class="dash" aria-hidden="true"><img src="Media/Blog/Article/outline-dashed-line.png" width="415" height="2" alt="" /></span>
+          <span class="bar" aria-hidden="true"><img src="Media/Blog/Article/outline-active-line.svg" width="32" height="1" alt="" /></span>
+        <ol>
+          <li><a href="#introduction">Introduction</a></li>
+          <li><a href="#what-is-data-privacy" class="on">Technical SEO and UX Priorities:</a></li>
+          <li><a href="#steps-to-gain-security">Create Helpful, E-E-A-T Content</a></li>
+          <li><a href="#custom-code">Optimize Your Pages For Google</a></li>
+          <li><a href="#compliance">Implement Schema Markup For Rich Results</a></li>
+          <li><a href="#privacy-policy">Conclusion</a></li>
+        </ol>
+        </div>
+      </nav>
+    </aside>
+
+    <article class="bl-col bl-stack">
+      <div class="bl-text dark" id="introduction" data-anim>
+        <p>Every eCommerce store collects customer data including names, emails, payment details, and more. Keeping this information safe isn’t just a legal requirement. It also helps build trust and keeps your business running smoothly.</p>
+        <p>If an online store doesn’t take privacy seriously, it can lead to security risks, fines, and lost customers. That’s why understanding data privacy is so important.</p>
+        <p>In this guide, you’ll learn about key regulations and simple steps to keep customer data secure. Let’s make your eCommerce store safer and more reliable!</p>
+      </div>
+
+      <blockquote class="bl-quote" data-anim>
+        <img src="Media/Blog/Article/icon-quote.svg" width="48" height="39" alt="" />
+        <p>I have reviewed Dokan and it seems that there is no match for it when it comes features and frontend capabilities as well.</p>
+      </blockquote>
+
+      <section class="bl-head" id="what-is-data-privacy" data-anim>
+        <h2 class="bl-h2">What Is Data Privacy in eCommerce?</h2>
+        <div class="bl-text">
+          <p>Every eCommerce store collects customer data including names, emails, payment details, and more. Keeping this information safe isn’t just a legal requirement. It also helps build trust and keeps your business running smoothly.</p>
+          <p>If an online store doesn’t take privacy seriously, it can lead to security risks, fines, and lost customers. That’s why understanding data privacy is so important.</p>
+          <p>In this guide, you’ll learn about key regulations and simple steps to keep customer data secure. Let’s make your eCommerce store safer and more reliable!<br />Also check – <a href="https://dokan.co/blog/4406/is-wordpress-secure-enough-for-ecommerce/" target="_blank" rel="noopener">Actionable Tips to Protect Your WordPress eCommerce Website</a><span class="tail">.</span></p>
+        </div>
+      </section>
+
+      <section class="bl-sec" id="steps-to-gain-security">
+        <div class="bl-head" data-anim>
+          <h2 class="bl-h2">Step to follow to gain Security</h2>
+          <p class="bl-text" style="max-width:750.175px">Protecting customer data is essential for any online store. It builds trust, prevents security risks, and ensures compliance with legal requirements.</p>
+        </div>
+        <ul class="bl-checks" data-anim>
+          <li><img src="Media/Blog/Article/icon-checkmark-circle.svg" width="22" height="22" alt="" />Prevents Data Breaches: Hackers target online stores to steal personal and financial data. Strong security measures help protect sensitive information from cyberattacks.</li>
+          <li><img src="Media/Blog/Article/icon-checkmark-circle.svg" width="22" height="22" alt="" />Prevents Data Breaches: Hackers target online stores to steal personal and financial data. Strong security measures help protect sensitive information from cyberattacks.</li>
+          <li><img src="Media/Blog/Article/icon-checkmark-circle.svg" width="22" height="22" alt="" />Prevents Data Breaches: Hackers target online stores to steal personal and financial data. Strong security measures help protect sensitive information from cyberattacks.</li>
+          <li><img src="Media/Blog/Article/icon-checkmark-circle.svg" width="22" height="22" alt="" />Prevents Data Breaches: Hackers target online stores to steal personal and financial data. Strong security measures help protect sensitive information from cyberattacks.</li>
+        </ul>
+      </section>
+
+      <section class="bl-sec" id="custom-code">
+        <div class="bl-head" data-anim>
+          <h2 class="bl-h2">Custom code can be a best options</h2>
+          <p class="bl-text">Non-compliance with PCI DSS can lead to severe penalties, including fines and loss of the ability to process card payments. By adhering to PCI DSS, eCommerce stores protect both customer data and their business from financial losses due to fraud or security breaches.</p>
+        </div>
+        <div class="bl-code" data-anim>
+          <div class="bl-code-in">
+            <button type="button" class="copy" data-copy>Copy</button>
+            <span class="lang">CSS</span>
+<pre><code><span class="c1">// E-commerce Checkout System (Example)</span>
+    class <span class="c2">ShoppingCart</span> {
+    constructor() {
+        this.items = [];
+    }
+
+    <span class="c2">addItem(item, price, quantity)</span> {
+        this.items.push({ item, price, quantity });
+    }
+
+    <span class="c2">calculateTotal</span>() {
+        return this.items.reduce((total, item) =&gt; <span class="c1">total + item.price</span> * item.quantity, 0);
+    }
+
+    <span class="c2">applyDiscount(discountCode) {</span>
+        const discounts = { "WELCOME10": 0.10, "SALE20": 0.20 };
+        return <span class="c1">this.calculateTotal</span>() * (1 - (discounts[discountCode] || 0));
+    }</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="bl-sec" id="compliance">
+        <div class="bl-head" data-anim>
+          <h2 class="bl-h2 k">Custom code can be a best options</h2>
+          <p class="bl-text">Non-compliance with PCI DSS can lead to severe penalties, including fines and loss of the ability to process card payments. By adhering to PCI DSS, eCommerce stores protect both customer data and their business from financial losses due to fraud or security breaches.</p>
+        </div>
+        <h3 class="bl-h3" data-anim>(i) CCPA (California Consumer Privacy Act – USA)</h3>
+        <div class="bl-note" data-anim>
+          <p>Lorem ipsum dolor sit amet consectetur. Dictum condimentum id sapien enim fermentum ut integer platea enim. Sit at velit lorem quisque a velit turpis. Nam sagittis egestas felis sed. Tortor viverra velit enim fermentum ut integer .</p>
+        </div>
+        <h3 class="bl-h3" data-anim>(iii) PCI DSS (Payment Security Standard)</h3>
+        <p class="bl-text" data-anim>Non-compliance with PCI DSS can lead to severe penalties, including fines and loss of the ability to process card payments. By adhering to PCI DSS, eCommerce stores protect both customer data and their business from financial losses due to fraud or security breaches.</p>
+        <p class="bl-text" data-anim>Follow this detailed guide to reduce the chances of data breaches. Also, you need to prove that your customer’s information is in safe hands.</p>
+        <figure class="bl-shot s1" data-anim>
+          <img class="wp" src="Media/Blog/Article/wordpress-products-screen.jpg" width="2644" height="1292" loading="lazy"
+               alt="WordPress admin Products screen with the Dokan update notice" />
+        </figure>
+        <figure class="bl-shot s2" data-anim>
+          <img class="bg" src="Media/Blog/Article/screenshot-backdrop-beach.jpg" width="2000" height="1334" loading="lazy" alt="" />
+          <img class="wp" src="Media/Blog/Article/wordpress-products-screen.jpg" width="2644" height="1292" loading="lazy"
+               alt="WordPress admin Products screen shown over a beach backdrop" />
+        </figure>
+      </section>
+
+      <section class="bl-sec" id="privacy-policy">
+        <div class="bl-head" data-anim>
+          <h2 class="bl-h2 k">Create a Transparent Privacy Policy</h2>
+          <div class="bl-text">
+            <p>Follow this detailed guide to reduce the chances of data breaches. Also, you need to prove that your customer’s information is in safe hands.</p>
+            <p>Data privacy isn’t a one-time task. It requires ongoing effort. Stay informed about new security practices and always put customer protection first. A secure store means happy customers and a stronger business.</p>
+            <p>A clear and transparent privacy policy is essential for building trust with your customers. It should outline how you collect, store, use, and protect their data. Be sure to include details on how users can access, update, or delete their personal information.</p>
+          </div>
+        </div>
+        <div class="bl-text" data-anim>
+          <p>Follow this detailed guide to reduce the chances of data breaches. Also, you need to prove that your customer’s information is in safe hands.</p>
+          <p>Data privacy isn’t a one-time task. It requires ongoing effort. Stay informed about new security practices and always put customer protection first. A secure store means happy customers and a stronger business.</p>
+          <p>A clear and transparent privacy policy is essential for building trust with your customers. It should outline how you collect, store, use, and protect their data. Be sure to include details on how users can access, update, or delete their personal information.</p>
+        </div>
+      </section>
+
+      <section class="bl-head" id="comparison" data-anim>
+        <h2 class="bl-h2 k">Comparison between Dokan and WCFM</h2>
+        <div class="bl-table-wrap">
+          <table class="bl-table">
+            <colgroup><col class="c" /><col class="c" /><col /></colgroup>
+            <thead><tr><th scope="col">Features</th><th scope="col">Dokan</th><th scope="col">WCFM</th></tr></thead>
+            <tbody>
+              <tr><td>Demo</td><td>Yes</td><td>Yes</td></tr>
+              <tr><td>Support</td><td>Support ticket, email, live chat</td><td>Support ticket, email, live chat</td></tr>
+              <tr><td>Built-in Multilingual Support</td><td>Yes</td><td>Yes</td></tr>
+              <tr><td>Withdrawal System</td><td>Yes</td><td>Yes</td></tr>
+              <tr><td>Refund Management</td><td>Yes</td><td>Yes</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </article>
+  </div>
+
   <div class="bl-col">
-    <div class="bl-heroimg" style="height:427px;background:linear-gradient(135deg,#5B2EE8,#9B4BF0)"></div>
-    <div class="bl-body" data-anim>
-      <p>Running an online store means handling sensitive customer information every single day — names, addresses, payment details, and browsing habits. One data breach can destroy the trust you have worked so hard to build, and with regulations like GDPR and CCPA now firmly in place, protecting customer data is not optional anymore.</p>
-      <p>It is understandable to feel overwhelmed by the technical side of data privacy. The good news? You do not need to be a security expert to protect your store. This guide walks you through practical, beginner-friendly steps to keep your customers' data safe.</p>
-    </div>
+    <section class="bl-news" data-anim>
+      <div class="bl-news-in">
+        <h2>Get Fresh<br />Updates Every Day</h2>
+        <form onsubmit="return false" aria-label="Subscribe to updates">
+          <input type="email" placeholder="Your email address" aria-label="Your email address" required />
+          <button type="submit">Stay Updated</button>
+        </form>
+        <p>Get access to exclusive guides, tips, updates, ebooks, and more.</p>
+      </div>
+    </section>
 
-    <div class="bl-quote" data-anim>
-      <svg viewBox="0 0 48 34" fill="#7047EB"><path d="M0 34V20.4C0 8.8 6.4 1.6 17.6 0l2 5.2C12.4 7.2 8.8 11.2 8.4 16H18v18H0zm28 0V20.4C28 8.8 34.4 1.6 45.6 0l2 5.2C40.4 7.2 36.8 11.2 36.4 16H46v18H28z"/></svg>
-      <p>I have reviewed Dokan and it seems that there is no match for it when it comes features and frontend capabilities as well.</p>
-    </div>
-
-    <h2 class="bl-h2" data-anim>What is Data Privacy in eCommerce?</h2>
-    <div class="bl-body" data-anim>
-      <p>Data privacy in eCommerce means responsibly collecting, storing, and using your customers' personal information. Every time someone creates an account, places an order, or subscribes to your newsletter, they are trusting you with their data. Data privacy is about honoring that trust — being transparent about what you collect, keeping it secure, and never using it in ways your customers didn't agree to.</p>
-    </div>
-
-    <h2 class="bl-h2" data-anim>Step to follow to gain Security</h2>
-    <div class="bl-body" data-anim>
-      <p>Protecting customer data is essential for any online store. It builds trust, prevents security risks, and ensures compliance with legal requirements.</p>
-    </div>
-    <ul class="bl-checks" data-anim>
-          <li><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#12B76A" stroke-width="1.8"/><path d="M7.8 12.3l2.7 2.7 5.6-5.6" stroke="#12B76A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Prevents Data Breaches: Hackers target online stores to steal personal and financial data. Strong security measures help protect sensitive information from cyberattacks.</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#12B76A" stroke-width="1.8"/><path d="M7.8 12.3l2.7 2.7 5.6-5.6" stroke="#12B76A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Prevents Data Breaches: Hackers target online stores to steal personal and financial data. Strong security measures help protect sensitive information from cyberattacks.</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#12B76A" stroke-width="1.8"/><path d="M7.8 12.3l2.7 2.7 5.6-5.6" stroke="#12B76A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Prevents Data Breaches: Hackers target online stores to steal personal and financial data. Strong security measures help protect sensitive information from cyberattacks.</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#12B76A" stroke-width="1.8"/><path d="M7.8 12.3l2.7 2.7 5.6-5.6" stroke="#12B76A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Prevents Data Breaches: Hackers target online stores to steal personal and financial data. Strong security measures help protect sensitive information from cyberattacks.</span></li>
-    </ul>
-
-    <h2 class="bl-h2" data-anim>Custom code can be a best option</h2>
-    <div class="bl-body" data-anim>
-      <p>For compliance with the CCPA (California Consumer Privacy Act — USA), your store needs clear mechanisms for consumers to opt out of data selling and request deletion of their data. A small snippet like the one below is often the starting point.</p>
-    </div>
-    <div class="bl-code" data-anim>
-      <span class="copy" data-copy>Copy</span>
-      <span class="lang">CSS</span>
-      <pre><code>// E-commerce Checkout System (Example)
-class ShoppingCart {
-  constructor() {
-    this.items = [];
-  }
-  addItem(item, price, quantity) {
-    this.items.push({ item, price, quantity });
-  }
-  calculateTotal() {
-    return this.items.reduce((total, item) =&gt;
-      total + item.price * item.quantity, 0);
-  }
-  applyDiscount(discountCode) {
-    const discounts = { "WELCOME10": 0.10, "SALE20": 0.20 };
-    return this.calculateTotal() *
-      (1 - (discounts[discountCode] || 0));
-  }
-}</code></pre>
-    </div>
-
-    <h2 class="bl-h2" data-anim>Custom code can be a best options</h2>
-    <div class="bl-body" data-anim>
-      <p>Your compliance effort doesn't stop at the paperwork. Confirm that customer-facing flows behave the way your policy promises. The two most common places privacy issues hide are your plugin settings and your checkout screens:</p>
-      <p>1) CCPA (California Consumer Privacy Act — USA)</p>
-      <p>2) PCI DSS (Payment Security Standard)</p>
-    </div>
-    <img class="bl-shot" src="Media/Admin%20dashboard.png" alt="WordPress products screen" loading="lazy" data-anim />
-    <img class="bl-shot" src="Media/Admin%20dashboard.png" alt="WordPress products screen" loading="lazy" data-anim />
-
-    <h2 class="bl-h2" data-anim>Create a Transparent Privacy Policy</h2>
-    <div class="bl-body" data-anim>
-      <p>When life gets busy or your goals feel demanding, skipping a workout can seem harmless. Your privacy policy is the same: it only works if it is honest, visible, and kept up to date. Write it in plain language, link it from your footer and checkout, and revisit it whenever you add a new plugin or start collecting anything new.</p>
-    </div>
-
-    <h2 class="bl-h2" data-anim>Comparison between Dokan and WCFM</h2>
-    <table class="bl-table" data-anim>
-      <thead><tr><th>Features</th><th>Dokan</th><th>WCFM</th></tr></thead>
-      <tbody>
-          <tr><td>Demo</td><td>Yes</td><td>Yes</td></tr>
-          <tr><td>Support</td><td>Support ticket, email, live chat</td><td>Support ticket, email, live chat</td></tr>
-          <tr><td>Built-in Multilingual Support</td><td>Yes</td><td>Yes</td></tr>
-          <tr><td>Withdrawal System</td><td>Yes</td><td>Yes</td></tr>
-          <tr><td>Refund Management</td><td>Yes</td><td>Yes</td></tr>
-      </tbody>
-    </table>
-
-    <div class="bl-news" data-anim>
-      <h3>Get Fresh<br />Updates Every Day</h3>
-      <form onsubmit="return false">
-        <input type="email" placeholder="Your email address" />
-        <button>Stay Updated</button>
-      </form>
-      <small>Get access to exclusive guides, tips, updates, ebooks, and more.</small>
-    </div>
-
-    <div class="bl-rel" data-anim>
-      <div class="bl-rel-head">
-        <h3>Related Post</h3>
-        <div class="nav">
-          <button class="prev" aria-label="Previous"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
-          <button class="next" aria-label="Next"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+    <section class="bl-rel" aria-labelledby="bl-rel-title">
+      <div class="bl-rel-head" data-anim>
+        <h2 id="bl-rel-title">Related Post</h2>
+        <div class="bl-rel-nav">
+          <button type="button" class="prev" aria-label="Previous posts"><img class="off" src="Media/Blog/Article/icon-arrow-prev.svg" width="18" height="18" alt="" /><img class="on" src="Media/Blog/Article/icon-arrow-next.svg" width="18" height="18" alt="" /></button>
+          <button type="button" class="next is-on" aria-label="Next posts"><img class="off" src="Media/Blog/Article/icon-arrow-prev.svg" width="18" height="18" alt="" /><img class="on" src="Media/Blog/Article/icon-arrow-next.svg" width="18" height="18" alt="" /></button>
         </div>
       </div>
-      <div class="bl-rel-grid">
-        <a href="#" class="bl-rel-card">
-          <div class="thumb"></div>
-          <h4>How to Build a Modern User Account Dashboard in WordPress</h4>
-          <div class="bl-rel-meta"><span class="cat">Plugins Release Notes</span>
-            <span class="time"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 13 min read</span></div>
+      <div class="bl-rel-track" id="bl-rel-track" data-stagger>
+        <a href="blog.html" class="bl-card">
+          <span class="thumb"><img src="Media/Blog/Article/related-giveaway.png" width="1622" height="886" loading="lazy" alt="" /></span>
+          <h3>How to Build a Modern User Account Dashboard in WordPress</h3>
+          <span class="meta"><span class="cat">Plugins Release Notes</span><span class="time"><img src="Media/Blog/Article/icon-clock.svg" width="20" height="20" alt="" />13 min read</span></span>
         </a>
-        <a href="#" class="bl-rel-card">
-          <div class="thumb"></div>
-          <h4>How to Build a Modern User Account Dashboard in WordPress</h4>
-          <div class="bl-rel-meta"><span class="cat">Plugins Release Notes</span>
-            <span class="time"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> 13 min read</span></div>
+        <a href="blog.html" class="bl-card">
+          <span class="thumb"><img src="Media/Blog/Article/related-dropshipping.png" width="1622" height="886" loading="lazy" alt="" /></span>
+          <h3>How to Build a Modern User Account Dashboard in WordPress</h3>
+          <span class="meta"><span class="cat">Plugins Release Notes</span><span class="time"><img src="Media/Blog/Article/icon-clock.svg" width="20" height="20" alt="" />13 min read</span></span>
+        </a>
+        <a href="blog.html" class="bl-card">
+          <span class="thumb"><img src="Media/Blog/Article/related-giveaway.png" width="1622" height="886" loading="lazy" alt="" /></span>
+          <h3>How to Build a Modern User Account Dashboard in WordPress</h3>
+          <span class="meta"><span class="cat">Plugins Release Notes</span><span class="time"><img src="Media/Blog/Article/icon-clock.svg" width="20" height="20" alt="" />13 min read</span></span>
+        </a>
+        <a href="blog.html" class="bl-card">
+          <span class="thumb"><img src="Media/Blog/Article/related-dropshipping.png" width="1622" height="886" loading="lazy" alt="" /></span>
+          <h3>How to Build a Modern User Account Dashboard in WordPress</h3>
+          <span class="meta"><span class="cat">Plugins Release Notes</span><span class="time"><img src="Media/Blog/Article/icon-clock.svg" width="20" height="20" alt="" />13 min read</span></span>
         </a>
       </div>
-    </div>
+    </section>
   </div>
-</article>
+</main>
 
 <script>
+  /* code block: copy to clipboard */
   document.addEventListener('click', function (e) {
     var c = e.target.closest('[data-copy]');
     if (!c) return;
     var code = c.parentElement.querySelector('code');
-    if (navigator.clipboard && code) navigator.clipboard.writeText(code.textContent);
+    if (navigator.clipboard && code) navigator.clipboard.writeText(code.textContent).catch(function () {});
     c.textContent = 'Copied!';
     setTimeout(function () { c.textContent = 'Copy'; }, 1600);
   });
@@ -386,7 +582,7 @@ class ShoppingCart {
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="site-nav.js?v=30"></script>
+<script src="site-nav.js?v=35"></script>
 <script>
 (function () {
   var socials = [
@@ -396,7 +592,7 @@ class ShoppingCart {
     ['#0A66C2','<path fill="#fff" d="M9 10.5H6.7V18H9v-7.5zM7.8 9.4c.8 0 1.3-.5 1.3-1.2 0-.7-.5-1.2-1.3-1.2S6.6 7.5 6.6 8.2c0 .7.5 1.2 1.2 1.2zM18 18v-4.3c0-2.2-1.2-3.3-2.8-3.3-1.3 0-1.9.7-2.2 1.2v-1h-2.3c0 .6 0 7.4 0 7.4H13v-4.2c0-.2 0-.4.1-.6.2-.4.6-.9 1.3-.9.9 0 1.3.7 1.3 1.7V18H18z"/>'],
     ['#111111','<path fill="#fff" d="M7.5 8.2c-1.4 0-2.4 1.6-2.4 3.4 0 1.5.7 2.5 1.8 2.5.9 0 1.5-.6 2.4-2.2l.9-1.6c.3.5.6 1 .9 1.5-.4.6-.8 1.2-1.1 1.5-.9 1-1.6 1.4-2.6 1.4-1.9 0-3-1.6-3-3.9 0-2.6 1.5-4.6 3.4-4.6 1.2 0 2 .6 2.9 1.9.6-.9 1.4-1.9 2.8-1.9 1.9 0 3.3 2 3.3 4.6 0 2.3-1.1 3.9-2.9 3.9-.6 0-1.1-.2-1.6-.6.3-.4.5-.7.8-1.1.3.2.5.3.8.3 1 0 1.5-1 1.5-2.5 0-1.8-.9-3.4-2.3-3.4-.8 0-1.4.6-2.2 1.9l-.8 1.4c-1 1.8-1.9 2.9-3.3 2.9z"/>'],
   ];
-  var FOOTER_ROUTES = { 'Modules':'modules.html', 'Blogs':'blog.html',
+  var FOOTER_ROUTES = { 'Modules':'modules.html', 'Blogs':'blogs.html',
     'Testimonials':'testimonials.html', 'Compatible Themes':'themes.html',
     'Dokan WordPress Plugin':'demo.html' };
   document.querySelectorAll('[data-links]').forEach(function (ul) {
@@ -414,25 +610,73 @@ class ShoppingCart {
     a.innerHTML = '<svg viewBox="0 0 24 24" class="w-full h-full">' + x[1] + '</svg>';
     sw.appendChild(a);
   });
+
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var lenis = null;
+
+  /* ── Outline: highlights the section being read, slides the purple bar to it ── */
+  var toc = document.getElementById('bl-toc');
+  if (toc) {
+    var links = [].slice.call(toc.querySelectorAll('ol a'));
+    var bar = toc.querySelector('.bar');
+    var targets = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    var current = -1;
+    var setActive = function (i) {
+      if (i === current) return;
+      current = i;
+      links.forEach(function (a, k) { a.classList.toggle('on', k === i); if (k === i) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current'); });
+      var li = links[i].parentElement;
+      bar.style.transform = 'translateY(' + (li.offsetTop - 7.51) + 'px)';
+      bar.style.height = (li.offsetHeight + 11.12) + 'px';
+    };
+    var spy = function () {
+      var line = window.innerHeight * 0.35, idx = 0;
+      targets.forEach(function (t, k) { if (t && t.getBoundingClientRect().top <= line) idx = k; });
+      setActive(idx);
+    };
+    window.addEventListener('scroll', spy, { passive: true });
+    window.addEventListener('resize', function () { current = -1; spy(); });
+    spy();
+    links.forEach(function (a, k) {
+      a.addEventListener('click', function (e) {
+        var t = targets[k]; if (!t) return;
+        e.preventDefault();
+        if (lenis) lenis.scrollTo(t, { offset: -40 });
+        else window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 40, behavior: reduced ? 'auto' : 'smooth' });
+        history.replaceState(null, '', a.getAttribute('href'));
+      });
+    });
+  }
+
+  /* ── Related posts: arrows page the track one card at a time ── */
+  var track = document.getElementById('bl-rel-track');
+  if (track) {
+    var prev = document.querySelector('.bl-rel-nav .prev'), next = document.querySelector('.bl-rel-nav .next');
+    var step = function () { var c = track.children[0], c2 = track.children[1]; return c2 ? c2.offsetLeft - c.offsetLeft : track.clientWidth; };
+    var sync = function () {
+      var max = track.scrollWidth - track.clientWidth - 2;
+      prev.disabled = track.scrollLeft <= 2; next.disabled = track.scrollLeft >= max;
+      prev.classList.toggle('is-on', !prev.disabled); next.classList.toggle('is-on', !next.disabled);
+    };
+    prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: reduced ? 'auto' : 'smooth' }); });
+    next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: reduced ? 'auto' : 'smooth' }); });
+    track.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync); sync();
+  }
+
   if (!window.gsap || !window.ScrollTrigger || reduced) return;
   gsap.registerPlugin(ScrollTrigger);
   if (window.Lenis && !window.matchMedia('(hover:none)').matches) {
-    var lenis = new Lenis({ duration: 1.05, smoothWheel: true });
+    lenis = new Lenis({ duration: 1.05, smoothWheel: true });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
     gsap.ticker.lagSmoothing(0);
   }
   gsap.from('.site-nav .menu-row > *', { y:-16, opacity:0, duration:.6, stagger:.08, ease:'power3.out' });
-  gsap.utils.toArray('[data-anim]').forEach(function (el) {
-    gsap.from(el, { y:30, opacity:0, duration:.8, ease:'power3.out', immediateRender:false,
-      clearProps:'transform',
-      scrollTrigger:{ trigger:el, start:'top 88%', once:true } });
-  });
+  /* scroll reveals replay on every pass (shared helper in site-nav.js) */
+  gsap.utils.toArray('[data-anim]').forEach(function (el) { dokanReveal(el); });
   document.querySelectorAll('[data-stagger]').forEach(function (host) {
-    gsap.from(host.children, { y:34, opacity:0, duration:.7, ease:'power3.out', stagger:.06,
-      immediateRender:false, clearProps:'transform',
-      scrollTrigger:{ trigger:host, start:'top 86%', once:true } });
+    dokanReveal(host.children, { trigger:host, start:'top 86%', y:34, duration:.7, stagger:.06 });
   });
   window.addEventListener('load', function () {
     ScrollTrigger.refresh();
