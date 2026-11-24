@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&family=Inter:wght@700&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="site-nav.css?v=31" />
+<link rel="stylesheet" href="site-nav.css?v=34" />
 <!-- Page loader: only the header shows until site-nav.js reveals the page (5s failsafe) -->
 <script>(function(d){if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000)})(document.documentElement)</script>
 <script>
@@ -378,59 +378,7 @@
     .mk-shots { flex:none; }
   }
 
-  /* ── Final CTA — Figma Frame 2106260532 ───────────────────────────────
-     .cta-shell is the 20px gutter; the band takes the rest of the viewport
-     width at every desktop size, 646 tall as drawn. Copy (Frame 2106260510)
-     is 84px in and centred; the button is Frame 1171277338 to the decimal;
-     the art (Frame 1171276773) is 678x593, right 61, bottom-anchored, and
-     narrows on smaller laptops so it never meets the copy. */
-  .cta-shell { background:#FFFFFF; padding:20px; }
-  .cta-band  { position:relative; width:100%; height:646px; border-radius:20px; overflow:hidden;
-    background:#7047EB; }
-  .cta-waves { position:absolute; left:-22px; top:-35px; width:calc(100% + 44px); height:calc(100% + 78px);
-    opacity:.15; pointer-events:none; }
-  .cta-copy { position:absolute; left:84px; top:50%; transform:translateY(-50%); width:443px;
-    display:flex; flex-direction:column; gap:56px; z-index:2; }
-  .cta-copy-top { display:flex; flex-direction:column; gap:28px; }
-  .cta-title { margin:0; width:430px; font-family:'Poppins',sans-serif; font-weight:700;
-    font-size:62px; line-height:125%; color:#FFFFFF; }
-  .cta-text { margin:0; font-family:'Lato',sans-serif; font-weight:400; font-size:20px;
-    line-height:150%; color:#FFFFFF; opacity:.7; }
-  .cta-btn { position:relative; box-sizing:border-box; display:flex; align-items:center;
-    width:252.31px; height:68px; padding-left:39.31px; background:#FFFFFF;
-    border:.94px solid #E9E9E9; box-shadow:0 1.87px 5.62px rgba(0,0,0,.05); border-radius:187.18px;
-    font-family:'Lato',sans-serif; font-weight:700; font-size:16.85px; line-height:150%;
-    color:#0E0E0F; white-space:nowrap; transition:transform .25s, box-shadow .25s; }
-  .cta-btn:hover { transform:translateY(-2px); box-shadow:0 14px 30px -12px rgba(0,0,0,.35); }
-  .cta-btn .circle { position:absolute; right:11.68px; top:50%; transform:translateY(-50%);
-    width:45.86px; height:45.86px; border-radius:135.19px; background:#0E0E0F;
-    display:grid; place-items:center; transition:transform .25s; }
-  /* hover: label roll + arrow swap (site-nav.js) */
-  .cta-btn .circle svg { width:22.98px; height:22.98px; color:#FFFFFF; }
-  /* "Launch Your" storefront, shown whole (no crop): bottom-right of the
-     band, 61px from the right, at its own 1356:1186 ratio. At full size that
-     is 678 x 593, which starts exactly 53px below the band's top edge; on
-     narrower bands it shrinks (keeping 620px clear for the copy) rather than
-     being cropped. */
-  .cta-art { position:absolute; right:61px; bottom:0; top:auto; z-index:1;
-    width:min(678px, calc(100% - 620px)); height:auto; }
-
-  @media (min-width:1024px) and (max-width:1279px) {
-    .cta-copy { width:380px; gap:40px; } .cta-copy-top { gap:20px; }
-    .cta-title { width:380px; font-size:52px; } .cta-text { font-size:18px; }
-  }
-  @media (max-width:1023px) {                       /* tablet portrait + mobile: stacked */
-    .cta-band { height:auto; }
-    .cta-copy { position:static; transform:none; width:auto; max-width:443px; padding:56px 32px 0; }
-    .cta-art { position:static; display:block; width:min(100%, 678px); height:auto;
-      margin:40px 0 0 auto; }
-  }
-  @media (max-width:640px) {
-    .cta-copy { padding:40px 20px 0; gap:32px; }
-    .cta-title { width:auto; font-size:40px; }
-    .cta-btn { width:100%; max-width:252.31px; }
-    .cta-art { margin-top:32px; }
-  }
+  /* Final CTA: shared .lc-* component in site-nav.css */
 
   /* ---- Why founders choose Dokan: three-way comparison ----
      Patterns from Mobbin (Height, 1Password, Seed, ClickUp): the Dokan column
@@ -441,7 +389,7 @@
   .wf-section { background:#fff; padding:144px 0 120px; }
   .wf-wrap { width:100%; max-width:1704px; margin:0 auto; padding:0 102px; box-sizing:border-box; }
   .wf-head { display:flex; flex-direction:column; align-items:center; gap:18px; text-align:center; }
-  .wf-h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px; line-height:1.2; color:#0F172A; }
+  .wf-h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px; line-height:1.2; color:#0F172A; text-wrap:balance; }
   .wf-lead { margin:0; max-width:560px; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#475569; }
 
   .wf-scroll { margin-top:88px; }
@@ -461,16 +409,16 @@
   /* one box per option, header to foot: Dokan in solid lavender, the other
      two in a neutral grey; all three the same narrow width, set to the right */
   .wf-hl, .wf-box { grid-row:1 / -1; z-index:0; margin:-24px 0 -32px; border-radius:20px; }
-  .wf-hl { grid-column:2; background:#F3EEFF; box-shadow:inset 0 0 0 1.5px rgba(112,71,235,.3); }
+  .wf-hl { grid-column:2; background:#0F172A; box-shadow:inset 0 0 0 1px rgba(255,255,255,.08), 0 28px 56px -28px rgba(15,23,42,.55); }   /* dark highlight column */
   .wf-box { background:#F7F7FA; box-shadow:inset 0 0 0 1px rgba(15,23,42,.07); }
   .wf-box.c3 { grid-column:3; } .wf-box.c4 { grid-column:4; }
   .wf-row > .wf-cell:nth-child(n+2) { padding-left:24px; padding-right:20px; border-top-color:rgba(15,23,42,.07); }
-  .wf-cell.is-dokan { border-top-color:rgba(112,71,235,.16) !important; }
+  .wf-cell.is-dokan { border-top-color:rgba(255,255,255,.1) !important; }
   .wf-row.is-head .wf-cell:nth-child(n+2) { flex-direction:column; align-items:flex-start; justify-content:flex-start; gap:14px; }
-  /* Recommended sits in the top-right corner, in the slot the icon takes in
-     the other boxes, so the logo lines up with their names */
+  /* Recommended sits top-left, in the slot the icon takes in the other
+     boxes, so the logo lines up with their names */
   .wf-row.is-head .wf-cell.is-dokan { padding-right:24px; }
-  .wf-row.is-head .wf-cell.is-dokan .wf-tag { align-self:flex-end; margin-bottom:16px; }
+  .wf-row.is-head .wf-cell.is-dokan .wf-tag { align-self:flex-start; margin-bottom:16px; }
 
   /* column headers */
   .wf-tag { display:inline-flex; align-items:center; height:26px; padding:0 12px; border-radius:999px; background:#7047EB;
@@ -495,8 +443,8 @@
   /* rival columns stay neutral: grey check / grey dash / pale cross */
   .wf-v.g svg { color:#94A3B8; } .wf-v.b svg { color:#E2E8F0; } .wf-v.p svg { color:#B6C0CE; }
   .wf-v.b { color:#94A3B8; }
-  .is-dokan .wf-v { font-family:'Poppins',sans-serif; font-weight:600; color:#0F172A; }
-  .is-dokan .wf-v svg { color:#7047EB; }
+  .is-dokan .wf-v { font-family:'Poppins',sans-serif; font-weight:600; color:#fff; }
+  .is-dokan .wf-v svg { color:#22C55E; }   /* green ticks, like the commission slider */
 
   /* row hover: a soft band across the quiet columns */
 
@@ -506,7 +454,8 @@
   .wf-cta:hover { background:#5d36d6; transform:translateY(-2px); }
   .wf-cta svg { width:18px; height:18px; }
 
-  .wf-note { margin:64px 0 0; text-align:right; font-family:'Lato',sans-serif; font-size:18px; line-height:1.5; color:#475569; }
+  /* centred under the three boxes: as wide as the last three grid columns, pushed right */
+  .wf-note { width:calc(3 * 244px + 2 * 16px); max-width:100%; margin:64px 0 0 auto; text-align:center; font-family:'Lato',sans-serif; font-size:18px; line-height:1.5; color:#475569; }
   .wf-note a { margin-left:6px; font-family:'Poppins',sans-serif; font-weight:600; color:#7047EB; }
 
   @media (max-width:1600px) { .wf-wrap { padding:0 48px; } }
@@ -520,6 +469,7 @@
     .wf-row > .wf-cell:nth-child(n+2) { padding-left:22px; padding-right:22px; }
     .wf-label { font-size:15px; gap:12px; } .wf-label i { width:38px; height:38px; } .wf-label i svg { width:19px; height:19px; }
     .wf-col i { width:36px; height:36px; } .wf-col b { font-size:16px; } .wf-col small { font-size:13px; }
+    .wf-note { width:calc(3 * 208px + 2 * 12px); }
   }
   @media (max-width:900px) {
     /* the grid keeps its shape and scrolls sideways; the row labels stay put */
@@ -528,7 +478,7 @@
     .wf-grid { min-width:860px; }
     .wf-label { position:sticky; left:-48px; z-index:2; background:#fff; }
     .wf-row.is-head .wf-cell:first-child { position:sticky; left:-48px; z-index:2; background:#fff; }
-    .wf-note { margin-top:24px; }
+    .wf-note { width:auto; margin:24px 0 0; }   /* the table scrolls here, so centre on the page */
   }
   @media (max-width:760px) {
     .wf-section { padding:72px 0 64px; }
@@ -1267,104 +1217,108 @@
     .tb-plat .who b { font-size:11px; }
     .tb-plat--more { flex:0 0 58px; }
   }
-  /* ---- Commission + payouts (Figma frame 2106260558) ----
-     Lavender band, 1495px content at 102px, 74px under the heading, then the
-     white calculator card (694x580) and the feature column (713) at 88px. */
-  /* the band is a rounded card like the hero: 20px off the left and right edges,
-     20px radius, the frame's own 144px inset kept inside it. The 144/192 gaps
-     above and below stay outside the box. The wrap drops 20px of its own
-     padding so the copy still starts 102px from the viewport edge. */
-  .mn-section { background:#E2DDF1; padding:144px 0; margin:144px 20px 192px;
-    border-radius:20px; }
-  .mn-wrap { width:100%; max-width:1664px; margin:0 auto; padding:0 82px; box-sizing:border-box;
-    display:flex; flex-direction:column; gap:74px; }
-  .mn-h2 { margin:0; max-width:904px; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
-    line-height:120%; color:#0F172A; }
-  /* the two columns keep the design's 694:713 ratio, so they narrow together */
-  .mn-row { display:grid; grid-template-columns:minmax(0,694fr) minmax(0,713fr); gap:88px; align-items:center; }
+  /* ---- Commission + payouts: "split receipt" (variation 01) ----
+     Lavender band 20px off both edges at every width. Headline on two lines,
+     then the receipt (left) and the features (right), vertically centred.
+     The receipt's ticket notches are cut with a mask, and the shadow is a
+     drop-shadow on the wrapper, so it follows the notches instead of the box. */
+  .mn-section { background:#F5F3FB; padding:144px 0; margin:144px 20px 192px; border-radius:20px; }
+  .mn-wrap { width:100%; max-width:1664px; margin:0 auto; padding:0 82px; box-sizing:border-box; }
+  .mn-h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px; line-height:1.2; color:#0F172A; }
+  .mn-h2 .ln { white-space:nowrap; }
+  .mn-row { display:grid; grid-template-columns:minmax(0,560px) minmax(0,1fr); gap:160px; align-items:stretch; margin-top:64px; }
+  /* receipt and features share a top edge; the receipt keeps its own height */
+  .mn-side { display:flex; flex-direction:column; justify-content:flex-start; }
 
-  .mn-card { position:relative; width:100%; max-width:694px; height:580px; box-sizing:border-box;
-    padding:59px 69px 45px; background:#fff; box-shadow:0 2px 5px rgba(0,0,0,.06); border-radius:20px;
-    display:flex; flex-direction:column; }
-  .mn-card h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:36px; line-height:120%;
-    color:#334155; opacity:.98; }
-  .mn-rate { margin:46px 0 0; font-family:'Poppins',sans-serif; font-weight:600; font-size:18px; line-height:130%;
-    color:#475569; opacity:.98; }
-  /* 16px track with a 37px knob (Figma): the input is as tall as the knob and the
-     track is drawn by the track pseudo-element, so the knob keeps its full size */
-  .mn-slider { -webkit-appearance:none; appearance:none; width:100%; margin:0; height:37px;
-    background:transparent; outline:none; cursor:pointer; --mn-track:#E5E7EB; }
-  .mn-slider::-webkit-slider-runnable-track { height:16px; border-radius:9999px; background:var(--mn-track); }
-  .mn-slider::-webkit-slider-thumb { -webkit-appearance:none; margin-top:-10.5px; width:37px; height:37px;
-    border-radius:50%; background:#7047EB; border:6px solid #fff; box-shadow:0 0 24px rgba(0,0,0,.1); cursor:pointer; }
-  .mn-slider::-moz-range-track { height:16px; border-radius:9999px; background:var(--mn-track); }
-  .mn-slider::-moz-range-thumb { width:25px; height:25px; border:6px solid #fff; border-radius:50%;
-    background:#7047EB; box-shadow:0 0 24px rgba(0,0,0,.1); cursor:pointer; }
-  .mn-slider:focus-visible { outline:2px solid #7047EB; outline-offset:6px; }
-  .mn-pays { margin:19px 0 0; display:flex; align-items:baseline; justify-content:flex-end; gap:20px; }
-  .mn-pays span { font-family:'Lato',sans-serif; font-size:14px; line-height:130%; color:#475569; opacity:.98; }
-  .mn-pays b { font-family:'Poppins',sans-serif; font-weight:700; font-size:30px; line-height:130%; color:#0F172A; opacity:.98; }
-  .mn-bottom { margin-top:auto; }
-  .mn-bar { display:flex; height:59px; border-radius:12px; background:#F3F3F3; overflow:hidden;
-    font-family:'Lato',sans-serif; font-size:18px; line-height:140%; }
-  .mn-bar .you { display:flex; align-items:center; padding:0 30px; background:#19B363; color:#fff;
-    border-radius:12px 0 0 12px; transition:flex-basis .25s ease; }
-  .mn-bar .vendor { display:flex; align-items:center; justify-content:flex-end; padding:0 30px; color:#475569;
-    transition:flex-basis .25s ease; }
-  .mn-out { margin:15px 0 0; display:flex; align-items:center; justify-content:space-between; gap:24px;
-    font-family:'Lato',sans-serif; font-size:18px; line-height:140%; color:#475569; opacity:.98; }
-  .mn-out b { font-weight:700; color:#475569; }
-  .mn-note { margin:27px 0 0; font-family:'Lato',sans-serif; font-size:14px; line-height:130%; color:#475569; opacity:.98; }
+  .mn-rcpt { position:relative; align-self:start; display:flex; flex-direction:column; filter:drop-shadow(0 34px 36px rgba(15,23,42,.10)) drop-shadow(0 4px 10px rgba(15,23,42,.05)); }
+  .mn-rcpt-top, .mn-rcpt-bot { position:relative; background:#fff; --r:14px; }
+  .mn-rcpt-top { flex:1 1 auto; display:flex; flex-direction:column; gap:72px; padding:36px 40px 32px;   /* fixed 72px above the slider */ border-radius:22px 22px 0 0;
+    -webkit-mask:radial-gradient(circle var(--r) at 0 100%, #0000 98%, #000) left / 51% 100% no-repeat,
+                 radial-gradient(circle var(--r) at 100% 100%, #0000 98%, #000) right / 51% 100% no-repeat;
+            mask:radial-gradient(circle var(--r) at 0 100%, #0000 98%, #000) left / 51% 100% no-repeat,
+                 radial-gradient(circle var(--r) at 100% 100%, #0000 98%, #000) right / 51% 100% no-repeat; }
+  .mn-rcpt-bot { display:grid; grid-template-columns:1fr 1fr; border-radius:0 0 22px 22px;
+    -webkit-mask:radial-gradient(circle var(--r) at 0 0, #0000 98%, #000) left / 51% 100% no-repeat,
+                 radial-gradient(circle var(--r) at 100% 0, #0000 98%, #000) right / 51% 100% no-repeat;
+            mask:radial-gradient(circle var(--r) at 0 0, #0000 98%, #000) left / 51% 100% no-repeat,
+                 radial-gradient(circle var(--r) at 100% 0, #0000 98%, #000) right / 51% 100% no-repeat; }
+  .mn-rcpt-bot::before { content:''; position:absolute; left:26px; right:26px; top:-1px; border-top:2px dashed #E2E8F0; }
+  .mn-order { display:flex; justify-content:space-between; align-items:center; font-family:'Poppins',sans-serif; font-weight:600; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:#94A3B8; }
+  .mn-line { display:flex; justify-content:space-between; align-items:baseline; gap:16px; margin-top:16px;
+    font-family:'Lato',sans-serif; font-size:18px; color:#475569; }
+  .mn-line b { font-family:'Poppins',sans-serif; font-weight:700; font-size:22px; color:#0F172A; font-variant-numeric:tabular-nums; }
+  .mn-slider { -webkit-appearance:none; appearance:none; display:block; width:100%; height:32px; margin:0;
+    background:transparent; cursor:pointer; --fill:15%; }
+  .mn-slider::-webkit-slider-runnable-track { height:10px; border-radius:9999px;
+    background:linear-gradient(90deg, #22C55E var(--fill), #E9E9EF var(--fill)); }
+  .mn-slider::-webkit-slider-thumb { -webkit-appearance:none; width:28px; height:28px; margin-top:-9px; border-radius:50%;
+    background:#22C55E; border:5px solid #fff; box-shadow:0 4px 14px rgba(15,23,42,.25); transition:transform .15s; }
+  .mn-slider:active::-webkit-slider-thumb { transform:scale(1.12); }
+  .mn-slider::-moz-range-track { height:10px; border-radius:9999px; background:#E9E9EF; }
+  .mn-slider::-moz-range-progress { height:10px; border-radius:9999px; background:#22C55E; }
+  .mn-slider::-moz-range-thumb { width:18px; height:18px; border-radius:50%; background:#22C55E; border:5px solid #fff;
+    box-shadow:0 4px 14px rgba(15,23,42,.25); }
+  .mn-slider:focus-visible { outline:2px solid #7047EB; outline-offset:6px; border-radius:9999px; }
+  .mn-paid { padding:4px 12px; border-radius:9999px; background:#DCFCE7; color:#15803D; letter-spacing:.04em; font-size:12px; }
+  .mn-ticks { display:flex; justify-content:space-between; margin-top:6px; padding:0 4px; font-family:'Lato',sans-serif;
+    font-size:13px; color:#94A3B8; }
+  .mn-stub { padding:28px 40px 36px; min-width:0; }
+  .mn-stub + .mn-stub { border-left:2px dashed #E2E8F0; }   /* same as the top divider */
+  .mn-stub span { display:block; font-family:'Lato',sans-serif; font-size:16px; color:#475569; }
+  .mn-stub b { display:block; margin-top:6px; font-family:'Poppins',sans-serif; font-weight:700; font-size:40px; line-height:1.2;
+    color:#0F172A; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .mn-stub.you b { color:#7047EB; }
 
-  .mn-side { width:100%; min-width:0; display:flex; flex-direction:column; align-items:flex-end; gap:95px; }
-  .mn-feats { width:100%; display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:40px; justify-content:end; }
-  .mn-feat { display:grid; grid-template-columns:36.67px minmax(0,1fr); gap:15px; align-items:start; }
-  .mn-feat svg { width:36.67px; height:34px; flex:none; color:#000; }
-  .mn-feat h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:clamp(17px, 1.28vw, 20px); line-height:130%;
-    color:#334155; opacity:.98; }
-  .mn-feat p { margin:9px 0 0; font-family:'Lato',sans-serif; font-size:clamp(15px, 1.15vw, 18px); line-height:140%; color:#334155; opacity:.98; }
-  .mn-works { width:100%; max-width:665px; display:flex; flex-direction:column; gap:32px; }
-  .mn-works hr { width:100%; height:0; margin:0; border:0; border-top:1px solid rgba(0,0,0,.2); }
-  .mn-works-row { display:flex; align-items:flex-start; justify-content:space-between; gap:145px; }
-  .mn-works-row > span { flex:none; font-family:'Lato',sans-serif; font-size:20px; line-height:150%; color:#334155; opacity:.98; }
-  .mn-pills { display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap:10px; }   /* flush to the rule's right end */
-  .mn-pills b { display:flex; align-items:center; justify-content:center; padding:7px 15px; background:#fff;
-    border-radius:100px; font-family:'Poppins',sans-serif; font-weight:600; font-size:15px; line-height:130%;
-    color:#334155; white-space:nowrap; }
+  .mn-feats { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:44px 56px; }
+  .mn-feat h3 { display:flex; align-items:flex-start; gap:12px; margin:0; font-family:'Poppins',sans-serif; font-weight:600;
+    font-size:20px; line-height:1.3; color:#0F172A; }
+  .mn-feat h3 svg { width:24px; height:24px; flex:none; margin-top:1px; color:#334155; }   /* neutral icons */
+  .mn-feat p { margin:10px 0 0; padding-left:36px; font-family:'Lato',sans-serif; font-size:17px; line-height:1.55; color:#475569; }
+  .mn-works { display:flex; flex-direction:column; align-items:flex-start; gap:16px; margin-top:48px; padding-left:36px; }   /* lines up with the feature text, past the icons */   /* label above, logos below */
+  .mn-works > span { font-family:'Lato',sans-serif; font-size:17px; color:#475569; }
+  .mn-logos { display:grid; grid-template-columns:repeat(2, auto); justify-items:start; gap:10px; }   /* two on top, two below; each badge hugs its own content */
+  .mn-logo { display:inline-flex; align-items:center; gap:8px; height:40px; padding:0 16px 0 10px; border-radius:9999px;
+    background:#fff; border:1px solid #E4DEF7; font-family:'Poppins',sans-serif; font-weight:600; font-size:14px; color:#0F172A;
+    white-space:nowrap; transition:border-color .2s, box-shadow .2s, transform .2s; }
+  .mn-logo:hover { border-color:#C9BCF5; box-shadow:0 10px 24px -14px rgba(112,71,235,.55); transform:translateY(-2px); }
+  .mn-logo img { display:block; height:22px; width:auto; }
+  .mn-logo img.sq { width:22px; height:22px; border-radius:6px; object-fit:cover; }
+  .mn-logo.stripe { padding-left:14px; }
+  .mn-logo.stripe img { height:18px; }
 
-  @media (max-width:1600px) {
-    .mn-wrap { padding:0 28px; gap:56px; }
-    .mn-row { gap:48px; }
-    .mn-side { gap:56px; }
-    .mn-works-row { gap:40px; }
-    .mn-card { padding:44px 44px 36px; }
-    .mn-card h3 { font-size:32px; }
+  @media (max-width:1600px) { .mn-wrap { padding:0 100px; } .mn-row { gap:120px; } }   /* 100px inside the band on laptops */
+  @media (max-width:1440px) { .mn-row { grid-template-columns:minmax(0,500px) minmax(0,1fr); gap:96px; } }
+  @media (max-width:1366px) { .mn-feats { grid-template-columns:minmax(0,1fr); gap:28px; } }   /* one column when two would cramp the titles */
+  @media (max-width:1279px) {
+    .mn-wrap { padding:0 64px; }
+    .mn-row { grid-template-columns:minmax(0,440px) minmax(0,1fr); gap:72px; }
+    .mn-feats { gap:36px 32px; }
+    .mn-stub b { font-size:34px; }
   }
   @media (max-width:1180px) {
     .mn-section { padding:96px 0; margin:96px 20px 128px; }
-    .mn-row { grid-template-columns:minmax(0,1fr); }
+    .mn-wrap { padding:0 48px; }
     .mn-h2 { font-size:clamp(30px,4.4vw,52px); }
-    .mn-row { flex-direction:column; }
-    .mn-card { flex:0 0 auto; width:100%; max-width:694px; }
-    .mn-side { align-items:flex-start; width:100%; }
-    .mn-works { max-width:none; }
+    .mn-h2 .ln { white-space:normal; }
+    .mn-row { grid-template-columns:minmax(0,1fr); gap:56px; margin-top:48px; }
+    .mn-rcpt { max-width:560px; }
   }
   @media (max-width:760px) {
-    .mn-section { padding:72px 0; margin:72px 16px 88px; border-radius:16px; }
-    .mn-wrap { padding:0 20px; gap:40px; }
-    .mn-card { height:auto; padding:32px 24px; }
-    .mn-card h3 { font-size:28px; }
-    .mn-rate { margin-top:28px; }
-    .mn-pays b { font-size:26px; }
-    .mn-bottom { margin-top:36px; }
-    .mn-bar { height:52px; font-size:16px; }
-    .mn-bar .you, .mn-bar .vendor { padding:0 16px; }
-    .mn-out { font-size:16px; }
+    .mn-section { padding:72px 0; margin:72px 20px 88px; border-radius:16px; }
+    .mn-wrap { padding:0 20px; }
+    .mn-rcpt-top { padding:28px 24px 24px; }
+    .mn-stub { padding:22px 20px 28px; }
+    .mn-stub b { font-size:28px; }
+    .mn-line { font-size:16px; } .mn-line b { font-size:20px; }
     .mn-feats { grid-template-columns:1fr; gap:28px; }
     .mn-feat p { font-size:16px; }
-    .mn-works-row { flex-direction:column; gap:16px; }
-    .mn-pills { justify-content:flex-start; }
+    .mn-works { margin-top:36px; }
+    .mn-works > span { width:100%; }
+    .mn-logos { width:100%; grid-template-columns:repeat(2, minmax(0,1fr)); justify-items:stretch; }
+    .mn-logo { padding:0 12px; gap:8px; font-size:14px; }
   }
+  @media (max-width:520px) { .mn-logos { grid-template-columns:1fr; } }
+  @media (max-width:380px) { .mn-section { padding:56px 0; } .mn-rcpt-top { padding:24px 18px 20px; } .mn-stub { padding:20px 16px 24px; } .mn-stub b { font-size:24px; } }
   /* ---- Build vs Dokan (Figma frame 2106260976) ----
      Heading row (723 + 386 at 386 apart), then the 547 / 920 cards at 28px. */
   .bw-section { background:#fff; margin-top:144px; }
@@ -1571,40 +1525,44 @@
   </div>
 </section>
 
-<!-- ══════════════════════ COMMISSION + PAYOUTS (Figma 2106260558) ══════════════════════ -->
+<!-- ══════════════════════ COMMISSION + PAYOUTS: split receipt ══════════════════════ -->
 <section class="mn-section" aria-labelledby="mn-title">
   <div class="mn-wrap">
-    <h2 class="mn-h2" id="mn-title">You earn on every order.<br />Vendors get paid automatically.</h2>
+    <h2 class="mn-h2" id="mn-title"><span class="ln">You earn on every order.</span><br /><span class="ln">Vendors get paid automatically.</span></h2>
 
     <div class="mn-row">
-      <div class="mn-card">
-        <h3><label for="mn-range">Your Commission</label></h3>
-        <output class="mn-rate" id="mn-rate" for="mn-range">40% per order</output>
-        <input class="mn-slider" id="mn-range" type="range" min="0" max="100" step="1" value="40" aria-describedby="mn-note" />
-        <p class="mn-pays"><span>Customer pays</span><b id="mn-total">$120.00</b></p>
-        <div class="mn-bottom">
-          <div class="mn-bar" aria-hidden="true">
-            <div class="you" id="mn-bar-you" style="flex:0 0 40%">You</div>
-            <div class="vendor" id="mn-bar-vendor" style="flex:0 0 60%">Vendor</div>
+      <div class="mn-rcpt">
+        <div class="mn-rcpt-top">
+          <div class="mn-g">
+            <div class="mn-order"><span>Order #1042</span><span class="mn-paid">Paid</span></div>
+            <div class="mn-line"><span>Customer pays</span><b>$120.00</b></div>
+            <div class="mn-line"><label for="mn-range">Your commission</label><b id="mn-rate">15%</b></div>
           </div>
-          <p class="mn-out"><span>You keep <b id="mn-keep">$48.00</b></span><span>Vendor receives <b id="mn-vendor">$72.00</b></span></p>
-          <p class="mn-note" id="mn-note">Split instantly at checkout. No manual transfers.</p>
+          <div class="mn-g">
+            <input class="mn-slider" id="mn-range" type="range" min="0" max="100" step="1" value="15" />
+            <div class="mn-ticks" aria-hidden="true"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+          </div>
+        </div>
+        <div class="mn-rcpt-bot" aria-live="polite">
+          <div class="mn-stub you"><span>You keep</span><b id="mn-keep">$18.00</b></div>
+          <div class="mn-stub"><span>Vendor receives</span><b id="mn-vendor">$102.00</b></div>
         </div>
       </div>
 
       <div class="mn-side">
         <div class="mn-feats">
-        <article class="mn-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4" cy="12" r="1.6"/><path d="M5.6 12H9c2.6 0 3.6-5 7-5h4.5M9 12c2.6 0 3.6 5 7 5h4.5"/><path d="M18 4.5L20.5 7 18 9.5M18 14.5l2.5 2.5-2.5 2.5"/></svg><div><h3>Split payments<br />at checkout</h3><p>Customers pay once, while commissions and vendor shares are automatically separated.</p></div></article>
-        <article class="mn-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.6 15.4l6.8-6.8"/><circle cx="9.2" cy="9.2" r="1.3"/><circle cx="14.8" cy="14.8" r="1.3"/></svg><div><h3>Commission<br />your way</h3><p>Set percentage, flat-fee, or combined commissions across marketplaces, vendors, or categories.</p></div></article>
-        <article class="mn-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 7.5V6A1.5 1.5 0 0018 4.5H5.5A2.5 2.5 0 003 7v10a2.5 2.5 0 002.5 2.5H18a1.5 1.5 0 001.5-1.5v-1.5"/><path d="M21 10h-4.5a2 2 0 000 4H21z"/><path d="M16.8 12h.01"/></svg><div><h3>Payouts without<br />the spreadsheet</h3><p>Vendors request withdrawals or receive scheduled payouts based on your configured minimums.</p></div></article>
-        <article class="mn-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M15 15.6a3 3 0 11-.9-2.2"/><path d="M14.6 11.6v1.9h-1.9"/></svg><div><h3>Vendor<br />subscriptions</h3><p>Charge vendors recurring monthly fees to sell alongside or instead of commissions.</p></div></article>
+          <article class="mn-feat"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4" cy="12" r="1.6"/><path d="M5.6 12H9c2.6 0 3.6-5 7-5h4.5M9 12c2.6 0 3.6 5 7 5h4.5"/><path d="M18 4.5L20.5 7 18 9.5M18 14.5l2.5 2.5-2.5 2.5"/></svg>Split payments at checkout</h3><p>Customers pay once, while commissions and vendor shares are automatically separated.</p></article>
+          <article class="mn-feat"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.6 15.4l6.8-6.8"/><circle cx="9.2" cy="9.2" r="1.3"/><circle cx="14.8" cy="14.8" r="1.3"/></svg>Commission your way</h3><p>Set percentage, flat-fee, or combined commissions across marketplaces, vendors, or categories.</p></article>
+          <article class="mn-feat"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 7.5V6A1.5 1.5 0 0018 4.5H5.5A2.5 2.5 0 003 7v10a2.5 2.5 0 002.5 2.5H18a1.5 1.5 0 001.5-1.5v-1.5"/><path d="M21 10h-4.5a2 2 0 000 4H21z"/><path d="M16.8 12h.01"/></svg>Payouts without the spreadsheet</h3><p>Vendors request withdrawals or receive scheduled payouts based on your configured minimums.</p></article>
+          <article class="mn-feat"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M15 15.6a3 3 0 11-.9-2.2"/><path d="M14.6 11.6v1.9h-1.9"/></svg>Vendor subscriptions</h3><p>Charge vendors recurring monthly fees to sell alongside or instead of commissions.</p></article>
         </div>
-
         <div class="mn-works">
-          <hr />
-          <div class="mn-works-row">
-            <span>Works with</span>
-            <div class="mn-pills"><b>Stripe Connect</b><b>PayPal Marketplace</b><b>Mangopay</b><b>Razorpay</b></div>
+          <span>Works with</span>
+          <div class="mn-logos">
+            <a class="mn-logo stripe" href="module-stripe-connect.html"><img src="Media/Module%20Page/Icons/stripe-connect.svg" alt="Stripe" width="53" height="22" />Connect</a>
+            <a class="mn-logo" href="module-paypal-marketplace.html"><img src="Media/Logos/paypal-mark.svg" alt="" width="26" height="26" />PayPal Marketplace</a>
+            <a class="mn-logo" href="module-mangopay.html"><img class="sq" src="Media/Module%20Page/Icons/dokan-mangopay-integration.png" alt="" width="26" height="26" />Mangopay</a>
+            <a class="mn-logo" href="module-razorpay.html"><img class="sq" src="Media/Module%20Page/Icons/razorpay.png" alt="" width="26" height="26" />Razorpay</a>
           </div>
         </div>
       </div>
@@ -1992,7 +1950,7 @@
 <section class="wf-section" id="why-dokan">
   <div class="wf-wrap">
     <div class="wf-head">
-      <h2 class="wf-h2">Why founders<br />choose Dokan</h2>
+      <h2 class="wf-h2">Why founders choose Dokan</h2>
       <p class="wf-lead">One marketplace, three ways to build it. Here&rsquo;s how they compare on time, money and control.</p>
     </div>
     <div class="wf-scroll">
@@ -2002,7 +1960,7 @@
         <div class="wf-box c4" aria-hidden="true"></div>
         <div class="wf-row is-head" role="row" style="--r:1">
           <div class="wf-cell" role="columnheader"><span class="sr-only">Question</span></div>
-          <div class="wf-cell is-dokan" role="columnheader"><span class="wf-tag">Recommended</span><img class="wf-logo" src="Media/Dokan%20Logos/Dokan%20Logo-Lite%20Menu.svg" alt="Dokan" width="118" height="32" /></div>
+          <div class="wf-cell is-dokan" role="columnheader"><span class="wf-tag">Recommended</span><img class="wf-logo" src="Media/Dokan%20Logos/Dokan%20Logo-Dark%20Footer.svg" alt="Dokan" width="118" height="32" /></div>
           <div class="wf-cell" role="columnheader"><span class="wf-col"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/></svg></i><span><b>Custom build</b><small>Agency or in-house</small></span></span></div>
           <div class="wf-cell" role="columnheader"><span class="wf-col"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18h10.5a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.3 9.2 4.5 4.5 0 0 0 7 18z"/></svg></i><span><b>SaaS platform</b><small>Hosted, pay monthly</small></span></span></div>
         </div>
@@ -2091,23 +2049,24 @@
      84px in, vertically centred, 443 wide (Frame 2106260510); the storefront
      shot (Frame 1171276773, 678x593) is bottom-anchored 61px from the right
      with rounded top corners. ═══════════════════════════════════════════ -->
-<section class="cta-shell" id="cta">
-  <div class="cta-band">
-    <svg class="cta-waves" preserveAspectRatio="none" viewBox="0 0 1000 500" fill="none" stroke="#FFFFFF" stroke-width="2">
+<section class="lc-shell" id="cta">
+  <div class="lc-band">
+    <svg class="lc-waves" preserveAspectRatio="none" viewBox="0 0 1000 500" fill="none" stroke="#FFFFFF" stroke-width="2" aria-hidden="true">
       <path d="M-40 430 C 240 340 620 380 1050 210"/><path d="M-40 500 C 280 410 640 440 1050 300"/>
       <path d="M-40 360 C 240 280 620 320 1050 140"/><path d="M-40 290 C 240 220 620 260 1050 80"/>
     </svg>
-    <div class="cta-copy">
-      <div class="cta-copy-top">
-        <h2 class="cta-title">Launch Your<br />Marketplace<br />Today!</h2>
-        <p class="cta-text">Scrolling from top to bottom, it seems you're eager to begin with Dokan. So, why wait any longer?</p>
+    <div class="lc-copy">
+      <div class="lc-top">
+        <h2 class="lc-title">Launch Your<br />Marketplace<br />Today!</h2>
+        <p class="lc-text">Scrolling from top to bottom, it seems you're eager to begin with Dokan. So, why wait any longer?</p>
       </div>
-      <a href="#" class="cta-btn">Get Started Now
-        <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
+      <div class="lc-actions">
+        <a href="#" class="lc-btn">Get Started Now
+          <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
     </div>
-    <img class="cta-art" src="Media/footer/Launch%20Your.png" width="1356" height="1186" alt="Dokani storefront built with Dokan"
-         loading="lazy" width="1356" height="1186" />
+    <img class="lc-art" src="Media/footer/Launch%20Your.png" width="1356" height="1186" alt="Dokani storefront built with Dokan" loading="lazy" />
   </div>
 </section>
 
@@ -2379,23 +2338,20 @@
     dc.appendChild(el);
   });
 
-  // ---------- Commission calculator ----------
+  // ---------- Commission calculator (split receipt) ----------
   (function () {
     var range = document.getElementById('mn-range');
     if (!range) return;
     var ORDER = 120, rate = document.getElementById('mn-rate'), keep = document.getElementById('mn-keep'),
-        vendor = document.getElementById('mn-vendor'), you = document.getElementById('mn-bar-you'),
-        ven = document.getElementById('mn-bar-vendor');
+        vendor = document.getElementById('mn-vendor');
     function money(n) { return '$' + n.toFixed(2); }
     function paint() {
       var pct = +range.value, yours = ORDER * pct / 100;
-      rate.textContent = pct + '% per order';
+      rate.textContent = pct + '%';
       keep.textContent = money(yours);
       vendor.textContent = money(ORDER - yours);
-      you.style.flexBasis = pct + '%';
-      ven.style.flexBasis = (100 - pct) + '%';
-      range.style.setProperty('--mn-track', 'linear-gradient(90deg, #7047EB 0 ' + pct + '%, #E5E7EB ' + pct + '% 100%)');
-      range.setAttribute('aria-valuetext', pct + '% per order, you keep ' + money(yours) + ', vendor receives ' + money(ORDER - yours));
+      range.style.setProperty('--fill', pct + '%');
+      range.setAttribute('aria-valuetext', pct + '% commission, you keep ' + money(yours) + ', vendor receives ' + money(ORDER - yours));
     }
     range.addEventListener('input', paint);
     paint();
@@ -2521,7 +2477,7 @@
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="site-nav.js?v=29"></script>
+<script src="site-nav.js?v=35"></script>
 <script>
 /* ═══════════ Motion layer ═══════════
    Runs after the section builders above, so JS-generated cards are

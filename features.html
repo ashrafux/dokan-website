@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Features — Dokan Multi-Vendor WordPress Plugin</title>
+<meta name="description" content="Extraordinary features of the Dokan multi-vendor WordPress plugin for admins, vendors and customers." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&family=Inter:wght@700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="site-nav.css?v=34" />
+<!-- Page loader: only the header shows until site-nav.js reveals the page (5s failsafe) -->
+<script>(function(d){if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.style.setProperty('--loader-bg','#0B0A12');d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000)})(document.documentElement)</script>
+<script>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { display:['Poppins','sans-serif'], body:['Lato','sans-serif'] },
+    colors: { dokan:'#7047EB', title:'#0f172a', heading:'#0E0E0F', para:'#334155',
+      reg:'#575757', lite:'#828282', stroke:'#E9E9E9' },
+  }}};
+</script>
+<style>
+  .wrap { width:100%; max-width:1700px; margin:0 auto; padding-left:102px; padding-right:102px; }
+  @media (max-width:1200px){ .wrap { padding-left:48px; padding-right:48px; } }
+  @media (max-width:700px){ .wrap { padding-left:20px; padding-right:20px; } }
+  body { background:#fff; color:#0f172a; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  html.lenis, html.lenis body { height:auto; }
+  html.lenis-smooth { scroll-behavior:auto !important; }
+  .cta-wrap { width:100%; padding:0 20px; }   /* full width, 20px gutter on every device */
+
+  /* Additional Modules You Will Be Getting (163:40716) */
+  .am-band { position:relative; overflow:hidden; border-radius:20px; padding:144px 81.95px 145px; }
+  .am-bg { position:absolute; left:0; top:-5.22%; width:100%; height:193.22%; max-width:none; pointer-events:none; }
+  .am-head, .am-grid { position:relative; z-index:1; }
+  .am-head { display:flex; align-items:flex-end; justify-content:space-between; max-width:1413.148px; }
+  .am-head h2 { margin:0; width:1030px; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px; line-height:1.2; color:#0f172a; }
+  .am-head p { margin:0; width:276.833px; flex:none; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#334155; }
+  .am-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:30px 24.1px; max-width:1495.1px; margin-top:81px; }
+  .am-tile { display:flex; align-items:center; gap:21.087px; height:135px; padding-left:33.53px; background:#fff; border-radius:20px;
+    filter:drop-shadow(0 3.012px 12.05px rgba(0,0,0,.06));
+    transition:transform .3s cubic-bezier(.22,.61,.36,1); }
+  @media (hover:hover) { .am-tile:hover { transform:translateY(-5px); } }
+  /* fixed-size thumbnail artwork (copied from the modules list page) */
+  .stg { position:absolute; left:var(--x,0); top:var(--y,0); width:calc(var(--sw) * 1px); height:calc(var(--sh) * 1px);
+    transform:scale(var(--k,1)); transform-origin:0 0; pointer-events:none; }
+  .stg img { display:block; max-width:none; }
+  /* module tiles reuse each module's thumbnail from the modules list page, cropped to a square on its icon */
+  .am-nt { position:relative; display:block; overflow:hidden; --s:56; }
+  .am-nt .stg { pointer-events:none; transform:scale(calc(var(--s) / var(--win)));
+    left:calc((var(--s) - var(--sw) * var(--s) / var(--win)) * .5px); top:calc((var(--s) - var(--sh) * var(--s) / var(--win)) * .5px); }
+  @media (max-width:1439px) { .am-nt { --s:56; } }
+  .am-ic { width:72.299px; height:72.299px; flex:none; border-radius:18.075px; object-fit:cover; }
+  .am-t { max-width:120.498px; font-family:'Inter',sans-serif; font-weight:700; font-size:19.581px; line-height:25.455px;
+    color:#111; white-space:nowrap; }
+
+  /* the shared Launch CTA, with this page's copy */
+  .lc-copy { width:475px; }
+
+  /* ── Features page (copy: dokan.co/wordpress/features) ─────────────────── */
+
+  /* hero: dark, centred copy, jump links to each audience */
+  .fh { position:relative; overflow:hidden; color:#fff; background:#0B0A12; }
+  .fh::before { content:''; position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(60% 70% at 85% 0%, rgba(112,71,235,.42), transparent 70%),
+               radial-gradient(45% 55% at 5% 100%, rgba(226,59,123,.16), transparent 70%); }
+  .fh-grid { position:absolute; inset:0; pointer-events:none; opacity:.5;
+    background-image:linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+    background-size:64px 64px; -webkit-mask-image:radial-gradient(70% 70% at 50% 40%, #000 30%, transparent 80%); mask-image:radial-gradient(70% 70% at 50% 40%, #000 30%, transparent 80%); }
+  .fh-inner { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; text-align:center;
+    padding-top:232px; padding-bottom:120px; }
+  .fh-eyebrow { display:inline-flex; align-items:center; gap:10px; height:36px; padding:0 16px; border-radius:9999px;
+    background:rgba(255,255,255,.08); box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);
+    font-family:'Lato',sans-serif; font-weight:700; font-size:14px; letter-spacing:.06em; text-transform:uppercase; color:#D8D8FE; }
+  .fh-eyebrow i { width:7px; height:7px; border-radius:50%; background:#22C55E; box-shadow:0 0 0 4px rgba(34,197,94,.2); }
+  .fh h1 { margin:28px 0 0; max-width:1040px; font-family:'Poppins',sans-serif; font-weight:700; font-size:62px; line-height:1.2;
+    letter-spacing:-.01em; color:#fff; text-wrap:balance; }
+  .fh h1 span { color:#B49DFF; }
+  .fh-sub { margin:24px 0 0; max-width:620px; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#fff; opacity:.72; }
+  .fh-ctas { display:flex; flex-wrap:wrap; justify-content:center; gap:16px; margin-top:44px; }
+  .fe-b1 { position:relative; display:inline-flex; align-items:center; box-sizing:border-box; height:68px; padding:0 80px 0 40px;
+    border-radius:9999px; background:#7047EB; color:#fff; white-space:nowrap; font-family:'Lato',sans-serif; font-weight:700; font-size:17px;
+    line-height:1; transition:background-color .25s, transform .25s, box-shadow .25s; }
+  .fe-b1:hover { background:#5D36D6; transform:translateY(-2px); box-shadow:0 18px 36px -16px rgba(0,0,0,.35); }
+  .fe-b1 .circle { position:absolute; right:11px; top:50%; transform:translateY(-50%); width:46px; height:46px; border-radius:9999px;
+    background:#fff; color:#7047EB; display:flex; align-items:center; justify-content:center; }
+  .fe-b1 .circle svg { width:22px; height:22px; }
+  .fh .btn-ghost { display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; height:68px; padding:0 40px;
+    border-radius:9999px; background:rgba(255,255,255,.1); color:#fff; white-space:nowrap; font-family:'Lato',sans-serif; font-weight:700; font-size:17px; line-height:1; }
+  .fh-jump { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:72px; }
+  .fh-jump a { display:inline-flex; align-items:center; gap:10px; height:46px; padding:0 20px 0 14px; border-radius:9999px;
+    background:rgba(255,255,255,.06); box-shadow:inset 0 0 0 1px rgba(255,255,255,.1); color:#E2E8F0;
+    font-family:'Poppins',sans-serif; font-weight:500; font-size:15px; transition:background-color .25s, color .25s, transform .25s; }
+  .fh-jump a svg { width:20px; height:20px; color:#B49DFF; }
+  .fh-jump a:hover { background:rgba(255,255,255,.14); color:#fff; transform:translateY(-2px); }
+  .fh-stats { display:grid; grid-template-columns:repeat(3, auto); justify-content:center; gap:0; margin-top:88px;
+    border-top:1px solid rgba(255,255,255,.1); padding-top:40px; }
+  .fh-stats div { padding:0 56px; text-align:center; }
+  .fh-stats div + div { border-left:1px solid rgba(255,255,255,.1); }
+  .fh-stats b { display:block; font-family:'Poppins',sans-serif; font-weight:500; font-size:44px; line-height:1.2; color:#fff; }
+  .fh-stats span { display:block; margin-top:6px; font-family:'Lato',sans-serif; font-size:16px; color:#fff; opacity:.6; }
+
+  /* shared section heading: title left, lead right */
+  .fs-head { display:flex; align-items:flex-end; justify-content:space-between; gap:48px; }
+  .fs-eyebrow { display:block; margin-bottom:16px; font-family:'Lato',sans-serif; font-weight:700; font-size:13px; letter-spacing:.08em;
+    text-transform:uppercase; color:#7047EB; }
+  .fs-h2 { margin:0; max-width:820px; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px; line-height:1.2; color:#0F172A; text-wrap:balance; }
+  .fs-lead { margin:0; max-width:440px; flex:none; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#475569; }
+  [id] { scroll-margin-top:24px; }
+
+  /* feature cards */
+  .fe-grid { display:grid; gap:20px; margin-top:56px; }
+  .fe-grid.c4 { grid-template-columns:repeat(4, minmax(0,1fr)); }
+  .fe-grid.c3 { grid-template-columns:repeat(3, minmax(0,1fr)); }
+  .fe-card { position:relative; display:flex; flex-direction:column; padding:36px 32px 34px; border-radius:20px; background:#F7F7FA;
+    box-shadow:inset 0 0 0 1px rgba(15,23,42,.05); transition:transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s, background-color .35s; }
+  .fe-card.is-white { background:#fff; box-shadow:0 2px 5px rgba(0,0,0,.06); }
+  .fe-top { display:flex; align-items:flex-start; justify-content:space-between; }
+  .fe-ic { flex:none; display:grid; place-items:center; width:52px; height:52px; border-radius:14px; background:#fff; color:#334155;
+    box-shadow:0 1px 2px rgba(15,23,42,.06), inset 0 0 0 1px rgba(15,23,42,.06); transition:transform .35s cubic-bezier(.22,.61,.36,1), color .35s; }
+  .fe-card.is-white .fe-ic { background:#F4F5F8; box-shadow:none; }
+  .fe-ic svg { width:24px; height:24px; }
+  .fe-card h3 { margin:40px 0 0; font-family:'Poppins',sans-serif; font-weight:600; font-size:21px; line-height:1.3; color:#0F172A; }
+  .fe-card p { margin:12px 0 0; font-family:'Lato',sans-serif; font-size:16px; line-height:1.6; color:#575757; }
+  .fe-more { align-self:flex-start; display:inline-flex; align-items:center; gap:8px; margin-top:auto; padding-top:24px;
+    font-family:'Lato',sans-serif; font-weight:700; font-size:16px; line-height:150%; color:#0E0E0F;
+    text-decoration:underline; text-underline-offset:5px; }
+  .fe-more svg { width:18px; height:18px; }
+  .fe-new { display:inline-flex; align-items:center; height:26px; padding:0 12px; border-radius:9999px; background:#7047EB;
+    font-family:'Poppins',sans-serif; font-weight:600; font-size:12px; color:#fff; }
+  /* the Dokan AI card is the one dark card in the vendor grid */
+  .fe-card.is-ai { background:#0F172A; box-shadow:none; }
+  .fe-card.is-ai .fe-ic { background:rgba(255,255,255,.08); color:#D8D8FE; }
+  .fe-card.is-ai h3, .fe-card.is-ai .fe-more { color:#fff; }
+  .fe-card.is-ai p { color:#CBD5E1; }
+  @media (hover:hover) {
+    .fe-card:hover { transform:translateY(-6px); box-shadow:0 22px 44px -22px rgba(20,20,40,.30); }
+    .fe-card:hover .fe-ic { transform:scale(1.12) rotate(-3deg); }
+  }
+
+  /* vendors: a soft lavender band (same as the home commission section) */
+  .fv { margin:0 20px; padding:144px 0; border-radius:20px; background:#F5F3FB; }
+
+  /* customers: sticky intro left, a list of rows right */
+  .cx { display:grid; grid-template-columns:minmax(0,520px) minmax(0,1fr); gap:120px; align-items:start; }
+  .cx-intro { position:sticky; top:120px; }
+  .cx-intro .fs-lead { margin-top:24px; }
+  .cx-list { border-top:1px solid #E2E2E7; }
+  .cx-row { display:flex; align-items:center; gap:24px; padding:28px 8px; border-bottom:1px solid #E2E2E7; color:inherit;
+    transition:background-color .3s, padding .3s; }
+  .cx-txt { flex:1 1 auto; min-width:0; }
+  .cx-txt b { display:block; font-family:'Poppins',sans-serif; font-weight:600; font-size:21px; line-height:1.3; color:#0F172A; }
+  .cx-txt span { display:block; margin-top:6px; font-family:'Lato',sans-serif; font-size:17px; line-height:1.55; color:#575757; }
+  .cx-go { flex:none; display:grid; place-items:center; width:48px; height:48px; border-radius:9999px; background:#F4F5F8; color:#64748B;
+    transition:background-color .3s, color .3s, transform .3s; }
+  .cx-go svg { width:20px; height:20px; }
+  @media (hover:hover) {
+    a.cx-row:hover { background:#FAFAFC; padding-left:20px; padding-right:20px; }
+    a.cx-row:hover .cx-go { background:#7047EB; color:#fff; transform:rotate(45deg); }
+  }
+
+  /* live demo band */
+  .dm { position:relative; overflow:hidden; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); align-items:center; gap:64px;
+    margin:0 20px; padding:0 0 0 102px; min-height:620px; border-radius:20px; background:#0F172A; }
+  .dm::before { content:''; position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(50% 80% at 100% 50%, rgba(112,71,235,.45), transparent 70%); }
+  .dm-copy { position:relative; z-index:1; padding:96px 0; }
+  .dm-copy h2 { margin:0 0 40px; font-family:'Poppins',sans-serif; font-weight:700; font-size:48px; line-height:1.2; color:#fff; text-wrap:balance; }
+  .dm-copy p { margin:20px 0 40px; max-width:440px; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#CBD5E1; }
+  .dm-shot { position:relative; z-index:1; align-self:end; margin-top:72px; }
+  .dm-shot img { display:block; width:100%; height:auto; border-radius:20px 0 0 0; box-shadow:0 40px 80px -30px rgba(0,0,0,.6); }
+
+  /* support: 5 cards, two wide on top, three below */
+  .fe-grid.c6 { grid-template-columns:repeat(6, minmax(0,1fr)); }
+  .fe-grid.c6 > :nth-child(-n+2) { grid-column:span 3; }
+  .fe-grid.c6 > :nth-child(n+3) { grid-column:span 2; }
+
+  /* compatibility: a big stat beside two cards */
+  .cp { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr); gap:20px; }
+  .cp-stat { display:flex; flex-direction:column; justify-content:space-between; padding:44px 40px; border-radius:20px; background:#0F172A; color:#fff; }
+  .cp-stat b { display:block; font-family:'Poppins',sans-serif; font-weight:500; font-size:96px; line-height:1; letter-spacing:-.02em; }
+  .cp-stat b span { color:#B49DFF; }
+  .cp-stat h3 { margin:20px 0 0; font-family:'Poppins',sans-serif; font-weight:600; font-size:26px; line-height:1.3; }
+  .cp-stat p { margin:16px 0 0; font-family:'Lato',sans-serif; font-size:17px; line-height:1.6; color:#CBD5E1; }
+  .cp .fe-card h3 { margin-top:40px; }
+  .cp-names { display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+  .cp-names span { display:inline-flex; align-items:center; height:34px; padding:0 14px; border-radius:9999px; background:#fff;
+    box-shadow:inset 0 0 0 1px #E9E9E9; font-family:'Lato',sans-serif; font-weight:700; font-size:14px; color:#334155; }
+
+  /* modules band: the module pages' "Additional Modules" band, plus an All Modules tile */
+  .am-ic.is-svg { object-fit:contain; background:#fff; padding:4px; box-shadow:inset 0 0 0 1px #EEE; }
+  .am-all { display:grid; place-items:center; background:#7047EB; color:#fff; }
+  .am-all svg { width:30px; height:30px; }
+  .am-t { white-space:normal; max-width:none; min-width:0; }   /* long names (WooCommerce Booking) wrap inside the tile */
+  a.am-tile { text-decoration:none; padding-right:16px; }
+  /* compact tiles at every width: ten tiles with longer names than the module pages' band */
+  .am-tile { padding-left:22px !important; gap:16px; height:112px; }
+  .am-ic { width:56px; height:56px; border-radius:14px; }
+  .am-t { font-size:16px; line-height:21px; }
+
+  /* ── small desktops / laptops ── */
+  @media (max-width:1439px) {
+    .am-band { padding:104px 48px; }
+    .am-head h2 { width:auto; }
+    .am-tile { padding-left:22px !important; gap:16px; height:112px; }
+    .am-ic { width:56px; height:56px; border-radius:14px; }
+    .am-t { font-size:16px; line-height:21px; }
+    .fe-grid.c4 { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    .cx { gap:72px; }
+    .dm { padding-left:64px; }
+    .cp-stat b { font-size:80px; }
+  }
+  @media (max-width:1279px) {
+    .fh h1 { font-size:52px; }
+    .fs-h2, .am-head h2 { font-size:clamp(30px,4.2vw,52px); }
+    .fs-lead { font-size:18px; }
+    .fv { padding:104px 0; }
+    .fe-grid.c3 { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    .fe-grid.c3 > :last-child:nth-child(odd) { grid-column:1 / -1; }
+    .am-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+    .dm-copy h2 { font-size:clamp(30px,3.6vw,48px); }
+    .cp { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    .cp-stat { grid-column:1 / -1; }
+  }
+  /* ── tablets ── */
+  @media (max-width:1023px) {
+    .fh-inner { padding-top:180px; padding-bottom:88px; }
+    .fh h1 { font-size:clamp(34px,5.4vw,52px); }
+    .fh-sub { font-size:18px; }
+    .fh-stats div { padding:0 32px; }
+    .fh-stats b { font-size:36px; }
+    .fs-head { flex-direction:column; align-items:flex-start; gap:20px; }
+    .fs-lead { max-width:640px; }
+    .fe-grid { margin-top:44px; }
+    .fe-grid.c6 { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    .fe-grid.c6 > * { grid-column:auto !important; }
+    .fe-grid.c6 > :last-child { grid-column:1 / -1 !important; }
+    .cx { grid-template-columns:1fr; gap:44px; }
+    .cx-intro { position:static; }
+    .dm { grid-template-columns:1fr; gap:0; padding:0 48px; min-height:0; }
+    .dm-copy { padding:72px 0 0; }
+    .dm-shot { margin:56px -48px 0 0; }
+    .am-band { padding:72px 32px; }
+    .am-head { flex-direction:column; align-items:flex-start; gap:16px; }
+    .am-head p { width:auto; font-size:18px; }
+    .am-grid { margin-top:48px; }
+  }
+  /* ── phones ── */
+  @media (max-width:640px) {
+    .fh-inner { padding-top:140px; padding-bottom:64px; }
+    .fh h1 { font-size:34px; }
+    .fh-sub { font-size:16px; }
+    .fh-ctas { width:100%; flex-direction:column; align-items:center; gap:12px; margin-top:36px; }
+    .fe-b1, .fh .btn-ghost { width:100%; max-width:300px; height:56px; justify-content:center; padding-left:24px; padding-right:24px; }
+    .fe-b1 { justify-content:flex-start; padding-left:32px; }
+    .fe-b1 .circle { width:38px; height:38px; right:9px; }
+    .fh-jump { margin-top:48px; gap:8px; }
+    .fh-jump a { height:40px; font-size:14px; padding:0 16px 0 12px; }
+    .fh-stats { grid-template-columns:1fr; margin-top:56px; padding-top:28px; row-gap:20px; }
+    .fh-stats div { padding:0; }
+    .fh-stats div + div { border-left:0; }
+    .fh-stats b { font-size:32px; }
+    .fs-h2, .am-head h2 { font-size:30px; }
+    .fs-lead { font-size:16px; }
+    .fe-grid { gap:12px; margin-top:36px; }
+    .fe-grid.c4, .fe-grid.c3, .fe-grid.c6 { grid-template-columns:1fr; }
+    .fe-grid > * { grid-column:auto !important; }
+    .fe-card { padding:28px 24px; }
+    .fe-card h3 { margin-top:28px; font-size:19px; }
+    .fv { margin:0 20px; padding:72px 0; border-radius:16px; }
+    .cx-row { gap:16px; padding:22px 0; align-items:flex-start; }
+    .cx-txt b { font-size:18px; }
+    .cx-txt span { font-size:16px; }
+    .cx-go { width:40px; height:40px; }
+    .dm { padding:0 20px; border-radius:16px; }
+    .dm-copy { padding-top:56px; }
+    .dm-copy p { font-size:16px; margin-bottom:32px; }
+    .dm-shot { margin:44px -20px 0 0; }
+    .cp { grid-template-columns:1fr; gap:12px; }
+    .cp-stat { padding:32px 24px; }
+    .cp-stat b { font-size:64px; }
+    .am-band { padding:56px 20px; border-radius:16px; }
+    .am-head p { font-size:16px; }
+    .am-grid { grid-template-columns:1fr; gap:12px; }
+    .am-tile { height:96px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+  }
+</style>
+</head>
+<body class="font-body">
+
+<header class="fh">
+  <div id="site-nav" data-variant="dark" data-top="36"></div>
+  <div class="fh-grid" aria-hidden="true"></div>
+  <div class="wrap fh-inner">
+    <span class="fh-eyebrow" data-anim><i aria-hidden="true"></i>Dokan features</span>
+    <h1 data-anim>Extraordinary Features of <span>Dokan Multi-Vendor</span> WordPress Plugin</h1>
+    <p class="fh-sub" data-anim>No dream is too small, to begin with. But to get started you need the best industry-standard features.</p>
+    <div class="fh-ctas" data-anim>
+      <a class="fe-b1" href="https://dokan.co/wordpress/pricing/" target="_blank" rel="noopener" data-primary-icon>Get Started Now
+        <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <a class="btn-ghost" href="demo.html">Try Demo</a>
+    </div>
+    <nav class="fh-jump" aria-label="Jump to a section" data-anim>
+      <a href="#admin-features"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/></svg>For Admins</a>
+      <a href="#vendor-features"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5V20h15v-9.5"/><path d="M3 9.5L5 4h14l2 5.5a2.8 2.8 0 01-5.2 1.2 2.8 2.8 0 01-3.8.3 2.8 2.8 0 01-3.8-.3A2.8 2.8 0 013 9.5z"/></svg>For Vendors</a>
+      <a href="#customer-features"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.3"/><circle cx="18" cy="20" r="1.3"/><path d="M2.5 3.5h3l2.4 11.2a1.5 1.5 0 001.5 1.2h8.3a1.5 1.5 0 001.5-1.1L21 7.5H6.4"/></svg>For Customers</a>
+      <a href="#support"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14v-2a8 8 0 0116 0v2"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/></svg>Support</a>
+      <a href="#modules"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>Modules</a>
+    </nav>
+    <div class="fh-stats" data-anim>
+      <div><b>40+</b><span>Premium modules</span></div>
+      <div><b>140+</b><span>Compatible plugins &amp; themes</span></div>
+      <div><b>24/7</b><span>Expert support</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- Facilities for Admin -->
+<section class="bg-white pt-[192px]" id="admin-features">
+  <div class="wrap">
+    <div class="fs-head" data-anim>
+      <div><span class="fs-eyebrow">For admins</span><h2 class="fs-h2">Facilities for Admin</h2></div>
+      <p class="fs-lead">With multiple methods of earning and easy management, Dokan ensures a complete experience for the Admins.</p>
+    </div>
+    <div class="fe-grid c4" data-stagger>
+        <article class="fe-card"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 19v-1.5a3.5 3.5 0 00-3.5-3.5h-5A3.5 3.5 0 004 17.5V19"/><circle cx="10" cy="7.5" r="3.5"/><path d="M20 19v-1.5a3.5 3.5 0 00-2.5-3.35M15.5 4.15a3.5 3.5 0 010 6.7"/></svg></span><h3>Vendor Management UI</h3><p>Admin can access important information and manage vendor rights and capabilities on the marketplace.</p></article>
+        <article class="fe-card"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.6 15.4l6.8-6.8"/><circle cx="9.2" cy="9.2" r="1.3"/><circle cx="14.8" cy="14.8" r="1.3"/></svg></span><h3>Multiple Commission Types</h3><p>Set global, vendor-specific, category-specific or product-specific commissions easily.</p></article>
+        <article class="fe-card"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20h18"/><path d="M6.5 16v-4M11 16V7M15.5 16v-6M20 16V4"/></svg></span><h3>Admin Reports</h3><p>Earning reports show the overall earnings of the store by day, year &amp; vendor, all in one place.</p></article>
+        <article class="fe-card"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9V6.5A1.5 1.5 0 014.5 5h15A1.5 1.5 0 0121 6.5V9a3 3 0 000 6v2.5a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 17.5V15a3 3 0 000-6z"/><path d="M14.5 6v2M14.5 11v2M14.5 16v2"/></svg></span><h3>Coupon Creation</h3><p>Admins can create coupons applying vendors or products and even allow vendors to create coupons on their products.</p></article>
+        <article class="fe-card"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10v4a1 1 0 001 1h2l5 4V5L6 9H4a1 1 0 00-1 1z"/><path d="M15.5 8.5a5 5 0 010 7M18.5 5.5a9 9 0 010 13"/></svg></span><h3>Making Announcements</h3><p>Communicate with your sellers by sending announcements right to their dashboards.</p></article>
+        <article class="fe-card"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M12 13v3l2 1.2"/></svg></span><h3>Automatic Withdrawal Disbursement</h3><p>Admin can schedule withdrawal time for vendors which is then executed automatically with this module.</p></article>
+        <article class="fe-card"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M6.8 15l2.3-6 2.3 6M7.6 13h3"/><path d="M14 9v6h1.3a2.2 2.2 0 002.2-2.2v-1.6A2.2 2.2 0 0015.3 9z"/></svg></span><h3>Product Advertising</h3><p>Admin can increase their marketplace earning by offering vendors to promote their products in the marketplace.</p><a class="fe-more" href="module-product-advertising.html" data-tertiary>Explore module <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></article>
+        <article class="fe-card"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h14l-3.5-3.5"/><path d="M20 16H6l3.5 3.5"/></svg></span><h3>Reverse Withdrawal</h3><p>Admin is able to ensure commissions from vendor shipped orders with cash on delivery payment.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- Functionalities for Vendors -->
+<section class="bg-white pt-[192px]">
+  <div class="fv" id="vendor-features">
+    <div class="wrap">
+      <div class="fs-head" data-anim>
+        <div><span class="fs-eyebrow">For vendors</span><h2 class="fs-h2">Functionalities for Vendors</h2></div>
+        <p class="fs-lead">Let your vendors experience the best opportunity to grow their business while you expand yours.</p>
+      </div>
+      <div class="fe-grid c3" data-stagger>
+        <article class="fe-card is-white is-ai"><div class="fe-top"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 3l1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9z"/><path d="M18.5 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg></span><span class="fe-new">New</span></div><h3>Automate Workload with Dokan AI</h3><p>Automatically generate professional &amp; engaging product titles and description content using product information.</p><a class="fe-more" href="dokan-ai.html" data-tertiary>Explore Dokan AI <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></article>
+        <article class="fe-card is-white"><div class="fe-top"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4.5" width="14" height="16.5" rx="2.5"/><path d="M9 3h6v3H9z"/><path d="M12 10.5v6M9 13.5h6"/></svg></span></div><h3>Manual Order Creation</h3><p>Simply place orders from the vendor dashboard. Easily test functionality, manage offline sales, or assist customers with checkout.</p></article>
+        <article class="fe-card is-white"><div class="fe-top"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4.5A1.5 1.5 0 014.5 3H12l9 9-9 9z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></span></div><h3>WooCommerce Brands Sync</h3><p>Vendors can assign brands when adding or editing products, helping customers discover trusted brands.</p></article>
+        <article class="fe-card is-white"><div class="fe-top"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 12.5l9 5 9-5"/><path d="M3 16.5l9 5 9-5"/></svg></span></div><h3>Frontend Variable Products</h3><p>Admin and vendors can create variations on a product simply from the frontend.</p></article>
+        <article class="fe-card is-white"><div class="fe-top"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10.5V20h15v-9.5"/><path d="M3 9.5L5 4h14l2 5.5a2.8 2.8 0 01-5.2 1.2 2.8 2.8 0 01-3.8.3 2.8 2.8 0 01-3.8-.3A2.8 2.8 0 013 9.5z"/><path d="M10 20v-5h4v5"/></svg></span></div><h3>Independent Store</h3><p>Vendors get individualized customizable stores of their own to tailor to their needs.</p></article>
+        <article class="fe-card is-white"><div class="fe-top"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/><path d="M14 20h6"/></svg></span></div><h3>Product Bulk Edit</h3><p>Multiple products can be edited at the same time with this feature, be it product status, allocating discounts and more.</p></article>
+        <article class="fe-card is-white"><div class="fe-top"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 7.5V6A1.5 1.5 0 0018 4.5H5.5A2.5 2.5 0 003 7v10a2.5 2.5 0 002.5 2.5H18a1.5 1.5 0 001.5-1.5v-1.5"/><path d="M21 10h-4.5a2 2 0 000 4H21z"/></svg></span></div><h3>Withdraw System for Vendors</h3><p>Vendors can easily make withdrawals upon reaching an Admin set minimum amount.</p></article>
+        <article class="fe-card is-white"><div class="fe-top"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3.5" width="16" height="17" rx="2.5"/><path d="M8 8.5h8M8 12h8M8 15.5h5"/></svg></span></div><h3>Order Management</h3><p>Vendors are able to easily manage orders and get notified on new orders, list by filters, and status, add notes for tracking, and more.</p></article>
+        <article class="fe-card is-white"><div class="fe-top"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6.5h10.5v9H2.5z"/><path d="M13 9.5h4.5L21 13v2.5h-8"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg></span></div><h3>Shipping Status</h3><p>Vendor can create shipments with tags so that customers can track their product’s shipping status.</p></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ultimate Customer Experience -->
+<section class="bg-white pt-[192px]" id="customer-features">
+  <div class="wrap cx">
+    <div class="cx-intro" data-anim>
+      <span class="fs-eyebrow">For customers</span>
+      <h2 class="fs-h2">Ultimate Customer Experience</h2>
+      <p class="fs-lead">Provide a one-stop online solution with a smooth shopping experience for everyone.</p>
+    </div>
+    <div class="cx-list" data-stagger>
+          <div class="cx-row"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7.5l8.5 6 8.5-6"/></svg></span><span class="cx-txt"><b>Email Notification</b><span>Customers receive notifications with every order detail and status change from Dokan system.</span></span></div>
+          <div class="cx-row"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></span><span class="cx-txt"><b>Multiple Product Category</b><span>Customers are able to easily discover products by selecting desired categories in the marketplace.</span></span></div>
+          <a class="cx-row" href="module-ajax-live-search.html"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg></span><span class="cx-txt"><b>Ajax Live Search</b><span>Improves customer experience with instant advanced search.</span></span><span class="cx-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+          <a class="cx-row" href="module-follow-store.html"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7.5-4.4-7.5-10A4.5 4.5 0 0112 7.3a4.5 4.5 0 017.5 2.7c0 5.6-7.5 10-7.5 10z"/></svg></span><span class="cx-txt"><b>Follow Store</b><span>Customers can stay updated on every news of their favorite vendor.</span></span><span class="cx-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+          <a class="cx-row" href="module-return-and-warranty-request.html"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 010 11H11"/></svg></span><span class="cx-txt"><b>RMA Request</b><span>Benefits customers to utilize return and warranty facility on sold products based on admin set rules.</span></span><span class="cx-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+          <a class="cx-row" href="module-geolocation.html"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 005 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><span class="cx-txt"><b>Geolocation</b><span>Allows customers to search for products and vendors by location.</span></span><span class="cx-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+          <a class="cx-row" href="module-product-enquiry.html"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M10 9.2a2 2 0 113 1.7c-.6.4-1 .8-1 1.5"/><path d="M12 14.2h.01"/></svg></span><span class="cx-txt"><b>Product Enquiry</b><span>Customers or visitors can ask information about a product directly from the product page.</span></span><span class="cx-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- Live demo -->
+<section class="bg-white pt-[192px]">
+  <div class="dm" data-anim>
+    <div class="dm-copy">
+      <h2>Manage Your eCommerce Marketplace with a Distinctive UX</h2>
+      <a class="fe-b1" href="demo.html" data-primary-icon>Live Demo
+        <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    </div>
+    <div class="dm-shot"><img src="Media/Vendor%20dashboard.png" width="1788" height="1090" alt="Dokan vendor dashboard overview" loading="lazy" /></div>
+  </div>
+</section>
+
+<!-- Support and documentation -->
+<section class="bg-white pt-[192px]" id="support">
+  <div class="wrap">
+    <div class="fs-head" data-anim>
+      <div><span class="fs-eyebrow">Support</span><h2 class="fs-h2">Thorough Support and Detailed Documentation to Run Dokan Hassle-free</h2></div>
+    </div>
+    <div class="fe-grid c6" data-stagger>
+        <article class="fe-card"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M10 9.5v5l4.5-2.5z"/></svg></span><h3>Relevant Blog and Video</h3><p>Helpful content is regularly created to provide all the resources you need to assist you with Dokan.</p><a class="fe-more" href="blogs.html" data-tertiary>Read the blog <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></article>
+        <article class="fe-card"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 10h18M7 15h3"/></svg></span><h3>Hundreds of Payment Gateways</h3><p>All WooCommerce payment gateways are supported, along with additional Dokan methods such as PayPal, Google Pay, Apple Pay, Stripe, and more.</p><a class="fe-more" href="modules.html?cat=payments" data-tertiary>Payment modules <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></article>
+        <article class="fe-card"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A1.5 1.5 0 015.5 4H11v16H5.5A1.5 1.5 0 014 18.5z"/><path d="M20 5.5A1.5 1.5 0 0018.5 4H13v16h5.5a1.5 1.5 0 001.5-1.5z"/></svg></span><h3>Detailed Technical Documentation</h3><p>Step-by-step guides cover setup, configuration and every module, so you can build and customize your marketplace with confidence.</p><a class="fe-more" href="https://dokan.co/docs/wordpress/" target="_blank" rel="noopener" data-tertiary>Documentation <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></article>
+        <article class="fe-card"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14v-2a8 8 0 0116 0v2"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19c0 1.5-2 2-5 2"/></svg></span><h3>24/7 Support</h3><p>Our expert dedicated team is available at all times to help you in your journey.</p><a class="fe-more" href="https://app.dokan.co/support/create" target="_blank" rel="noopener" data-tertiary>Get support <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></article>
+        <article class="fe-card"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 00-14.5-4.5L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0014.5 4.5L20 16"/><path d="M20 20v-4h-4"/></svg></span><h3>Regular Updation</h3><p>Updates and bug fixes are carried out consistently to improve your Dokan experience.</p><a class="fe-more" href="https://dokan.co/wordpress/changelog/" target="_blank" rel="noopener" data-tertiary>Changelog <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></article>
+    </div>
+  </div>
+</section>
+
+<!-- Compatible plugins and themes -->
+<section class="bg-white pt-[192px]" id="compatibility">
+  <div class="wrap">
+    <div class="cp" data-stagger>
+      <div class="cp-stat">
+        <b>140<span>+</span></b>
+        <div><h3>Compatible Plugins &amp; Themes</h3>
+        <p>These Plugins &amp; Themes are compatible for Dokan to ensure your experience with Dokan is boundless and has lasting impacts.</p></div>
+      </div>
+      <article class="fe-card"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 100 18c1.2 0 1.8-.9 1.5-2-.4-1.3.4-2.5 1.8-2.5H17a4 4 0 004-4c0-5.2-4-9.5-9-9.5z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10.5" cy="7" r="1.2"/><circle cx="15.5" cy="7.5" r="1.2"/></svg></span><h3>Compatible 100+ Themes</h3>
+        <p>Porto, WoodMart, XStore, and Electro are especially mentionable.</p>
+        <div class="cp-names"><span>Porto</span><span>WoodMart</span><span>XStore</span><span>Electro</span></div>
+        <a class="fe-more" href="themes.html" data-tertiary>Themes <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></article>
+      <article class="fe-card"><span class="fe-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3v4M15 3v4"/><path d="M6 7h12v4a6 6 0 01-12 0z"/><path d="M12 17v4"/></svg></span><h3>Compatible 100+ Plugins</h3>
+        <p>WooCommerce FedEx, UPS, PayPal, Stripe, PayFast, WooCommerce Booking, Tera Wallet etc.</p>
+        <div class="cp-names"><span>FedEx</span><span>UPS</span><span>PayPal</span><span>Stripe</span><span>PayFast</span></div>
+        <a class="fe-more" href="https://dokan.co/wordpress/compatible-plugins/" target="_blank" rel="noopener" data-tertiary>Compatible Plugins <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></article>
+    </div>
+  </div>
+</section>
+
+<!-- 40+ modules -->
+<section class="bg-white pt-[192px]" id="modules">
+  <div class="cta-wrap">
+    <div class="am-band" data-anim>
+      <img class="am-bg" src="Media/Module%20Details%20Page/Additional%20Modules/band-bg.png" alt="" loading="lazy" />
+      <div class="am-head">
+        <h2>40+ Modules Built<br />to Strengthen</h2>
+        <p>Power your store with premium modules to boost your business performance.</p>
+      </div>
+      <div class="am-grid" data-stagger>
+        <a class="am-tile" href="module-stripe-connect.html"><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[66.77px]">
+            <div class="absolute contents left-[90.01px] top-[66.93px]">
+              <div class="absolute h-[70.879px] left-[90.01px] overflow-clip top-[66.93px] w-[170.3px]">
+                <div class="absolute inset-[0_0_0.03%_0]">
+                  <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/stripe-connect.svg">
+                </div>
+              </div>
+            </div>
+            <div class="absolute bg-[#635bff] content-stretch flex h-[19.568px] items-center justify-center left-[189.27px] px-[15.936px] py-[3.984px] rounded-[47.807px] top-[137.71px] w-[71.945px]">
+              <p class="[word-break:break-word] font-['Inter',sans-serif] font-semibold leading-[normal] not-italic relative shrink-0 text-[9.561px] text-white whitespace-nowrap">
+                Connect
+              </p>
+            </div>
+          </div></span></span><span class="am-t">Stripe Connect</span></a>
+        <a class="am-tile" href="module-details.html"><span class="am-ic am-nt" style="background:#F4F4F6;--win:120" aria-hidden="true"><span class="stg" style="--sw:304;--sh:193.62"><div style="position:absolute;left:124.2px;top:88.26px;width:56.4px;height:41.307px;background:#28C163;border-radius:0 0 6.857px 6.857px"></div>
+            <div style="position:absolute;left:121.02px;top:64.43px;width:61.961px;height:19.065px;background:#28C163;border-radius:4.285px"></div>
+            <div style="position:absolute;left:157.56px;top:116.86px;width:16.682px;height:6.355px;background:#fff;border-radius:.857px"></div></span></span><span class="am-t">WooCommerce Booking</span></a>
+        <a class="am-tile" href="module-elementor.html"><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute h-[150.735px] left-[63.7px] top-[35.65px] w-[223.12px]">
+            <img alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="Media/Module%20Page/Icons/elementor.png">
+          </div></span></span><span class="am-t">Elementor</span></a>
+        <a class="am-tile" href="module-product-subscription.html"><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(29.45%-0.06px)_calc(39.19%-0.03px)_calc(29.42%-0.06px)_calc(39.22%-0.03px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-subscription.svg">
+          </div></span></span><span class="am-t">Product Subscription</span></a>
+        <a class="am-tile" href="module-product-advertising.html"><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(30.05%-0.06px)_calc(31.97%-0.06px)_calc(30.13%-0.06px)_calc(32.11%-0.06px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-advertising.svg">
+          </div></span></span><span class="am-t">Product Advertising</span></a>
+        <a class="am-tile" href="module-table-rate-shipping.html"><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(32.19%-0.06px)_calc(34.35%-0.05px)_calc(32.42%-0.06px)_calc(34.24%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/table-rate-shipping.svg">
+          </div></span></span><span class="am-t">Table Rate Shipping</span></a>
+        <a class="am-tile" href="module-wholesale.html"><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/wholesale.svg">
+          </div></span></span><span class="am-t">Wholesale</span></a>
+        <a class="am-tile" href="module-subscriptions.html"><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="-translate-x-1/2 -translate-y-1/2 absolute bg-[#28c163] h-[77.864px] left-[calc(50%+0.47px)] rounded-[11.979px] top-[calc(50%+0.48px)] w-[103.819px]">
+            <div class="absolute bg-white h-[9.983px] left-[9.98px] rounded-[1.997px] top-[11.98px] w-[75.868px]"></div>
+          </div></span></span><span class="am-t">Subscription</span></a>
+        <a class="am-tile" href="module-vendor-analytics.html"><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.59px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/vendor-analytics.svg">
+          </div></span></span><span class="am-t">Vendor Analytics</span></a>
+        <a class="am-tile is-all" href="modules.html"><span class="am-ic am-all" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></span><span class="am-t">All Modules</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="lc-shell">
+  <div class="lc-band">
+    <svg class="lc-waves" preserveAspectRatio="none" viewBox="0 0 1000 500" fill="none" stroke="#FFFFFF" stroke-width="2" aria-hidden="true">
+      <path d="M-40 430 C 240 340 620 380 1050 210"/><path d="M-40 500 C 280 410 640 440 1050 300"/>
+      <path d="M-40 360 C 240 280 620 320 1050 140"/><path d="M-40 290 C 240 220 620 260 1050 80"/>
+    </svg>
+    <div class="lc-copy">
+      <div class="lc-top">
+        <h2 class="lc-title">Get Started<br />with Dokan</h2>
+        <p class="lc-text">We are here to provide you with the right tools, but it is You who must believe in your ability and start.</p>
+      </div>
+      <div class="lc-actions">
+        <a href="https://dokan.co/wordpress/pricing/" class="lc-btn" target="_blank" rel="noopener">Get Started
+          <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+    <img class="lc-art" src="Media/footer/Launch%20Your.png" width="1356" height="1186" alt="Dokani storefront built with Dokan" loading="lazy" />
+  </div>
+</section>
+
+<footer class="bg-black text-white">
+  <div class="wrap pt-[90px] pb-[40px]">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-10 gap-y-14">
+      <!-- col 1 -->
+      <div>
+        <a href="#" class="inline-block mb-9">
+          <img src="Media/Dokan%20Logos/Dokan%20Logo-Dark%20Footer.svg" alt="Dokan"
+               width="139" height="38" class="w-[139px] h-[38px]" />
+        </a>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="About Us|Brand Assets|Changelog|Contact Us|Career"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Use Cases</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Fashion|Furniture|Print on demand|Electronics|Auction|Booking|View All"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Demo's</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Dokan WordPress Plugin|Dokan Mobile App|Delivery Driver App|Otel Theme"></ul>
+      </div>
+      <!-- col 2 -->
+      <div>
+        <h5 class="font-display font-semibold text-[17px] mb-5">Resources</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Blogs|Documentation|FAQs|Video Tutorials|Webinars"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Policies</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Privacy Policy|Terms of Sevice|Support Policy|Affiliate Policy|Refund Policy"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5 leading-snug">Support &amp;<br />Success Stories</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Success Stories|Testimonials|Support"></ul>
+      </div>
+      <!-- col 3 -->
+      <div>
+        <h5 class="font-display font-semibold text-[17px] mb-5">Important Links</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Modules|Features|Payment Integrations|Compatible Plugins|Compatible Themes|Compare"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Solutions</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Marketplace (Hosted by you)|eCommerce Shop (Hosted by us)|Marketplace (Hosted by us)|Mobile App|Delivery Driver App|Otel Theme|Dokan Care|wePOS|StoreGrowth|weLab"></ul>
+      </div>
+      <!-- col 4 -->
+      <div>
+        <h5 class="font-display font-semibold text-[17px] mb-5 leading-snug">Partnership<br />&amp; Affiliate</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Partner with Us|Join Our Affiliate Program|Affiliate Policy|Affiliate|Influencer Program"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5 leading-snug">Guide to Build a<br />Marketplace Like</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Etsy|Amazon|eBay|Alibaba|Airbnb|More Examples"></ul>
+      </div>
+    </div>
+
+    <div class="mt-[90px] flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+      <div>
+        <h5 class="font-display font-bold text-[22px] mb-5">Keep Updated</h5>
+        <form class="flex items-center bg-white rounded-full p-1.5 w-full max-w-[278px]" onsubmit="return false">
+          <input type="email" placeholder="Your email address" class="flex-1 min-w-0 bg-transparent font-body text-heading text-[14px] px-4 py-2 outline-none placeholder:text-lite" />
+          <button class="rounded-full bg-dokan hover:bg-[#5d36d6] transition-colors px-4 py-2.5 font-body font-bold text-[13px] text-white whitespace-nowrap">Stay Updated</button>
+        </form>
+      </div>
+      <div class="flex flex-col items-start lg:items-end gap-6">
+        <div class="flex items-center gap-3" id="socials"></div>
+        <div class="flex flex-wrap items-center gap-4 text-white/70 font-body text-[13px]">
+          <span class="rounded bg-[#15151b] px-3 py-1.5 flex items-center gap-2"><span class="font-bold text-[10px] text-dokan">GDPR</span> Compliant</span>
+          <span class="text-white/20">|</span>
+          <span class="flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-[#22C55E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+            Secure Payment
+          </span>
+          <span class="text-white/20">|</span>
+          <span class="font-display font-bold italic text-white/90 text-[15px]">stripe</span>
+          <span class="text-white/20">|</span>
+          <span class="font-display font-bold italic text-[15px]"><span class="text-[#4B96D8]">Pay</span><span class="text-[#8ECBEE]">Pal</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-7 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 font-body text-[13px] text-white/60">
+      <span class="flex items-center gap-2">A <span class="font-bold text-white">weDevs</span> Product</span>
+      <span>© 2025, Dokan. All Rights Reserved.</span>
+      <button class="flex items-center gap-1.5 hover:text-white transition-colors">
+        English <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<script src="demos.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="site-nav.js?v=35"></script>
+<script>
+(function () {
+  var socials = [
+    ['#1877F2','<path fill="#fff" d="M13.5 21v-7h2.3l.4-2.7h-2.7V9.5c0-.8.2-1.3 1.4-1.3H16V5.8c-.3 0-1.1-.1-2-.1-2 0-3.4 1.2-3.4 3.5v1.9H8.3V14h2.3v7h2.9z"/>'],
+    ['#000000','<path fill="#fff" d="M14.2 10.6L19 5.5h-1.4l-3.7 4-3-4H7l4.5 6-4.5 5h1.4l3.9-4.3 3.1 4.3H19l-4.8-6.6z"/>'],
+    ['#FF0000','<path fill="#fff" d="M18.6 9.2c-.2-.7-.7-1.2-1.4-1.4C15.9 7.5 12 7.5 12 7.5s-3.9 0-5.2.3c-.7.2-1.2.7-1.4 1.4C5.1 10.5 5.1 12 5.1 12s0 1.5.3 2.8c.2.7.7 1.2 1.4 1.4 1.3.3 5.2.3 5.2.3s3.9 0 5.2-.3c.7-.2 1.2-.7 1.4-1.4.3-1.3.3-2.8.3-2.8s0-1.5-.3-2.8zM10.8 14.3V9.7l3.9 2.3-3.9 2.3z"/>'],
+    ['#0A66C2','<path fill="#fff" d="M9 10.5H6.7V18H9v-7.5zM7.8 9.4c.8 0 1.3-.5 1.3-1.2 0-.7-.5-1.2-1.3-1.2S6.6 7.5 6.6 8.2c0 .7.5 1.2 1.2 1.2zM18 18v-4.3c0-2.2-1.2-3.3-2.8-3.3-1.3 0-1.9.7-2.2 1.2v-1h-2.3c0 .6 0 7.4 0 7.4H13v-4.2c0-.2 0-.4.1-.6.2-.4.6-.9 1.3-.9.9 0 1.3.7 1.3 1.7V18H18z"/>'],
+    ['#111111','<path fill="#fff" d="M7.5 8.2c-1.4 0-2.4 1.6-2.4 3.4 0 1.5.7 2.5 1.8 2.5.9 0 1.5-.6 2.4-2.2l.9-1.6c.3.5.6 1 .9 1.5-.4.6-.8 1.2-1.1 1.5-.9 1-1.6 1.4-2.6 1.4-1.9 0-3-1.6-3-3.9 0-2.6 1.5-4.6 3.4-4.6 1.2 0 2 .6 2.9 1.9.6-.9 1.4-1.9 2.8-1.9 1.9 0 3.3 2 3.3 4.6 0 2.3-1.1 3.9-2.9 3.9-.6 0-1.1-.2-1.6-.6.3-.4.5-.7.8-1.1.3.2.5.3.8.3 1 0 1.5-1 1.5-2.5 0-1.8-.9-3.4-2.3-3.4-.8 0-1.4.6-2.2 1.9l-.8 1.4c-1 1.8-1.9 2.9-3.3 2.9z"/>'],
+  ];
+  var FOOTER_ROUTES = { 'Modules':'modules.html', 'Features':'features.html', 'Blogs':'blog.html',
+    'Testimonials':'testimonials.html', 'Compatible Themes':'themes.html',
+    'Dokan WordPress Plugin':'demo.html' };
+  document.querySelectorAll('[data-links]').forEach(function (ul) {
+    ul.dataset.links.split('|').forEach(function (t) {
+      var li = document.createElement('li');
+      li.innerHTML = '<a href="' + (FOOTER_ROUTES[t] || '#') + '" class="hover:text-white transition-colors">' + t + '</a>';
+      ul.appendChild(li);
+    });
+  });
+  var sw = document.getElementById('socials');
+  if (sw) socials.forEach(function (x) {
+    var a = document.createElement('a');
+    a.href = '#'; a.className = 'grid place-items-center h-[34px] w-[34px] rounded-full';
+    a.style.background = x[0];
+    a.innerHTML = '<svg viewBox="0 0 24 24" class="w-full h-full">' + x[1] + '</svg>';
+    sw.appendChild(a);
+  });
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!window.gsap || !window.ScrollTrigger || reduced) return;
+  gsap.registerPlugin(ScrollTrigger);
+  if (window.Lenis && !window.matchMedia('(hover:none)').matches) {
+    var lenis = new Lenis({ duration: 1.05, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+  gsap.from('.site-nav .menu-row > *', { y:-16, opacity:0, duration:.6, stagger:.08, ease:'power3.out' });
+  /* scroll reveals replay on every pass (shared helper in site-nav.js) */
+  gsap.utils.toArray('[data-anim]').forEach(function (el) { dokanReveal(el); });
+  document.querySelectorAll('[data-stagger]').forEach(function (host) {
+    dokanReveal(host.children, { trigger:host, start:'top 86%', y:34, duration:.7, stagger:.06 });
+  });
+  window.addEventListener('load', function () {
+    ScrollTrigger.refresh();
+    setTimeout(function () {
+      document.querySelectorAll('[data-anim], [data-stagger] > *').forEach(function (el) {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.05) {
+          var r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) gsap.set(el, { clearProps:'opacity,transform' });
+        }
+      });
+    }, 1200);
+  });
+  var rt; window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () { ScrollTrigger.refresh(); }, 200);
+  });
+})();
+</script>
+</body>
+</html>

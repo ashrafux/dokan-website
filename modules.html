@@ -6,9 +6,9 @@
 <title>Dokan Modules — Extend Your Marketplace</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&family=Inter:wght@600&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="site-nav.css?v=31" />
+<link rel="stylesheet" href="site-nav.css?v=34" />
 <!-- Page loader: only the header shows until site-nav.js reveals the page (5s failsafe) -->
 <script>(function(d){if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000)})(document.documentElement)</script>
 <script>
@@ -25,228 +25,260 @@
   body { background:#fff; color:#0f172a; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
   html.lenis, html.lenis body { height:auto; }
   html.lenis-smooth { scroll-behavior:auto !important; }
-  .h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
-    line-height:1.2; color:#0f172a; }
-  .sub { font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#575757; }
-  .cta-wrap { width:100%; max-width:1700px; margin:0 auto; padding:0 20px; }
-  .cta-band { position:relative; overflow:hidden; border-radius:20px; background:#7047EB; min-height:646px; }
-  .cta-band svg.waves { position:absolute; inset:0; width:100%; height:100%; opacity:.25; pointer-events:none; }
-  .cta-copy { position:absolute; left:84px; top:139px; max-width:655px; z-index:2; }
-  .cta-copy h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:62px; line-height:1.25; color:#fff; }
-  .cta-copy p { margin:28px 0 0; max-width:527px; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:rgba(255,255,255,.8); }
-  .cta-btn { display:inline-flex; align-items:center; gap:14px; margin-top:56px; background:#fff;
-    border-radius:9999px; padding:10px 10px 10px 32px; font-family:'Lato',sans-serif; font-weight:700;
-    font-size:16px; color:#0E0E0F; transition:transform .25s, box-shadow .25s; }
-  .cta-btn:hover { transform:translateY(-2px); box-shadow:0 18px 36px -16px rgba(0,0,0,.35); }
-  .cta-btn .circle { width:45px; height:45px; border-radius:9999px; background:#0E0E0F; color:#fff;
-    display:flex; align-items:center; justify-content:center; }
-  .cta-btn .circle svg { width:17px; height:17px; }
-  .cta-art { position:absolute; right:0; bottom:0; width:678px; z-index:1; border-top-left-radius:10px; }
-  @media (max-width:1200px) {
-    .cta-copy { position:static; padding:56px 32px 0; }
-    .cta-copy h2 { font-size:clamp(30px,4.6vw,62px); }
-    .cta-band { min-height:0; padding-bottom:40px; }
-    .cta-art { position:static; width:calc(100% - 64px); margin:36px 32px 0; border-radius:10px; }
-  }
+  .cta-wrap { width:100%; padding:0 20px; }   /* full width, 20px gutter on every device */
 
+  /* ── Figma "Module Page Design" (1151:32439), 1700px frame ───────────────────
+     Sizes below are the frame's own numbers; the media queries at the end
+     scale them for laptops, tablets and phones. */
+  .h1 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:62px; line-height:1.25; color:#0f172a; }
 
-  /* hero (661:20609 top, 1700x1090 light band + arch of tiles) */
-  /* export 3400x2180 = the 1700x1090 hero frame at 2x */
+  /* Fixed-size Figma artwork (module tiles) scaled to its box: the page script
+     sets --k = box width / --sw, so icons keep their exact place and size. */
+  .stg { position:absolute; left:0; top:0; width:calc(var(--sw) * 1px); height:calc(var(--sh) * 1px);
+    transform:scale(var(--k,1)); transform-origin:0 0; pointer-events:none; }
+  .stg img { display:block; max-width:none; }
+
+  /* hero (1151:33965): 1090px band, gradient image, arch of seven module tiles */
   .mh { position:relative; overflow:hidden; min-height:1090px;
-    background:#F4F3F9 url('Media/Module%20Page/134144%201.png') top center/cover no-repeat; }
-  .mh-copy { position:relative; z-index:5; max-width:988px; margin:0 auto; padding-top:202px;
-    text-align:center; }
-  .mh-copy h1 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:62px;
-    line-height:1.25; color:#0f172a; }
+    background:#EEF0F4 url('Media/Module%20Page/Hero/hero-bg.png') center/cover no-repeat; }
+  .mh-copy { position:relative; z-index:5; max-width:988px; margin:0 auto; padding-top:202px; text-align:center; }
   .mh-copy p { margin:28px auto 0; max-width:709px; font-family:'Lato',sans-serif; font-size:20px;
-    line-height:1.5; color:#575757; }
+    line-height:1.5; color:#334155; opacity:.7; }
   .mh-cta { display:flex; justify-content:center; gap:15px; margin-top:56px; }
-  .mh-b1 { display:inline-flex; align-items:center; gap:14px; padding:0 12px 0 32px; height:68px;
-    background:#7047EB; border-radius:9999px; color:#fff; font-family:'Lato',sans-serif;
-    font-weight:700; font-size:16px; transition:background-color .25s, transform .25s; }
-  .mh-b1:hover { background:#5d36d6; transform:translateY(-2px); }
-  .mh-b1 .circle { width:44px; height:44px; border-radius:9999px; background:#fff; color:#7047EB;
-    display:flex; align-items:center; justify-content:center; }
-  .mh-b1 .circle svg { width:17px; height:17px; }
-  .mh-b2 { display:inline-flex; align-items:center; justify-content:center; height:68px;
-    padding:0 36px; background:#fff; border:1px solid #E9E9E9; border-radius:9999px;
-    font-family:'Lato',sans-serif; font-weight:700; font-size:16px; color:#0E0E0F;
-    transition:border-color .25s, transform .25s; }
-  /* hover: radial fill only (site-nav.js) */
-  .mh-arch { position:absolute; inset:0; pointer-events:none; }
-  .mh-tile { position:absolute; height:auto;
-    filter:drop-shadow(0 30px 50px rgba(20,20,40,.28)); }
+  .mh-b1 { position:relative; display:inline-flex; align-items:center; box-sizing:border-box; width:279px; height:68px;
+    padding:0 79px 0 40px; background:#7047EB; border-radius:187.179px; color:#fff; white-space:nowrap;
+    font-family:'Lato',sans-serif; font-weight:700; font-size:16.846px; line-height:1;
+    transition:background-color .25s, transform .25s, box-shadow .25s; }
+  .mh-b1:hover { background:#5D36D6; transform:translateY(-2px); box-shadow:0 18px 36px -16px rgba(0,0,0,.35); }
+  .mh-b1 .circle { position:absolute; right:11.37px; top:50%; transform:translateY(-50%); width:45.859px; height:45.644px;
+    border-radius:135.185px; background:#fff; display:flex; align-items:center; justify-content:center; }
+  .mh-b1 .circle svg { width:22.981px; height:22.981px; }
+  .mh-b2 { display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; width:185px; height:68px;
+    padding:0 40px; background:#fff; border-radius:187.179px; color:#0f172a; white-space:nowrap;
+    font-family:'Lato',sans-serif; font-weight:700; font-size:16.846px; line-height:1;
+    filter:drop-shadow(0 2px 2.5px rgba(0,0,0,.06)); }
+  /* hover: radial fill (site-nav.js) */
+  .mh-arch { position:absolute; left:0; top:0; width:100%; height:1090px; pointer-events:none; }
+  .mh-t { position:absolute; width:16.056%; aspect-ratio:272.956/173.848; border-radius:10px; overflow:hidden;
+    box-shadow:0 39px 90px rgba(0,0,0,.13); transform:rotate(var(--r,0deg)); }
 
+  /* Premium Dokan Modules (1151:32442 – 32486) */
   .pm-head { display:flex; align-items:flex-end; justify-content:space-between; gap:60px; }
-  .pm-head h2 { max-width:512px; }
-  .pm-head p { max-width:427px; }
-  .pm { display:grid; grid-template-columns:749fr 747fr; border-radius:20px; overflow:hidden;
-    margin-top:56px; min-height:675px; }
-  .pm > div { padding:88px 105px; }
-  .pm-light { background:#F2F2F4; border-right:1px solid #E4E4EA; }
-  .pm-dark { background:#131A2E; color:#fff; }
-  .pm-thumb { width:304px; height:194px; border-radius:16px;
-    background:linear-gradient(135deg,#F86BB8,#B96BF8); position:relative; }
-  .pm-thumb::after { content:'WOO'; position:absolute; inset:0; display:flex; align-items:center;
-    justify-content:center; font-family:'Poppins',sans-serif; font-weight:700; font-size:34px;
-    color:#fff; text-shadow:0 2px 12px rgba(120,40,140,.5); letter-spacing:.03em; }
-  .pm-thumb--auction::after { content:'⚖'; font-size:44px; }
-  .pm h3 { margin:40px 0 0; font-family:'Poppins',sans-serif; font-weight:700; font-size:26px;
-    line-height:1.5; }
+  .pm-head .h1 { margin-left:-4px; }
+  .pm-head p { width:427px; margin:0 53px 0 0; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5;
+    color:#334155; opacity:.98; }
+  .pm { display:grid; grid-template-columns:748fr 746fr; min-height:675px; margin-top:57px;
+    border:1px solid #E5E7EB; border-radius:20px; overflow:hidden; background:#fff; }
+  .pm > div { min-width:0; padding:86.6px 40px 88px 104px; }
+  .pm-light { border-right:1px solid #E5E7EB; }
+  .pm-dark { background:#0f172a; color:#fff; }
+  .pm-thumb { position:relative; width:304px; max-width:100%; aspect-ratio:304/193.62; overflow:hidden; }
+  .pm h3 { margin:40px 0 0; font-family:'Poppins',sans-serif; font-weight:700; font-size:30px; line-height:1.3; }
   .pm-light h3 { color:#0f172a; }
-  .pm p.desc { margin:16px 0 0; max-width:390px; font-family:'Lato',sans-serif; font-size:17px;
-    line-height:1.6; color:#575757; }
-  .pm-dark p.desc { color:rgba(255,255,255,.7); }
-  .pm .pk { margin:40px 0 0; font-family:'Poppins',sans-serif; font-weight:600; font-size:16px; }
-  .pm .chips { display:flex; gap:6px; margin-top:20px; }
-  .pm .chips span { padding:6px 16px; border-radius:9999px; background:#fff; color:#25252D;
-    font-family:'Lato',sans-serif; font-size:13px; box-shadow:0 2px 5px rgba(0,0,0,.06); }
+  .pm .desc { margin:16px 0 0; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; }
+  .pm-light .desc { max-width:432px; color:#475569; }
+  .pm-dark .desc { max-width:390px; color:#fff; opacity:.7; }
+  .pm .pk { margin:40px 0 0; font-family:'Poppins',sans-serif; font-weight:600; font-size:18px; line-height:1.3; }
+  .pm-light .pk { color:#0f172a; }
+  .pm .chips { display:flex; flex-wrap:wrap; gap:10px 6px; margin-top:20px; }
+  .pm .chips span { display:flex; align-items:center; height:34px; padding:0 19px; border-radius:9999px; background:#fff;
+    font-family:'Lato',sans-serif; font-size:14px; line-height:1.3; color:#0f172a;
+    filter:drop-shadow(0 2px 2.5px rgba(0,0,0,.06)); }
 
-  .ex-h2 { text-align:center; font-size:62px; line-height:1.25; }
-  .ex-tabs { display:flex; gap:10px; background:#F4F4F7; border-radius:9999px; padding:7px;
-    width:max-content; }
-  .ex-tab { padding:9px 22px; border-radius:9999px; font-family:'Lato',sans-serif; font-size:20px;
-    color:#575757; transition:background-color .25s, color .25s; }
-  .ex-tab[aria-selected="true"] { background:#fff; color:#0E0E0F; box-shadow:0 2px 8px rgba(0,0,0,.08); }
-  .ex-cols { display:grid; grid-template-columns:254px 1fr; gap:90px; margin-top:56px; }
-  .ex-cols > * { min-width:0; }   /* grid items may shrink below content min */
-  .pm > div, .md-grid > *, .sup-grid > * { min-width:0; }
-  .flt-h { margin:0 0 28px; font-family:'Poppins',sans-serif; font-weight:600; font-size:24px; color:#0f172a; }
-  .flt { display:flex; align-items:center; gap:15px; margin-bottom:28px; cursor:pointer;
-    font-family:'Lato',sans-serif; font-size:16px; color:#334155; }
-  .flt-box { width:24px; height:24px; border:1px solid #CBD0DA; border-radius:6px; flex:none;
-    background:#fff; position:relative; transition:border-color .2s, background-color .2s; }
+  /* Explore All Dokan Modules (1151:32487 – 32903) */
+  .ex-cols { display:grid; grid-template-columns:254px minmax(0,1fr); gap:90px; margin-top:56px; }
+  .flt-h { margin:0; font-family:'Poppins',sans-serif; font-weight:600; font-size:24px; line-height:1.3; color:#0f172a; }
+  .flt-list { display:flex; flex-direction:column; gap:28px; margin-top:28px; }
+  .flt { display:flex; align-items:center; gap:15px; height:24px; cursor:pointer; white-space:nowrap;
+    font-family:'Lato',sans-serif; font-size:20px; line-height:1; color:#334155; }
+  .flt-box { position:relative; flex:none; width:24px; height:24px; box-sizing:border-box; background:#fff;
+    border:1.091px solid #E9E9E9; border-radius:3.273px; transition:border-color .2s, background-color .2s; }
   .flt:hover .flt-box { border-color:#7047EB; }
-  .flt.is-on .flt-box { background:#7047EB; border-color:#7047EB; }
-  .flt.is-on .flt-box::after { content:''; position:absolute; left:8px; top:3px; width:7px;
-    height:13px; border:solid #fff; border-width:0 2px 2px 0; transform:rotate(42deg); }
-  .md-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:64px 48px; }
-  .md-thumb { height:223px; border-radius:14px; overflow:hidden;
+  .flt[aria-checked="true"] .flt-box { background:#7047EB; border-color:#7047EB; }
+  .flt[aria-checked="true"] .flt-box::after { content:''; position:absolute; left:7.5px; top:3px; width:7px; height:13px;
+    border:solid #fff; border-width:0 2px 2px 0; transform:rotate(42deg); }
+  .ex-tabs { display:flex; gap:10px; width:max-content; max-width:100%; padding:7px; background:#F3F3F3; border-radius:9999px; }
+  .ex-tab { flex:none; padding:8.816px 17.633px; border-radius:9999px; white-space:nowrap;
+    font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#68687E; transition:background-color .25s, color .25s; }
+  .ex-tab:hover { color:#464654; }
+  .ex-tab[aria-selected="true"] { background:#fff; color:#464654;
+    box-shadow:0 1.102px .551px rgba(0,0,0,.03), 0 1.102px .551px rgba(0,0,0,.03); }
+  .md-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:64px 48px; margin-top:48px; }
+  .md-card[hidden] { display:none; }
+  .mp-link { color:inherit; text-decoration:none; }
+  .mp-link:hover { color:#7047EB; }
+  .md-card { min-width:0; cursor:pointer; outline:none; }
+  .md-tile { position:relative; width:100%; max-width:350.129px; aspect-ratio:350.129/223;
     transition:transform .35s cubic-bezier(.22,.61,.36,1); }
-  .md-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
-  .md-card:hover .md-thumb { transform:translateY(-6px); }
-  .md-card h3 { margin:24px 0 0; font-family:'Poppins',sans-serif; font-weight:700; font-size:26px;
-    line-height:1.5; color:#0f172a; }
-  .md-card:hover h3 { color:#7047EB; }
-  .md-card p { margin:8px 0 0; max-width:290px; font-family:'Lato',sans-serif; font-size:16px;
-    line-height:1.55; color:#575757; }
-
-  .sup-band { background:#F2F2F4; border-radius:20px; padding:144px 85px 130px; }
-  .sup-band h2 { font-size:62px; }
-  .sup-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:83px; margin-top:56px; }
-  .sp2-thumb { height:189px; border-radius:14px; overflow:hidden;
-    transition:transform .35s cubic-bezier(.22,.61,.36,1); }
-  .sp2-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
-  .sp2-card:hover .sp2-thumb { transform:translateY(-6px); }
-  .sp2-card h3 { margin:31px 0 0; font-family:'Poppins',sans-serif; font-weight:700; font-size:24px;
-    line-height:1.3; color:#0f172a; }
-  .sp2-card p { margin:12px 0 0; font-family:'Lato',sans-serif; font-size:16px; line-height:1.55;
-    color:#575757; }
-
-  @media (max-width:1200px) {
-    .mh { min-height:0; padding-bottom:340px; }
-    .mh-copy { padding:170px 32px 0; }
-    .mh-copy h1 { font-size:clamp(30px,4.8vw,62px); }
-    .pm { grid-template-columns:1fr; }
-    .pm > div { padding:36px 28px; }
-    .pm-thumb { width:min(304px,100%); }
-    .ex-cols { grid-template-columns:1fr; gap:36px; }
-    .flt-h + ul { display:flex; flex-wrap:wrap; gap:10px 24px; }
-    .flt { margin-bottom:8px; }
-    .md-grid { grid-template-columns:repeat(2,1fr); gap:40px 28px; }
-    .sup-band { padding:56px 28px; }
-    .sup-grid { grid-template-columns:repeat(2,1fr); gap:36px; }
-    .ex-h2, .sup-band h2 { font-size:clamp(28px,4.6vw,62px); }
-    .pm-head { flex-direction:column; align-items:flex-start; gap:14px; }
-    .ex-tabs { width:100%; max-width:100%; overflow-x:auto; }
-    .ex-tab { white-space:nowrap; flex:none; }
+  .md-card > h3 { max-width:312px; margin:24px 0 0; font-family:'Poppins',sans-serif; font-weight:600; font-size:24px;
+    line-height:1.3; color:#0f172a; transition:color .25s; }
+  .md-card > p { max-width:290px; margin:16px 0 0; font-family:'Lato',sans-serif; font-size:18px; line-height:1.4; color:#475569; }
+  @media (hover:hover) {
+    .md-card:hover .md-tile { transform:translateY(-6px); }
+    .md-card:hover > h3 { color:#7047EB; }
   }
-  @media (max-width:760px) { .md-grid, .sup-grid { grid-template-columns:1fr; } }
+  .md-card:focus-visible .md-tile { outline:2px solid #7047EB; outline-offset:4px; }
+
+  /* Supportive Plugins (1151:32906): #F3F3F3 band, 1660 wide, 144/85 padding */
+  .sup-band { background:#F3F3F3; border-radius:20px; padding:144px max(85px, calc((100% - 1490px) / 2)); }
+  .sup-grid { display:grid; grid-template-columns:repeat(4,minmax(0,297px)); gap:56px 83px; margin-top:56px; }
+  .sp2-card { min-width:0; }
+  .sp2-thumb { width:100%; aspect-ratio:297/189; border-radius:10px; overflow:hidden;
+    transition:transform .35s cubic-bezier(.22,.61,.36,1); }
+  .sp2-thumb img { width:100%; height:100%; object-fit:cover; }
+  .sp2-card h3 { max-width:272px; margin:31px 0 0; font-family:'Poppins',sans-serif; font-weight:600; font-size:24px;
+    line-height:1.3; color:#0f172a; }
+  .sp2-card p { max-width:258px; margin:16px 0 0; font-family:'Lato',sans-serif; font-size:18px; line-height:1.4; color:#475569; }
+  @media (hover:hover) { .sp2-card:hover .sp2-thumb { transform:translateY(-6px); } }
+
+  /* ── Small desktops / laptops ───────────────────────────────────────────── */
+  @media (max-width:1279px) {
+    .h1 { font-size:clamp(34px,4.6vw,62px); }
+    .mh-copy h1 { font-size:52px; }
+  }
+  @media (max-width:1439px) {
+    .pm-head p { margin-right:0; width:auto; max-width:427px; font-size:18px; }
+    .pm > div { padding:64px 40px 72px 56px; }
+    .pm h3 { font-size:26px; }
+    .pm .desc { font-size:18px; }
+    .ex-cols { grid-template-columns:220px minmax(0,1fr); gap:48px; }
+    .flt { font-size:17px; gap:12px; }
+    .flt-list { gap:22px; }
+    .ex-tab { font-size:18px; }
+    .md-grid { gap:48px 28px; }
+    .md-card > h3 { font-size:20px; margin-top:20px; }
+    .md-card > p { font-size:16px; margin-top:10px; }
+    .sup-band { padding:104px 48px; }
+    .sup-grid { grid-template-columns:repeat(4,minmax(0,1fr)); gap:48px 32px; }
+    .sp2-card h3 { font-size:20px; margin-top:24px; }
+    .sp2-card p { font-size:16px; margin-top:10px; }
+  }
+  /* ── Tablets: hero tiles in a band under the copy, stacked premium card,
+     category list as a chip row, two-up grids ─────────────────────────────── */
+  @media (max-width:1023px) {
+    .mh { min-height:0; padding-bottom:calc(30vw + 24px); }
+    .mh-copy { padding:170px 32px 0; }
+    .mh-copy h1 { font-size:clamp(34px,5.4vw,52px); }
+    .mh-copy p { font-size:18px; }
+    .mh-arch { top:auto; bottom:-3vw; height:auto; aspect-ratio:1700/1090; }
+    .pm-head { flex-direction:column; align-items:flex-start; gap:16px; }
+    .pm-head .h1 { margin-left:0; }
+    .pm { grid-template-columns:1fr; min-height:0; }
+    .pm-light { border-right:0; border-bottom:1px solid #E5E7EB; }
+    .pm > div { padding:48px 40px 52px; }
+    .ex-cols { grid-template-columns:minmax(0,1fr); gap:32px; }
+    .flt-list { flex-direction:row; flex-wrap:wrap; gap:12px 28px; margin-top:18px; }
+    .flt-h { font-size:20px; }
+    .ex-tabs { overflow-x:auto; scrollbar-width:none; }
+    .ex-tabs::-webkit-scrollbar { display:none; }
+    .md-grid { grid-template-columns:repeat(2,minmax(0,1fr)); margin-top:40px; }
+    .md-tile { max-width:none; }
+    .sup-band { padding:72px 32px; }
+    .sup-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:44px 28px; margin-top:40px; }
+    .sp2-card h3, .sp2-card p { max-width:none; }
+  }
+  /* ── Phones ─────────────────────────────────────────────────────────────── */
+  @media (max-width:640px) {
+    .h1 { font-size:30px; }
+    .mh { padding-bottom:calc(70vw + 8px); background-position:center bottom; }
+    .mh-copy { padding:120px 20px 0; }
+    .mh-copy h1 { font-size:clamp(28px,8.4vw,34px); }
+    .mh-copy h1 br { display:none; }
+    .mh-copy p { margin-top:18px; font-size:16px; }
+    .mh-cta { flex-direction:column; align-items:center; gap:12px; margin-top:32px; }
+    .mh-b1, .mh-b2 { width:100%; max-width:300px; height:60px; }
+    .mh-b1 { padding-right:70px; }
+    .mh-b1 .circle { right:8px; width:44px; height:44px; }
+    .mh-arch { left:-45%; width:190%; bottom:4vw; }
+    .pm-head p { font-size:16px; }
+    .pm > div { padding:32px 20px 36px; }
+    .pm-thumb { width:100%; }
+    .pm h3 { margin-top:28px; font-size:22px; }
+    .pm .desc { font-size:16px; margin-top:10px; }
+    .pm .pk { margin-top:28px; font-size:16px; }
+    .pm .chips { margin-top:14px; }
+    .flt-h { font-size:18px; }
+    .flt-list { flex-wrap:nowrap; overflow-x:auto; gap:8px; margin:14px -20px 0; padding:0 20px 6px;
+      scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+    .flt-list::-webkit-scrollbar { display:none; }
+    .flt { flex:none; height:auto; gap:8px; padding:9px 14px; border:1px solid #E3E5EC; border-radius:9999px; font-size:14px; }
+    .flt-box { width:16px; height:16px; border-radius:4px; }
+    .flt[aria-checked="true"] { border-color:#7047EB; color:#7047EB; background:rgba(112,71,235,.06); }
+    .flt[aria-checked="true"] .flt-box::after { left:4.5px; top:1px; width:5px; height:9px; }
+    .ex-tabs { width:auto; max-width:none; margin:0 -20px; border-radius:0; padding:7px 20px; background:none; gap:6px; }
+    .ex-tab { padding:7px 16px; font-size:15px; background:#F3F3F3; }
+    .ex-tab[aria-selected="true"] { background:#0f172a; color:#fff; box-shadow:none; }
+    .md-grid { gap:28px 14px; margin-top:24px; }
+    .md-card > h3 { margin-top:12px; font-size:16px; }
+    .md-card > p { margin-top:6px; font-size:13px; line-height:1.45; display:-webkit-box; -webkit-line-clamp:3;
+      -webkit-box-orient:vertical; overflow:hidden; }
+    .sup-band { padding:56px 20px; border-radius:16px; }
+    .sup-grid { gap:28px 14px; margin-top:28px; }
+    .sp2-card h3 { margin-top:14px; font-size:16px; }
+    .sp2-card p { margin-top:6px; font-size:13px; line-height:1.45; }
+  }
 
   @media (prefers-reduced-motion: reduce) {
     *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
-  }
-
-  /* ── Mobile polish: module cards two-up ── */
-  @media (max-width:760px) {
-    .md-grid { grid-template-columns:1fr 1fr; gap:26px 14px; margin-top:40px !important; }
-    .md-thumb { height:auto; aspect-ratio:16/11; }
-    .md-card h3 { margin-top:12px; font-size:16px; }
-    .md-card p { font-size:13px; line-height:1.45; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
-  }
-  /* Tablets: the tile arch sits in a band under the copy instead of spanning
-     the whole header, so it never runs behind the buttons. */
-  @media (max-width:1200px) {
-    .mh { padding-bottom:calc(22vw + 90px); }
-    .mh-arch { top:auto; bottom:0; height:calc(34vw + 130px); }
-  }
-  /* Phones: stacked full-width hero buttons, the tile arch confined to a band
-     under the copy (it overlapped the paragraph), smaller section headings and
-     the category filter as a swipeable chip row. */
-  @media (max-width:640px) {
-    .mh { padding-bottom:300px; }
-    .mh-copy { padding:120px 20px 0; }
-    .mh-copy p { margin-top:18px; font-size:16px; }
-    .mh-cta { flex-direction:column; align-items:center; gap:12px; margin-top:32px; }
-    .mh-b1, .mh-b2 { width:100%; max-width:300px; height:56px; justify-content:space-between; }
-    .mh-b2 { justify-content:center; }
-    .mh-b1 .circle { width:38px; height:38px; }
-    .mh-arch { top:auto; bottom:0; height:400px; left:-30%; right:-30%; }
-    .pm-head .h2 { font-size:34px !important; }
-    .ex-h2 { font-size:30px !important; }
-    .ex-cols { margin-top:36px !important; gap:28px; }
-    .flt-h { margin-bottom:14px; font-size:18px; }
-    .flt-h + ul { flex-wrap:nowrap; overflow-x:auto; gap:8px; margin:0 -20px; padding:0 20px 6px;
-      scrollbar-width:none; -webkit-overflow-scrolling:touch; }
-    .flt-h + ul::-webkit-scrollbar { display:none; }
-    .flt { flex:none; margin:0; gap:8px; padding:9px 14px; border:1px solid #E3E5EC; border-radius:9999px;
-      white-space:nowrap; font-size:14px; }
-    .flt-box { width:16px; height:16px; border-radius:4px; }
-    .flt.is-on { border-color:#7047EB; color:#7047EB; background:rgba(112,71,235,.06); }
-    .flt.is-on .flt-box::after { left:5px; top:1px; width:5px; height:9px; }
   }
 </style>
 </head>
 <body class="font-body">
 <header class="mh">
-  <div id="site-nav" data-variant="light"></div>
+  <div id="site-nav" data-variant="light" data-top="30"></div>
   <div class="mh-copy">
-    <h1 data-anim>Extend Your Marketplace<br />with Powerful Dokan Modules</h1>
+    <h1 class="h1" data-anim>Extend Your Marketplace<br /> with Powerful Dokan Modules</h1>
     <p data-anim>Turn your multivendor marketplace into exactly what your business needs with powerful premium modules for payments, shipping, subscriptions, marketing, vendor management, customization, and more.</p>
     <div class="mh-cta" data-anim>
       <a href="#exploreModules" class="mh-b1">Explore All Modules
-        <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+        <span class="circle"><svg viewBox="0 0 22.9815 22.9815" fill="none" aria-hidden="true"><path d="M4.78781 11.4907H18.1937" stroke="#7047EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.4907 4.78781L18.1937 11.4907L11.4907 18.1937" stroke="#7047EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
       <a href="#" class="mh-b2">View Pricing</a>
     </div>
   </div>
-  <div class="mh-arch" id="mhArch">
-      <img class="mh-tile" src="Media/Module%20Page/Rectangle%2034626525.png" alt="" style="left:-5.59%;top:36.88%;width:18.94%" />
-      <img class="mh-tile" src="Media/Module%20Page/Rectangle%2034626524.png" alt="" style="left:8.53%;top:52.57%;width:18.94%" />
-      <img class="mh-tile" src="Media/Module%20Page/Rectangle%2034626523.png" alt="" style="left:24.29%;top:65.05%;width:17.88%" />
-      <img class="mh-tile" src="Media/Module%20Page/Rectangle%2034626520.png" alt="" style="left:41.88%;top:70.92%;width:16.06%" />
-      <img class="mh-tile" src="Media/Module%20Page/Rectangle%2034626521.png" alt="" style="left:59.41%;top:70.92%;width:17.53%" />
-      <img class="mh-tile" src="Media/Module%20Page/Rectangle%2034626522.png" alt="" style="left:76.47%;top:66.06%;width:18.65%" />
-      <img class="mh-tile" src="Media/Module%20Page/Rectangle%2034626526.png" alt="" style="left:92.71%;top:56.61%;width:19.06%" />
+  <!-- module tiles: Figma 1158:10728 – 10777, centres and angles from the frame -->
+  <div class="mh-arch" aria-hidden="true">
+    <div class="mh-t" data-sw="272.956" style="left:-10.313%;top:42.830%;--r:37.3deg;background:#FEE8E7">
+      <div class="stg" style="--sw:272.956;--sh:173.848"><img src="Media/Module%20Page/Hero/return-and-warranty-request.svg" alt="" style="position:absolute;left:99.16px;top:50.04px;width:73.765px;height:73.765px" /></div></div>
+    <div class="mh-t" data-sw="272.956" style="left:5.435%;top:57.348%;--r:26.52deg;background:#EDFFF4">
+      <div class="stg" style="--sw:272.956;--sh:173.848"><div style="position:absolute;inset:calc(29.31% - 0.05px) calc(37.17% - 0.03px) calc(29.61% - 0.05px) calc(37.09% - 0.03px)"><img src="Media/Module%20Page/Hero/geolocation.svg" alt="" style="position:absolute;inset:0;width:100%;height:100%" /></div></div></div>
+    <div class="mh-t" data-sw="272.956" style="left:23.001%;top:67.517%;--r:12.32deg;background:#FFFBF8">
+      <div class="stg" style="--sw:272.956;--sh:173.848"><div style="position:absolute;inset:calc(29.45% - 0.05px) calc(39.19% - 0.03px) calc(29.42% - 0.05px) calc(39.22% - 0.03px)"><img src="Media/Module%20Page/Hero/product-subscription.svg" alt="" style="position:absolute;inset:0;width:100%;height:100%" /></div></div></div>
+    <div class="mh-t" data-sw="272.956" style="left:41.882%;top:70.902%;background:#F4F4FF">
+      <div class="stg" style="--sw:272.956;--sh:173.848"><div style="position:absolute;inset:calc(29.34% - 0.05px) calc(36.81% - 0.03px) calc(30.02% - 0.05px) calc(37.44% - 0.03px)"><img src="Media/Module%20Page/Hero/request-for-quotation.svg" alt="" style="position:absolute;inset:0;width:100%;height:100%" /></div></div></div>
+    <div class="mh-t" data-sw="272.956" style="left:60.140%;top:68.738%;--r:-9.58deg;background:#F4F4FF">
+      <div class="stg" style="--sw:272.956;--sh:173.848"><div style="position:absolute;left:70.17px;top:58.87px;width:132.764px;height:55.256px;overflow:hidden"><div style="position:absolute;inset:0 0.01% 0.03% 0"><img src="Media/Module%20Page/Hero/stripe-express.svg" alt="" style="position:absolute;inset:0;width:100%;height:100%" /></div></div></div></div>
+    <div class="mh-t" data-sw="272.956" style="left:77.758%;top:61.074%;--r:-20.93deg;background:#FFFBF8">
+      <div class="stg" style="--sw:272.956;--sh:173.848"><div style="position:absolute;inset:calc(32.19% - 0.04px) calc(34.35% - 0.04px) calc(32.42% - 0.04px) calc(34.24% - 0.04px)"><img src="Media/Module%20Page/Hero/table-rate-shipping.svg" alt="" style="position:absolute;inset:0;width:100%;height:100%" /></div></div></div>
+    <div class="mh-t" data-sw="272.956" style="left:94.218%;top:48.599%;--r:-32.48deg;background:#F2F0FF">
+      <div class="stg" style="--sw:272.956;--sh:173.848"><img src="Media/Module%20Page/Hero/dokan-mangopay-integration.png" alt="" style="position:absolute;left:96.25px;top:46.13px;width:80.936px;height:80.936px;object-fit:cover" /></div></div>
   </div>
 </header>
 
 <section class="bg-white pt-[144px]">
   <div class="wrap">
     <div class="pm-head" data-anim>
-      <h2 class="h2" style="font-size:62px">Premium<br />Dokan Modules</h2>
-      <p class="sub">A few hand-picked premium modules that turn a standard marketplace into a complete platform, pre-packaged with the plans below.</p>
+      <h2 class="h1">Premium<br />Dokan Modules</h2>
+      <p>Turn your multi-vendor marketplace into a booking or auction site using our awesome premium modules that you can buy individually</p>
     </div>
     <div class="pm" data-anim>
       <div class="pm-light">
-        <div class="pm-thumb"></div>
-        <h3>Dokan WooCommerce Booking</h3>
+        <div class="pm-thumb" data-sw="304" style="border-radius:8.683px;background:#F4F4F6">
+          <div class="stg" style="--sw:304;--sh:193.62">
+            <div style="position:absolute;left:124.2px;top:88.26px;width:56.4px;height:41.307px;background:#28C163;border-radius:0 0 6.857px 6.857px"></div>
+            <div style="position:absolute;left:121.02px;top:64.43px;width:61.961px;height:19.065px;background:#28C163;border-radius:4.285px"></div>
+            <div style="position:absolute;left:157.56px;top:116.86px;width:16.682px;height:6.355px;background:#fff;border-radius:.857px"></div>
+          </div>
+        </div>
+        <h3><a href="module-details.html" class="mp-link">Dokan WooCommerce Booking</a></h3>
         <p class="desc">Dokan WC Booking Integration allows vendors to create bookable products and customers to customize their bookings&hellip;</p>
         <p class="pk">Pre-packaged with:</p>
         <div class="chips"><span>Business</span><span>Enterprise</span></div>
       </div>
       <div class="pm-dark">
-        <div class="pm-thumb pm-thumb--auction"></div>
-        <h3>Dokan Simple Auctions</h3>
+        <div class="pm-thumb" data-sw="304" style="border-radius:10px;background:#F4F4F6">
+          <div class="stg" style="--sw:304;--sh:193.62"><!-- auction gavel, drawn in the same flat style as the Booking thumbnail --><div style="position:absolute;left:92px;top:134px;width:66px;height:12px;background:#EA580C;border-radius:4px"></div><div style="position:absolute;left:146px;top:84px;width:0;height:0;transform:rotate(-45deg)"><div style="position:absolute;left:-5px;top:0;width:10px;height:58px;background:#FB923C;border-radius:5px"></div><div style="position:absolute;left:-28px;top:-27px;width:56px;height:26px;background:#F97316;border-radius:6px"></div><div style="position:absolute;left:-36px;top:-31px;width:12px;height:34px;background:#F97316;border-radius:4px"></div><div style="position:absolute;left:24px;top:-31px;width:12px;height:34px;background:#F97316;border-radius:4px"></div><div style="position:absolute;left:-14px;top:-18px;width:28px;height:8px;background:#fff;opacity:.85;border-radius:2px"></div></div></div>
+        </div>
+        <h3><a href="module-simple-auctions.html" class="mp-link">Dokan Simple Auctions</a></h3>
         <p class="desc">Want to offer your vendors an auction-able product selling feature? This add-on for Dokan integrates WooCommerce&hellip;</p>
         <p class="pk">Pre-packaged with:</p>
         <div class="chips"><span>Business</span><span>Enterprise</span></div>
@@ -255,183 +287,408 @@
   </div>
 </section>
 
-<section class="bg-white pt-[240px] pb-[160px]" id="exploreModules">
+<section class="bg-white pt-[240px]" id="exploreModules">
   <div class="wrap">
-    <h2 class="h2 ex-h2" data-anim>Explore All Dokan Modules</h2>
-    <div class="ex-cols" style="margin-top:134px">
+    <h2 class="h1 text-center" data-anim>Explore All Dokan Modules</h2>
+    <div class="ex-cols">
       <aside>
-        <h4 class="flt-h">Category</h4>
-        <ul>
-          <li class="flt"><span class="flt-box"></span>All Categories</li>
-          <li class="flt"><span class="flt-box"></span>Payments</li>
-          <li class="flt"><span class="flt-box"></span>Shipping & Delivery</li>
-          <li class="flt"><span class="flt-box"></span>Marketing & Growth</li>
-          <li class="flt"><span class="flt-box"></span>Vendor Management</li>
-          <li class="flt"><span class="flt-box"></span>Customer Experience</li>
-          <li class="flt"><span class="flt-box"></span>Monetization</li>
-          <li class="flt"><span class="flt-box"></span>Products & Catalog</li>
-          <li class="flt"><span class="flt-box"></span>Design & Customization</li>
-          <li class="flt"><span class="flt-box"></span>Compliance & Trust</li>
-        </ul>
+        <h3 class="flt-h">Category</h3>
+        <div class="flt-list" role="group" aria-label="Category">
+          <div class="flt" role="checkbox" tabindex="0" aria-checked="false" data-cat="all"><span class="flt-box"></span>All Categories</div>
+          <div class="flt" role="checkbox" tabindex="0" aria-checked="false" data-cat="payments"><span class="flt-box"></span>Payments</div>
+          <div class="flt" role="checkbox" tabindex="0" aria-checked="false" data-cat="shipping-delivery"><span class="flt-box"></span>Shipping &amp; Delivery</div>
+          <div class="flt" role="checkbox" tabindex="0" aria-checked="false" data-cat="marketing-growth"><span class="flt-box"></span>Marketing &amp; Growth</div>
+          <div class="flt" role="checkbox" tabindex="0" aria-checked="false" data-cat="vendor-management"><span class="flt-box"></span>Vendor Management</div>
+          <div class="flt" role="checkbox" tabindex="0" aria-checked="false" data-cat="customer-experience"><span class="flt-box"></span>Customer Experience</div>
+          <div class="flt" role="checkbox" tabindex="0" aria-checked="false" data-cat="monetization"><span class="flt-box"></span>Monetization</div>
+          <div class="flt" role="checkbox" tabindex="0" aria-checked="false" data-cat="products-catalog"><span class="flt-box"></span>Products &amp; Catalog</div>
+          <div class="flt" role="checkbox" tabindex="0" aria-checked="false" data-cat="design-customization"><span class="flt-box"></span>Design &amp; Customization</div>
+          <div class="flt" role="checkbox" tabindex="0" aria-checked="false" data-cat="compliance-trust"><span class="flt-box"></span>Compliance &amp; Trust</div>
+        </div>
       </aside>
       <div>
-        <div class="ex-tabs" role="tablist" data-anim>
-          <button class="ex-tab" role="tab" aria-selected="true">All</button>
-          <button class="ex-tab" role="tab" aria-selected="false">Starter</button>
-          <button class="ex-tab" role="tab" aria-selected="false">Professional</button>
-          <button class="ex-tab" role="tab" aria-selected="false">Business</button>
-          <button class="ex-tab" role="tab" aria-selected="false">Enterprise</button>
+        <div class="ex-tabs" role="tablist" aria-label="Plan">
+          <button class="ex-tab" role="tab" aria-selected="true" data-plan="all">All</button>
+          <button class="ex-tab" role="tab" aria-selected="false" data-plan="starter">Starter</button>
+          <button class="ex-tab" role="tab" aria-selected="false" data-plan="professional">Professional</button>
+          <button class="ex-tab" role="tab" aria-selected="false" data-plan="business">Business</button>
+          <button class="ex-tab" role="tab" aria-selected="false" data-plan="enterprise">Enterprise</button>
         </div>
-        <div class="md-grid" style="margin-top:110px" data-stagger>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Product%20From%20Manager.png" alt="" loading="lazy" /></div>
-          <h3>Product From Manager</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <div class="md-grid" data-stagger>
+        <!--MD-GRID-START-->
+        <article class="md-card" role="link" tabindex="0" data-href="module-product-form-manager.html" data-plans="professional business enterprise" data-cats="vendor-management products-catalog" aria-label="Product Form Manager">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[139.65px] top-[73.9px]">
+            <div class="absolute bg-[#28c163] h-[47.356px] left-[143.45px] rounded-bl-[7.286px] rounded-br-[7.286px] top-[101.37px] w-[64.659px]"></div>
+            <div class="absolute bg-[#28c163] h-[21.857px] left-[139.81px] rounded-[4.553px] top-[74.05px] w-[71.034px]"></div>
+            <div class="absolute bg-white h-[7.286px] left-[181.7px] rounded-[0.911px] top-[134.16px] w-[19.125px]"></div>
+          </div>
+        </div></div>
+          <h3>Product Form Manager</h3>
+          <p>Customize the vendor product form with your own fields, sections and rules for every product type.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Paystack%20Module.png" alt="" loading="lazy" /></div>
+        <article class="md-card" role="link" tabindex="0" data-href="module-paystack.html" data-plans="professional business enterprise" data-cats="payments" aria-label="Paystack">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents inset-[calc(33.4%-0.05px)_calc(39.13%-0.03px)_calc(33.3%-0.05px)_calc(39.22%-0.03px)]">
+            <div class="absolute inset-[33.4%_39.13%_33.3%_39.22%]">
+              <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/paystack.svg">
+            </div>
+          </div>
+        </div></div>
           <h3>Paystack</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+          <p>Accept payments across Africa with Paystack and split every order with vendors.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Printful%20Integration.png" alt="" loading="lazy" /></div>
+        <article class="md-card" role="link" tabindex="0" data-href="module-vendor-support.html" data-plans="starter professional business enterprise" data-cats="vendor-management" aria-label="Vendor Support">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[11.517px]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(26.94%-0.07px)_calc(36.25%-0.04px)_calc(27.24%-0.07px)_calc(35.98%-0.04px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/vendor-support.svg">
+          </div>
+        </div></div>
+          <h3>Vendor Support</h3>
+          <p>Give vendors a direct line to the admin with support tickets right in their dashboard.</p>
+        </article>
+        <article class="md-card" role="link" tabindex="0" data-href="module-printful-integration.html" data-plans="business enterprise" data-cats="products-catalog" aria-label="Printful Integration">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[122.22px] size-[104.58px] top-[59.56px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/printful-integration.svg">
+          </div>
+        </div></div>
           <h3>Printful Integration</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+          <p>Let vendors sell print-on-demand products from Printful, with printing and shipping handled for them.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Stripe%20Express.png" alt="" loading="lazy" /></div>
-          <h3>Stripe Express</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
-        </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Seller%20Badge.png" alt="" loading="lazy" /></div>
+        <article class="md-card" role="link" tabindex="0" data-href="module-seller-badge.html" data-plans="professional business enterprise" data-cats="marketing-growth" aria-label="Seller Badge">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(28.47%-0.07px)_calc(39.45%-0.03px)_calc(28.97%-0.07px)_calc(39.51%-0.03px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/seller-badge.svg">
+          </div>
+        </div></div>
           <h3>Seller Badge</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+          <p>Reward top vendors with badges for sales, ratings and milestones, and build trust with every shopper.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Vendor%20Support%20Module.png" alt="" loading="lazy" /></div>
-          <h3>Vendor Support Module</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <article class="md-card" role="link" tabindex="0" data-href="module-stripe-express.html" data-plans="professional business enterprise" data-cats="payments" aria-label="Stripe Express">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[75.36px]">
+            <div class="absolute h-[70.879px] left-[90.01px] overflow-clip top-[75.52px] w-[170.3px]">
+              <div class="absolute inset-[0_0.01%_0.03%_0]">
+                <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/stripe-express.svg">
+              </div>
+            </div>
+          </div>
+        </div></div>
+          <h3>Stripe Express</h3>
+          <p>Onboard vendors in minutes with Stripe Express and pay them out automatically.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Rectangle%2034626466.png" alt="" loading="lazy" /></div>
-          <h3>Paystack</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <article class="md-card" role="link" tabindex="0" data-href="module-request-for-quotation.html" data-plans="business enterprise" data-cats="customer-experience products-catalog" aria-label="Request for Quotation">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(29.34%-0.06px)_calc(37.61%-0.04px)_calc(28.87%-0.07px)_calc(37.44%-0.04px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/request-for-quotation.svg">
+          </div>
+        </div></div>
+          <h3>Request for Quotation</h3>
+          <p>Let customers request a custom quote and let vendors reply with their own price.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Rectangle%2034626466-1.png" alt="" loading="lazy" /></div>
-          <h3>Paystack</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <article class="md-card" role="link" tabindex="0" data-href="module-report-abuse.html" data-plans="professional business enterprise" data-cats="compliance-trust" aria-label="Report Abuse">
+          <div class="md-tile " data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/report-abuse-neutral.svg">
+        </div></div>
+          <h3>Report Abuse</h3>
+          <p>Let shoppers flag fake or harmful listings so the admin can review every report and act quickly.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Rectangle%2034626466-2.png" alt="" loading="lazy" /></div>
-          <h3>Paystack</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <article class="md-card" role="link" tabindex="0" data-href="module-elementor.html" data-plans="professional business enterprise" data-cats="design-customization" aria-label="Elementor">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[11.517px]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute h-[150.735px] left-[63.7px] top-[35.65px] w-[223.12px]">
+            <img alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="Media/Module%20Page/Icons/elementor.png">
+          </div>
+        </div></div>
+          <h3>Elementor</h3>
+          <p>Design store pages, product layouts and vendor listings visually with Dokan widgets for Elementor.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Rectangle%2034626466-3.png" alt="" loading="lazy" /></div>
-          <h3>Paystack</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <article class="md-card" role="link" tabindex="0" data-href="module-stripe-connect.html" data-plans="professional business enterprise" data-cats="payments" aria-label="Stripe Connect">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[66.77px]">
+            <div class="absolute contents left-[90.01px] top-[66.93px]">
+              <div class="absolute h-[70.879px] left-[90.01px] overflow-clip top-[66.93px] w-[170.3px]">
+                <div class="absolute inset-[0_0_0.03%_0]">
+                  <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/stripe-connect.svg">
+                </div>
+              </div>
+            </div>
+            <div class="absolute bg-[#635bff] content-stretch flex h-[19.568px] items-center justify-center left-[189.27px] px-[15.936px] py-[3.984px] rounded-[47.807px] top-[137.71px] w-[71.945px]">
+              <p class="[word-break:break-word] font-['Inter',sans-serif] font-semibold leading-[normal] not-italic relative shrink-0 text-[9.561px] text-white whitespace-nowrap">
+                Connect
+              </p>
+            </div>
+          </div>
+        </div></div>
+          <h3>Stripe Connect</h3>
+          <p>Split payments between admin and vendors at checkout with Stripe Connect.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Rectangle%2034626466-4.png" alt="" loading="lazy" /></div>
-          <h3>Paystack</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <article class="md-card" role="link" tabindex="0" data-href="module-table-rate-shipping.html" data-plans="professional business enterprise" data-cats="shipping-delivery" aria-label="Table Rate Shipping">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(32.19%-0.06px)_calc(34.35%-0.05px)_calc(32.42%-0.06px)_calc(34.24%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/table-rate-shipping.svg">
+          </div>
+        </div></div>
+          <h3>Table Rate Shipping</h3>
+          <p>Let vendors set shipping rates by weight, price, item count or distance for accurate delivery costs.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Rectangle%2034626466-5.png" alt="" loading="lazy" /></div>
-          <h3>Paystack</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <article class="md-card" role="link" tabindex="0" data-href="module-product-advertising.html" data-plans="business enterprise" data-cats="marketing-growth monetization" aria-label="Product Advertising">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(30.05%-0.06px)_calc(31.97%-0.06px)_calc(30.13%-0.06px)_calc(32.11%-0.06px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-advertising.svg">
+          </div>
+        </div></div>
+          <h3>Product Advertising</h3>
+          <p>Sell paid ad slots so vendors can feature their products at the top of your store and search results.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Rectangle%2034626466-6.png" alt="" loading="lazy" /></div>
-          <h3>Paystack</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <article class="md-card" role="link" tabindex="0" data-href="module-minimum-maximum-order.html" data-plans="professional business enterprise" data-cats="monetization products-catalog" aria-label="Minimum Maximum Order">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute h-[103.61px] left-[128.44px] top-[59.17px] w-[91.98px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/minimum-maximum-order.svg">
+          </div>
+        </div></div>
+          <h3>Minimum Maximum Order</h3>
+          <p>Set minimum and maximum order quantities or amounts per product, vendor or store.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Rectangle%2034626466-7.png" alt="" loading="lazy" /></div>
-          <h3>Paystack</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <article class="md-card" role="link" tabindex="0" data-href="module-subscriptions.html" data-plans="professional business enterprise" data-cats="monetization" aria-label="Subscriptions">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="-translate-x-1/2 -translate-y-1/2 absolute bg-[#28c163] h-[77.864px] left-[calc(50%+0.47px)] rounded-[11.979px] top-[calc(50%+0.48px)] w-[103.819px]">
+            <div class="absolute bg-white h-[9.983px] left-[9.98px] rounded-[1.997px] top-[11.98px] w-[75.868px]"></div>
+          </div>
+        </div></div>
+          <h3>Subscriptions</h3>
+          <p>Charge vendors recurring fees with subscription packs that set product limits, duration and commission.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Rectangle%2034626466-8.png" alt="" loading="lazy" /></div>
-          <h3>Paystack</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <article class="md-card" role="link" tabindex="0" data-href="module-product-subscription.html" data-plans="business enterprise" data-cats="monetization" aria-label="Product Subscription">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[11.517px]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(29.45%-0.06px)_calc(39.19%-0.03px)_calc(29.42%-0.06px)_calc(39.22%-0.03px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-subscription.svg">
+          </div>
+        </div></div>
+          <h3>Product Subscription</h3>
+          <p>Let vendors sell subscription products with recurring billing, built on WooCommerce Subscriptions.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Rectangle%2034626466-9.png" alt="" loading="lazy" /></div>
-          <h3>Paystack</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <article class="md-card" role="link" tabindex="0" data-href="module-follow-store.html" data-plans="professional business enterprise" data-cats="marketing-growth" aria-label="Follow Store">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(30.43%-0.06px)_calc(34.79%-0.05px)_calc(30.79%-0.06px)_calc(34.95%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/follow-store.svg">
+          </div>
+        </div></div>
+          <h3>Follow Store</h3>
+          <p>Let customers follow their favorite stores and get notified when new products or offers go live.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Rectangle%2034626466-10.png" alt="" loading="lazy" /></div>
-          <h3>Paystack</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <article class="md-card" role="link" tabindex="0" data-href="module-geolocation.html" data-plans="business enterprise" data-cats="shipping-delivery customer-experience" aria-label="Geolocation">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(29.31%-0.06px)_calc(37.17%-0.04px)_calc(29.61%-0.06px)_calc(37.09%-0.04px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/geolocation.svg">
+          </div>
+        </div></div>
+          <h3>Geolocation</h3>
+          <p>Help shoppers find vendors and products near them with location search and map-based store listings.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Rectangle%2034626466-11.png" alt="" loading="lazy" /></div>
-          <h3>Paystack</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <article class="md-card" role="link" tabindex="0" data-href="module-mangopay.html" data-plans="professional business enterprise" data-cats="payments" aria-label="Dokan MANGOPAY Integration">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[123.46px] size-[103.819px] top-[59.17px]">
+            <img alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="Media/Module%20Page/Icons/dokan-mangopay-integration.png">
+          </div>
+        </div></div>
+          <h3>Dokan MANGOPAY Integration</h3>
+          <p>Handle split payments, e-wallets and vendor payouts securely with MANGOPAY, built for Europe.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Rectangle%2034626466-12.png" alt="" loading="lazy" /></div>
-          <h3>Paystack</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <article class="md-card" role="link" tabindex="0" data-href="module-razorpay.html" data-plans="professional business enterprise" data-cats="payments" aria-label="Razorpay">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[83.62px] size-[182.139px] top-[20.58px]">
+            <img alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="Media/Module%20Page/Icons/razorpay.png">
+          </div>
+        </div></div>
+          <h3>Razorpay</h3>
+          <p>Accept payments in India with Razorpay and route each vendor’s share to their account automatically.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Rectangle%2034626466-13.png" alt="" loading="lazy" /></div>
-          <h3>Paystack</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <article class="md-card" role="link" tabindex="0" data-href="module-rank-math-seo.html" data-plans="professional business enterprise" data-cats="marketing-growth" aria-label="Rank Math SEO">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(34.84%-0.05px)_calc(34.55%-0.05px)_calc(35.08%-0.05px)_calc(34.24%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/rank-math-seo.svg">
+          </div>
+        </div></div>
+          <h3>Rank Math SEO</h3>
+          <p>Give vendors Rank Math SEO controls on their products so every listing is ready to rank in search.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Rectangle%2034626466-14.png" alt="" loading="lazy" /></div>
-          <h3>Paystack</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <article class="md-card" role="link" tabindex="0" data-href="module-eu-compliance-fields.html" data-plans="starter professional business enterprise" data-cats="compliance-trust" aria-label="EU Compliance Fields">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[11.517px]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.15px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/eu-compliance-fields.svg">
+          </div>
+        </div></div>
+          <h3>EU Compliance Fields</h3>
+          <p>Collect company names, VAT and tax IDs from vendors and customers to stay compliant across the EU.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Rectangle%2034626466-15.png" alt="" loading="lazy" /></div>
-          <h3>Paystack</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <article class="md-card" role="link" tabindex="0" data-href="module-paypal-marketplace.html" data-plans="business enterprise" data-cats="payments" aria-label="Dokan PayPal Marketplace">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[138.4px] size-[72.21px] top-[75.4px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/dokan-paypal-marketplace.svg">
+          </div>
+        </div></div>
+          <h3>Dokan PayPal Marketplace</h3>
+          <p>Pay vendors instantly with PayPal Marketplace split payments, with buyer and seller protection built in.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Rectangle%2034626466-16.png" alt="" loading="lazy" /></div>
-          <h3>Paystack</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <article class="md-card" role="link" tabindex="0" data-href="module-delivery-time.html" data-plans="starter professional business enterprise" data-cats="shipping-delivery" aria-label="Delivery Time">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(33.4%-0.05px)_calc(34.53%-0.05px)_calc(32.97%-0.05px)_calc(34.6%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/delivery-time.svg">
+          </div>
+        </div></div>
+          <h3>Delivery Time</h3>
+          <p>Let customers pick a delivery date and time slot at checkout, based on each vendor’s own schedule.</p>
         </article>
-        <article class="md-card" role="link" tabindex="0" data-href="module-details.html" style="cursor:pointer">
-          <div class="md-thumb"><img src="Media/Module%20Page/Rectangle%2034626466-17.png" alt="" loading="lazy" /></div>
-          <h3>Paystack</h3>
-          <p>Integrate Paystack, a leading payment solution in Africa, into your marketplace for a seamless &amp; secure payment experience.</p>
+        <article class="md-card" role="link" tabindex="0" data-href="module-product-addon.html" data-plans="professional business enterprise" data-cats="products-catalog" aria-label="Product Addon">
+          <div class="md-tile " data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-addon-neutral.svg">
+        </div></div>
+          <h3>Product Addon</h3>
+          <p>Let vendors add extra options to their products, such as gift wrapping, custom text or paid upgrades.</p>
         </article>
+        <article class="md-card" role="link" tabindex="0" data-href="module-ajax-live-search.html" data-plans="professional business enterprise" data-cats="marketing-growth customer-experience" aria-label="Ajax Live Search">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.66px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/ajax-live-search.svg">
+          </div>
+        </div></div>
+          <h3>Ajax Live Search</h3>
+          <p>Show instant product and store results as shoppers type, so they find what they want faster.</p>
+        </article>
+        <article class="md-card" role="link" tabindex="0" data-href="module-color-scheme-customizer.html" data-plans="starter professional business enterprise" data-cats="design-customization" aria-label="Color Scheme Customizer">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/color-scheme-customizer.svg">
+          </div>
+        </div></div>
+          <h3>Color Scheme Customizer</h3>
+          <p>Match the vendor dashboard and store pages to your brand with your own colors, no code needed.</p>
+        </article>
+        <article class="md-card" role="link" tabindex="0" data-href="module-export-import.html" data-plans="business enterprise" data-cats="products-catalog" aria-label="Export Import">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.18px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/export-import.svg">
+          </div>
+        </div></div>
+          <h3>Export Import</h3>
+          <p>Move products, orders and vendor data in and out of your marketplace with simple CSV and XML files.</p>
+        </article>
+        <article class="md-card" role="link" tabindex="0" data-href="module-live-chat.html" data-plans="business enterprise" data-cats="customer-experience" aria-label="Live Chat">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.18px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/live-chat.svg">
+          </div>
+        </div></div>
+          <h3>Live Chat</h3>
+          <p>Let customers chat with vendors in real time from the store page to answer questions and close sales.</p>
+        </article>
+        <article class="md-card" role="link" tabindex="0" data-href="module-wirecard.html" data-plans="professional business enterprise" data-cats="payments" aria-label="Wirecard">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/wirecard.svg">
+          </div>
+        </div></div>
+          <h3>Wirecard</h3>
+          <p>Accept card payments with Wirecard and split every order with vendors at checkout.</p>
+        </article>
+        <article class="md-card" role="link" tabindex="0" data-href="module-product-enquiry.html" data-plans="business enterprise" data-cats="customer-experience" aria-label="Product Enquiry">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-enquiry.svg">
+          </div>
+        </div></div>
+          <h3>Product Enquiry</h3>
+          <p>Add an enquiry form to product pages so customers can send their questions straight to the vendor.</p>
+        </article>
+        <article class="md-card" role="link" tabindex="0" data-href="module-return-and-warranty-request.html" data-plans="professional business enterprise" data-cats="customer-experience compliance-trust" aria-label="Return and Warranty Request">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.19px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/return-and-warranty-request.svg">
+          </div>
+        </div></div>
+          <h3>Return and Warranty Request</h3>
+          <p>Let vendors set return and warranty policies, and let customers request refunds from their account.</p>
+        </article>
+        <article class="md-card" role="link" tabindex="0" data-href="module-seller-verification.html" data-plans="professional business enterprise" data-cats="vendor-management compliance-trust" aria-label="Seller Verification">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/seller-verification.svg">
+          </div>
+        </div></div>
+          <h3>Seller Verification</h3>
+          <p>Verify vendors with ID, address and company documents, and show a verified badge on their store.</p>
+        </article>
+        <article class="md-card" role="link" tabindex="0" data-href="module-shipstation.html" data-plans="business enterprise" data-cats="shipping-delivery" aria-label="ShipStation">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/shipstation.svg">
+          </div>
+        </div></div>
+          <h3>ShipStation</h3>
+          <p>Sync vendor orders with ShipStation to print labels, compare carriers and get every parcel out faster.</p>
+        </article>
+        <article class="md-card" role="link" tabindex="0" data-href="module-single-product-multivendor.html" data-plans="professional business enterprise" data-cats="products-catalog" aria-label="Single Product Multivendor">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[63.96px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/single-product-multivendor.svg">
+          </div>
+        </div></div>
+          <h3>Single Product Multivendor</h3>
+          <p>Let several vendors sell the same product, so customers can compare offers and choose their seller.</p>
+        </article>
+        <article class="md-card" role="link" tabindex="0" data-href="module-store-support.html" data-plans="professional business enterprise" data-cats="customer-experience" aria-label="Store Support">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/store-support.svg">
+          </div>
+        </div></div>
+          <h3>Store Support</h3>
+          <p>Let customers open support tickets with any store and follow the conversation until it’s resolved.</p>
+        </article>
+        <article class="md-card" role="link" tabindex="0" data-href="module-vendor-review.html" data-plans="professional business enterprise" data-cats="customer-experience" aria-label="Vendor Review">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.18px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/vendor-review.svg">
+          </div>
+        </div></div>
+          <h3>Vendor Review</h3>
+          <p>Let customers rate and review stores, and let vendors read and reply to the feedback they get.</p>
+        </article>
+        <article class="md-card" role="link" tabindex="0" data-href="module-vendor-staff-manager.html" data-plans="business enterprise" data-cats="vendor-management" aria-label="Vendor Staff Manager">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/vendor-staff-manager.svg">
+          </div>
+        </div></div>
+          <h3>Vendor Staff Manager</h3>
+          <p>Let vendors add staff accounts with their own permissions to manage products, orders and more.</p>
+        </article>
+        <article class="md-card" role="link" tabindex="0" data-href="module-vendor-vacation.html" data-plans="business enterprise" data-cats="vendor-management" aria-label="Vendor Vacation">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/vendor-vacation.svg">
+          </div>
+        </div></div>
+          <h3>Vendor Vacation</h3>
+          <p>Let vendors pause their store while they are away and show customers a custom vacation message.</p>
+        </article>
+        <article class="md-card" role="link" tabindex="0" data-href="module-wholesale.html" data-plans="business enterprise" data-cats="monetization products-catalog" aria-label="Wholesale">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/wholesale.svg">
+          </div>
+        </div></div>
+          <h3>Wholesale</h3>
+          <p>Let vendors offer wholesale prices to approved bulk buyers alongside their regular retail prices.</p>
+        </article>
+        <article class="md-card" role="link" tabindex="0" data-href="module-vendor-analytics.html" data-plans="business enterprise" data-cats="vendor-management" aria-label="Vendor Analytics">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.59px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/vendor-analytics.svg">
+          </div>
+        </div></div>
+          <h3>Vendor Analytics</h3>
+          <p>Give vendors detailed reports on views, sales and traffic sources, powered by Google Analytics.</p>
+        </article>
+        <article class="md-card" role="link" tabindex="0" data-href="module-product-qa.html" data-plans="business enterprise" data-cats="customer-experience" aria-label="Product Q&amp;A">
+          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-q-a.svg">
+          </div>
+        </div></div>
+          <h3>Product Q&amp;A</h3>
+          <p>Let customers ask questions on product pages and let vendors answer them publicly.</p>
+        </article>
+        <!--MD-GRID-END-->
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="bg-white pb-[130px]">
+<section class="bg-white pt-[192px]">
   <div class="cta-wrap">
     <div class="sup-band" data-anim>
-      <h2 class="h2">Supportive Plugins</h2>
+      <h2 class="h1">Supportive Plugins</h2>
       <div class="sup-grid" data-stagger>
         <article class="sp2-card">
-          <div class="sp2-thumb"><img src="Media/Module%20Page/Dokan%20Migrator.png" alt="" loading="lazy" /></div>
-          <h3>Dokan Migrator</h3>
+          <div class="sp2-thumb"><img src="Media/Module%20Page/Supportive/dokan-migrator.png" alt="" loading="lazy" /></div>
+          <h3><a href="module-dokan-migrator.html" class="mp-link">Dokan Migrator</a></h3>
           <p>Switch To Dokan With Ease. Migrate From WCFM, WC Vendors, And YITH In No Time!</p>
         </article>
         <article class="sp2-card">
-          <div class="sp2-thumb"><img src="Media/Module%20Page/Product%20Duplicator.png" alt="" loading="lazy" /></div>
-          <h3>Product Duplicator</h3>
+          <div class="sp2-thumb"><img src="Media/Module%20Page/Supportive/product-duplicator.png" alt="" loading="lazy" /></div>
+          <h3><a href="module-product-duplicator.html" class="mp-link">Product Duplicator</a></h3>
           <p>Enable vendors to copy a product that another seller is already selling.</p>
         </article>
         <article class="sp2-card">
-          <div class="sp2-thumb"><img src="Media/Module%20Page/WPML%20Integration.png" alt="" loading="lazy" /></div>
-          <h3>WPML Integration</h3>
+          <div class="sp2-thumb"><img src="Media/Module%20Page/Supportive/wpml-integration.png" alt="" loading="lazy" /></div>
+          <h3><a href="module-wpml-integration.html" class="mp-link">WPML Integration</a></h3>
           <p>Want to display your product and pages in multiple languages? Use this plugin&hellip;</p>
         </article>
         <article class="sp2-card">
-          <div class="sp2-thumb"><img src="Media/Module%20Page/PDF%20Invoice.png" alt="" loading="lazy" /></div>
-          <h3>PDF Invoice</h3>
+          <div class="sp2-thumb"><img src="Media/Module%20Page/Supportive/pdf-invoice.png" alt="" loading="lazy" /></div>
+          <h3><a href="module-pdf-invoice.html" class="mp-link">PDF Invoice</a></h3>
           <p>Create automated multi-seller invoices with templates &amp; download in PDF.</p>
         </article>
       </div>
@@ -439,40 +696,81 @@
   </div>
 </section>
 
-<section class="bg-white pb-[110px]">
-  <div class="cta-wrap">
-    <div class="cta-band" data-anim>
-      <svg class="waves" preserveAspectRatio="none" viewBox="0 0 1000 500" fill="none" stroke="white" stroke-width="1">
-        <path d="M-40 430 C 240 340 620 380 1050 210"/><path d="M-40 500 C 280 410 640 440 1050 300"/>
-        <path d="M-40 360 C 240 280 620 320 1050 140"/><path d="M-40 290 C 240 220 620 260 1050 80"/>
-      </svg>
-      <div class="cta-copy">
-        <h2>Create the Ultimate Multi Vendor Store</h2>
-        <p>Do more with Dokan using powerful advanced modules and reach greater heights with your marketplace</p>
-        <a href="index.html" class="cta-btn">Get Started Now
-          <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+<section class="lc-shell">
+  <div class="lc-band">
+    <svg class="lc-waves" preserveAspectRatio="none" viewBox="0 0 1000 500" fill="none" stroke="#FFFFFF" stroke-width="2" aria-hidden="true">
+      <path d="M-40 430 C 240 340 620 380 1050 210"/><path d="M-40 500 C 280 410 640 440 1050 300"/>
+      <path d="M-40 360 C 240 280 620 320 1050 140"/><path d="M-40 290 C 240 220 620 260 1050 80"/>
+    </svg>
+    <div class="lc-copy">
+      <div class="lc-top">
+        <h2 class="lc-title">Launch Your<br />Marketplace<br />Today!</h2>
+        <p class="lc-text">Scrolling from top to bottom, it seems you're eager to begin with Dokan. So, why wait any longer?</p>
+      </div>
+      <div class="lc-actions">
+        <a href="#" class="lc-btn">Get Started Now
+          <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
       </div>
-      <img class="cta-art" src="Media/Themes%20Page/Image%20Container.png" alt="Dokani storefront" loading="lazy" />
     </div>
+    <img class="lc-art" src="Media/footer/Launch%20Your.png" width="1356" height="1186" alt="Dokani storefront built with Dokan" loading="lazy" />
   </div>
 </section>
 
 <script>
+  /* Scale each fixed-size Figma tile to its box (sets --k for .stg) */
+  (function () {
+    var boxes = document.querySelectorAll('[data-sw]');
+    function fit(el) { el.style.setProperty('--k', el.offsetWidth / parseFloat(el.dataset.sw)); }
+    if ('ResizeObserver' in window) {
+      var ro = new ResizeObserver(function (es) { es.forEach(function (e) { fit(e.target); }); });
+      boxes.forEach(function (el) { ro.observe(el); });
+    } else { boxes.forEach(fit); }
+  })();
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('[data-href]').forEach(function (c) {
       function go(){ location.href = c.dataset.href; }
       c.addEventListener('click', go);
       c.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();go();} });
     });
-    document.querySelectorAll('.flt').forEach(function (f) {
-      f.addEventListener('click', function () { f.classList.toggle('is-on'); });
+    /* Filters: categories (any checked) AND plan tab; ?cat=<slug> preselects one */
+    var flts = [].slice.call(document.querySelectorAll('.flt')), tabs = [].slice.call(document.querySelectorAll('.ex-tab'));
+    var cards = [].slice.call(document.querySelectorAll('.md-card'));
+    function apply() {
+      var on = flts.filter(function (f) { return f.getAttribute('aria-checked') === 'true' && f.dataset.cat !== 'all'; })
+                   .map(function (f) { return f.dataset.cat; });
+      var tab = tabs.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0];
+      var plan = tab ? tab.dataset.plan : 'all';
+      cards.forEach(function (c) {
+        var cats = (c.dataset.cats || '').split(' '), plans = (c.dataset.plans || '').split(' ');
+        var ok = (!on.length || on.some(function (x) { return cats.indexOf(x) > -1; })) &&
+                 (plan === 'all' || plans.indexOf(plan) > -1);
+        c.hidden = !ok;
+      });
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    }
+    function setChecked(f, v) { f.setAttribute('aria-checked', v ? 'true' : 'false'); }
+    flts.forEach(function (f) {
+      function toggle() {
+        var v = f.getAttribute('aria-checked') !== 'true';
+        if (f.dataset.cat === 'all') { flts.forEach(function (o) { setChecked(o, false); }); setChecked(f, v); }
+        else { setChecked(f, v); flts.forEach(function (o) { if (o.dataset.cat === 'all') setChecked(o, false); }); }
+        apply();
+      }
+      f.addEventListener('click', toggle);
+      f.addEventListener('keydown', function (e) { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(); } });
     });
-    var tabs = document.querySelectorAll('.ex-tab');
     tabs.forEach(function (t) { t.addEventListener('click', function () {
-      tabs.forEach(function (o) { o.setAttribute('aria-selected','false'); });
-      t.setAttribute('aria-selected','true');
+      tabs.forEach(function (o) { o.setAttribute('aria-selected', 'false'); });
+      t.setAttribute('aria-selected', 'true'); apply();
     }); });
+    var want = new URLSearchParams(location.search).get('cat');
+    if (want) {
+      flts.forEach(function (f) { setChecked(f, f.dataset.cat === want); });
+      apply();
+      var ex = document.getElementById('exploreModules');
+      if (ex) setTimeout(function () { ex.scrollIntoView({ behavior: 'auto', block: 'start' }); }, 60);
+    }
   });
 </script>
 
@@ -555,7 +853,7 @@
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="site-nav.js?v=29"></script>
+<script src="site-nav.js?v=35"></script>
 <script>
 (function () {
   var socials = [
@@ -593,15 +891,10 @@
     gsap.ticker.lagSmoothing(0);
   }
   gsap.from('.site-nav .menu-row > *', { y:-16, opacity:0, duration:.6, stagger:.08, ease:'power3.out' });
-  gsap.utils.toArray('[data-anim]').forEach(function (el) {
-    gsap.from(el, { y:30, opacity:0, duration:.8, ease:'power3.out', immediateRender:false,
-      clearProps:'transform',
-      scrollTrigger:{ trigger:el, start:'top 88%', once:true } });
-  });
+  /* scroll reveals replay on every pass (shared helper in site-nav.js) */
+  gsap.utils.toArray('[data-anim]').forEach(function (el) { dokanReveal(el); });
   document.querySelectorAll('[data-stagger]').forEach(function (host) {
-    gsap.from(host.children, { y:34, opacity:0, duration:.7, ease:'power3.out', stagger:.06,
-      immediateRender:false, clearProps:'transform',
-      scrollTrigger:{ trigger:host, start:'top 86%', once:true } });
+    dokanReveal(host.children, { trigger:host, start:'top 86%', y:34, duration:.7, stagger:.06 });
   });
   window.addEventListener('load', function () {
     ScrollTrigger.refresh();

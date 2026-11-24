@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en" data-generated="module">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Follow Store — Dokan Module</title>
+<meta name="description" content="Following your favorite vendor store is now easier than ever with the Dokan Follow Store module. It helps keep the customer updated about the vendor." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&family=Inter:wght@700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="site-nav.css?v=34" />
+<!-- Page loader: only the header shows until site-nav.js reveals the page (5s failsafe) -->
+<script>(function(d){if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.style.setProperty('--loader-bg','#05060C');d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000)})(document.documentElement)</script>
+<script>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { display:['Poppins','sans-serif'], body:['Lato','sans-serif'] },
+    colors: { dokan:'#7047EB', title:'#0f172a', heading:'#0E0E0F', para:'#334155',
+      reg:'#575757', lite:'#828282', stroke:'#E9E9E9' },
+  }}};
+</script>
+<style>
+  .wrap { width:100%; max-width:1700px; margin:0 auto; padding-left:102px; padding-right:102px; }
+  @media (max-width:1200px){ .wrap { padding-left:48px; padding-right:48px; } }
+  @media (max-width:700px){ .wrap { padding-left:20px; padding-right:20px; } }
+  body { background:#fff; color:#0f172a; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  html.lenis, html.lenis body { height:auto; }
+  html.lenis-smooth { scroll-behavior:auto !important; }
+  .cta-wrap { width:100%; padding:0 20px; }   /* full width, 20px gutter on every device */
+
+  /* ── Figma "Module Details Page Design" (163:40149), 1700px frame ──────────
+     Numbers are the frame's own; media queries at the end scale them down. */
+
+  /* Fixed-size Figma artwork scaled to its box. The page script sets --k (and,
+     for data-cover boxes, --x/--y so the art covers the box like object-fit). */
+  .stg { position:absolute; left:var(--x,0); top:var(--y,0); width:calc(var(--sw) * 1px); height:calc(var(--sh) * 1px);
+    transform:scale(var(--k,1)); transform-origin:0 0; pointer-events:none; }
+  .stg img { display:block; max-width:none; }
+
+  /* hero (229:43710): #0D0C0F + the Figma background layer, 1080 tall */
+  .mdh { position:relative; overflow:hidden; color:#fff; min-height:1080px;
+    background:#0D0C0F url('Media/Module%20Details%20Page/Hero/hero-bg.png') center/cover no-repeat; }
+  .mdh-inner { position:relative; max-width:1700px; height:1080px; margin:0 auto; }
+  .mdh-left { position:absolute; left:101.5px; top:179px; width:354px; z-index:5; }
+  .mdh-left h1 { margin:0; max-width:331px; font-family:'Poppins',sans-serif; font-weight:700; font-size:36px;
+    line-height:1.2; color:#fff; }
+  .mdh-left p { margin:28px 0 0; font-family:'Lato',sans-serif; font-size:18px; line-height:1.4; color:#fff; opacity:.7; }
+  .mdh-mid { position:absolute; left:calc(50% - 224.5px); top:270px; width:450px; z-index:5; }
+  .mdh-art { display:block; width:450px; height:350px; border-radius:20px; object-fit:cover; }
+  .mdh-mid h2 { margin:39px 0 0; font-family:'Poppins',sans-serif; font-weight:700; font-size:30px; line-height:1.3; color:#fff; }
+  .mdh-buy { position:absolute; left:calc(50% + 285px); top:347px; width:235px; z-index:5; }
+  .mdh-price { position:relative; width:135px; height:90px; font-family:'Poppins',sans-serif; color:#FACC15; white-space:nowrap; }
+  .mdh-price .cur { position:absolute; left:0; top:8px; font-family:'Lato',sans-serif; font-size:24px; line-height:1.5; }
+  .mdh-price .val { position:absolute; left:17px; top:0; font-weight:700; font-size:72px; line-height:1.25; }
+  .mdh-price .per { position:absolute; left:117px; top:49px; font-weight:600; font-size:16px; line-height:1.2;
+    color:#CBD5E1; opacity:.7; }
+  .mdh-buy .b1 { position:relative; display:flex; align-items:center; box-sizing:border-box; margin-top:30px;
+    width:235px; height:70px; padding:0 79px 0 40px; background:#7047EB; border-radius:187.179px; color:#fff;
+    white-space:nowrap; font-family:'Lato',sans-serif; font-weight:700; font-size:20px; line-height:1;
+    transition:background-color .25s, transform .25s, box-shadow .25s; }
+  .mdh-buy .b1:hover { background:#5D36D6; transform:translateY(-2px); box-shadow:0 18px 36px -16px rgba(0,0,0,.35); }
+  .mdh-buy .b1 .circle { position:absolute; right:11.37px; top:50%; transform:translateY(-50%); width:45.859px;
+    height:45.644px; border-radius:135.185px; background:#fff; display:flex; align-items:center; justify-content:center; }
+  .mdh-buy .b1 .circle svg { width:22.981px; height:22.981px; }
+  .mdh-buy .b2 { display:flex; align-items:center; justify-content:center; box-sizing:border-box; margin-top:15px;
+    width:235px; height:68px; padding:0 40px; border-radius:187.179px; background:rgba(255,255,255,.1); color:#fff;
+    white-space:nowrap; font-family:'Lato',sans-serif; font-weight:700; font-size:16.846px; line-height:1; }
+  /* hover: radial fill (site-nav.js) */
+  .mdh-req { position:absolute; left:102.5px; top:865px; width:295px; z-index:5; }
+  .mdh-req b { display:block; font-family:'Poppins',sans-serif; font-weight:600; font-size:18px; line-height:1.3; }
+  .mdh-req p { margin:10px 0 0; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#fff; opacity:.7; }
+  .mdh-req .lnk { display:flex; gap:12px; margin-top:40px; height:22px; align-items:center; }
+  .mdh-req .lnk a { font-family:'Lato',sans-serif; font-weight:700; font-size:18px; line-height:1; color:#fff;
+    text-decoration:underline; text-underline-position:from-font; transition:color .25s; }
+  .mdh-req .lnk a:first-child { width:91px; }
+  .mdh-req .lnk a:hover { color:#B49DFF; }
+  .mdh-avail { position:absolute; right:101.5px; top:943px; z-index:5; }
+  .mdh-avail b { display:block; font-family:'Poppins',sans-serif; font-weight:600; font-size:18px; line-height:1.3; }
+  .mdh-avail .chips { display:flex; flex-wrap:nowrap; gap:10px 6px; margin-top:20px; }
+  .mdh-avail .chips span { display:flex; align-items:center; height:34px; padding:0 19px; border-radius:9999px;
+    font-family:'Lato',sans-serif; font-size:14px; line-height:1.3; color:#0f172a;
+    filter:drop-shadow(0 2px 2.5px rgba(0,0,0,.06)); }
+
+  /* Featured All Over the World (163:40773): seven logo tiles, 26.4px apart */
+  .lg-strip h2 { margin:0; text-align:center; font-family:'Poppins',sans-serif; font-weight:600; font-size:24px;
+    line-height:1.3; color:#0f172a; opacity:.98; }
+  .lg-row { display:grid; grid-template-columns:194.902fr 194.902fr 194.902fr 194.902fr 194.556fr 143.266fr 194.556fr;
+    gap:26.404px; max-width:1470.38px; margin-top:28px; }
+  .lg-tile { position:relative; aspect-ratio:var(--a); background:#fff; border-radius:4.18px; }
+  .lg-tile img { position:absolute; display:block; max-width:none; }
+  /* the logo strip scrolls right to left: shared .fw-marquee/.fw-row (site-nav.js clones the row and sets the speed) */
+  .lg-marquee { max-width:1470.38px; margin:-2px auto -40px; }
+  .lg-marquee .lg-row { display:flex; gap:0; max-width:none; margin-top:0; }
+  .lg-marquee .lg-tile { flex:none; width:auto; height:101.216px; margin-right:26.404px; }
+  @media (max-width:640px) { .lg-marquee .lg-tile { height:72px; margin-right:12px; } }
+
+  /* Feature cards (229:43708) */
+  .fc-head { margin:0; max-width:1163px; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
+    line-height:1.2; color:#0f172a; }
+  .fc-grid { display:grid; grid-template-columns:734fr 737fr; gap:27px; margin-top:56px; }
+  .fc-card { position:relative; height:633px; overflow:hidden; background:#F3F3F3; border-radius:20px;
+    transition:transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s; }
+  .fc-card .txt { position:absolute; left:50px; top:50px; right:50px; }
+  .fc-card h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:36px; line-height:1.2; color:#0f172a; }
+  .fc-card p { position:absolute; top:98px; left:0; width:422px; max-width:100%; margin:0; font-family:'Lato',sans-serif;
+    font-size:20px; line-height:1.5; color:#475569; }
+  .fc-thumb { position:absolute; left:50px; top:332px; width:324px; height:250.435px; border-radius:20px; overflow:hidden; }
+  .fc-thumb img { display:block; width:100%; height:100%; }
+  .fc-arrow { position:absolute; right:50.86px; top:499px; width:84.141px; height:83.747px; border-radius:248.035px;
+    background:#fff; filter:drop-shadow(0 2px 2.5px rgba(0,0,0,.06)); display:flex; align-items:center;
+    justify-content:center; transition:background-color .3s, transform .3s; }
+  .fc-arrow svg { width:53.209px; height:51.374px; }
+  .fc-arrow svg path { transition:stroke .3s; }
+  .fc-wide { position:relative; height:633px; margin-top:28px; overflow:hidden; background:#F3F3F3; border-radius:20px;
+    transition:transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s; }
+  .fc-wide .txt { position:absolute; left:80px; top:80px; width:422px; z-index:2; }
+  .fc-wide h3 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:42px; line-height:1.3; color:#0f172a; }
+  .fc-wide .txt p { margin:12px 0 0; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#475569; }
+  .fc-wide .fc-arrow { left:80px; right:auto; top:469px; }
+  .fc-media { position:absolute; right:0; top:0; width:723px; height:634px; overflow:hidden; border-radius:0 20px 20px 0; }
+  @media (hover:hover) {
+    .fc-card:hover, .fc-wide:hover { transform:translateY(-6px); }   /* lift only, no hover shadow */
+    .fc-card:hover .fc-arrow, .fc-wide:hover .fc-arrow { background:#7047EB; transform:rotate(45deg); }
+    .fc-card:hover .fc-arrow path, .fc-wide:hover .fc-arrow path { stroke:#fff; }
+  }
+
+  /* Additional Modules You Will Be Getting (163:40716) */
+  .am-band { position:relative; overflow:hidden; border-radius:20px; padding:144px 81.95px 145px; }
+  .am-bg { position:absolute; left:0; top:-5.22%; width:100%; height:193.22%; max-width:none; pointer-events:none; }
+  .am-head, .am-grid { position:relative; z-index:1; }
+  .am-head { display:flex; align-items:flex-end; justify-content:space-between; max-width:1413.148px; }
+  .am-head h2 { margin:0; width:1030px; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px; line-height:1.2; color:#0f172a; }
+  .am-head p { margin:0; width:276.833px; flex:none; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#334155; }
+  .am-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:30px 24.1px; max-width:1495.1px; margin-top:81px; }
+  .am-tile { display:flex; align-items:center; gap:21.087px; height:135px; padding-left:33.53px; background:#fff; border-radius:20px;
+    filter:drop-shadow(0 3.012px 12.05px rgba(0,0,0,.06));
+    transition:transform .3s cubic-bezier(.22,.61,.36,1); }
+  @media (hover:hover) { .am-tile:hover { transform:translateY(-5px); } }
+  /* module tiles reuse each module's thumbnail from the modules list page, cropped to a square on its icon */
+  .am-nt { position:relative; display:block; overflow:hidden; --s:72.299; }
+  .am-nt .stg { pointer-events:none; transform:scale(calc(var(--s) / var(--win)));
+    left:calc((var(--s) - var(--sw) * var(--s) / var(--win)) * .5px); top:calc((var(--s) - var(--sh) * var(--s) / var(--win)) * .5px); }
+  @media (max-width:1439px) { .am-nt { --s:56; } }
+  /* names like "Subscriptions" overflow the full-size tile below 1600px: use the compact tile there */
+  @media (max-width:1599px) {
+    .am-grid .am-tile { padding-left:18px !important; padding-right:12px; gap:12px; height:112px; }
+    .am-grid .am-ic { width:56px; height:56px; border-radius:14px; }
+    .am-grid .am-nt { --s:56; }
+    .am-grid .am-t { min-width:0; font-size:16px; line-height:21px; }
+  }
+  .am-ic { width:72.299px; height:72.299px; flex:none; border-radius:18.075px; object-fit:cover; }
+  .am-t { max-width:120.498px; font-family:'Inter',sans-serif; font-weight:700; font-size:19.581px; line-height:25.455px;
+    color:#111; white-space:nowrap; }
+
+  /* the shared Launch CTA, with this frame's copy (163:40622) */
+  .lc-copy { width:475px; }
+
+  /* ── Laptops: hero becomes a three-column grid, cards keep their layout with
+     the media panel scaled ─────────────────────────────────────────────── */
+  @media (max-width:1439px) {
+    .mdh { min-height:0; }
+    .mdh-inner { height:auto; display:grid; grid-template-columns:minmax(0,354px) minmax(0,450px) 235px;
+      justify-content:space-between; align-items:start; column-gap:40px; row-gap:96px; padding:179px 48px 60px; }
+    .mdh-left, .mdh-mid, .mdh-buy, .mdh-req, .mdh-avail { position:static; width:auto; }
+    .mdh-buy { margin-top:77px; }
+    .mdh-art { width:100%; height:auto; aspect-ratio:450/350; }
+    .mdh-req { grid-column:1; align-self:end; }
+    .mdh-avail { grid-column:3 / span 1; justify-self:end; align-self:end; width:max-content; }
+    .mdh-avail .chips { flex-wrap:nowrap; }
+    .fc-media { width:48.27%; height:100%; }
+    .am-band { padding:104px 48px; }
+    .am-head h2 { width:auto; }
+    .am-tile { padding-left:22px !important; gap:16px; height:112px; }
+    .am-ic { width:56px; height:56px; border-radius:14px; }
+    .am-t { font-size:16px; line-height:21px; }
+  }
+  @media (max-width:1279px) {
+    .fc-head, .am-head h2 { font-size:clamp(30px,4.2vw,52px); }
+    .fc-card h3 { font-size:30px; }
+    .fc-card p, .fc-wide .txt p { font-size:18px; }
+    .fc-wide .txt { left:48px; top:56px; width:calc(51.73% - 88px); }
+    .fc-wide h3 { font-size:34px; }
+    .fc-wide .fc-arrow { left:48px; top:auto; bottom:48px; }
+    .am-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+  }
+  /* ── Tablets: everything stacks ─────────────────────────────────────────── */
+  @media (max-width:1023px) {
+    .mdh-inner { grid-template-columns:minmax(0,1fr); row-gap:40px; max-width:640px; padding:150px 32px 56px; }
+    .mdh-buy { margin-top:0; }
+    .mdh-req, .mdh-avail { grid-column:auto; justify-self:start; }
+    .lg-row { grid-template-columns:repeat(4,minmax(0,1fr)); max-width:none; row-gap:12px; }
+    .fc-grid { grid-template-columns:1fr; gap:24px; }
+    .fc-card { height:auto; padding:40px 40px 0; }
+    .fc-card .txt { position:static; }
+    .fc-card p { position:static; width:auto; margin-top:16px; }
+    .fc-thumb { position:relative; left:auto; top:auto; width:min(324px,100%); height:auto; aspect-ratio:324/250.435; margin:32px 0 40px; }
+    .fc-card .fc-arrow { top:auto; bottom:40px; right:40px; }
+    .fc-wide { height:auto; margin-top:24px; }
+    .fc-wide .txt { position:static; width:auto; padding:40px 40px 0; }
+    .fc-wide .fc-arrow { position:relative; left:auto; bottom:auto; margin:28px 40px 40px; }
+    .fc-media { position:relative; width:100%; height:auto; aspect-ratio:723/634; border-radius:0 0 20px 20px; }
+    .am-band { padding:72px 32px; }
+    .am-head { flex-direction:column; align-items:flex-start; gap:16px; }
+    .am-head p { width:auto; font-size:18px; }
+    .am-grid { margin-top:48px; }
+  }
+  /* ── Phones ─────────────────────────────────────────────────────────────── */
+  @media (max-width:640px) {
+    .mdh-inner { padding:120px 20px 48px; }
+    .mdh-left h1 { font-size:30px; }
+    .mdh-left p { font-size:16px; }
+    .mdh-mid h2 { margin-top:24px; font-size:24px; }
+    .mdh-buy, .mdh-buy .b1, .mdh-buy .b2 { width:100%; max-width:300px; }
+    .mdh-req p { font-size:17px; }
+    .mdh-avail .chips { flex-wrap:wrap; }
+    .lg-strip h2 { font-size:20px; }
+    .lg-row { grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+    .fc-card { padding:28px 20px 0; }
+    .fc-card h3, .fc-wide h3 { font-size:26px; }
+    .fc-card p, .fc-wide .txt p { font-size:16px; }
+    .fc-thumb { margin:24px 0 32px; }
+    .fc-arrow { width:60px !important; height:60px !important; }
+    .fc-arrow svg { width:38px; height:37px; }
+    .fc-card .fc-arrow { bottom:28px; right:20px; }
+    .fc-wide .txt { padding:28px 20px 0; }
+    .fc-wide .fc-arrow { margin:20px 20px 28px; }
+    .am-band { padding:56px 20px; border-radius:16px; }
+    .am-head p { font-size:16px; }
+    .am-grid { grid-template-columns:1fr; gap:12px; }
+    .am-tile { height:96px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+  }
+
+  /* ── Module pages: real dokan.co copy varies in length, so the card text
+     flows (the Figma page placed fixed-length lines) and illustrations sit
+     on the card art instead of the Figma screenshots. ───────────────────── */
+  .fc-card .txt h3 { max-width:100%; }
+  .fc-card p { position:static; width:auto; max-width:100%; margin-top:16px; }
+  /* cards keep Figma's 633px at rest but grow with longer real copy: image and
+     arrow stay anchored to the bottom (50.5px), text never runs under them */
+  .fc-card { display:flex; flex-direction:column; height:auto; min-height:633px; padding:50px 50px 50.565px; }
+  .fc-card .txt { position:static; margin-bottom:32px; }
+  .fc-card .fc-thumb { position:relative; left:auto; top:auto; bottom:auto; margin-top:auto; background:#fff; }
+  .fc-card .fc-arrow { top:auto; bottom:50.26px; }
+  .fc-wide { display:flex; flex-direction:column; height:auto; min-height:633px; }
+  .fc-wide .txt { position:static; padding:80px 0 0 80px; margin-bottom:32px; }
+  .fc-wide .fc-arrow { position:relative; left:auto; top:auto; bottom:auto; margin:auto 0 80.26px 80px; flex:none; }
+  .fc-wide .fc-media { height:100%; }
+  @media (max-width:1439px) {
+    .mdh-inner { grid-template-columns:minmax(0,354px) minmax(0,450px) max-content; }
+    .mdh-buy { width:max-content; min-width:235px; }
+  }
+  @media (max-width:1279px) {
+    .fc-wide .txt { padding:56px 0 0 48px; width:calc(51.73% - 40px); }
+    .fc-wide .fc-arrow { margin:auto 0 48px 48px; }
+  }
+  .fc-card .fc-thumb img { object-fit:contain; padding:14px; }
+  .fc-wide .txt { width:min(600px, calc(51.73% - 40px)); }   /* includes the 80px left padding */
+  @media (min-width:1440px) { .fc-wide .txt { width:min(600px, calc(100% - 763px)); } }   /* media is a fixed 723px here: keep the copy 40px clear of it */
+  .fc-wide .txt ul, .fc-card .txt ul { margin:14px 0 0; padding-left:20px; list-style:disc;
+    font-family:'Lato',sans-serif; font-size:18px; line-height:1.5; color:#475569; }
+  .mp-media { background:#E8EBFF url('Media/Module%20Details%20Page/Features/wide-2-bg.png') center/cover no-repeat; }
+  /* the white card hugs the illustration (screenshots stay large, SVGs get a clean base) */
+  .mp-frame { position:absolute; inset:58.51px 48px; display:flex; align-items:center; justify-content:center; }
+  .mp-frame img { display:block; max-width:100%; max-height:100%; object-fit:contain; padding:22px;
+    background:#fff; border-radius:18.631px; box-shadow:0 30px 60px -30px rgba(15,23,42,.35); }
+  a.fc-arrow { cursor:pointer; }
+  .mdh-art { background:#fff; }
+  .mdh-art.is-svg { object-fit:contain; padding:18px; background:#fff; }
+  .mdh-buy.no-price .b1 { margin-top:0; }
+  /* real button labels vary (Buy Now / Browse Packages / Download Free): both buttons grow together */
+  @media (min-width:1440px) { .mdh-buy { width:max-content; min-width:235px; } }
+  .mdh-buy .b1, .mdh-buy .b2 { width:100%; min-width:235px; }
+  /* requirements + plans sit 60px above the hero's bottom, as in Figma, whatever their length */
+  @media (min-width:1440px) { .mdh-req, .mdh-avail { top:auto; bottom:60px; } }
+  .mdh-left h1 { overflow-wrap:break-word; }
+  .am-t { white-space:normal; }
+  a.am-tile { text-decoration:none; }
+  .mdh-avail .chips span.c-starter { background:#FEF3C7; }
+  .mdh-avail .chips span.c-free { background:#E9E5FB; }
+  @media (max-width:1023px) {
+    .fc-card { min-height:0; padding:40px 40px 0; }
+    .fc-card .fc-thumb { position:relative; bottom:auto; margin-top:0; }
+    .fc-card .fc-arrow { bottom:40px; }
+    .fc-wide { min-height:0; }
+    .fc-wide .txt { width:auto; padding:40px 40px 0; margin-bottom:0; }
+    .fc-wide .fc-arrow { margin:28px 40px 40px; }
+    .mdh-inner { grid-template-columns:minmax(0,1fr); }
+    .mp-frame { inset:8% 7%; }
+  }
+
+  /* pf-kit:start ── Feature illustrations: live faux UI (stageshow rules) ──
+     Only the product panel is drawn: no plate behind it, no white frame.
+     Small cards: the panel is pinned to the copy's left edge and runs off the
+     card's bottom. Wide cards: the panel sits on the blue ground, inset from
+     both sides, and runs off the bottom. Designs are 400×290 and 723×634,
+     scaled by the page's [data-sw] helper. */
+  .fc-card .fc-thumb.pf-stage { position:relative; width:min(400px, 100%); height:auto; aspect-ratio:400/290;
+    margin-top:auto; margin-bottom:-50.565px; border-radius:0; overflow:visible; background:transparent; }
+  .fc-card:has(.pf-stage) .txt { margin-bottom:40px; }
+  .pf-media { background:#2F6BFF url('Media/Module%20Details%20Page/Features/wide-2-bg.png') center/cover no-repeat; }
+
+  .pf { position:absolute; inset:0; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
+    font-size:13px; line-height:1.35; color:#111827; -webkit-font-smoothing:antialiased; text-align:left;
+    --ac:#7047EB; --ac-soft:#F1EDFE; --ac-line:#CFC3FA; --line:#ECEEF2; --ink2:#374151; --mute:#6B7280; --faint:#9CA3AF; --bar:#E7E9EE; }
+  .pf * { box-sizing:border-box; }
+  .pf-panel { position:absolute; overflow:hidden; background:#fff; border-radius:12px;
+    box-shadow:0 0 0 1px rgba(50,50,93,.07), 0 24px 48px -24px rgba(50,50,93,.22); }
+  .pf-panel.is-hero { border-radius:14px; box-shadow:0 0 0 1px rgba(0,0,0,.06), 0 30px 60px -12px rgba(20,30,90,.35), 0 18px 36px -18px rgba(0,0,0,.3); }
+  .pf-card { position:absolute; z-index:2; overflow:hidden; background:#fff; border-radius:12px;
+    box-shadow:0 0 0 1px rgba(0,0,0,.06), 0 12px 28px -10px rgba(20,30,90,.28), 0 4px 10px -4px rgba(0,0,0,.12); }
+  .pf-i { width:14px; height:14px; flex:none; }
+  .pf-bar { display:block; flex:none; height:8px; border-radius:4px; background:var(--bar); }
+  .pf-bars { display:flex; flex-direction:column; }
+  .pf-t { font-size:13px; color:var(--ink2); white-space:nowrap; }
+  .pf-t.muted { color:var(--mute); } .pf-t.b { font-weight:600; color:#111827; } .pf-t.ac { color:var(--ac); font-weight:600; }
+
+  .pf-head { display:flex; align-items:center; gap:12px; height:58px; padding:0 16px; border-bottom:1px solid var(--line); background:#FAFAFB; }
+  .pf-head.is-tall { height:68px; padding:0 20px; }
+  .pf-tt { flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:6px; }
+  .pf-tt b { font-size:14px; font-weight:600; color:#111827; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .pf-head.is-tall .pf-tt b { font-size:15px; }
+  .pf-tt small { font-size:12.5px; color:var(--mute); white-space:nowrap; }
+  .pf-btn { flex:none; display:inline-flex; align-items:center; justify-content:center; gap:6px; height:30px; padding:0 12px; border-radius:8px; background:#fff;
+    box-shadow:inset 0 0 0 1px #DDE0E6; font-size:12.5px; font-weight:600; color:var(--ink2); white-space:nowrap; }
+  .pf-btn.open { background:var(--ac-soft); color:var(--ac); box-shadow:inset 0 0 0 1px var(--ac-line); }
+  .pf-btn.primary { background:var(--ac); color:#fff; box-shadow:none; }
+  .pf-btn.ghost { background:transparent; box-shadow:none; color:var(--ac); padding:0 4px; }
+  .pf-ib { flex:none; display:grid; place-items:center; width:28px; height:28px; border-radius:7px; color:var(--faint); box-shadow:inset 0 0 0 1px var(--line); background:#fff; }
+  .pf-ib.on { color:var(--ac); background:var(--ac-soft); box-shadow:inset 0 0 0 1px var(--ac-line); }
+  .pf-ib.plain { box-shadow:none; background:transparent; }
+
+  .pf-tg { position:relative; flex:none; width:30px; height:18px; border-radius:9px; background:#D5D8DE; }
+  .pf-tg::after { content:''; position:absolute; left:2px; top:2px; width:14px; height:14px; border-radius:50%; background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.2); }
+  .pf-tg.on { background:var(--ac); }
+  .pf-tg.on::after { left:14px; }
+  .pf-chk { flex:none; display:grid; place-items:center; width:16px; height:16px; border-radius:4px; box-shadow:inset 0 0 0 1.5px #C9CDD4; background:#fff; color:#fff; }
+  .pf-chk.on { background:var(--ac); box-shadow:none; }
+  .pf-chk .pf-i { width:12px; height:12px; stroke-width:3; }
+  .pf-rad { flex:none; width:16px; height:16px; border-radius:50%; box-shadow:inset 0 0 0 1.5px #C9CDD4; background:#fff; }
+  .pf-rad.on { box-shadow:inset 0 0 0 5px var(--ac); }
+
+  .pf-grid { display:grid; grid-template-columns:minmax(0,1fr) 56px 60px 28px; column-gap:10px; align-items:center; padding:0 16px; }
+  .pf-w .pf-grid { padding:0 20px; column-gap:12px; }
+  .pf-colh { height:34px; border-bottom:1px solid var(--line); font-size:12px; color:var(--mute); }
+  .pf-row { height:50px; border-bottom:1px solid var(--line); }
+  .pf-w .pf-row { height:56px; }
+  .pf-row.is-sel { background:#FBFAFF; }
+  .pf-row.is-off .pf-name { color:var(--faint); }
+  .pf-name { font-size:13px; font-weight:500; color:#111827; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .pf-w .pf-name { font-size:14px; }
+  .pf-name.is-muted { color:var(--faint); }
+
+  .pf-field { position:relative; display:flex; align-items:center; gap:8px; height:36px; padding:0 12px; border-radius:8px; background:#fff;
+    box-shadow:inset 0 0 0 1px #D9DCE2; font-size:13px; color:#111827; white-space:nowrap; }
+  .pf-field .pf-ft { flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; display:flex; align-items:center; }
+  .pf-field.is-ph .pf-ft { color:var(--faint); }
+  .pf-field > .pf-i { color:var(--mute); }
+  .pf-row .pf-field { height:32px; margin-left:-8px; padding:0 8px; }
+  .pf-field.is-focus { box-shadow:inset 0 0 0 1.5px var(--ac), 0 0 0 3px rgba(112,71,235,.16); }
+  .pf-caret { display:inline-block; flex:none; width:1.5px; height:15px; margin-left:1px; background:var(--ac); }
+  .pf-field em { flex:none; font-style:normal; font-size:12px; color:var(--faint); }
+  .pf-body { padding:20px 24px 0; }
+  .pf-s .pf-body { padding:18px 18px 0; }
+  .pf-lbl { margin:0 0 8px; font-size:12.5px; font-weight:600; color:var(--ink2); }
+  .pf-field + .pf-lbl, .pf-pop + .pf-lbl, .pf-list + .pf-lbl, .pf-kv + .pf-lbl { margin-top:18px; }
+  .pf-lbl .pf-bar { margin-top:4px; }
+  .pf-field .pf-bar { background:#EEF0F3; }
+
+  .pf-menu { position:absolute; z-index:3; display:flex; flex-direction:column; padding:6px; border-radius:10px; background:#fff;
+    box-shadow:0 0 0 1px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.12), 0 12px 32px rgba(0,0,0,.08); }
+  .pf-menu span { display:flex; align-items:center; gap:10px; height:32px; padding:0 10px; border-radius:6px; font-size:13px; color:var(--ink2); white-space:nowrap; }
+  .pf-menu span .pf-i { color:var(--mute); }
+  .pf-menu span.is-hover { background:var(--ac-soft); color:var(--ac); }
+  .pf-menu span.is-hover .pf-i { color:var(--ac); }
+  .pf-pop { margin-top:6px; padding:6px; border-radius:10px; background:#fff;
+    box-shadow:0 0 0 1px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.1), 0 12px 32px rgba(0,0,0,.06); }
+  .pf-pop span { display:flex; align-items:center; justify-content:space-between; height:34px; padding:0 10px; border-radius:6px; font-size:13px; color:var(--ink2); }
+  .pf-pop span.is-sel { background:var(--ac-soft); color:var(--ac); font-weight:600; }
+
+  .pf-list { border-radius:10px; box-shadow:inset 0 0 0 1px var(--line); }
+  .pf-list > div { display:flex; align-items:center; justify-content:space-between; gap:10px; height:44px; padding:0 14px; border-bottom:1px solid var(--line); font-size:13px; }
+  .pf-list > div:last-child { border-bottom:0; }
+  .pf-list span { font-weight:500; color:#111827; }
+  .pf-list em { font-style:normal; font-size:12px; color:var(--mute); padding:3px 8px; border-radius:6px; background:#F3F4F6; }
+
+  .pf-chip { flex:none; display:inline-flex; align-items:center; gap:5px; height:22px; padding:0 9px; border-radius:999px; font-size:11.5px; font-weight:600; white-space:nowrap; }
+  .pf-chip .pf-i { width:12px; height:12px; }
+  .pf-chip.gray { background:#F3F4F6; color:#4B5563; } .pf-chip.green { background:#DCFCE7; color:#15803D; }
+  .pf-chip.amber { background:#FEF3C7; color:#B45309; } .pf-chip.red { background:#FEE2E2; color:#B91C1C; }
+  .pf-chip.blue { background:#DBEAFE; color:#1D4ED8; } .pf-chip.purple { background:var(--ac-soft); color:var(--ac); }
+  .pf-av { flex:none; display:grid; place-items:center; border-radius:50%; color:#fff; font-weight:600; }
+  .pf-stars { display:inline-flex; gap:2px; color:#D1D5DB; }
+  .pf-stars i { display:flex; } .pf-stars i.on { color:#F59E0B; }
+  .pf-stars .pf-i { width:13px; height:13px; fill:currentColor; stroke:none; }
+  .pf-logo { display:block; width:auto; flex:none; }
+  /* the module pages size every .fc-thumb img for the old screenshots; undo that inside the kit */
+  .fc-card .fc-thumb.pf-stage img { width:auto; height:auto; padding:0; border-radius:0; object-fit:contain; background:none; }
+  /* chips and buttons in a grid cell keep their own width */
+  .pf-grid > .pf-chip, .pf-grid > .pf-btn, .pf-grid > .pf-tabs { justify-self:start; }
+  .pf-th { flex:none; display:grid; place-items:center; border-radius:8px; }
+  .pf-th .pf-i { width:45%; height:45%; stroke-width:1.6; }
+  .pf-th.purple { background:#F1EDFE; color:#7047EB; } .pf-th.blue { background:#E0EDFF; color:#2563EB; }
+  .pf-th.green { background:#DCFCE7; color:#15803D; } .pf-th.amber { background:#FEF3C7; color:#B45309; }
+  .pf-th.pink { background:#FCE7F3; color:#BE185D; } .pf-th.gray { background:#F3F4F6; color:#6B7280; }
+  .pf-prog { display:block; height:6px; border-radius:3px; background:#EEF0F3; overflow:hidden; }
+  .pf-prog i { display:block; height:100%; border-radius:3px; background:var(--ac); }
+  .pf-prog.green i { background:#22C55E; }
+
+  .pf-kv { border-radius:10px; box-shadow:inset 0 0 0 1px var(--line); overflow:hidden; }
+  .pf-kvh { padding:10px 14px; background:#FAFAFB; border-bottom:1px solid var(--line); font-size:13px; font-weight:600; color:#111827; }
+  .pf-kv > div:not(.pf-kvh) { display:grid; grid-template-columns:110px minmax(0,1fr); align-items:center; padding:9px 14px; border-bottom:1px solid var(--line); font-size:13px; }
+  .pf-kv > div:last-child { border-bottom:0; }
+  .pf-kv span { color:var(--mute); }
+  .pf-kv b { font-weight:500; color:#111827; display:flex; align-items:center; gap:6px; }
+  .pf-stat { display:flex; flex-direction:column; gap:4px; }
+  .pf-stat span { font-size:12px; color:var(--mute); }
+  .pf-stat b { font-size:24px; font-weight:600; letter-spacing:-.01em; color:#111827; }
+  .pf-stat em { font-style:normal; font-size:12px; font-weight:600; }
+  .pf-stat em.up { color:#16A34A; } .pf-stat em.down { color:#DC2626; }
+  .pf-msg { display:flex; flex-direction:column; align-items:flex-start; gap:4px; max-width:78%; }
+  .pf-msg p { margin:0; padding:9px 12px; border-radius:14px 14px 14px 4px; background:#F3F4F6; font-size:13px; line-height:1.4; color:#111827; }
+  .pf-msg.me { align-self:flex-end; align-items:flex-end; }
+  .pf-msg.me p { border-radius:14px 14px 4px 14px; background:var(--ac); color:#fff; }
+  .pf-msg small { font-size:11px; color:var(--faint); }
+  .pf-toast { position:absolute; z-index:3; display:flex; align-items:center; gap:8px; padding:10px 14px; border-radius:10px; background:#111827; color:#fff; font-size:13px; font-weight:500;
+    box-shadow:0 12px 28px -10px rgba(0,0,0,.45); white-space:nowrap; }
+  .pf-toast .pf-i { color:#4ADE80; width:16px; height:16px; }
+  .pf-tabs { display:inline-flex; gap:2px; padding:3px; border-radius:9px; background:#F3F4F6; }
+  .pf-tabs span { padding:5px 12px; border-radius:7px; font-size:12.5px; font-weight:500; color:var(--mute); white-space:nowrap; }
+  .pf-tabs span.on { background:#fff; color:#111827; box-shadow:0 1px 2px rgba(0,0,0,.08); }
+  .pf-chartb rect { fill:#E4DDFC; } .pf-chartb rect.hl { fill:var(--ac); }
+  .pf-chartl .l { fill:none; stroke:var(--ac); stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round; }
+  .pf-chartl .a { fill:rgba(112,71,235,.10); } .pf-chartl .d { fill:#fff; stroke:var(--ac); stroke-width:2.5; }
+
+  /* wide cards: the whole illustration (panel, pointer, menus, satellites) is scaled into a box
+     inset ~20% from each side and ~17% from top and bottom of the 723x634 stage. Designs place the
+     panel at (84,96) 555 wide; s = 441/555 maps it to (141,108) 441 wide, and the panel is capped
+     so it ends 108px above the stage's foot, its last rows fading into the panel. */
+  .pf-w { transform-origin:0 0; transform:translate(74.2px, 31.7px) scale(.7946); }
+  .pf-w > .pf-panel { max-height:526px; }
+  .pf-w > .pf-panel::after { content:''; position:absolute; left:0; right:0; bottom:0; height:64px; pointer-events:none;
+    background:linear-gradient(rgba(255,255,255,0), #fff 85%); }
+  .pf-curw { position:absolute; z-index:4; }
+  .pf-cur { display:block; width:100%; height:100%; filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.25)); }
+
+  @media (max-width:1023px) {
+    .fc-card .fc-thumb.pf-stage { width:min(400px, 100%); margin:0; }
+    .fc-card:has(.pf-stage) { padding-bottom:0; }
+    .fc-card:has(.pf-stage) .txt { margin-bottom:32px; }
+  }
+  @media (max-width:640px) {
+    .fc-card .fc-thumb.pf-stage { width:100%; }
+    .fc-card:has(.pf-stage) .txt { margin-bottom:24px; }
+  }
+  /* pf-kit:end */
+</style>
+</head>
+<body class="font-body">
+<header class="mdh">
+  <div id="site-nav" data-variant="dark" data-top="36"></div>
+  <div class="mdh-inner">
+    <div class="mdh-left" data-anim>
+      <h1>Get Returning Customers With Follow Store Module</h1>
+      <p>Following your favorite vendor store is now easier than ever with the Dokan Follow Store module. It helps keep the customer updated about the vendor.</p>
+    </div>
+    <div class="mdh-mid" data-anim>
+      <img class="mdh-art" src="Media/Modules/follow-store/banner.png" width="450" height="350" alt="Follow Store" />
+      <h2>Follow Store</h2>
+    </div>
+    <div class="mdh-buy no-price" data-anim>
+      <a href="https://dokan.co/wordpress/pricing/" class="b1" target="_blank" rel="noopener">Browse Packages
+        <span class="circle"><svg viewBox="0 0 22.9815 22.9815" fill="none" aria-hidden="true"><path d="M6.3199 2.87269L3.73448 6.31991V18.3852C3.73448 18.8423 3.91607 19.2807 4.23931 19.604C4.56255 19.9272 5.00096 20.1088 5.45809 20.1088H17.5234C17.9805 20.1088 18.4189 19.9272 18.7421 19.604C19.0654 19.2807 19.247 18.8423 19.247 18.3852V6.31991L16.6616 2.87269H6.3199Z" stroke="#7047EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.73448 6.32012H19.247" stroke="#7047EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14.9379 9.76732C14.9379 10.6816 14.5747 11.5584 13.9282 12.2049C13.2817 12.8514 12.4049 13.2145 11.4906 13.2145C10.5764 13.2145 9.69957 12.8514 9.05309 12.2049C8.40661 11.5584 8.04342 10.6816 8.04342 9.76732" stroke="#7047EB" stroke-width="2.43333" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <a href="demo.html" class="b2">Try Demo</a>
+    </div>
+    <div class="mdh-req" data-anim>
+      <b>Requirements:</b>
+      <p>WooCommerce, Dokan Pro</p>
+      <div class="lnk"><a href="https://app.dokan.co/support/create" target="_blank" rel="noopener">Support</a><a href="https://dokan.co/docs/wordpress/modules/follow-store/" target="_blank" rel="noopener">Documentation</a></div>
+    </div>
+    <div class="mdh-avail" data-anim>
+      <b>Available in</b>
+      <div class="chips">
+        <span class="" style="background:#FECECE">Professional</span>
+        <span class="" style="background:#CEFEDD">Business</span>
+        <span class="" style="background:#CEE2FE">Enterprise</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Featured All Over the World (163:40773) -->
+<section class="bg-white lg-strip" style="padding-top:100px">
+  <div class="wrap" data-anim>
+    <h2>Featured All Over the World.</h2>
+    <div class="fw-marquee lg-marquee"><div class="lg-row fw-row">
+      <div class="lg-tile" style="--a:194.902/101.216"><img src="Media/Module%20Details%20Page/Logos/web-cusp.png" alt="Web Cusp" loading="lazy" style="left:17.311%;top:30.433%;width:66.447%;height:39.563%" /></div>
+      <div class="lg-tile" style="--a:194.902/101.216"><img src="Media/Module%20Details%20Page/Logos/learnwoo.png" alt="LearnWoo" loading="lazy" style="left:17.311%;top:36.229%;width:66.447%;height:28.077%" /></div>
+      <div class="lg-tile" style="--a:194.902/101.216"><img src="Media/Module%20Details%20Page/Logos/wbcom-designs.png" alt="Wbcom Designs" loading="lazy" style="left:23.330%;top:33.334%;width:53.948%;height:31.906%" /></div>
+      <div class="lg-tile" style="--a:194.902/101.216"><img src="Media/Module%20Details%20Page/Logos/ostraining.png" alt="OSTraining" loading="lazy" style="left:13.545%;top:37.682%;width:73.026%;height:24.248%" /></div>
+      <div class="lg-tile" style="--a:194.556/101.216"><img src="Media/Module%20Details%20Page/Logos/top-notch-themes.png" alt="Top Notch Themes" loading="lazy" style="left:14.325%;top:36.229%;width:70.520%;height:28.077%" /></div>
+      <div class="lg-tile" style="--a:143.266/101.216"><img src="Media/Module%20Details%20Page/Logos/wp-mayor.png" alt="WP Mayor" loading="lazy" style="left:31.738%;top:24.640%;width:36.695%;height:49.773%" /></div>
+      <div class="lg-tile" style="--a:194.556/101.216"><img src="Media/Module%20Details%20Page/Logos/wbcom-designs.png" alt="Wbcom Designs" loading="lazy" style="left:23.371%;top:33.334%;width:54.044%;height:31.906%" /></div>
+    </div></div>
+  </div>
+</section>
+
+<section class="bg-white pt-[216px]">
+  <div class="wrap">
+    <h2 class="fc-head" data-anim>Dokan Plugin</h2>
+    <div class="fc-grid">
+      <article class="fc-card" data-anim>
+        <div class="txt">
+          <h3>Daily News Updates About Store via Email</h3>
+          <p>This module can help your customers to get email updates about your store without any hassle. It boosts sales and better customer engagement.</p>
+        </div>
+        <div class="fc-thumb pf-stage" data-sw="400" data-sh="290"><div class="stg" style="--sw:400;--sh:290"><div class="pf pf-s" aria-hidden="true"><div class="pf-panel " style="left:0px;top:0px;width:400px;height:340px;"><div class="pf-head"><span class="pf-av" style="width:32px;height:32px;background:#EC4899;font-size:13px">NG</span><div class="pf-tt"><b>Northwind Goods</b><small>Daily store update · 8:00 AM</small></div><span class="pf-ib plain"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span></div><div class="pf-body"><div class="pf-t b" style="display:block;font-size:16px;margin-bottom:8px">3 new arrivals today</div><span class="pf-bar " style="width:210px"></span><div style="height:6px"></div><div style="display:flex;align-items:center;gap:12px;height:62px;border-bottom:1px solid var(--line)"><span class="pf-th purple" style="width:42px;height:42px"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg></span><div style="flex:1;display:flex;flex-direction:column;gap:6px"><span class="pf-name">Linen overshirt</span><span class="pf-bar " style="width:70px"></span></div><span class="pf-t b">$48.00</span></div><div style="display:flex;align-items:center;gap:12px;height:62px;border-bottom:1px solid var(--line)"><span class="pf-th blue" style="width:42px;height:42px"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"/></svg></span><div style="flex:1;display:flex;flex-direction:column;gap:6px"><span class="pf-name">Canvas tote</span><span class="pf-bar " style="width:70px"></span></div><span class="pf-t b">$32.00</span></div><div style="display:flex;align-items:center;gap:12px;height:62px;border-bottom:1px solid var(--line)"><span class="pf-th amber" style="width:42px;height:42px"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></span><div style="flex:1;display:flex;flex-direction:column;gap:6px"><span class="pf-bar " style="width:96px"></span><span class="pf-bar " style="width:70px"></span></div><span class="pf-bar " style="width:40px"></span></div></div></div></div></div></div>
+      </article>
+      <article class="fc-card" data-anim>
+        <div class="txt">
+          <h3>Follow Favorite Vendors Right From the Frontend</h3>
+          <p>Your customers can follow vendors of their likes with one click. It helps to enhance customer loyalty with more and more returning customers.</p>
+        </div>
+        <div class="fc-thumb pf-stage" data-sw="400" data-sh="290"><div class="stg" style="--sw:400;--sh:290"><div class="pf pf-s" aria-hidden="true"><div class="pf-panel " style="left:0px;top:0px;width:400px;height:340px;"><div style="height:64px;background:#F3F4F6;border-bottom:1px solid var(--line)"></div><div style="display:flex;align-items:flex-end;gap:12px;padding:0 18px;margin-top:-26px"><span style="border-radius:50%;box-shadow:0 0 0 3px #fff"><span class="pf-av" style="width:56px;height:56px;background:#EC4899;font-size:22px">NG</span></span><div style="flex:1;display:flex;flex-direction:column;gap:5px;padding-bottom:2px"><span class="pf-t b" style="font-size:15px">Northwind Goods</span><span style="display:flex;align-items:center;gap:6px"><span class="pf-stars"><i class="on"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg></i><i class="on"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg></i><i class="on"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg></i><i class="on"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg></i><i class="on"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg></i></span><span class="pf-t muted">1,284 followers</span></span></div><span style="padding-bottom:4px"><span class="pf-btn primary"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Follow</span></span></div><div style="padding:16px 18px 0"><div class="pf-tabs"><span class="on">Products</span><span class="">Reviews</span><span class="">About</span></div></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:14px 18px 0"><div style="display:flex;flex-direction:column;gap:7px"><span class="pf-th purple" style="width:100%;height:92px;border-radius:9px"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg></span><span class="pf-bar " style="width:74px"></span><span class="pf-bar " style="width:36px"></span></div><div style="display:flex;flex-direction:column;gap:7px"><span class="pf-th blue" style="width:100%;height:92px;border-radius:9px"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"/></svg></span><span class="pf-bar " style="width:58px"></span><span class="pf-bar " style="width:36px"></span></div><div style="display:flex;flex-direction:column;gap:7px"><span class="pf-th amber" style="width:100%;height:92px;border-radius:9px"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></span><span class="pf-bar " style="width:80px"></span><span class="pf-bar " style="width:36px"></span></div><div style="display:flex;flex-direction:column;gap:7px"><span class="pf-th pink" style="width:100%;height:92px;border-radius:9px"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span><span class="pf-bar " style="width:66px"></span><span class="pf-bar " style="width:36px"></span></div><div style="display:flex;flex-direction:column;gap:7px"><span class="pf-th green" style="width:100%;height:92px;border-radius:9px"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></span><span class="pf-bar " style="width:54px"></span><span class="pf-bar " style="width:36px"></span></div><div style="display:flex;flex-direction:column;gap:7px"><span class="pf-th gray" style="width:100%;height:92px;border-radius:9px"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg></span><span class="pf-bar " style="width:70px"></span><span class="pf-bar " style="width:36px"></span></div></div></div><span class="pf-curw" style="left:336.5px;top:72.8px;width:24px;height:24px"><svg class="pf-cur" viewBox="0 0 32 32" fill="none" aria-hidden="true"><g transform="translate(10 7)"><path d="m6.148 18.473 1.863-1.003 1.615-.839-2.568-4.816h4.332l-11.379-11.408v16.015l3.316-3.221z" fill="#fff"/><path d="m6.431 17 1.765-.941-2.775-5.202h3.604l-8.025-8.043v11.188l2.53-2.442z" fill="#000"/></g></svg></span></div></div></div>
+      </article>
+    </div>
+
+    <article class="fc-wide" data-anim>
+      <div class="txt">
+        <h3>Know About the Latest Product Updates</h3>
+          <p>With this, your customers can get updates about new product additions of the following vendor. It helps to sell new products and show off the latest updates of the store.</p>
+      </div>
+      <div class="fc-media mp-media pf-media" data-sw="723" data-sh="634" data-cover><div class="stg" style="--sw:723;--sh:634"><div class="pf pf-w" aria-hidden="true"><div class="pf-panel is-hero " style="left:84px;top:96px;width:555px;height:600px;"><div class="pf-head is-tall"><span class="pf-ib on"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7"/></svg></span><div class="pf-tt"><b>New from stores you follow</b><small>Updated today</small></div><div class="pf-tabs"><span class="on">Updates</span><span class="">Stores</span></div></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:20px 20px 0"><div style="display:flex;flex-direction:column;gap:7px"><span class="pf-th purple" style="width:100%;height:128px;border-radius:10px;position:relative;margin-bottom:3px"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg><span style="position:absolute;left:10px;top:10px"><span class="pf-chip purple">New</span></span></span><span class="pf-t muted">Northwind Goods</span><span class="pf-name">Linen overshirt</span><span class="pf-t b">$48.00</span></div><div style="display:flex;flex-direction:column;gap:7px"><span class="pf-th pink" style="width:100%;height:128px;border-radius:10px;position:relative;margin-bottom:3px"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span style="position:absolute;left:10px;top:10px"><span class="pf-chip purple">New</span></span></span><span class="pf-t muted">Maya's Ceramics</span><span class="pf-name">Stoneware mug</span><span class="pf-t b">$18.00</span></div><div style="display:flex;flex-direction:column;gap:7px"><span class="pf-th blue" style="width:100%;height:128px;border-radius:10px;position:relative;margin-bottom:3px"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"/></svg><span style="position:absolute;left:10px;top:10px"><span class="pf-chip purple">New</span></span></span><span class="pf-bar " style="width:64px"></span><span class="pf-bar " style="width:96px"></span><span class="pf-bar " style="width:40px"></span></div><div style="display:flex;flex-direction:column;gap:7px"><span class="pf-th amber" style="width:100%;height:128px;border-radius:10px;position:relative;margin-bottom:3px"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></span><span class="pf-bar " style="width:84px"></span><span class="pf-bar " style="width:36px"></span></div><div style="display:flex;flex-direction:column;gap:7px"><span class="pf-th green" style="width:100%;height:128px;border-radius:10px;position:relative;margin-bottom:3px"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></span><span class="pf-bar " style="width:72px"></span><span class="pf-bar " style="width:44px"></span></div><div style="display:flex;flex-direction:column;gap:7px"><span class="pf-th gray" style="width:100%;height:128px;border-radius:10px;position:relative;margin-bottom:3px"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg></span><span class="pf-bar " style="width:90px"></span><span class="pf-bar " style="width:38px"></span></div></div></div></div></div></div>
+    </article>
+
+    <article class="fc-wide" data-anim>
+      <div class="txt">
+        <h3>Learn About the Latest Offers</h3>
+          <p>Finally, your customers can learn about the discount and other offers to them from the following vendors. It may help you to increase the number of offer opt-ins and sales by keeping the followers updated.</p>
+      </div>
+      <div class="fc-media mp-media pf-media" data-sw="723" data-sh="634" data-cover><div class="stg" style="--sw:723;--sh:634"><div class="pf pf-w" aria-hidden="true"><div class="pf-panel is-hero " style="left:84px;top:96px;width:555px;height:600px;"><div class="pf-head is-tall"><span class="pf-ib on"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg></span><div class="pf-tt"><b>Offers for you</b><small>From stores you follow</small></div><span class="pf-btn ">All offers</span></div><div style="display:flex;align-items:center;gap:14px;height:76px;padding:0 20px;border-bottom:1px solid var(--line);background:#FBFAFF"><span class="pf-av" style="width:40px;height:40px;background:#7047EB;font-size:16px">MC</span><div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px"><span class="pf-name">Maya's Ceramics</span><span class="pf-t muted">20% off all mugs · ends Sunday</span></div><span class="pf-chip purple" style="height:26px;letter-spacing:.04em">WEEKEND20</span><span class="pf-btn open"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>Copy code</span></div><div style="display:flex;align-items:center;gap:14px;height:76px;padding:0 20px;border-bottom:1px solid var(--line)"><span class="pf-av" style="width:40px;height:40px;background:#EC4899;font-size:16px">NG</span><div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px"><span class="pf-name">Northwind Goods</span><span class="pf-t muted">Free shipping on orders over $50</span></div><span class="pf-chip gray" style="height:26px;letter-spacing:.04em">SHIPFREE</span><span class="pf-btn "><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>Copy code</span></div><div style="display:flex;align-items:center;gap:14px;height:76px;padding:0 20px;border-bottom:1px solid var(--line)"><span class="pf-av" style="width:40px;height:40px;background:#EEF0F3"></span><div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px"><span class="pf-bar " style="width:110px"></span><span class="pf-bar " style="width:170px"></span></div><span class="pf-bar " style="width:70px"></span><span class="pf-ib "><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></span></div><div style="display:flex;align-items:center;gap:14px;height:76px;padding:0 20px;border-bottom:1px solid var(--line)"><span class="pf-av" style="width:40px;height:40px;background:#EEF0F3"></span><div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px"><span class="pf-bar " style="width:92px"></span><span class="pf-bar " style="width:150px"></span></div><span class="pf-bar " style="width:70px"></span><span class="pf-ib "><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></span></div><div style="display:flex;align-items:center;gap:14px;height:76px;padding:0 20px;border-bottom:1px solid var(--line)"><span class="pf-av" style="width:40px;height:40px;background:#EEF0F3"></span><div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px"><span class="pf-bar " style="width:124px"></span><span class="pf-bar " style="width:186px"></span></div><span class="pf-bar " style="width:70px"></span><span class="pf-ib "><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></span></div><div style="display:flex;align-items:center;gap:14px;height:76px;padding:0 20px;border-bottom:1px solid var(--line)"><span class="pf-av" style="width:40px;height:40px;background:#EEF0F3"></span><div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px"><span class="pf-bar " style="width:100px"></span><span class="pf-bar " style="width:140px"></span></div><span class="pf-bar " style="width:70px"></span><span class="pf-ib "><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></span></div><div style="display:flex;align-items:center;gap:14px;height:76px;padding:0 20px;border-bottom:1px solid var(--line)"><span class="pf-av" style="width:40px;height:40px;background:#EEF0F3"></span><div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px"><span class="pf-bar " style="width:116px"></span><span class="pf-bar " style="width:160px"></span></div><span class="pf-bar " style="width:70px"></span><span class="pf-ib "><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></span></div></div><div class="pf-toast" style="left:300px;top:556px"><svg class="pf-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>Code copied</span></div><span class="pf-curw" style="left:569.2px;top:205.9px;width:28px;height:28px"><svg class="pf-cur" viewBox="0 0 32 32" fill="none" aria-hidden="true"><g transform="translate(10 7)"><path d="m6.148 18.473 1.863-1.003 1.615-.839-2.568-4.816h4.332l-11.379-11.408v16.015l3.316-3.221z" fill="#fff"/><path d="m6.431 17 1.765-.941-2.775-5.202h3.604l-8.025-8.043v11.188l2.53-2.442z" fill="#000"/></g></svg></span></div></div></div>
+    </article>
+  </div>
+</section>
+
+<section class="bg-white pt-[216px]">
+  <div class="cta-wrap">
+    <div class="am-band" data-anim>
+      <img class="am-bg" src="Media/Module%20Details%20Page/Additional%20Modules/band-bg.png" alt="" loading="lazy" />
+      <div class="am-head">
+        <h2>Additional Modules<br />You Will Be Getting</h2>
+        <p>Check out these awesome modules that you will get with our Business Package</p>
+      </div>
+      <div class="am-grid" data-stagger>
+        <a class="am-tile" href="module-vendor-staff-manager.html" title="Help Vendors appoint unlimited staff to manage their stores."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/vendor-staff-manager.svg">
+          </div></span></span><span class="am-t">Vendor Staff Manager</span></a>
+        <a class="am-tile" href="module-live-chat.html" title="Let your Vendors and customers chat with the Live Chat module."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.18px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/live-chat.svg">
+          </div></span></span><span class="am-t">Live Chat</span></a>
+        <a class="am-tile" href="module-export-import.html" title="Let Vendors Export / Import products right from the frontend."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.18px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/export-import.svg">
+          </div></span></span><span class="am-t">Export Import</span></a>
+        <a class="am-tile" href="module-vendor-vacation.html" title="Allow Vendors to make their products unavailable temporarily."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/vendor-vacation.svg">
+          </div></span></span><span class="am-t">Vendor Vacation</span></a>
+        <a class="am-tile" href="module-product-enquiry.html" title="Allow the Visitors and Customers to inquire about products."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-enquiry.svg">
+          </div></span></span><span class="am-t">Product Enquiry</span></a>
+        <a class="am-tile" href="module-vendor-review.html" title="Add the ability for customers to post Reviews for your Vendors."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.18px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/vendor-review.svg">
+          </div></span></span><span class="am-t">Vendor Review</span></a>
+        <a class="am-tile" href="module-subscriptions.html" title="Create highly customized subscription packs and charge vendors as you like."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="-translate-x-1/2 -translate-y-1/2 absolute bg-[#28c163] h-[77.864px] left-[calc(50%+0.47px)] rounded-[11.979px] top-[calc(50%+0.48px)] w-[103.819px]">
+            <div class="absolute bg-white h-[9.983px] left-[9.98px] rounded-[1.997px] top-[11.98px] w-[75.868px]"></div>
+          </div></span></span><span class="am-t">Subscriptions</span></a>
+        <a class="am-tile" href="module-store-support.html" title="Provide Vendors with a ticket-based support system."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/store-support.svg">
+          </div></span></span><span class="am-t">Store Support</span></a>
+        <a class="am-tile" href="module-stripe-connect.html" title="Famous for its low fees, use Stripe to all handle all your payments."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[66.77px]">
+            <div class="absolute contents left-[90.01px] top-[66.93px]">
+              <div class="absolute h-[70.879px] left-[90.01px] overflow-clip top-[66.93px] w-[170.3px]">
+                <div class="absolute inset-[0_0_0.03%_0]">
+                  <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/stripe-connect.svg">
+                </div>
+              </div>
+            </div>
+            <div class="absolute bg-[#635bff] content-stretch flex h-[19.568px] items-center justify-center left-[189.27px] px-[15.936px] py-[3.984px] rounded-[47.807px] top-[137.71px] w-[71.945px]">
+              <p class="[word-break:break-word] font-['Inter',sans-serif] font-semibold leading-[normal] not-italic relative shrink-0 text-[9.561px] text-white whitespace-nowrap">
+                Connect
+              </p>
+            </div>
+          </div></span></span><span class="am-t">Stripe Connect</span></a>
+        <a class="am-tile" href="module-single-product-multivendor.html" title="Allow Vendors to sell another Vendor’s product."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[63.96px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/single-product-multivendor.svg">
+          </div></span></span><span class="am-t">Single Product Multivendor</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="lc-shell">
+  <div class="lc-band">
+    <svg class="lc-waves" preserveAspectRatio="none" viewBox="0 0 1000 500" fill="none" stroke="#FFFFFF" stroke-width="2" aria-hidden="true">
+      <path d="M-40 430 C 240 340 620 380 1050 210"/><path d="M-40 500 C 280 410 640 440 1050 300"/>
+      <path d="M-40 360 C 240 280 620 320 1050 140"/><path d="M-40 290 C 240 220 620 260 1050 80"/>
+    </svg>
+    <div class="lc-copy">
+      <div class="lc-top">
+        <h2 class="lc-title">Get Started<br />with Dokan</h2>
+        <p class="lc-text">We are here to provide you with the right tools, but it is You who must believe in your ability and start.</p>
+      </div>
+      <div class="lc-actions">
+        <a href="#" class="lc-btn">Get Started Now
+          <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+    <img class="lc-art" src="Media/footer/Launch%20Your.png" width="1356" height="1186" alt="Dokani storefront built with Dokan" loading="lazy" />
+  </div>
+</section>
+
+<script>
+  /* Scale fixed-size Figma artwork to its box: --k = width / design width;
+     data-cover boxes scale to cover and centre (like object-fit:cover). */
+  (function () {
+    var boxes = document.querySelectorAll('[data-sw]');
+    function fit(el) {
+      var sw = parseFloat(el.dataset.sw), sh = parseFloat(el.dataset.sh || 0), w = el.offsetWidth, h = el.offsetHeight;
+      var k = w / sw;
+      if (el.hasAttribute('data-cover') && sh) {
+        k = Math.max(w / sw, h / sh);
+        el.style.setProperty('--x', ((w - sw * k) / 2) + 'px');
+        el.style.setProperty('--y', ((h - sh * k) / 2) + 'px');
+      }
+      el.style.setProperty('--k', k);
+    }
+    if ('ResizeObserver' in window) {
+      var ro = new ResizeObserver(function (es) { es.forEach(function (e) { fit(e.target); }); });
+      boxes.forEach(function (el) { ro.observe(el); });
+    } else { boxes.forEach(fit); }
+  })();
+</script>
+
+<footer class="bg-black text-white">
+  <div class="wrap pt-[90px] pb-[40px]">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-10 gap-y-14">
+      <!-- col 1 -->
+      <div>
+        <a href="#" class="inline-block mb-9">
+          <img src="Media/Dokan%20Logos/Dokan%20Logo-Dark%20Footer.svg" alt="Dokan"
+               width="139" height="38" class="w-[139px] h-[38px]" />
+        </a>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="About Us|Brand Assets|Changelog|Contact Us|Career"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Use Cases</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Fashion|Furniture|Print on demand|Electronics|Auction|Booking|View All"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Demo's</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Dokan WordPress Plugin|Dokan Mobile App|Delivery Driver App|Otel Theme"></ul>
+      </div>
+      <!-- col 2 -->
+      <div>
+        <h5 class="font-display font-semibold text-[17px] mb-5">Resources</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Blogs|Documentation|FAQs|Video Tutorials|Webinars"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Policies</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Privacy Policy|Terms of Sevice|Support Policy|Affiliate Policy|Refund Policy"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5 leading-snug">Support &amp;<br />Success Stories</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Success Stories|Testimonials|Support"></ul>
+      </div>
+      <!-- col 3 -->
+      <div>
+        <h5 class="font-display font-semibold text-[17px] mb-5">Important Links</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Modules|Features|Payment Integrations|Compatible Plugins|Compatible Themes|Compare"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Solutions</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Marketplace (Hosted by you)|eCommerce Shop (Hosted by us)|Marketplace (Hosted by us)|Mobile App|Delivery Driver App|Otel Theme|Dokan Care|wePOS|StoreGrowth|weLab"></ul>
+      </div>
+      <!-- col 4 -->
+      <div>
+        <h5 class="font-display font-semibold text-[17px] mb-5 leading-snug">Partnership<br />&amp; Affiliate</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Partner with Us|Join Our Affiliate Program|Affiliate Policy|Affiliate|Influencer Program"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5 leading-snug">Guide to Build a<br />Marketplace Like</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Etsy|Amazon|eBay|Alibaba|Airbnb|More Examples"></ul>
+      </div>
+    </div>
+
+    <div class="mt-[90px] flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+      <div>
+        <h5 class="font-display font-bold text-[22px] mb-5">Keep Updated</h5>
+        <form class="flex items-center bg-white rounded-full p-1.5 w-full max-w-[278px]" onsubmit="return false">
+          <input type="email" placeholder="Your email address" class="flex-1 min-w-0 bg-transparent font-body text-heading text-[14px] px-4 py-2 outline-none placeholder:text-lite" />
+          <button class="rounded-full bg-dokan hover:bg-[#5d36d6] transition-colors px-4 py-2.5 font-body font-bold text-[13px] text-white whitespace-nowrap">Stay Updated</button>
+        </form>
+      </div>
+      <div class="flex flex-col items-start lg:items-end gap-6">
+        <div class="flex items-center gap-3" id="socials"></div>
+        <div class="flex flex-wrap items-center gap-4 text-white/70 font-body text-[13px]">
+          <span class="rounded bg-[#15151b] px-3 py-1.5 flex items-center gap-2"><span class="font-bold text-[10px] text-dokan">GDPR</span> Compliant</span>
+          <span class="text-white/20">|</span>
+          <span class="flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-[#22C55E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+            Secure Payment
+          </span>
+          <span class="text-white/20">|</span>
+          <span class="font-display font-bold italic text-white/90 text-[15px]">stripe</span>
+          <span class="text-white/20">|</span>
+          <span class="font-display font-bold italic text-[15px]"><span class="text-[#4B96D8]">Pay</span><span class="text-[#8ECBEE]">Pal</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-7 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 font-body text-[13px] text-white/60">
+      <span class="flex items-center gap-2">A <span class="font-bold text-white">weDevs</span> Product</span>
+      <span>© 2025, Dokan. All Rights Reserved.</span>
+      <button class="flex items-center gap-1.5 hover:text-white transition-colors">
+        English <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<script src="demos.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="site-nav.js?v=35"></script>
+<script>
+(function () {
+  var socials = [
+    ['#1877F2','<path fill="#fff" d="M13.5 21v-7h2.3l.4-2.7h-2.7V9.5c0-.8.2-1.3 1.4-1.3H16V5.8c-.3 0-1.1-.1-2-.1-2 0-3.4 1.2-3.4 3.5v1.9H8.3V14h2.3v7h2.9z"/>'],
+    ['#000000','<path fill="#fff" d="M14.2 10.6L19 5.5h-1.4l-3.7 4-3-4H7l4.5 6-4.5 5h1.4l3.9-4.3 3.1 4.3H19l-4.8-6.6z"/>'],
+    ['#FF0000','<path fill="#fff" d="M18.6 9.2c-.2-.7-.7-1.2-1.4-1.4C15.9 7.5 12 7.5 12 7.5s-3.9 0-5.2.3c-.7.2-1.2.7-1.4 1.4C5.1 10.5 5.1 12 5.1 12s0 1.5.3 2.8c.2.7.7 1.2 1.4 1.4 1.3.3 5.2.3 5.2.3s3.9 0 5.2-.3c.7-.2 1.2-.7 1.4-1.4.3-1.3.3-2.8.3-2.8s0-1.5-.3-2.8zM10.8 14.3V9.7l3.9 2.3-3.9 2.3z"/>'],
+    ['#0A66C2','<path fill="#fff" d="M9 10.5H6.7V18H9v-7.5zM7.8 9.4c.8 0 1.3-.5 1.3-1.2 0-.7-.5-1.2-1.3-1.2S6.6 7.5 6.6 8.2c0 .7.5 1.2 1.2 1.2zM18 18v-4.3c0-2.2-1.2-3.3-2.8-3.3-1.3 0-1.9.7-2.2 1.2v-1h-2.3c0 .6 0 7.4 0 7.4H13v-4.2c0-.2 0-.4.1-.6.2-.4.6-.9 1.3-.9.9 0 1.3.7 1.3 1.7V18H18z"/>'],
+    ['#111111','<path fill="#fff" d="M7.5 8.2c-1.4 0-2.4 1.6-2.4 3.4 0 1.5.7 2.5 1.8 2.5.9 0 1.5-.6 2.4-2.2l.9-1.6c.3.5.6 1 .9 1.5-.4.6-.8 1.2-1.1 1.5-.9 1-1.6 1.4-2.6 1.4-1.9 0-3-1.6-3-3.9 0-2.6 1.5-4.6 3.4-4.6 1.2 0 2 .6 2.9 1.9.6-.9 1.4-1.9 2.8-1.9 1.9 0 3.3 2 3.3 4.6 0 2.3-1.1 3.9-2.9 3.9-.6 0-1.1-.2-1.6-.6.3-.4.5-.7.8-1.1.3.2.5.3.8.3 1 0 1.5-1 1.5-2.5 0-1.8-.9-3.4-2.3-3.4-.8 0-1.4.6-2.2 1.9l-.8 1.4c-1 1.8-1.9 2.9-3.3 2.9z"/>'],
+  ];
+  var FOOTER_ROUTES = { 'Modules':'modules.html', 'Blogs':'blog.html',
+    'Testimonials':'testimonials.html', 'Compatible Themes':'themes.html',
+    'Dokan WordPress Plugin':'demo.html' };
+  document.querySelectorAll('[data-links]').forEach(function (ul) {
+    ul.dataset.links.split('|').forEach(function (t) {
+      var li = document.createElement('li');
+      li.innerHTML = '<a href="' + (FOOTER_ROUTES[t] || '#') + '" class="hover:text-white transition-colors">' + t + '</a>';
+      ul.appendChild(li);
+    });
+  });
+  var sw = document.getElementById('socials');
+  if (sw) socials.forEach(function (x) {
+    var a = document.createElement('a');
+    a.href = '#'; a.className = 'grid place-items-center h-[34px] w-[34px] rounded-full';
+    a.style.background = x[0];
+    a.innerHTML = '<svg viewBox="0 0 24 24" class="w-full h-full">' + x[1] + '</svg>';
+    sw.appendChild(a);
+  });
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!window.gsap || !window.ScrollTrigger || reduced) return;
+  gsap.registerPlugin(ScrollTrigger);
+  if (window.Lenis && !window.matchMedia('(hover:none)').matches) {
+    var lenis = new Lenis({ duration: 1.05, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+  gsap.from('.site-nav .menu-row > *', { y:-16, opacity:0, duration:.6, stagger:.08, ease:'power3.out' });
+  /* scroll reveals replay on every pass (shared helper in site-nav.js) */
+  gsap.utils.toArray('[data-anim]').forEach(function (el) { dokanReveal(el); });
+  document.querySelectorAll('[data-stagger]').forEach(function (host) {
+    dokanReveal(host.children, { trigger:host, start:'top 86%', y:34, duration:.7, stagger:.06 });
+  });
+  window.addEventListener('load', function () {
+    ScrollTrigger.refresh();
+    setTimeout(function () {
+      document.querySelectorAll('[data-anim], [data-stagger] > *').forEach(function (el) {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.05) {
+          var r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) gsap.set(el, { clearProps:'opacity,transform' });
+        }
+      });
+    }, 1200);
+  });
+  var rt; window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () { ScrollTrigger.refresh(); }, 200);
+  });
+})();
+</script>
+</body>
+</html>

@@ -83,17 +83,73 @@
     setTimeout(release, 3000);                   /* never hold a page longer than this */
   })();
 
-  /* Route mega-menu items that have real pages */
-  var ROUTES = { 'Compatible themes': 'themes.html', 'Blog': 'blog.html',
-    'Testimonials': 'testimonials.html', 'Dokan AI (New)': 'dokan-ai.html' };
-  host.querySelectorAll('.mega-item .t, .mega-card .t').forEach(function (t) {
-    var to = ROUTES[t.textContent.trim()];
-    if (to) t.closest('a').setAttribute('href', to);
+  /* Route every mega-menu item: a local page where one exists (module pages,
+     Modules filtered by category, demos), otherwise the real dokan.co page,
+     which opens in a new tab. */
+  var ROUTES = {
+    'Admin features': 'features.html#admin-features',
+    'Vendor Features': 'features.html#vendor-features',
+    'Customer Features': 'features.html#customer-features',
+    'Dokan AI (New)': 'dokan-ai.html',
+    'Payments': 'modules.html?cat=payments',
+    'Shipping and delivery': 'modules.html?cat=shipping-delivery',
+    'Marketing and growth': 'modules.html?cat=marketing-growth',
+    'Product types': 'modules.html?cat=products-catalog',
+    'Compatible themes': 'themes.html',
+    'Compatible plugins': 'https://dokan.co/wordpress/compatible-plugins/',
+    'Elementor support': 'module-elementor.html',
+    'Changelog': 'https://dokan.co/wordpress/changelog/',
+    'Amazon': 'demo-details.html?demo=amazon-kekoloko',
+    'eBay': 'demo-details.html?demo=auction',
+    'Etsy': 'demo-details.html?demo=craftly',
+    'Alibaba': 'demo-details.html',
+    'Printful (print on demand)': 'module-printful-integration.html',
+    'Udemy': 'demo-details.html?demo=bookhive',
+    'Fashion': 'demo-details.html?demo=attebo-styo',
+    'Furniture': 'demo-details.html?demo=homely',
+    'Electronics': 'demo-details.html?demo=techmart',
+    'Auction': 'module-simple-auctions.html',
+    'Booking': 'module-details.html',
+    'Physical products': 'demo.html',
+    'Digital downloads': 'demo-details.html?demo=bookhive',
+    'Services and bookings': 'module-details.html',
+    'Auctions': 'module-simple-auctions.html',
+    'B2C marketplace': 'demo.html',
+    'Documentation': 'https://dokan.co/docs/wordpress/',
+    'Blog': 'blogs.html',
+    'Video tutorials': 'https://dokan.co/wordpress/knowledgebase/videos/',
+    'Webinars': 'https://wedevs.com/webinars/',
+    'FAQ': 'https://dokan.co/wordpress/faq/',
+    'Dokan vs other plugins': 'https://dokan.co/wordpress/compare/',
+    'Testimonials': 'testimonials.html',
+    'Success stories': 'https://dokan.co/wordpress/success-stories/',
+    'Affiliate program': 'https://dokan.co/affiliate-program/',
+    'Influencer program': 'https://dokan.co/influencer-partnership/',
+    'Support tickets': 'https://app.dokan.co/support/create',
+    'GitHub': 'https://github.com/weDevsOfficial/dokan',
+    'Roadmap and ideas': 'https://pluginfeedback.dokan.co/',
+    'Hire experts': 'https://dokan.co/hire-experts/'
+  };
+  function route(a, to) {
+    a.setAttribute('href', to);
+    if (/^https?:/.test(to)) { a.setAttribute('target', '_blank'); a.setAttribute('rel', 'noopener'); }
+    a.removeAttribute('role');
+  }
+  host.querySelectorAll('.mega .t').forEach(function (t) {
+    var to = ROUTES[t.textContent.trim()], a = t.closest('a');
+    if (to && a) route(a, to);
   });
-  var MORE_ROUTES = { 'View all modules': 'modules.html' };
+  var MORE_ROUTES = { 'View all modules': 'modules.html', 'More examples': 'demo.html', 'View all demos': 'demo.html' };
+  var CARD_ROUTES = [ [/dokan\s*lite/i, 'https://wordpress.org/plugins/dokan-lite/'],
+    [/startup\s*cost/i, 'https://dokan.co/wordpress/startup-cost-calculator/'],
+    [/profit\s*margin/i, 'https://dokan.co/profit-margin-calculator/'] ];
+  host.querySelectorAll('.mega-card').forEach(function (a) {
+    if (a.getAttribute('href') !== '#') return;
+    CARD_ROUTES.forEach(function (r) { if (r[0].test(a.textContent)) route(a, r[1]); });
+  });
   host.querySelectorAll('.mega-more').forEach(function (a) {
     var to = MORE_ROUTES[a.textContent.trim()];
-    if (to) a.setAttribute('href', to);
+    if (to) route(a, to);
   });
 
   /* Mark the current page in the nav */
@@ -467,7 +523,7 @@
    the pages that exist; everything else stays "#". It uses the page's own
    .wrap, so it lines up with that page's content. */
 (function () {
-  var ROUTES = { 'Modules':'modules.html', 'Blogs':'blog.html', 'Testimonials':'testimonials.html',
+  var ROUTES = { 'Modules':'modules.html', 'Features':'features.html', 'Blogs':'blogs.html', 'Testimonials':'testimonials.html',
     'Compatible Themes':'themes.html', 'Dokan WordPress Plugin':'demo.html', 'View All':'demo.html',
     'Success Stories':'testimonials.html', 'Otel Theme':'themes.html',
     'Marketplace (Hosted by us)':'managed-dokan-marketplace.html' };
@@ -553,7 +609,7 @@
    transforms move, so the button's size, colours and the circle are untouched.
    Add a selector here, or mark a button with data-primary-icon. */
 (function () {
-  var SEL = '[data-primary-icon], .btn-primary, .dd-b1, .mdh-buy .b1, .mh-b1, .ai-b1, .btn-dl, .cta-btn, .th-cta-btn, .btn-nudge, .iface-demo, .menu-pricing';
+  var SEL = '[data-primary-icon], .btn-primary, .dd-b1, .mdh-buy .b1, .mh-b1, .ai-b1, .btn-dl, .cta-btn, .lc-btn, .th-cta-btn, .btn-nudge, .iface-demo, .menu-pricing';
 
   function enhance(b) {
     if (b.classList.contains('pb')) return;
@@ -604,4 +660,64 @@
   window.dokanPrimaryIcon = run;
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { run(); });
   else run();
+})();
+
+/* ══════════ Scroll reveals — play every time an element scrolls in ══════════
+   window.dokanReveal(targets, opts) fades + lifts targets in each time their
+   trigger crosses `start` going down, and settles them back out when you
+   scroll back above it, so the reveal replays on every pass. Each entrance is
+   a fresh tween (not one stored from() tween), so the page loader's parking
+   of the startup timeline can't strand it. Ends with transform cleared, so
+   CSS hover lifts keep working. Reduced motion: nothing is hidden or moved.
+   opts: trigger, start ('top 88%'), y (30), x (0), duration (.8), stagger (0), ease */
+window.dokanReveal = function (targets, o) {
+  var g = window.gsap, ST = window.ScrollTrigger;
+  if (!g || !ST) return null;
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
+  var els = g.utils.toArray(targets);
+  if (!els.length) return null;
+  o = o || {};
+  var hidden = { opacity: 0, y: o.y != null ? o.y : 30, x: o.x || 0 };
+  function show() {
+    g.fromTo(els, hidden, { opacity: 1, y: 0, x: 0, duration: o.duration || .8, ease: o.ease || 'power3.out',
+      stagger: o.stagger || 0, overwrite: true, clearProps: 'transform' });
+  }
+  function hide() {
+    g.to(els, { opacity: hidden.opacity, y: hidden.y, x: hidden.x, duration: .3, ease: 'power1.in', overwrite: true });
+  }
+  var st = ST.create({ trigger: o.trigger || els[0], start: o.start || 'top 88%', onEnter: show, onLeaveBack: hide });
+  if (st.scroll() < st.start) g.set(els, hidden);   /* not reached yet: wait hidden */
+  return st;
+};
+
+/* ══════════ "Book a Free Call" pop-up (Figma "Booked A Call pop-up Design") ══════════
+   Injected on every page; opens 2.5s after the page is revealed; the ✕ closes
+   it for the rest of the visit (sessionStorage, guarded — private windows may
+   throw). Styles: .bc-* in site-nav.css. */
+(function () {
+  var KEY = 'dokan-bookcall-closed';
+  try { if (sessionStorage.getItem(KEY)) return; } catch (e) {}
+  function mount() {
+    if (document.querySelector('.bc-pop')) return;
+    var box = document.createElement('aside');
+    box.className = 'bc-pop';
+    box.setAttribute('aria-label', 'Book a free consultation');
+    box.innerHTML =
+      '<button type="button" class="bc-x" aria-label="Close"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true">' +
+      '<path d="M15 5L5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path d="M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>' +
+      '<h4>Not sure if Dokan is right for you?</h4>' +
+      '<p>Book a free 1:1 consultation with a Dokan expert.</p>' +
+      '<a href="https://calendly.com/dokan-support/30min" target="_blank" rel="noopener" class="bc-btn">Book a Free Call<svg viewBox="0 0 16 16" fill="none" aria-hidden="true">' +
+      '<path d="M3.33333 8H12.6667" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path d="M8 3.33333L12.6667 8L8 12.6667" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>';
+    document.body.appendChild(box);
+    box.querySelector('.bc-x').addEventListener('click', function () {
+      box.classList.remove('is-open');
+      try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+      setTimeout(function () { box.remove(); }, 500);
+    });
+    setTimeout(function () { box.classList.add('is-open'); }, 2500);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount); else mount();
 })();

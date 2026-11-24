@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Blog — Dokan</title>
+<meta name="description" content="Marketplace guides, WordPress tips, product updates and release notes from the Dokan team." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="site-nav.css?v=34" />
+<!-- Page loader: only the header shows until site-nav.js reveals the page (5s failsafe) -->
+<script>(function(d){if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000)})(document.documentElement)</script>
+<script>
+  tailwind.config = { theme: { extend: {
+    fontFamily: { display:['Poppins','sans-serif'], body:['Lato','sans-serif'] },
+    colors: { dokan:'#7047EB', title:'#0f172a', heading:'#0E0E0F', para:'#334155',
+      reg:'#575757', lite:'#828282', stroke:'#E9E9E9' },
+  }}};
+</script>
+<style>
+  .wrap { width:100%; max-width:1700px; margin:0 auto; padding-left:102px; padding-right:102px; }
+  @media (max-width:1200px){ .wrap { padding-left:48px; padding-right:48px; } }
+  @media (max-width:700px){ .wrap { padding-left:20px; padding-right:20px; } }
+  body { background:#fff; color:#0f172a; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  html.lenis, html.lenis body { height:auto; }
+  html.lenis-smooth { scroll-behavior:auto !important; }
+
+  /* ── Blog listing (Figma "Blog Page" 585:15459) ─────────────────────── */
+  .bl-hero { position:relative; background:#fff; }
+  .bl-hero-in { padding-top:202px; }
+  .bl-eyebrow { margin:0 0 0 5px; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#334155; }
+
+  /* featured post: 734x401 image, 72 gap, 561 copy column (centred) */
+  .bl-feat { display:grid; grid-template-columns:minmax(0,734fr) minmax(0,561fr); column-gap:72px; align-items:center;
+    max-width:1367px; margin:50px 0 0 5px; }
+  .bl-feat-img { display:block; position:relative; overflow:hidden; border-radius:10px; aspect-ratio:734/401; }
+  .bl-feat-img img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    transition:transform .6s cubic-bezier(.22,.61,.36,1); }
+  .bl-feat-copy { display:flex; flex-direction:column; align-items:flex-start; gap:30px; }
+  .bl-feat-top { display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
+  .bl-badge { display:inline-flex; align-items:center; padding:8px 20px; border-radius:9999px; background:#F1EEFF;
+    font-family:'Lato',sans-serif; font-size:18px; line-height:1.4; color:#334155; white-space:nowrap; }
+  .bl-feat-h { margin:0; max-width:530px; font-family:'Poppins',sans-serif; font-weight:600; font-size:42px; line-height:1.3; color:#0f172a; }
+  .bl-feat-h a { color:inherit; transition:color .2s ease; }
+  .bl-feat-time { display:flex; align-items:center; gap:10px; font-family:'Lato',sans-serif; font-size:20px;
+    line-height:1.5; color:#334155; white-space:nowrap; }
+  .bl-feat-time .bl-clock { width:24px; height:24px; flex:none; }
+  @media (hover:hover) {
+    .bl-feat:hover .bl-feat-img img { transform:scale(1.045); }
+    .bl-feat-h a:hover { color:#7047EB; }
+  }
+  .bl-rule { height:1px; max-width:1489px; margin:130px 0 0 4px; background:#E5E7EB; }
+
+  /* latest (2x2) + most popular */
+  .bl-latest { padding-top:130px; }
+  .bl-latest-grid { display:grid; grid-template-columns:minmax(0,950px) 401px; justify-content:space-between;
+    column-gap:48px; }
+  .bl-h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:600; font-size:52px; line-height:62px;
+    color:#0f172a; white-space:nowrap; }
+  .bl-cards2 { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:86px; row-gap:80px; margin-top:40px; }
+  .bl-pop-list { list-style:none; margin:40px 0 0; padding:0; display:flex; flex-direction:column; gap:32px; }
+  .bl-pop { display:flex; align-items:center; gap:36px; }
+  .bl-pop-img { position:relative; flex:none; width:141px; height:77px; border-radius:10px; overflow:hidden; }
+  .bl-pop-img img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    transition:transform .5s cubic-bezier(.22,.61,.36,1); }
+  .bl-pop-t { box-sizing:border-box; width:224px; padding-right:2px; font-family:'Poppins',sans-serif; font-weight:600; font-size:18px; line-height:1.3;
+    color:#0f172a; transition:color .2s ease; }
+  @media (hover:hover) {
+    .bl-pop:hover .bl-pop-img img { transform:scale(1.06); }
+    .bl-pop:hover .bl-pop-t { color:#7047EB; }
+  }
+
+  /* blog card (432 wide in Figma): 1622/886 thumb, 30 gap, title, 28 gap, meta */
+  .bl-card { display:flex; flex-direction:column; align-items:flex-start; min-width:0; }
+  .bl-thumb { display:block; position:relative; width:100%; aspect-ratio:1622/886; border-radius:10px; overflow:hidden; }
+  .bl-thumb img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    transition:transform .6s cubic-bezier(.22,.61,.36,1); }
+  .bl-title { margin:30px 0 0; max-width:419px; font-family:'Poppins',sans-serif; font-weight:600; font-size:24px;
+    line-height:1.3; color:#0f172a; }
+  .bl-title a { color:inherit; transition:color .2s ease; }
+  .bl-meta { display:flex; flex-wrap:wrap; align-items:center; column-gap:22px; row-gap:10px; margin-top:28px; }
+  .bl-chip { display:inline-flex; align-items:center; padding:5px 16px; border-radius:9999px; background:#F3F3F3;
+    border:1px solid #E5E7EB; font-family:'Lato',sans-serif; font-size:14px; line-height:1.3; color:#334155; white-space:nowrap; }
+  .bl-time { display:inline-flex; align-items:center; gap:8px; font-family:'Lato',sans-serif; font-size:14px;
+    line-height:1.3; color:#334155; white-space:nowrap; }
+  .bl-time .bl-clock { width:20px; height:20px; flex:none; }
+  @media (hover:hover) {
+    .bl-card:hover .bl-thumb img { transform:scale(1.045); }
+    .bl-card:hover .bl-title a { color:#7047EB; }
+  }
+  .bl-title a:focus-visible, .bl-feat-h a:focus-visible, .bl-pop:focus-visible { outline:2px solid #7047EB; outline-offset:3px; border-radius:4px; }
+
+  /* "Get Fresh Updates Every Day" band: 1496x345, image bg, copy 100px in */
+  .bl-sub-sec { padding-top:142px; }   /* 144 in Figma; absorbs the cards' sub-pixel text height */
+  .bl-sub { position:relative; overflow:hidden; border-radius:20px; min-height:345px; padding:40px 100px;
+    display:flex; align-items:center; justify-content:space-between; gap:40px;
+    background:#0B0A1C url("Media/Blog/Listing/Subscribe%20BG.jpg") center / cover no-repeat; }
+  .bl-sub-h { margin:0; max-width:515px; text-wrap:balance; font-family:'Poppins',sans-serif; font-weight:600; font-size:52px;
+    line-height:1.2; color:#fff; }
+  .bl-sub-r { width:461px; flex:none; margin-top:40px; display:flex; flex-direction:column; gap:20px; }
+  .bl-sub-form { position:relative; display:flex; align-items:center; height:66px; border-radius:85px; background:#fff;
+    box-shadow:0 2px 5px rgba(0,0,0,.06); padding:8px 8px 8px 35px; transition:box-shadow .2s ease; }
+  .bl-sub-form:focus-within { box-shadow:0 2px 5px rgba(0,0,0,.06), 0 0 0 3px rgba(112,71,235,.35); }
+  .bl-sub-form input { flex:1; min-width:0; height:100%; border:0; outline:0; background:transparent;
+    font-family:'Lato',sans-serif; font-size:16px; line-height:1.5; color:#0E0E0F; }
+  .bl-sub-form input::placeholder { color:#828282; opacity:1; }
+  .bl-sub-form button { flex:none; height:50px; padding:0 25px; border:0; border-radius:50px; background:#7047EB;
+    font-family:'Lato',sans-serif; font-size:14px; line-height:1.5; color:#fff; cursor:pointer;
+    transition:background-color .2s ease, transform .25s cubic-bezier(.22,.61,.36,1); }
+  .bl-sub-form button:hover { background:#5D36D6; }
+  .bl-sub-note { margin:0; font-family:'Lato',sans-serif; font-size:16px; line-height:1.3; color:#CBD5E1; }
+
+  /* all posts: 3 x 432 columns, 86 / 87 gaps, rows 417 tall at design width */
+  .bl-all { padding-top:144px; }
+  .bl-cards3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); column-gap:86px; row-gap:87px; max-width:1468px; }
+  .bl-cards3 > .bl-card { min-height:417px; }
+  .bl-pager { display:flex; justify-content:center; gap:12px; max-width:1468px; margin-top:76px; }
+  .bl-pager a, .bl-pager span { box-sizing:border-box; display:grid; place-items:center; width:39px; height:39px;
+    border:1px solid #EBEBEB; border-radius:3px; background:#fff; font-family:'Lato',sans-serif; font-size:16px;
+    line-height:1.5; color:#656565; transition:border-color .2s ease, color .2s ease; }
+  .bl-pager a:hover { border-color:#7047EB; color:#7047EB; }
+  .bl-pager a[aria-current="page"] { color:#656565; }
+  .bl-pager svg { width:19px; height:19px; }
+
+  /* CTA: shared .lc-* with this frame's copy (Figma 585:15872) */
+  .bl-cta .lc-copy { width:603px; }
+  .bl-cta .lc-title { max-width:603px; font-size:52px; line-height:1.2; text-wrap:wrap; }
+  .bl-cta .lc-text { max-width:405px; }
+  .bl-cta .lc-btn { width:264px; height:70px; padding-left:40px; font-size:20px; color:#7047EB; }
+  .bl-cta .lc-btn .circle { right:11.37px; width:45.86px; height:45.64px; background:#7047EB; }
+  .bl-cta .lc-art { width:min(678px, calc(100% - 770px)); }
+  .bl-ghost { display:flex; align-items:center; justify-content:center; box-sizing:border-box; width:175px; height:68px;
+    border-radius:9999px; background:#7E59ED; font-family:'Lato',sans-serif; font-weight:700; font-size:16.85px;
+    line-height:1.5; color:#fff; white-space:nowrap; }
+
+  /* ── responsive ── */
+  @media (max-width:1439px) {
+    .bl-feat-h { font-size:clamp(30px,2.9vw,42px); }
+    .bl-cards2 { column-gap:48px; }
+    .bl-cards3 { column-gap:clamp(32px,4.4vw,86px); row-gap:72px; }
+    .bl-cards3 > .bl-card { min-height:0; }
+    .bl-title { font-size:22px; }
+    .bl-cta .lc-title { font-size:46px; }
+    .bl-sub { padding:40px 64px; }
+  }
+  @media (max-width:1365px) {
+    .bl-latest-grid { grid-template-columns:minmax(0,1fr); row-gap:96px; }
+    .bl-pop-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:32px 48px; }
+    .bl-pop-t { width:auto; flex:1; min-width:0; }
+  }
+  @media (max-width:1279px) {
+    .bl-hero-in { padding-top:170px; }
+    .bl-h2 { font-size:clamp(30px,4.2vw,52px); line-height:1.2; }
+    .bl-sub { padding:48px 56px; }
+    .bl-sub-h { font-size:clamp(30px,4.2vw,52px); max-width:440px; }
+    .bl-sub-r { width:min(461px,48%); margin-top:0; }
+    .bl-cta .lc-copy { width:430px; }
+    .bl-cta .lc-title { max-width:430px; font-size:40px; }
+    .bl-cta .lc-art { width:min(678px, calc(100% - 580px)); }
+  }
+  @media (max-width:1023px) {
+    .bl-hero-in { padding-top:160px; }
+    .bl-eyebrow { margin-left:0; }
+    .bl-feat { grid-template-columns:minmax(0,1fr); row-gap:32px; max-width:734px; margin-left:0; margin-top:28px; }
+    .bl-feat-h { font-size:clamp(26px,4.2vw,36px); }
+    .bl-rule { margin:88px 0 0; }
+    .bl-latest { padding-top:88px; }
+    .bl-sub-sec { padding-top:104px; }
+    .bl-sub { flex-direction:column; align-items:flex-start; justify-content:flex-start; min-height:0; gap:28px; padding:48px 40px; }
+    .bl-sub-h { max-width:515px; }
+    .bl-sub-r { width:100%; max-width:461px; }
+    .bl-all { padding-top:104px; }
+    .bl-cards3 { grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:32px; row-gap:56px; }
+    .bl-cards3 > .bl-card:last-child:nth-child(odd) { grid-column:1/-1; justify-self:center; width:calc(50% - 16px); }
+    .bl-cards2 { column-gap:32px; row-gap:56px; }
+    .bl-title { font-size:20px; margin-top:22px; }
+    .bl-meta { margin-top:20px; }
+    .bl-pager { margin-top:56px; }
+    .bl-cta .lc-copy { width:auto; max-width:603px; }
+    .bl-cta .lc-title { width:auto; max-width:603px; font-size:clamp(32px,5vw,46px); }
+    .bl-cta .lc-art { width:min(100%, 678px); }
+  }
+  @media (max-width:900px) {
+    .bl-pop-list { grid-template-columns:minmax(0,1fr); gap:24px; }
+  }
+  @media (max-width:767px) {
+    .bl-pop { gap:20px; }
+    .bl-pop-img { width:120px; height:66px; }
+    .bl-pop-t { font-size:16px; }
+  }
+  @media (max-width:640px) {
+    .bl-hero-in { padding-top:120px; }
+    .bl-eyebrow { font-size:18px; }
+    .bl-feat { margin-top:20px; row-gap:24px; }
+    .bl-feat-copy { gap:20px; }
+    .bl-badge { font-size:15px; padding:6px 16px; }
+    .bl-feat-time { font-size:17px; }
+    .bl-rule { margin-top:64px; }
+    .bl-latest { padding-top:64px; }
+    .bl-h2 { font-size:30px; }
+    .bl-latest-grid { row-gap:72px; }
+    .bl-cards2, .bl-pop-list { margin-top:28px; }
+    .bl-cards2, .bl-cards3 { grid-template-columns:minmax(0,1fr); row-gap:44px; }
+    .bl-cards3 > .bl-card:last-child:nth-child(odd) { grid-column:auto; width:auto; justify-self:stretch; }
+    .bl-sub-sec { padding-top:72px; }
+    .bl-sub { padding:36px 20px; gap:24px; }
+    .bl-sub-h { font-size:30px; }
+    .bl-sub-form { height:58px; padding:6px 6px 6px 20px; }
+    .bl-sub-form input { font-size:15px; }
+    .bl-sub-form button { height:46px; padding:0 18px; }
+    .bl-sub-note { font-size:15px; }
+    .bl-all { padding-top:72px; }
+    .bl-pager { margin-top:44px; }
+    .bl-cta .lc-title { font-size:32px; }
+    .bl-cta .lc-text { font-size:18px; }
+    .bl-cta .lc-actions { flex-direction:column; align-items:flex-start; }
+    .bl-cta .lc-btn { width:100%; max-width:264px; }
+    .bl-ghost { width:100%; max-width:264px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+  }
+</style>
+</head>
+<body class="font-body">
+<header class="bl-hero">
+  <div id="site-nav" data-variant="light" data-top="30"></div>
+  <div class="wrap bl-hero-in">
+    <p class="bl-eyebrow" data-anim>Featured Blog</p>
+    <article class="bl-feat">
+      <a href="blog.html" class="bl-feat-img" data-anim tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Dokan%20Year%20in%20Review%202025.png" width="1622" height="866" alt="" decoding="async" fetchpriority="high" /></a>
+      <div class="bl-feat-copy" data-anim>
+        <div class="bl-feat-top">
+          <span class="bl-badge">Plugins Release Notes</span>
+          <h1 class="bl-feat-h"><a href="blog.html">Dokan Year in Review 2025: What We Built, What We Achieved &amp; What Comes Next</a></h1>
+        </div>
+        <span class="bl-feat-time"><svg class="bl-clock" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 6.6V12L15.6 13.8" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span>
+      </div>
+    </article>
+    <div class="bl-rule" aria-hidden="true"></div>
+  </div>
+</header>
+
+<main>
+  <section class="bl-latest">
+    <div class="wrap bl-latest-grid">
+      <div>
+        <h2 class="bl-h2" data-anim>Latest Blog</h2>
+        <div class="bl-cards2" data-stagger>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Latest%20Blog%201.png" width="1622" height="886" alt="" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Latest%20Blog%202.png" width="1622" height="886" alt="" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Latest%20Blog%203.png" width="1622" height="886" alt="" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Latest%20Blog%204.png" width="1622" height="886" alt="" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+        </div>
+      </div>
+      <aside aria-labelledby="bl-pop-h">
+        <h2 class="bl-h2" id="bl-pop-h" data-anim>Most Popular</h2>
+        <ul class="bl-pop-list" data-stagger>
+        <li><a href="blog.html" class="bl-pop">
+          <span class="bl-pop-img"><img src="Media/Blog/Listing/Dokan%20Year%20in%20Review%202025.png" width="1622" height="866" alt="" decoding="async" /></span>
+          <span class="bl-pop-t">Dokan Year in Review 2025: What We Built…</span>
+        </a></li>
+        <li><a href="blog.html" class="bl-pop">
+          <span class="bl-pop-img"><img src="Media/Blog/Listing/Popular%20-%20What%20is%20WordPress.png" width="1622" height="886" alt="" decoding="async" /></span>
+          <span class="bl-pop-t">What is WordPress All About? Why Should …</span>
+        </a></li>
+        <li><a href="blog.html" class="bl-pop">
+          <span class="bl-pop-img"><img src="Media/Blog/Listing/Popular%20-%208%20Exclusive%20CMS%20Platforms.png" width="1622" height="886" alt="" decoding="async" /></span>
+          <span class="bl-pop-t">8 Exclusive CMS Platforms to Start Your …</span>
+        </a></li>
+        <li><a href="blog.html" class="bl-pop">
+          <span class="bl-pop-img"><img src="Media/Blog/Listing/Popular%20-%20eCommerce%20Website%20Cost.png" width="1622" height="886" alt="" decoding="async" /></span>
+          <span class="bl-pop-t">How Much Does An eCommerce Website Cost …</span>
+        </a></li>
+        <li><a href="blog.html" class="bl-pop">
+          <span class="bl-pop-img"><img src="Media/Blog/Listing/Popular%20-%20Write%20a%20Business%20Case.png" width="1622" height="886" alt="" decoding="async" /></span>
+          <span class="bl-pop-t">How to Write a Business Case (Examples+T…</span>
+        </a></li>
+        <li><a href="blog.html" class="bl-pop">
+          <span class="bl-pop-img"><img src="Media/Blog/Listing/Popular%20-%20Build%20an%20eCommerce%20Website.png" width="1622" height="886" alt="" decoding="async" /></span>
+          <span class="bl-pop-t">How to Build an eCommerce Website with W…</span>
+        </a></li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="bl-sub-sec">
+    <div class="wrap">
+      <div class="bl-sub" data-anim>
+        <h2 class="bl-sub-h">Get Fresh Updates Every Day</h2>
+        <div class="bl-sub-r">
+          <form class="bl-sub-form" onsubmit="return false" aria-label="Subscribe to the Dokan blog">
+            <input type="email" name="email" placeholder="Your email address" aria-label="Your email address" autocomplete="email" />
+            <button type="submit">Stay Updated</button>
+          </form>
+          <p class="bl-sub-note">Get access to exclusive guides, tips, updates, ebooks, and more.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bl-all" aria-label="All posts">
+    <div class="wrap">
+      <div class="bl-cards3" data-cards>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2001.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2002.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2003.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2004.png" width="3244" height="1772" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2005.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2006.png" width="2560" height="1398" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2007.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2008.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2009.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2010.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2011.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2012.png" width="1622" height="866" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2013.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2014.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2015.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2016.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2017.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2018.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2019.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2020.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2021.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2022.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2023.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2009.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2024.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2025.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      <article class="bl-card">
+        <a href="blog.html" class="bl-thumb" tabindex="-1" aria-hidden="true"><img src="Media/Blog/Listing/Blog%20Card%2026.png" width="1622" height="886" alt="" loading="lazy" decoding="async" /></a>
+        <h3 class="bl-title"><a href="blog.html">How to Build a Modern User Account Dashboard in WordPress</a></h3>
+        <div class="bl-meta"><span class="bl-chip">Plugins Release Notes</span><span class="bl-time"><svg class="bl-clock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M17.5 10C17.5 14.1421 14.1421 17.5 10 17.5C5.85786 17.5 2.5 14.1421 2.5 10C2.5 5.85786 5.85786 2.5 10 2.5C14.1421 2.5 17.5 5.85786 17.5 10Z" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 5.5V10L13 11.5" stroke="#64748B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>13 min read</span></div>
+      </article>
+      </div>
+      <nav class="bl-pager" aria-label="Blog pages">
+        <a href="blogs.html" aria-current="page">1</a>
+        <a href="blogs.html">2</a>
+        <a href="blogs.html">3</a>
+        <span aria-hidden="true">...</span>
+        <a href="blogs.html" aria-label="Next page"><svg viewBox="0 0 19 19" fill="none" aria-hidden="true"><path d="M3.95833 9.5H15.0417" stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 3.95833L15.0417 9.5L9.5 15.0417" stroke="#828282" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </nav>
+    </div>
+  </section>
+
+  <section class="lc-shell bl-cta pt-[144px]">
+  <div class="lc-band">
+    <svg class="lc-waves" preserveAspectRatio="none" viewBox="0 0 1000 500" fill="none" stroke="#FFFFFF" stroke-width="2" aria-hidden="true">
+      <path d="M-40 430 C 240 340 620 380 1050 210"/><path d="M-40 500 C 280 410 640 440 1050 300"/>
+      <path d="M-40 360 C 240 280 620 320 1050 140"/><path d="M-40 290 C 240 220 620 260 1050 80"/>
+    </svg>
+    <div class="lc-copy">
+      <div class="lc-top">
+        <h2 class="lc-title">Dokani – Responsive WordPress Theme for Beautiful Website</h2>
+        <p class="lc-text">Start designing your website just the way you want without any cost!</p>
+      </div>
+      <div class="lc-actions">
+        <a href="dokani-theme.html" class="lc-btn">Download now
+          <span class="circle"><svg viewBox="-3.77 -3.78 22.98 22.98" fill="none" aria-hidden="true"><path d="M7.71682 10.5756L7.71682 1M7.71682 10.5756C7.04631 10.5756 5.79359 8.66595 5.32292 8.18171M7.71682 10.5756C8.38733 10.5756 9.64005 8.66595 10.1107 8.18171" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M1.01389 14.4059H14.4198" stroke="currentColor" stroke-width="2.02778" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+        <a href="demo.html" class="btn-ghost bl-ghost">Try Demo</a>
+      </div>
+    </div>
+    <img class="lc-art" src="Media/footer/Launch%20Your.png" width="1356" height="1186" alt="Dokani storefront theme preview" loading="lazy" />
+  </div>
+</section>
+</main>
+
+<footer class="bg-black text-white">
+  <div class="wrap pt-[90px] pb-[40px]">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-x-10 gap-y-14">
+      <!-- col 1 -->
+      <div>
+        <a href="#" class="inline-block mb-9">
+          <img src="Media/Dokan%20Logos/Dokan%20Logo-Dark%20Footer.svg" alt="Dokan"
+               width="139" height="38" class="w-[139px] h-[38px]" />
+        </a>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="About Us|Brand Assets|Changelog|Contact Us|Career"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Use Cases</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Fashion|Furniture|Print on demand|Electronics|Auction|Booking|View All"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Demo's</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Dokan WordPress Plugin|Dokan Mobile App|Delivery Driver App|Otel Theme"></ul>
+      </div>
+      <!-- col 2 -->
+      <div>
+        <h5 class="font-display font-semibold text-[17px] mb-5">Resources</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Blogs|Documentation|FAQs|Video Tutorials|Webinars"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Policies</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Privacy Policy|Terms of Sevice|Support Policy|Affiliate Policy|Refund Policy"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5 leading-snug">Support &amp;<br />Success Stories</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Success Stories|Testimonials|Support"></ul>
+      </div>
+      <!-- col 3 -->
+      <div>
+        <h5 class="font-display font-semibold text-[17px] mb-5">Important Links</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Modules|Features|Payment Integrations|Compatible Plugins|Compatible Themes|Compare"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5">Solutions</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Marketplace (Hosted by you)|eCommerce Shop (Hosted by us)|Marketplace (Hosted by us)|Mobile App|Delivery Driver App|Otel Theme|Dokan Care|wePOS|StoreGrowth|weLab"></ul>
+      </div>
+      <!-- col 4 -->
+      <div>
+        <h5 class="font-display font-semibold text-[17px] mb-5 leading-snug">Partnership<br />&amp; Affiliate</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Partner with Us|Join Our Affiliate Program|Affiliate Policy|Affiliate|Influencer Program"></ul>
+        <h5 class="font-display font-semibold text-[17px] mt-9 mb-5 leading-snug">Guide to Build a<br />Marketplace Like</h5>
+        <ul class="space-y-[13px] font-body text-[15px] text-white/70" data-links="Etsy|Amazon|eBay|Alibaba|Airbnb|More Examples"></ul>
+      </div>
+    </div>
+
+    <div class="mt-[90px] flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+      <div>
+        <h5 class="font-display font-bold text-[22px] mb-5">Keep Updated</h5>
+        <form class="flex items-center bg-white rounded-full p-1.5 w-full max-w-[278px]" onsubmit="return false">
+          <input type="email" placeholder="Your email address" class="flex-1 min-w-0 bg-transparent font-body text-heading text-[14px] px-4 py-2 outline-none placeholder:text-lite" />
+          <button class="rounded-full bg-dokan hover:bg-[#5d36d6] transition-colors px-4 py-2.5 font-body font-bold text-[13px] text-white whitespace-nowrap">Stay Updated</button>
+        </form>
+      </div>
+      <div class="flex flex-col items-start lg:items-end gap-6">
+        <div class="flex items-center gap-3" id="socials"></div>
+        <div class="flex flex-wrap items-center gap-4 text-white/70 font-body text-[13px]">
+          <span class="rounded bg-[#15151b] px-3 py-1.5 flex items-center gap-2"><span class="font-bold text-[10px] text-dokan">GDPR</span> Compliant</span>
+          <span class="text-white/20">|</span>
+          <span class="flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-[#22C55E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+            Secure Payment
+          </span>
+          <span class="text-white/20">|</span>
+          <span class="font-display font-bold italic text-white/90 text-[15px]">stripe</span>
+          <span class="text-white/20">|</span>
+          <span class="font-display font-bold italic text-[15px]"><span class="text-[#4B96D8]">Pay</span><span class="text-[#8ECBEE]">Pal</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-7 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 font-body text-[13px] text-white/60">
+      <span class="flex items-center gap-2">A <span class="font-bold text-white">weDevs</span> Product</span>
+      <span>© 2025, Dokan. All Rights Reserved.</span>
+      <button class="flex items-center gap-1.5 hover:text-white transition-colors">
+        English <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<script src="demos.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="site-nav.js?v=35"></script>
+<script>
+(function () {
+  var socials = [
+    ['#1877F2','<path fill="#fff" d="M13.5 21v-7h2.3l.4-2.7h-2.7V9.5c0-.8.2-1.3 1.4-1.3H16V5.8c-.3 0-1.1-.1-2-.1-2 0-3.4 1.2-3.4 3.5v1.9H8.3V14h2.3v7h2.9z"/>'],
+    ['#000000','<path fill="#fff" d="M14.2 10.6L19 5.5h-1.4l-3.7 4-3-4H7l4.5 6-4.5 5h1.4l3.9-4.3 3.1 4.3H19l-4.8-6.6z"/>'],
+    ['#FF0000','<path fill="#fff" d="M18.6 9.2c-.2-.7-.7-1.2-1.4-1.4C15.9 7.5 12 7.5 12 7.5s-3.9 0-5.2.3c-.7.2-1.2.7-1.4 1.4C5.1 10.5 5.1 12 5.1 12s0 1.5.3 2.8c.2.7.7 1.2 1.4 1.4 1.3.3 5.2.3 5.2.3s3.9 0 5.2-.3c.7-.2 1.2-.7 1.4-1.4.3-1.3.3-2.8.3-2.8s0-1.5-.3-2.8zM10.8 14.3V9.7l3.9 2.3-3.9 2.3z"/>'],
+    ['#0A66C2','<path fill="#fff" d="M9 10.5H6.7V18H9v-7.5zM7.8 9.4c.8 0 1.3-.5 1.3-1.2 0-.7-.5-1.2-1.3-1.2S6.6 7.5 6.6 8.2c0 .7.5 1.2 1.2 1.2zM18 18v-4.3c0-2.2-1.2-3.3-2.8-3.3-1.3 0-1.9.7-2.2 1.2v-1h-2.3c0 .6 0 7.4 0 7.4H13v-4.2c0-.2 0-.4.1-.6.2-.4.6-.9 1.3-.9.9 0 1.3.7 1.3 1.7V18H18z"/>'],
+    ['#111111','<path fill="#fff" d="M7.5 8.2c-1.4 0-2.4 1.6-2.4 3.4 0 1.5.7 2.5 1.8 2.5.9 0 1.5-.6 2.4-2.2l.9-1.6c.3.5.6 1 .9 1.5-.4.6-.8 1.2-1.1 1.5-.9 1-1.6 1.4-2.6 1.4-1.9 0-3-1.6-3-3.9 0-2.6 1.5-4.6 3.4-4.6 1.2 0 2 .6 2.9 1.9.6-.9 1.4-1.9 2.8-1.9 1.9 0 3.3 2 3.3 4.6 0 2.3-1.1 3.9-2.9 3.9-.6 0-1.1-.2-1.6-.6.3-.4.5-.7.8-1.1.3.2.5.3.8.3 1 0 1.5-1 1.5-2.5 0-1.8-.9-3.4-2.3-3.4-.8 0-1.4.6-2.2 1.9l-.8 1.4c-1 1.8-1.9 2.9-3.3 2.9z"/>'],
+  ];
+  var FOOTER_ROUTES = { 'Modules':'modules.html', 'Blogs':'blog.html',
+    'Testimonials':'testimonials.html', 'Compatible Themes':'themes.html',
+    'Dokan WordPress Plugin':'demo.html' };
+  document.querySelectorAll('[data-links]').forEach(function (ul) {
+    ul.dataset.links.split('|').forEach(function (t) {
+      var li = document.createElement('li');
+      li.innerHTML = '<a href="' + (FOOTER_ROUTES[t] || '#') + '" class="hover:text-white transition-colors">' + t + '</a>';
+      ul.appendChild(li);
+    });
+  });
+  var sw = document.getElementById('socials');
+  if (sw) socials.forEach(function (x) {
+    var a = document.createElement('a');
+    a.href = '#'; a.className = 'grid place-items-center h-[34px] w-[34px] rounded-full';
+    a.style.background = x[0];
+    a.innerHTML = '<svg viewBox="0 0 24 24" class="w-full h-full">' + x[1] + '</svg>';
+    sw.appendChild(a);
+  });
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!window.gsap || !window.ScrollTrigger || reduced) return;
+  gsap.registerPlugin(ScrollTrigger);
+  if (window.Lenis && !window.matchMedia('(hover:none)').matches) {
+    var lenis = new Lenis({ duration: 1.05, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+  gsap.from('.site-nav .menu-row > *', { y:-16, opacity:0, duration:.6, stagger:.08, ease:'power3.out' });
+  /* scroll reveals replay on every pass (shared helper in site-nav.js) */
+  gsap.utils.toArray('[data-anim]').forEach(function (el) { dokanReveal(el); });
+  document.querySelectorAll('[data-stagger]').forEach(function (host) {
+    dokanReveal(host.children, { trigger:host, start:'top 86%', y:34, duration:.7, stagger:.06 });
+  });
+  document.querySelectorAll('[data-cards] > *').forEach(function (el) {
+    dokanReveal(el, { start:'top 92%', y:34, duration:.7 });
+  });
+  window.addEventListener('load', function () {
+    ScrollTrigger.refresh();
+    setTimeout(function () {
+      document.querySelectorAll('[data-anim], [data-stagger] > *, [data-cards] > *').forEach(function (el) {
+        if (parseFloat(getComputedStyle(el).opacity) < 0.05) {
+          var r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) gsap.set(el, { clearProps:'opacity,transform' });
+        }
+      });
+    }, 1200);
+  });
+  var rt; window.addEventListener('resize', function () {
+    clearTimeout(rt); rt = setTimeout(function () { ScrollTrigger.refresh(); }, 200);
+  });
+})();
+</script>
+</body>
+</html>

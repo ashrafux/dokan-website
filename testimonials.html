@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="site-nav.css?v=31" />
+<link rel="stylesheet" href="site-nav.css?v=34" />
 <!-- Page loader: only the header shows until site-nav.js reveals the page (5s failsafe) -->
 <script>(function(d){if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000)})(document.documentElement)</script>
 <script>
@@ -25,51 +25,111 @@
   body { background:#fff; color:#0f172a; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
   html.lenis, html.lenis body { height:auto; }
   html.lenis-smooth { scroll-behavior:auto !important; }
-  .h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px;
-    line-height:1.2; color:#0f172a; }
-  .sub { font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#575757; }
-  .cta-wrap { width:100%; max-width:1700px; margin:0 auto; padding:0 20px; }
-  .cta-band { position:relative; overflow:hidden; border-radius:20px; background:#7047EB; min-height:646px; }
-  .cta-band svg.waves { position:absolute; inset:0; width:100%; height:100%; opacity:.25; pointer-events:none; }
-  .cta-copy { position:absolute; left:84px; top:139px; max-width:655px; z-index:2; }
-  .cta-copy h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:62px; line-height:1.25; color:#fff; }
-  .cta-copy p { margin:28px 0 0; max-width:527px; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:rgba(255,255,255,.8); }
-  .cta-btn { display:inline-flex; align-items:center; gap:14px; margin-top:56px; background:#fff;
-    border-radius:9999px; padding:10px 10px 10px 32px; font-family:'Lato',sans-serif; font-weight:700;
-    font-size:16px; color:#0E0E0F; transition:transform .25s, box-shadow .25s; }
-  .cta-btn:hover { transform:translateY(-2px); box-shadow:0 18px 36px -16px rgba(0,0,0,.35); }
-  .cta-btn .circle { width:45px; height:45px; border-radius:9999px; background:#0E0E0F; color:#fff;
-    display:flex; align-items:center; justify-content:center; }
-  .cta-btn .circle svg { width:17px; height:17px; }
-  .cta-art { position:absolute; right:0; bottom:0; width:678px; z-index:1; border-top-left-radius:10px; }
-  @media (max-width:1200px) {
-    .cta-copy { position:static; padding:56px 32px 0; }
-    .cta-copy h2 { font-size:clamp(30px,4.6vw,62px); }
-    .cta-band { min-height:0; padding-bottom:40px; }
-    .cta-art { position:static; width:calc(100% - 64px); margin:36px 32px 0; border-radius:10px; }
-  }
+  /* ── Testimonials (Figma 631:19053, 1700 x 5218) ───────────────────────── */
+  /* Hero copy: eyebrow y202, H1 y256 (771 wide), lede x1071 y398, grid y604 */
+  .tm-hero { padding-top:202px; }
+  .tm-eyebrow { margin:0; font-family:'Lato',sans-serif; font-weight:400; font-size:20px;
+    line-height:1.5; color:#334155; }
+  .tm-head { display:flex; align-items:flex-end; justify-content:space-between; gap:40px; margin-top:24px; }
+  .tm-h1 { margin:0 0 61px; max-width:771px; font-family:'Poppins',sans-serif; font-weight:600;
+    font-size:70px; line-height:1.1; color:#0F172A; }
+  .tm-lede { margin:0 113px 0 0; width:414px; flex:none; font-family:'Lato',sans-serif; font-size:20px;
+    line-height:1.5; color:#475569; opacity:.9; }
 
-  .tm-eyebrow { font-family:'Lato',sans-serif; font-weight:700; font-size:20px; color:#7047EB; }
-  .tm-h1 { margin:24px 0 0; font-family:'Poppins',sans-serif; font-weight:700; font-size:62px;
-    line-height:1.25; color:#0f172a; max-width:771px; }
-  .tm-lede { max-width:414px; font-family:'Lato',sans-serif; font-size:20px; line-height:1.5; color:#575757; }
-  .tm-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:56px; }
-  .tm-card { background:#F2F2F4; border-radius:20px; min-height:583px; padding:44px 60px;
-    display:flex; flex-direction:column;
-    transition:transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s; }
+  /* Cards: 3 x 4 grid of 480 x 583, 28px gaps, #F3F3F3, r20. Quote 48x39 at 60/64,
+     text Poppins 600 24/1.3 (360 wide), name block 80px in / 59px up, 3px rule at 60px. */
+  .tm-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px; margin-top:56px; }
+  .tm-card { position:relative; display:flex; flex-direction:column; min-height:583px;
+    padding:64px 60px 59px; background:#F3F3F3; border-radius:20px; overflow:hidden;
+    transition:transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s cubic-bezier(.22,.61,.36,1); }
   @media (hover:hover) {
-    .tm-card:hover { transform:translateY(-6px); box-shadow:0 26px 52px -26px rgba(20,20,40,.22); }
+    .tm-card:hover { transform:translateY(-6px); box-shadow:0 22px 44px -22px rgba(20,20,40,.30); }
   }
-  .tm-q { width:48px; height:34px; }
-  .tm-t { margin:42px 0 0; font-family:'Poppins',sans-serif; font-weight:700; font-size:24px;
-    line-height:1.35; color:#1d2433; }
-  .tm-who { margin-top:auto; padding:6px 0 0 18px; border-left:2px solid #C9D3E0; }
-  .tm-who b { display:block; font-family:'Poppins',sans-serif; font-weight:600; font-size:17px; color:#25252D; }
-  .tm-who span { font-family:'Lato',sans-serif; font-size:15px; color:#828282; }
-  @media (max-width:1200px) { .tm-grid { grid-template-columns:repeat(2,1fr); }
-    .tm-h1 { font-size:clamp(32px,5vw,62px); } .tm-card { padding:32px; min-height:0; }
-    .tm-t { font-size:20px; margin-top:28px; } .tm-who { margin-top:32px; } }
-  @media (max-width:760px) { .tm-grid { grid-template-columns:1fr; } }
+  .tm-q { display:block; width:48px; height:39px; }
+  .tm-t { margin:28px 0 0; font-family:'Poppins',sans-serif; font-weight:600; font-size:24px;
+    line-height:1.3; color:#0F172A; overflow-wrap:break-word; }
+  .tm-who { position:relative; margin-top:auto; padding:20px 0 0 20px; display:flex; flex-direction:column; gap:6px; }
+  .tm-who::before { content:''; position:absolute; left:-1.5px; bottom:1px; width:3px; height:50px;
+    border-radius:3px; background:#CBD5E1; }
+  .tm-who b { font-family:'Poppins',sans-serif; font-weight:600; font-size:18px; line-height:1.3;
+    color:#334155; white-space:nowrap; }
+  .tm-who span { font-family:'Lato',sans-serif; font-weight:400; font-size:18px; line-height:1.4; color:#475569; }
+
+  /* Closing CTA: the shared .lc-* band with this frame's Dokani copy (631:19073) */
+  .tm-cta { padding-top:192px; }                       /* 192px from the grid to the band */
+  .tm-cta .lc-waves { left:-40px; top:119px; width:calc(100% + 40px); height:527px; max-width:none; opacity:1; }
+  .tm-cta .lc-copy { width:603px; }
+  .tm-cta .lc-title { max-width:603px; font-size:52px; line-height:1.2; text-wrap:wrap; }
+  .tm-cta .lc-text { max-width:405px; }
+  .tm-cta .lc-btn { width:264px; height:70px; padding-left:40px; font-size:20px; color:#7047EB; border:0; }
+  .tm-cta .lc-btn .circle { right:11.37px; width:45.86px; height:45.64px; background:#7047EB; }
+  .tm-demo { display:flex; align-items:center; justify-content:center; width:175px; height:68px;
+    border-radius:187.18px; background:#7E59ED; font-family:'Lato',sans-serif; font-weight:700;
+    font-size:16.85px; line-height:1.5; color:#FFFFFF; white-space:nowrap; text-decoration:none; }
+
+  /* Browser Poppins sets ~1.4% tighter than Figma's (measured on the card rows:
+     340 vs 334, 333 vs 324, 339 vs 329px). This restores Figma's line breaks. */
+  .tm-h1, .tm-t, .tm-who b, .tm-cta .lc-title { letter-spacing:.014em; }
+
+  /* ── Responsive ── */
+  @media (max-width:1599px) {
+    .tm-lede { margin-right:0; }
+    .tm-card { padding:56px 44px 52px; }
+    .tm-t { font-size:22px; }
+    .tm-cta .lc-copy { width:520px; }
+    .tm-cta .lc-title { max-width:520px; font-size:46px; }
+  }
+  @media (max-width:1439px) {
+    .tm-h1 { font-size:58px; max-width:640px; margin-bottom:40px; }
+    .tm-lede { width:380px; font-size:18px; }
+    .tm-card { min-height:520px; padding:44px 36px; }
+    .tm-t { font-size:20px; margin-top:24px; }
+    .tm-who b, .tm-who span { font-size:17px; }
+    .tm-who::before { height:46px; }
+    .tm-cta .lc-copy { width:460px; }
+    .tm-cta .lc-title { max-width:460px; font-size:42px; }
+  }
+  @media (max-width:1279px) {
+    .tm-hero { padding-top:170px; }
+    .tm-cta .lc-copy { width:460px; }
+    .tm-cta .lc-title { max-width:420px; font-size:38px; }
+    .tm-cta .lc-text { font-size:18px; }
+  }
+  @media (max-width:1199px) {
+    .tm-head { flex-direction:column; align-items:flex-start; gap:24px; }
+    .tm-h1 { margin:0; max-width:760px; }
+    .tm-lede { width:auto; max-width:600px; }
+    .tm-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+    .tm-card { min-height:460px; }
+  }
+  @media (max-width:1023px) {
+    .tm-hero { padding-top:136px; }
+    .tm-head { gap:20px; }
+    .tm-h1 { font-size:clamp(34px,6vw,56px); max-width:700px; }
+    .tm-grid { margin-top:48px; }
+    .tm-card { min-height:420px; }
+    .tm-cta { padding-top:128px; }
+    .tm-cta .lc-copy { width:auto; max-width:603px; }
+    .tm-cta .lc-title { width:auto; max-width:603px; font-size:clamp(32px,5vw,46px); }
+  }
+  @media (max-width:640px) {
+    .tm-hero { padding-top:112px; }
+    .tm-eyebrow { font-size:18px; }
+    .tm-h1 { font-size:clamp(30px,8.6vw,40px); }
+    .tm-lede { font-size:17px; }
+    .tm-grid { grid-template-columns:1fr; gap:16px; margin-top:40px; }
+    .tm-card { min-height:0; padding:32px 24px 30px; }
+    .tm-q { width:40px; height:32.5px; }
+    .tm-t { font-size:19px; margin-top:20px; }
+    .tm-who { padding-top:32px; }
+    .tm-who b, .tm-who span { font-size:16px; }
+    .tm-who::before { height:44px; }
+    .tm-cta { padding-top:88px; }
+    .tm-cta .lc-title { font-size:30px; }
+    .tm-cta .lc-text { font-size:18px; }
+    .tm-cta .lc-actions { flex-direction:column; align-items:stretch; }
+    .tm-cta .lc-btn, .tm-demo { width:100%; max-width:264px; }
+  }
 
   @media (prefers-reduced-motion: reduce) {
     *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
@@ -78,95 +138,97 @@
 </head>
 <body class="font-body">
 <div class="relative bg-white">
-  <div id="site-nav" data-variant="light"></div>
-  <div class="wrap" style="padding-top:202px">
+  <div id="site-nav" data-variant="light" data-top="30"></div>
+  <div class="wrap tm-hero">
     <p class="tm-eyebrow" data-anim>Testimonial</p>
-    <div class="flex flex-wrap items-end justify-between gap-8">
+    <div class="tm-head">
       <h1 class="tm-h1" data-anim>Built on Customer Success. Backed by Real Experiences.</h1>
       <p class="tm-lede" data-anim>The best proof of Dokan's impact comes from the people who use it every day. Read real customer feedback, discover inspiring marketplace success stories, and see how businesses worldwide are growing with Dokan.</p>
     </div>
     <div class="tm-grid" data-stagger>
-      <article class="tm-card">
-        <svg class="tm-q" viewBox="0 0 48 34" fill="#C9D3E0"><path d="M0 34V20.4C0 8.8 6.4 1.6 17.6 0l2 5.2C12.4 7.2 8.8 11.2 8.4 16H18v18H0zm28 0V20.4C28 8.8 34.4 1.6 45.6 0l2 5.2C40.4 7.2 36.8 11.2 36.4 16H46v18H28z"/></svg>
-        <p class="tm-t">So good. Everything I wanted—and even more with the available modules. I requested Geolocation, and they implemented it within just one week. That's what I call a customer-centric company. Thank you so much, you guys!</p>
-        <div class="tm-who"><b>Labdhee Mehta</b><span>Dokan User</span></div>
-      </article>
-      <article class="tm-card">
-        <svg class="tm-q" viewBox="0 0 48 34" fill="#C9D3E0"><path d="M0 34V20.4C0 8.8 6.4 1.6 17.6 0l2 5.2C12.4 7.2 8.8 11.2 8.4 16H18v18H0zm28 0V20.4C28 8.8 34.4 1.6 45.6 0l2 5.2C40.4 7.2 36.8 11.2 36.4 16H46v18H28z"/></svg>
-        <p class="tm-t">They have the best support team. Fast responses, patient, clear communication, and they won't leave until your issue is solved. Many thanks, guys!</p>
-        <div class="tm-who"><b>Nathar ransull</b><span>Dokan User</span></div>
-      </article>
-      <article class="tm-card">
-        <svg class="tm-q" viewBox="0 0 48 34" fill="#C9D3E0"><path d="M0 34V20.4C0 8.8 6.4 1.6 17.6 0l2 5.2C12.4 7.2 8.8 11.2 8.4 16H18v18H0zm28 0V20.4C28 8.8 34.4 1.6 45.6 0l2 5.2C40.4 7.2 36.8 11.2 36.4 16H46v18H28z"/></svg>
-        <p class="tm-t">The plugin is really awesome for both buyer and seller! Though I'm using the free version and able to use minor features, but I'm really felt in love that WeDevs team did for free. I highly recommends the paid version ✌</p>
-        <div class="tm-who"><b>shrostie2008</b><span>Dokan User</span></div>
-      </article>
-      <article class="tm-card">
-        <svg class="tm-q" viewBox="0 0 48 34" fill="#C9D3E0"><path d="M0 34V20.4C0 8.8 6.4 1.6 17.6 0l2 5.2C12.4 7.2 8.8 11.2 8.4 16H18v18H0zm28 0V20.4C28 8.8 34.4 1.6 45.6 0l2 5.2C40.4 7.2 36.8 11.2 36.4 16H46v18H28z"/></svg>
-        <p class="tm-t">I have reviewed Dokan and it seems that there is no match for it when it comes features and frontend capabilities as well.</p>
-        <div class="tm-who"><b>shariq11</b><span>Dokan User</span></div>
-      </article>
-      <article class="tm-card">
-        <svg class="tm-q" viewBox="0 0 48 34" fill="#C9D3E0"><path d="M0 34V20.4C0 8.8 6.4 1.6 17.6 0l2 5.2C12.4 7.2 8.8 11.2 8.4 16H18v18H0zm28 0V20.4C28 8.8 34.4 1.6 45.6 0l2 5.2C40.4 7.2 36.8 11.2 36.4 16H46v18H28z"/></svg>
-        <p class="tm-t">It was incredibly easy to set up, and the support team is friendly and helpful. They answered all my questions and clearly explained what needed to be changed. Special thanks to Mahbubur Rahman for the excellent support!</p>
-        <div class="tm-who"><b>rezoe</b><span>Dokan User</span></div>
-      </article>
-      <article class="tm-card">
-        <svg class="tm-q" viewBox="0 0 48 34" fill="#C9D3E0"><path d="M0 34V20.4C0 8.8 6.4 1.6 17.6 0l2 5.2C12.4 7.2 8.8 11.2 8.4 16H18v18H0zm28 0V20.4C28 8.8 34.4 1.6 45.6 0l2 5.2C40.4 7.2 36.8 11.2 36.4 16H46v18H28z"/></svg>
-        <p class="tm-t">The Dokan plugin is awesome! it's the best choice for building an eCommerce marketplace, with a great seller dashboard and excellent support that's fast, responsive, and quick to resolve issues. Highly recommended!</p>
-        <div class="tm-who"><b>uyenidk</b><span>Dokan User</span></div>
-      </article>
-      <article class="tm-card">
-        <svg class="tm-q" viewBox="0 0 48 34" fill="#C9D3E0"><path d="M0 34V20.4C0 8.8 6.4 1.6 17.6 0l2 5.2C12.4 7.2 8.8 11.2 8.4 16H18v18H0zm28 0V20.4C28 8.8 34.4 1.6 45.6 0l2 5.2C40.4 7.2 36.8 11.2 36.4 16H46v18H28z"/></svg>
-        <p class="tm-t">we were using Wc Vendor plugin, but now we are using Dokan Multivendor plugin but seller are not eligible to access their back end functions like adding products etc please advise</p>
-        <div class="tm-who"><b>bestanswerd</b><span>Dokan User</span></div>
-      </article>
-      <article class="tm-card">
-        <svg class="tm-q" viewBox="0 0 48 34" fill="#C9D3E0"><path d="M0 34V20.4C0 8.8 6.4 1.6 17.6 0l2 5.2C12.4 7.2 8.8 11.2 8.4 16H18v18H0zm28 0V20.4C28 8.8 34.4 1.6 45.6 0l2 5.2C40.4 7.2 36.8 11.2 36.4 16H46v18H28z"/></svg>
-        <p class="tm-t">Excelente plugin, o mais completo. Só tive dificuldades pra traduzir mas consegui de boa. Só acho que faltou o área da cliente, mas aí tem outros plugins que dá pra fazer isso.</p>
-        <div class="tm-who"><b>albertcglezst</b><span>Dokan User</span></div>
-      </article>
-      <article class="tm-card">
-        <svg class="tm-q" viewBox="0 0 48 34" fill="#C9D3E0"><path d="M0 34V20.4C0 8.8 6.4 1.6 17.6 0l2 5.2C12.4 7.2 8.8 11.2 8.4 16H18v18H0zm28 0V20.4C28 8.8 34.4 1.6 45.6 0l2 5.2C40.4 7.2 36.8 11.2 36.4 16H46v18H28z"/></svg>
-        <p class="tm-t">I have tried several other multivendor plugins. I have enjoyed the best solution from the wedevs team. I like the professional and timely support. I have no regret buying the Dokan PRO. Highly recommended. Kudos to the team!</p>
-        <div class="tm-who"><b>tijwrk</b><span>Dokan User</span></div>
-      </article>
-      <article class="tm-card">
-        <svg class="tm-q" viewBox="0 0 48 34" fill="#C9D3E0"><path d="M0 34V20.4C0 8.8 6.4 1.6 17.6 0l2 5.2C12.4 7.2 8.8 11.2 8.4 16H18v18H0zm28 0V20.4C28 8.8 34.4 1.6 45.6 0l2 5.2C40.4 7.2 36.8 11.2 36.4 16H46v18H28z"/></svg>
-        <p class="tm-t">I am very pleased to get such this dokan plugin. It increase my client and I have done 40 website using this. I love this plugin</p>
-        <div class="tm-who"><b>arifse38</b><span>Dokan User</span></div>
-      </article>
-      <article class="tm-card">
-        <svg class="tm-q" viewBox="0 0 48 34" fill="#C9D3E0"><path d="M0 34V20.4C0 8.8 6.4 1.6 17.6 0l2 5.2C12.4 7.2 8.8 11.2 8.4 16H18v18H0zm28 0V20.4C28 8.8 34.4 1.6 45.6 0l2 5.2C40.4 7.2 36.8 11.2 36.4 16H46v18H28z"/></svg>
-        <p class="tm-t">'nough said! 👍 Support is also good and quick, got my issue solved in less than 24h!</p>
-        <div class="tm-who"><b>vitkine_seave</b><span>Dokan User</span></div>
-      </article>
-      <article class="tm-card">
-        <svg class="tm-q" viewBox="0 0 48 34" fill="#C9D3E0"><path d="M0 34V20.4C0 8.8 6.4 1.6 17.6 0l2 5.2C12.4 7.2 8.8 11.2 8.4 16H18v18H0zm28 0V20.4C28 8.8 34.4 1.6 45.6 0l2 5.2C40.4 7.2 36.8 11.2 36.4 16H46v18H28z"/></svg>
-        <p class="tm-t">Helpfull working Mostafijur</p>
-        <div class="tm-who"><b>angrossdafijur</b><span>Dokan User</span></div>
-      </article>
+      <figure class="tm-card m-0">
+        <img class="tm-q" src="Media/Testimonial/quote-mark.svg" width="48" height="39" alt="" />
+        <blockquote class="tm-t">So good. Everything I wanted⁠—⁠and even more with the available modules. I requested Geolocation, and they implemented it within just one week. That's what I call a customer-centric company. Thank you so much, you guys!</blockquote>
+        <figcaption class="tm-who"><b>Labdhee Mehta</b><span>Dokan User</span></figcaption>
+      </figure>
+      <figure class="tm-card m-0">
+        <img class="tm-q" src="Media/Testimonial/quote-mark.svg" width="48" height="39" alt="" />
+        <blockquote class="tm-t">They have the best support team. Fast responses, patient, clear communication, and they won't leave until your issue is solved. Many thanks, guys!</blockquote>
+        <figcaption class="tm-who"><b>Maher Daoud</b><span>Dokan User</span></figcaption>
+      </figure>
+      <figure class="tm-card m-0">
+        <img class="tm-q" src="Media/Testimonial/quote-mark.svg" width="48" height="39" alt="" />
+        <blockquote class="tm-t">The plugin is really awesome for both buyer and seller! Though I’m using the free version and able to use minor features, but I’m really fall in love that WeDevs team did for free. I highly recommends the paid version 🙂</blockquote>
+        <figcaption class="tm-who"><b>shaonbd2020</b><span>Dokan User</span></figcaption>
+      </figure>
+      <figure class="tm-card m-0">
+        <img class="tm-q" src="Media/Testimonial/quote-mark.svg" width="48" height="39" alt="" />
+        <blockquote class="tm-t">I have reviewed Dokan and it seems that there is no match for it when it comes features and frontend capabilities as well.</blockquote>
+        <figcaption class="tm-who"><b>shariq11</b><span>Dokan User</span></figcaption>
+      </figure>
+      <figure class="tm-card m-0">
+        <img class="tm-q" src="Media/Testimonial/quote-mark.svg" width="48" height="39" alt="" />
+        <blockquote class="tm-t">It was incredibly easy to set up, and the support team is friendly and helpful. They answered all my questions and clearly explained what needed to be changed. Special thanks to Mahbubur Rahman for the excellent support!</blockquote>
+        <figcaption class="tm-who"><b>raavo</b><span>Dokan User</span></figcaption>
+      </figure>
+      <figure class="tm-card m-0">
+        <img class="tm-q" src="Media/Testimonial/quote-mark.svg" width="48" height="39" alt="" />
+        <blockquote class="tm-t">The Dokan plugin is awesome! It's the best choice for building an eCommerce marketplace, with a great seller dashboard and excellent support that's fast, responsive, and quick to resolve issues. Highly recommended!</blockquote>
+        <figcaption class="tm-who"><b>upandit</b><span>Dokan User</span></figcaption>
+      </figure>
+      <figure class="tm-card m-0">
+        <img class="tm-q" src="Media/Testimonial/quote-mark.svg" width="48" height="39" alt="" />
+        <blockquote class="tm-t">we were using Wc Vendor plugin, but now we are using Dokan Multivendor plugin but seller are not eligible to access their back end functions like adding products etc please advice</blockquote>
+        <figcaption class="tm-who"><b>indianswan</b><span>Dokan User</span></figcaption>
+      </figure>
+      <figure class="tm-card m-0">
+        <img class="tm-q" src="Media/Testimonial/quote-mark.svg" width="48" height="39" alt="" />
+        <blockquote class="tm-t">Excelente plugin, o mais completo. Só tive dificuldades pra traduzir mas consegui de boa. Só acho que faltou a área do cliente, mas aí tem outros plugins que dá pra fazer isso.</blockquote>
+        <figcaption class="tm-who"><b>albertupload</b><span>Dokan User</span></figcaption>
+      </figure>
+      <figure class="tm-card m-0">
+        <img class="tm-q" src="Media/Testimonial/quote-mark.svg" width="48" height="39" alt="" />
+        <blockquote class="tm-t">I have tried several other multivendor plugins, I have enjoyed the best solution from the weDevs team. I like the professional and timely support. I have no regret buying the Dokan PRO. Highly recommended. Kudos to the team!</blockquote>
+        <figcaption class="tm-who"><b>tjosh</b><span>Dokan User</span></figcaption>
+      </figure>
+      <figure class="tm-card m-0">
+        <img class="tm-q" src="Media/Testimonial/quote-mark.svg" width="48" height="39" alt="" />
+        <blockquote class="tm-t">I am vary pleased to get such this dokan plugin. it increase my client and I have done 40 website using this. I love this plugin</blockquote>
+        <figcaption class="tm-who"><b>arifur06</b><span>Dokan User</span></figcaption>
+      </figure>
+      <figure class="tm-card m-0">
+        <img class="tm-q" src="Media/Testimonial/quote-mark.svg" width="48" height="39" alt="" />
+        <blockquote class="tm-t">‘nough said! 🙂 Support is also good and quick, got my issue solved in less than 24h!</blockquote>
+        <figcaption class="tm-who"><b>viriato_sueco</b><span>Dokan User</span></figcaption>
+      </figure>
+      <figure class="tm-card m-0">
+        <img class="tm-q" src="Media/Testimonial/quote-mark.svg" width="48" height="39" alt="" />
+        <blockquote class="tm-t">Helpfull working<br />Mostafijur</blockquote>
+        <figcaption class="tm-who"><b>engrmostafijur</b><span>Dokan User</span></figcaption>
+      </figure>
     </div>
   </div>
 
-  <section class="bg-white pt-[192px] pb-[110px]">
-    <div class="cta-wrap">
-      <div class="cta-band" data-anim>
-        <svg class="waves" preserveAspectRatio="none" viewBox="0 0 1000 500" fill="none" stroke="white" stroke-width="1">
-          <path d="M-40 430 C 240 340 620 380 1050 210"/><path d="M-40 500 C 280 410 640 440 1050 300"/>
-          <path d="M-40 360 C 240 280 620 320 1050 140"/><path d="M-40 290 C 240 220 620 260 1050 80"/>
-        </svg>
-        <div class="cta-copy">
-          <h2 style="font-size:clamp(28px, 7.2vw, 52px)">Dokani &ndash; Responsive WordPress Theme for Beautiful Website</h2>
-          <p>Start designing your website just the way you want without any cost!</p>
-          <a href="dokani-theme.html" class="cta-btn">Download for Free
-            <span class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 11l4.5 4.5 4.5-4.5M5 19h14"/></svg></span>
-          </a>
-        </div>
-        <img class="cta-art" src="Media/Demo%20Details%20Page/footer%20CTA.png" alt="Dokani storefront" loading="lazy" />
+  <!-- closing CTA: shared .lc-* band with this frame's Dokani copy (631:19073) -->
+  <section class="lc-shell tm-cta">
+  <div class="lc-band">
+    <img class="lc-waves" src="Media/Testimonial/cta-waves.svg" width="1700" height="527" alt="" aria-hidden="true" />
+    <div class="lc-copy">
+      <div class="lc-top">
+        <h2 class="lc-title">Dokani – Responsive WordPress Theme for Beautiful Website</h2>
+        <p class="lc-text">Start designing your website just the way you want without any cost!</p>
+      </div>
+      <div class="lc-actions">
+        <a href="dokani-theme.html" class="lc-btn">Download now
+          <span class="circle"><svg viewBox="0 0 22.98 22.98" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 14.37V4.79M11.5 14.37C10.83 14.37 9.57 12.46 9.1 11.97M11.5 14.37C12.17 14.37 13.42 12.46 13.89 11.97" stroke-width="2"/><path d="M4.79 18.2H18.2" stroke-width="2.03"/></svg></span>
+        </a>
+        <a href="demo.html" class="tm-demo" data-radial>Try Demo</a>
       </div>
     </div>
-  </section>
+    <img class="lc-art" src="Media/footer/Launch%20Your.png" width="1356" height="1186" alt="Dokani storefront built with Dokan" loading="lazy" />
+  </div>
+</section>
+
 </div>
 
 <footer class="bg-black text-white">
@@ -248,7 +310,7 @@
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="site-nav.js?v=29"></script>
+<script src="site-nav.js?v=35"></script>
 <script>
 (function () {
   var socials = [
@@ -286,15 +348,10 @@
     gsap.ticker.lagSmoothing(0);
   }
   gsap.from('.site-nav .menu-row > *', { y:-16, opacity:0, duration:.6, stagger:.08, ease:'power3.out' });
-  gsap.utils.toArray('[data-anim]').forEach(function (el) {
-    gsap.from(el, { y:30, opacity:0, duration:.8, ease:'power3.out', immediateRender:false,
-      clearProps:'transform',
-      scrollTrigger:{ trigger:el, start:'top 88%', once:true } });
-  });
+  /* scroll reveals replay on every pass (shared helper in site-nav.js) */
+  gsap.utils.toArray('[data-anim]').forEach(function (el) { dokanReveal(el); });
   document.querySelectorAll('[data-stagger]').forEach(function (host) {
-    gsap.from(host.children, { y:34, opacity:0, duration:.7, ease:'power3.out', stagger:.06,
-      immediateRender:false, clearProps:'transform',
-      scrollTrigger:{ trigger:host, start:'top 86%', once:true } });
+    dokanReveal(host.children, { trigger:host, start:'top 86%', y:34, duration:.7, stagger:.06 });
   });
   window.addEventListener('load', function () {
     ScrollTrigger.refresh();
