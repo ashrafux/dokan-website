@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&family=Inter:wght@600&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="site-nav.css?v=34" />
+<link rel="stylesheet" href="site-nav.css?v=46" />
 <!-- Page loader: only the header shows until site-nav.js reveals the page (5s failsafe) -->
 <script>(function(d){if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000)})(document.documentElement)</script>
 <script>
@@ -81,6 +81,7 @@
   .pm .pk { margin:40px 0 0; font-family:'Poppins',sans-serif; font-weight:600; font-size:18px; line-height:1.3; }
   .pm-light .pk { color:#0f172a; }
   .pm .chips { display:flex; flex-wrap:wrap; gap:10px 6px; margin-top:20px; }
+  .pm .pm-light .chips span { background:#F3F3F3; }   /* off-white on the white card so the tags show; the dark card keeps white tags */
   .pm .chips span { display:flex; align-items:center; height:34px; padding:0 19px; border-radius:9999px; background:#fff;
     font-family:'Lato',sans-serif; font-size:14px; line-height:1.3; color:#0f172a;
     filter:drop-shadow(0 2px 2.5px rgba(0,0,0,.06)); }
@@ -114,9 +115,29 @@
     line-height:1.3; color:#0f172a; transition:color .25s; }
   .md-card > p { max-width:290px; margin:16px 0 0; font-family:'Lato',sans-serif; font-size:18px; line-height:1.4; color:#475569; }
   @media (hover:hover) {
-    .md-card:hover .md-tile { transform:translateY(-6px); }
     .md-card:hover > h3 { color:#7047EB; }
   }
+  /* thumbnail hover: the icon's own colour (--ic, measured per module) fills the tile and the icon turns white */
+  .md-tile, .pm-thumb { isolation:isolate; }
+  .md-tile::before, .pm-thumb::before { content:''; position:absolute; inset:0; z-index:-1; border-radius:inherit; pointer-events:none;
+    background:var(--ic, #7047EB); opacity:0; transition:opacity .35s ease; }
+  .md-tile .stg, .pm-thumb .stg { transition:filter .35s ease; }
+  .md-card:hover .md-tile::before, .md-card:focus-visible .md-tile::before,
+  .pm-light:hover .pm-thumb::before, .pm-dark:hover .pm-thumb::before { opacity:1; }
+  .md-card:hover .md-tile .stg, .md-card:focus-visible .md-tile .stg,
+  .pm-light:hover .pm-thumb .stg, .pm-dark:hover .pm-thumb .stg { filter:url(#dk-white); }
+  @media (prefers-reduced-motion:reduce) { .md-tile::before, .pm-thumb::before, .md-tile .stg, .pm-thumb .stg { transition:none; } }
+  /* GSAP version (script at the end): the colour spreads as a circle from where the pointer enters and
+     retracts toward where it leaves; the icon turns white as the colour reaches it. .is-fx switches the
+     plain CSS fade above off; without GSAP or with reduced motion the CSS fade stays. */
+  .md-fill { position:absolute; left:0; top:0; z-index:-1; border-radius:50%; background:var(--ic, #7047EB);
+    pointer-events:none; will-change:transform; }
+  .md-tile.is-fx::before, .pm-thumb.is-fx::before { display:none; }
+  /* the icon keeps its colour (it melts into the same-coloured fill); a white copy clipped to the colour circle sits on top */
+  .md-tile.is-fx .stg, .pm-thumb.is-fx .stg { filter:none !important; transition:none !important; }
+  .md-whitewrap { position:absolute; inset:0; pointer-events:none; clip-path:circle(0px at 50% 50%); }   /* shows the white icon only inside the colour circle */
+  .md-tile.is-fx .md-whitewrap .stg, .pm-thumb.is-fx .md-whitewrap .stg { filter:url(#dk-white) !important; }
+  .md-whitewrap { background:var(--ic, #7047EB); }   /* covers the colour icon inside the circle, so the white icon's see-through details show the fill */
   .md-card:focus-visible .md-tile { outline:2px solid #7047EB; outline-offset:4px; }
 
   /* Supportive Plugins (1151:32906): #F3F3F3 band, 1660 wide, 144/85 padding */
@@ -224,6 +245,7 @@
 </style>
 </head>
 <body class="font-body">
+<svg class="dk-fx" width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="dk-white" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  -1 -1 -1 3 0"/></filter></svg>
 <header class="mh">
   <div id="site-nav" data-variant="light" data-top="30"></div>
   <div class="mh-copy">
@@ -262,7 +284,7 @@
     </div>
     <div class="pm" data-anim>
       <div class="pm-light">
-        <div class="pm-thumb" data-sw="304" style="border-radius:8.683px;background:#F4F4F6">
+        <div class="pm-thumb" data-sw="304" style="border-radius:8.683px;background:#F4F4F6;--ic:#28c163">
           <div class="stg" style="--sw:304;--sh:193.62">
             <div style="position:absolute;left:124.2px;top:88.26px;width:56.4px;height:41.307px;background:#28C163;border-radius:0 0 6.857px 6.857px"></div>
             <div style="position:absolute;left:121.02px;top:64.43px;width:61.961px;height:19.065px;background:#28C163;border-radius:4.285px"></div>
@@ -275,7 +297,7 @@
         <div class="chips"><span>Business</span><span>Enterprise</span></div>
       </div>
       <div class="pm-dark">
-        <div class="pm-thumb" data-sw="304" style="border-radius:10px;background:#F4F4F6">
+        <div class="pm-thumb" data-sw="304" style="border-radius:10px;background:#F4F4F6;--ic:#f97316">
           <div class="stg" style="--sw:304;--sh:193.62"><!-- auction gavel, drawn in the same flat style as the Booking thumbnail --><div style="position:absolute;left:92px;top:134px;width:66px;height:12px;background:#EA580C;border-radius:4px"></div><div style="position:absolute;left:146px;top:84px;width:0;height:0;transform:rotate(-45deg)"><div style="position:absolute;left:-5px;top:0;width:10px;height:58px;background:#FB923C;border-radius:5px"></div><div style="position:absolute;left:-28px;top:-27px;width:56px;height:26px;background:#F97316;border-radius:6px"></div><div style="position:absolute;left:-36px;top:-31px;width:12px;height:34px;background:#F97316;border-radius:4px"></div><div style="position:absolute;left:24px;top:-31px;width:12px;height:34px;background:#F97316;border-radius:4px"></div><div style="position:absolute;left:-14px;top:-18px;width:28px;height:8px;background:#fff;opacity:.85;border-radius:2px"></div></div></div>
         </div>
         <h3><a href="module-simple-auctions.html" class="mp-link">Dokan Simple Auctions</a></h3>
@@ -317,7 +339,7 @@
         <div class="md-grid" data-stagger>
         <!--MD-GRID-START-->
         <article class="md-card" role="link" tabindex="0" data-href="module-product-form-manager.html" data-plans="professional business enterprise" data-cats="vendor-management products-catalog" aria-label="Product Form Manager">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[139.65px] top-[73.9px]">
+          <div style="--ic:#28c163" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[139.65px] top-[73.9px]">
             <div class="absolute bg-[#28c163] h-[47.356px] left-[143.45px] rounded-bl-[7.286px] rounded-br-[7.286px] top-[101.37px] w-[64.659px]"></div>
             <div class="absolute bg-[#28c163] h-[21.857px] left-[139.81px] rounded-[4.553px] top-[74.05px] w-[71.034px]"></div>
             <div class="absolute bg-white h-[7.286px] left-[181.7px] rounded-[0.911px] top-[134.16px] w-[19.125px]"></div>
@@ -327,7 +349,7 @@
           <p>Customize the vendor product form with your own fields, sections and rules for every product type.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-paystack.html" data-plans="professional business enterprise" data-cats="payments" aria-label="Paystack">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents inset-[calc(33.4%-0.05px)_calc(39.13%-0.03px)_calc(33.3%-0.05px)_calc(39.22%-0.03px)]">
+          <div style="--ic:#07a5da" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents inset-[calc(33.4%-0.05px)_calc(39.13%-0.03px)_calc(33.3%-0.05px)_calc(39.22%-0.03px)]">
             <div class="absolute inset-[33.4%_39.13%_33.3%_39.22%]">
               <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/paystack.svg">
             </div>
@@ -337,7 +359,7 @@
           <p>Accept payments across Africa with Paystack and split every order with vendors.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-vendor-support.html" data-plans="starter professional business enterprise" data-cats="vendor-management" aria-label="Vendor Support">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[11.517px]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(26.94%-0.07px)_calc(36.25%-0.04px)_calc(27.24%-0.07px)_calc(35.98%-0.04px)]">
+          <div style="--ic:#007afe" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[11.517px]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(26.94%-0.07px)_calc(36.25%-0.04px)_calc(27.24%-0.07px)_calc(35.98%-0.04px)]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/vendor-support.svg">
           </div>
         </div></div>
@@ -345,7 +367,7 @@
           <p>Give vendors a direct line to the admin with support tickets right in their dashboard.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-printful-integration.html" data-plans="business enterprise" data-cats="products-catalog" aria-label="Printful Integration">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[122.22px] size-[104.58px] top-[59.56px]">
+          <div style="--ic:#007afe" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[122.22px] size-[104.58px] top-[59.56px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/printful-integration.svg">
           </div>
         </div></div>
@@ -353,7 +375,7 @@
           <p>Let vendors sell print-on-demand products from Printful, with printing and shipping handled for them.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-seller-badge.html" data-plans="professional business enterprise" data-cats="marketing-growth" aria-label="Seller Badge">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(28.47%-0.07px)_calc(39.45%-0.03px)_calc(28.97%-0.07px)_calc(39.51%-0.03px)]">
+          <div style="--ic:#ff761b" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(28.47%-0.07px)_calc(39.45%-0.03px)_calc(28.97%-0.07px)_calc(39.51%-0.03px)]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/seller-badge.svg">
           </div>
         </div></div>
@@ -361,7 +383,7 @@
           <p>Reward top vendors with badges for sales, ratings and milestones, and build trust with every shopper.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-stripe-express.html" data-plans="professional business enterprise" data-cats="payments" aria-label="Stripe Express">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[75.36px]">
+          <div style="--ic:#635bff" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[75.36px]">
             <div class="absolute h-[70.879px] left-[90.01px] overflow-clip top-[75.52px] w-[170.3px]">
               <div class="absolute inset-[0_0.01%_0.03%_0]">
                 <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/stripe-express.svg">
@@ -373,7 +395,7 @@
           <p>Onboard vendors in minutes with Stripe Express and pay them out automatically.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-request-for-quotation.html" data-plans="business enterprise" data-cats="customer-experience products-catalog" aria-label="Request for Quotation">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(29.34%-0.06px)_calc(37.61%-0.04px)_calc(28.87%-0.07px)_calc(37.44%-0.04px)]">
+          <div style="--ic:#10be78" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(29.34%-0.06px)_calc(37.61%-0.04px)_calc(28.87%-0.07px)_calc(37.44%-0.04px)]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/request-for-quotation.svg">
           </div>
         </div></div>
@@ -381,13 +403,13 @@
           <p>Let customers request a custom quote and let vendors reply with their own price.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-report-abuse.html" data-plans="professional business enterprise" data-cats="compliance-trust" aria-label="Report Abuse">
-          <div class="md-tile " data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/report-abuse-neutral.svg">
+          <div style="--ic:#f93f35" class="md-tile bg-[#F4F4F6] rounded-[11.517px] overflow-clip" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/report-abuse-neutral.svg">
         </div></div>
           <h3>Report Abuse</h3>
           <p>Let shoppers flag fake or harmful listings so the admin can review every report and act quickly.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-elementor.html" data-plans="professional business enterprise" data-cats="design-customization" aria-label="Elementor">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[11.517px]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute h-[150.735px] left-[63.7px] top-[35.65px] w-[223.12px]">
+          <div style="--ic:#ed01ee" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[11.517px]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute h-[150.735px] left-[63.7px] top-[35.65px] w-[223.12px]">
             <img alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="Media/Module%20Page/Icons/elementor.png">
           </div>
         </div></div>
@@ -395,7 +417,7 @@
           <p>Design store pages, product layouts and vendor listings visually with Dokan widgets for Elementor.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-stripe-connect.html" data-plans="professional business enterprise" data-cats="payments" aria-label="Stripe Connect">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[66.77px]">
+          <div style="--ic:#635bff" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[66.77px]">
             <div class="absolute contents left-[90.01px] top-[66.93px]">
               <div class="absolute h-[70.879px] left-[90.01px] overflow-clip top-[66.93px] w-[170.3px]">
                 <div class="absolute inset-[0_0_0.03%_0]">
@@ -414,7 +436,7 @@
           <p>Split payments between admin and vendors at checkout with Stripe Connect.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-table-rate-shipping.html" data-plans="professional business enterprise" data-cats="shipping-delivery" aria-label="Table Rate Shipping">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(32.19%-0.06px)_calc(34.35%-0.05px)_calc(32.42%-0.06px)_calc(34.24%-0.05px)]">
+          <div style="--ic:#fbb035" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(32.19%-0.06px)_calc(34.35%-0.05px)_calc(32.42%-0.06px)_calc(34.24%-0.05px)]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/table-rate-shipping.svg">
           </div>
         </div></div>
@@ -422,7 +444,7 @@
           <p>Let vendors set shipping rates by weight, price, item count or distance for accurate delivery costs.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-product-advertising.html" data-plans="business enterprise" data-cats="marketing-growth monetization" aria-label="Product Advertising">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(30.05%-0.06px)_calc(31.97%-0.06px)_calc(30.13%-0.06px)_calc(32.11%-0.06px)]">
+          <div style="--ic:#097ce5" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(30.05%-0.06px)_calc(31.97%-0.06px)_calc(30.13%-0.06px)_calc(32.11%-0.06px)]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-advertising.svg">
           </div>
         </div></div>
@@ -430,7 +452,7 @@
           <p>Sell paid ad slots so vendors can feature their products at the top of your store and search results.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-minimum-maximum-order.html" data-plans="professional business enterprise" data-cats="monetization products-catalog" aria-label="Minimum Maximum Order">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute h-[103.61px] left-[128.44px] top-[59.17px] w-[91.98px]">
+          <div style="--ic:#653cff" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute h-[103.61px] left-[128.44px] top-[59.17px] w-[91.98px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/minimum-maximum-order.svg">
           </div>
         </div></div>
@@ -438,7 +460,7 @@
           <p>Set minimum and maximum order quantities or amounts per product, vendor or store.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-subscriptions.html" data-plans="professional business enterprise" data-cats="monetization" aria-label="Subscriptions">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="-translate-x-1/2 -translate-y-1/2 absolute bg-[#28c163] h-[77.864px] left-[calc(50%+0.47px)] rounded-[11.979px] top-[calc(50%+0.48px)] w-[103.819px]">
+          <div style="--ic:#28c163" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="-translate-x-1/2 -translate-y-1/2 absolute bg-[#28c163] h-[77.864px] left-[calc(50%+0.47px)] rounded-[11.979px] top-[calc(50%+0.48px)] w-[103.819px]">
             <div class="absolute bg-white h-[9.983px] left-[9.98px] rounded-[1.997px] top-[11.98px] w-[75.868px]"></div>
           </div>
         </div></div>
@@ -446,7 +468,7 @@
           <p>Charge vendors recurring fees with subscription packs that set product limits, duration and commission.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-product-subscription.html" data-plans="business enterprise" data-cats="monetization" aria-label="Product Subscription">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[11.517px]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(29.45%-0.06px)_calc(39.19%-0.03px)_calc(29.42%-0.06px)_calc(39.22%-0.03px)]">
+          <div style="--ic:#ff761b" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[11.517px]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(29.45%-0.06px)_calc(39.19%-0.03px)_calc(29.42%-0.06px)_calc(39.22%-0.03px)]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-subscription.svg">
           </div>
         </div></div>
@@ -454,7 +476,7 @@
           <p>Let vendors sell subscription products with recurring billing, built on WooCommerce Subscriptions.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-follow-store.html" data-plans="professional business enterprise" data-cats="marketing-growth" aria-label="Follow Store">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(30.43%-0.06px)_calc(34.79%-0.05px)_calc(30.79%-0.06px)_calc(34.95%-0.05px)]">
+          <div style="--ic:#612efe" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(30.43%-0.06px)_calc(34.79%-0.05px)_calc(30.79%-0.06px)_calc(34.95%-0.05px)]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/follow-store.svg">
           </div>
         </div></div>
@@ -462,7 +484,7 @@
           <p>Let customers follow their favorite stores and get notified when new products or offers go live.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-geolocation.html" data-plans="business enterprise" data-cats="shipping-delivery customer-experience" aria-label="Geolocation">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(29.31%-0.06px)_calc(37.17%-0.04px)_calc(29.61%-0.06px)_calc(37.09%-0.04px)]">
+          <div style="--ic:#01c16e" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(29.31%-0.06px)_calc(37.17%-0.04px)_calc(29.61%-0.06px)_calc(37.09%-0.04px)]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/geolocation.svg">
           </div>
         </div></div>
@@ -470,7 +492,7 @@
           <p>Help shoppers find vendors and products near them with location search and map-based store listings.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-mangopay.html" data-plans="professional business enterprise" data-cats="payments" aria-label="Dokan MANGOPAY Integration">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[123.46px] size-[103.819px] top-[59.17px]">
+          <div style="--ic:#877eff" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[123.46px] size-[103.819px] top-[59.17px]">
             <img alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="Media/Module%20Page/Icons/dokan-mangopay-integration.png">
           </div>
         </div></div>
@@ -478,7 +500,7 @@
           <p>Handle split payments, e-wallets and vendor payouts securely with MANGOPAY, built for Europe.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-razorpay.html" data-plans="professional business enterprise" data-cats="payments" aria-label="Razorpay">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[83.62px] size-[182.139px] top-[20.58px]">
+          <div style="--ic:#3495fc" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[83.62px] size-[182.139px] top-[20.58px]">
             <img alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="Media/Module%20Page/Icons/razorpay.png">
           </div>
         </div></div>
@@ -486,7 +508,7 @@
           <p>Accept payments in India with Razorpay and route each vendor’s share to their account automatically.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-rank-math-seo.html" data-plans="professional business enterprise" data-cats="marketing-growth" aria-label="Rank Math SEO">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(34.84%-0.05px)_calc(34.55%-0.05px)_calc(35.08%-0.05px)_calc(34.24%-0.05px)]">
+          <div style="--ic:#6666c3" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(34.84%-0.05px)_calc(34.55%-0.05px)_calc(35.08%-0.05px)_calc(34.24%-0.05px)]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/rank-math-seo.svg">
           </div>
         </div></div>
@@ -494,7 +516,7 @@
           <p>Give vendors Rank Math SEO controls on their products so every listing is ready to rank in search.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-eu-compliance-fields.html" data-plans="starter professional business enterprise" data-cats="compliance-trust" aria-label="EU Compliance Fields">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[11.517px]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.15px]">
+          <div style="--ic:#28c163" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[11.517px]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.15px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/eu-compliance-fields.svg">
           </div>
         </div></div>
@@ -502,7 +524,7 @@
           <p>Collect company names, VAT and tax IDs from vendors and customers to stay compliant across the EU.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-paypal-marketplace.html" data-plans="business enterprise" data-cats="payments" aria-label="Dokan PayPal Marketplace">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[138.4px] size-[72.21px] top-[75.4px]">
+          <div style="--ic:#003087" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[138.4px] size-[72.21px] top-[75.4px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/dokan-paypal-marketplace.svg">
           </div>
         </div></div>
@@ -510,7 +532,7 @@
           <p>Pay vendors instantly with PayPal Marketplace split payments, with buyer and seller protection built in.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-delivery-time.html" data-plans="starter professional business enterprise" data-cats="shipping-delivery" aria-label="Delivery Time">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(33.4%-0.05px)_calc(34.53%-0.05px)_calc(32.97%-0.05px)_calc(34.6%-0.05px)]">
+          <div style="--ic:#fe710d" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(33.4%-0.05px)_calc(34.53%-0.05px)_calc(32.97%-0.05px)_calc(34.6%-0.05px)]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/delivery-time.svg">
           </div>
         </div></div>
@@ -518,13 +540,13 @@
           <p>Let customers pick a delivery date and time slot at checkout, based on each vendor’s own schedule.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-product-addon.html" data-plans="professional business enterprise" data-cats="products-catalog" aria-label="Product Addon">
-          <div class="md-tile " data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-addon-neutral.svg">
+          <div style="--ic:#5c26fe" class="md-tile bg-[#F4F4F6] rounded-[11.517px] overflow-clip" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-addon-neutral.svg">
         </div></div>
           <h3>Product Addon</h3>
           <p>Let vendors add extra options to their products, such as gift wrapping, custom text or paid upgrades.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-ajax-live-search.html" data-plans="professional business enterprise" data-cats="marketing-growth customer-experience" aria-label="Ajax Live Search">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.66px]">
+          <div style="--ic:#28c163" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.66px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/ajax-live-search.svg">
           </div>
         </div></div>
@@ -532,7 +554,7 @@
           <p>Show instant product and store results as shoppers type, so they find what they want faster.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-color-scheme-customizer.html" data-plans="starter professional business enterprise" data-cats="design-customization" aria-label="Color Scheme Customizer">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+          <div style="--ic:#07a5da" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/color-scheme-customizer.svg">
           </div>
         </div></div>
@@ -540,7 +562,7 @@
           <p>Match the vendor dashboard and store pages to your brand with your own colors, no code needed.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-export-import.html" data-plans="business enterprise" data-cats="products-catalog" aria-label="Export Import">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.18px]">
+          <div style="--ic:#007afe" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.18px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/export-import.svg">
           </div>
         </div></div>
@@ -548,7 +570,7 @@
           <p>Move products, orders and vendor data in and out of your marketplace with simple CSV and XML files.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-live-chat.html" data-plans="business enterprise" data-cats="customer-experience" aria-label="Live Chat">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.18px]">
+          <div style="--ic:#07a5da" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.18px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/live-chat.svg">
           </div>
         </div></div>
@@ -556,7 +578,7 @@
           <p>Let customers chat with vendors in real time from the store page to answer questions and close sales.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-wirecard.html" data-plans="professional business enterprise" data-cats="payments" aria-label="Wirecard">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+          <div style="--ic:#653cff" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/wirecard.svg">
           </div>
         </div></div>
@@ -564,7 +586,7 @@
           <p>Accept card payments with Wirecard and split every order with vendors at checkout.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-product-enquiry.html" data-plans="business enterprise" data-cats="customer-experience" aria-label="Product Enquiry">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+          <div style="--ic:#ff761b" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-enquiry.svg">
           </div>
         </div></div>
@@ -572,7 +594,7 @@
           <p>Add an enquiry form to product pages so customers can send their questions straight to the vendor.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-return-and-warranty-request.html" data-plans="professional business enterprise" data-cats="customer-experience compliance-trust" aria-label="Return and Warranty Request">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.19px]">
+          <div style="--ic:#f93f35" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.19px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/return-and-warranty-request.svg">
           </div>
         </div></div>
@@ -580,7 +602,7 @@
           <p>Let vendors set return and warranty policies, and let customers request refunds from their account.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-seller-verification.html" data-plans="professional business enterprise" data-cats="vendor-management compliance-trust" aria-label="Seller Verification">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+          <div style="--ic:#007afe" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/seller-verification.svg">
           </div>
         </div></div>
@@ -588,7 +610,7 @@
           <p>Verify vendors with ID, address and company documents, and show a verified badge on their store.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-shipstation.html" data-plans="business enterprise" data-cats="shipping-delivery" aria-label="ShipStation">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+          <div style="--ic:#fbb035" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/shipstation.svg">
           </div>
         </div></div>
@@ -596,7 +618,7 @@
           <p>Sync vendor orders with ShipStation to print labels, compare carriers and get every parcel out faster.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-single-product-multivendor.html" data-plans="professional business enterprise" data-cats="products-catalog" aria-label="Single Product Multivendor">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[63.96px]">
+          <div style="--ic:#653cff" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[63.96px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/single-product-multivendor.svg">
           </div>
         </div></div>
@@ -604,7 +626,7 @@
           <p>Let several vendors sell the same product, so customers can compare offers and choose their seller.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-store-support.html" data-plans="professional business enterprise" data-cats="customer-experience" aria-label="Store Support">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+          <div style="--ic:#28c163" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/store-support.svg">
           </div>
         </div></div>
@@ -612,7 +634,7 @@
           <p>Let customers open support tickets with any store and follow the conversation until it’s resolved.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-vendor-review.html" data-plans="professional business enterprise" data-cats="customer-experience" aria-label="Vendor Review">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.18px]">
+          <div style="--ic:#fbb035" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.18px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/vendor-review.svg">
           </div>
         </div></div>
@@ -620,7 +642,7 @@
           <p>Let customers rate and review stores, and let vendors read and reply to the feedback they get.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-vendor-staff-manager.html" data-plans="business enterprise" data-cats="vendor-management" aria-label="Vendor Staff Manager">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+          <div style="--ic:#07a5da" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/vendor-staff-manager.svg">
           </div>
         </div></div>
@@ -628,7 +650,7 @@
           <p>Let vendors add staff accounts with their own permissions to manage products, orders and more.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-vendor-vacation.html" data-plans="business enterprise" data-cats="vendor-management" aria-label="Vendor Vacation">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+          <div style="--ic:#007afe" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/vendor-vacation.svg">
           </div>
         </div></div>
@@ -636,7 +658,7 @@
           <p>Let vendors pause their store while they are away and show customers a custom vacation message.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-wholesale.html" data-plans="business enterprise" data-cats="monetization products-catalog" aria-label="Wholesale">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+          <div style="--ic:#ff761b" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/wholesale.svg">
           </div>
         </div></div>
@@ -644,7 +666,7 @@
           <p>Let vendors offer wholesale prices to approved bulk buyers alongside their regular retail prices.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-vendor-analytics.html" data-plans="business enterprise" data-cats="vendor-management" aria-label="Vendor Analytics">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.59px]">
+          <div style="--ic:#653cff" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.59px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/vendor-analytics.svg">
           </div>
         </div></div>
@@ -652,7 +674,7 @@
           <p>Give vendors detailed reports on views, sales and traffic sources, powered by Google Analytics.</p>
         </article>
         <article class="md-card" role="link" tabindex="0" data-href="module-product-qa.html" data-plans="business enterprise" data-cats="customer-experience" aria-label="Product Q&amp;A">
-          <div class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+          <div style="--ic:#28c163" class="md-tile bg-[#F4F4F6] border-[#F4F4F6] border-[0.157px] border-solid overflow-clip rounded-[var(--10,10px)]" data-sw="350.129"><div class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-q-a.svg">
           </div>
         </div></div>
@@ -853,7 +875,7 @@
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="site-nav.js?v=35"></script>
+<script src="site-nav.js?v=43"></script>
 <script>
 (function () {
   var socials = [
@@ -909,6 +931,56 @@
   });
   var rt; window.addEventListener('resize', function () {
     clearTimeout(rt); rt = setTimeout(function () { ScrollTrigger.refresh(); }, 200);
+  });
+})();
+</script>
+<script>
+/* Modules list: thumbnail colour spreads from the pointer (GSAP) */
+(function () {
+  if (!window.gsap || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var pairs = [];
+  document.querySelectorAll('.md-card').forEach(function (c) { pairs.push([c, c.querySelector('.md-tile')]); });
+  document.querySelectorAll('.pm-light, .pm-dark').forEach(function (c) { pairs.push([c, c.querySelector('.pm-thumb')]); });
+  pairs.forEach(function (p) {
+    var card = p[0], tile = p[1];
+    if (!tile) return;
+    var fill = document.createElement('span');
+    fill.className = 'md-fill';
+    fill.setAttribute('aria-hidden', 'true');
+    tile.insertBefore(fill, tile.firstChild);
+    /* a white copy of the icon, clipped to the same circle as the colour: the icon is pure white wherever
+       the colour has reached and untouched elsewhere, so there is never an in-between shade */
+    var art = tile.querySelector('.stg'), wrap = null;
+    if (art) { wrap = document.createElement('span'); wrap.className = 'md-whitewrap'; wrap.setAttribute('aria-hidden', 'true');
+      wrap.appendChild(art.cloneNode(true)); tile.appendChild(wrap); }
+    var cx = 0, cy = 0, rad = 0;
+    function clip() { if (wrap) wrap.style.clipPath = 'circle(' + (gsap.getProperty(fill, 'scale') * rad).toFixed(1) + 'px at ' + cx + 'px ' + cy + 'px)'; }
+    tile.classList.add('is-fx');
+    gsap.set(fill, { xPercent: -50, yPercent: -50, scale: 0 });
+    /* centre the circle on a point of the tile, sized to just reach the farthest corner from there */
+    function place(x, y) {
+      var r = tile.getBoundingClientRect();
+      cx = Math.min(Math.max(x - r.left, 0), r.width); cy = Math.min(Math.max(y - r.top, 0), r.height);
+      var d = 2 * Math.max(Math.hypot(cx, cy), Math.hypot(r.width - cx, cy), Math.hypot(cx, r.height - cy), Math.hypot(r.width - cx, r.height - cy)) + 2;
+      rad = d / 2;
+      gsap.set(fill, { left: cx, top: cy, width: d, height: d });
+      clip();
+    }
+    function centre() { var r = tile.getBoundingClientRect(); place(r.left + r.width / 2, r.top + r.height / 2); }
+    function enter(x, y) {
+      if (x != null && gsap.getProperty(fill, 'scale') < 0.02) place(x, y);
+      tile.classList.add('is-hot');
+      gsap.to(fill, { scale: 1, duration: 0.8, ease: 'power3.inOut', overwrite: true, onUpdate: clip });
+    }
+    function leave(x, y) {
+      if (gsap.getProperty(fill, 'scale') > 0.98 && x != null) place(x, y);   /* full: re-centre on the exit point, still covering */
+      tile.classList.remove('is-hot');
+      gsap.to(fill, { scale: 0, duration: 0.65, ease: 'power3.inOut', overwrite: true, onUpdate: clip });
+    }
+    card.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') enter(e.clientX, e.clientY); });
+    card.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') leave(e.clientX, e.clientY); });
+    card.addEventListener('focusin', function () { if (card.matches(':focus-visible')) { centre(); enter(); } });
+    card.addEventListener('focusout', function () { leave(); });
   });
 })();
 </script>

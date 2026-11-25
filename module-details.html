@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&family=Inter:wght@700&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="site-nav.css?v=34" />
+<link rel="stylesheet" href="site-nav.css?v=46" />
 <!-- Page loader: only the header shows until site-nav.js reveals the page (5s failsafe) -->
 <script>(function(d){if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.style.setProperty('--loader-bg','#05060C');d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000)})(document.documentElement)</script>
 <script>
@@ -136,11 +136,15 @@
     filter:drop-shadow(0 3.012px 12.05px rgba(0,0,0,.06));
     transition:transform .3s cubic-bezier(.22,.61,.36,1); }
   @media (hover:hover) { .am-tile:hover { transform:translateY(-5px); } }
-  /* module tiles reuse each module's thumbnail from the modules list page, cropped to a square on its icon */
+  /* module tiles reuse each module's thumbnail from the modules list page; every icon is scaled to the same
+     visual size (equal area, capped for wide logos) and centred on its measured artwork (--cx/--cy/--f) */
   .am-nt { position:relative; display:block; overflow:hidden; --s:72.299; }
-  .am-nt .stg { pointer-events:none; transform:scale(calc(var(--s) / var(--win)));
-    left:calc((var(--s) - var(--sw) * var(--s) / var(--win)) * .5px); top:calc((var(--s) - var(--sh) * var(--s) / var(--win)) * .5px); }
+  .am-nt .stg { pointer-events:none; transform:scale(calc(var(--s) * var(--f)));
+    left:calc((var(--s) * .5 - var(--cx) * var(--s) * var(--f)) * 1px); top:calc((var(--s) * .5 - var(--cy) * var(--s) * var(--f)) * 1px); }
   @media (max-width:1439px) { .am-nt { --s:56; } }
+  /* am-nt-colour: the icon colour fills the tile and the icon turns white (knockout filter #dk-white keeps its inner detail) */
+  .am-nt { background:var(--ic, #7047EB) !important; }
+  .am-nt .stg { filter:url(#dk-white); }
   /* names like "Subscriptions" overflow the full-size tile below 1600px: use the compact tile there */
   @media (max-width:1599px) {
     .am-grid .am-tile { padding-left:18px !important; padding-right:12px; gap:12px; height:112px; }
@@ -237,7 +241,7 @@
   /* ── Module pages: real dokan.co copy varies in length, so the card text
      flows (the Figma page placed fixed-length lines) and illustrations sit
      on the card art instead of the Figma screenshots. ───────────────────── */
-  .fc-card .txt h3 { max-width:100%; }
+  .fc-card .txt h3 { max-width:min(100%, 15em); }   /* long titles break into two balanced lines, matching their neighbour */
   .fc-card p { position:static; width:auto; max-width:100%; margin-top:16px; }
   /* cards keep Figma's 633px at rest but grow with longer real copy: image and
      arrow stay anchored to the bottom (50.5px), text never runs under them */
@@ -269,6 +273,10 @@
     background:#fff; border-radius:18.631px; box-shadow:0 30px 60px -30px rgba(15,23,42,.35); }
   a.fc-arrow { cursor:pointer; }
   .mdh-art { background:#fff; }
+  /* hero art: the module's list-page icon in its hover colours (white icon on the icon's own colour) */
+  .mdh-art.mdh-ic { position:relative; display:block; overflow:hidden; background:var(--ic) !important; }
+  .mdh-ic .mdh-icn { filter:url(#dk-white); }
+  .mdh-ic .mdh-lu { position:absolute; left:50%; top:50%; width:31%; height:auto; transform:translate(-50%,-50%); color:#fff; }
   .mdh-art.is-svg { object-fit:contain; padding:18px; background:#fff; }
   .mdh-buy.no-price .b1 { margin-top:0; }
   /* real button labels vary (Buy Now / Browse Packages / Download Free): both buttons grow together */
@@ -292,6 +300,29 @@
     .mp-frame { inset:8% 7%; }
   }
 
+
+  /* ── Module hero fits the screen on desktop: always one viewport tall, content flows in a grid
+     (copy top-left, requirements bottom-left, art and buttons centred), sizes ease down on short screens ── */
+  @media (min-width:1024px) {
+    .mdh { min-height:600px !important; height:100vh; height:100svh; max-height:1080px; }
+    .mdh-inner { height:100% !important; max-width:1700px; margin:0 auto; box-sizing:border-box; display:grid !important;
+      grid-template-columns:minmax(0, min(400px, 28vw)) minmax(0, 1fr) max-content !important; grid-template-rows:minmax(0, 1fr) auto;
+      column-gap:clamp(32px, 4vw, 80px) !important; row-gap:clamp(16px, 3vh, 40px) !important;
+      padding:clamp(116px, 17vh, 179px) clamp(48px, 6vw, 102px) clamp(28px, 5.5vh, 60px) !important; }
+    .mdh-left, .mdh-mid, .mdh-buy, .mdh-req, .mdh-avail { position:static !important; width:auto !important; }
+    .mdh-left { grid-column:1; grid-row:1; align-self:start; }
+    .mdh-left h1 { max-width:none; font-size:clamp(26px, 3.7vh, 36px); }
+    .mdh-left p { margin-top:clamp(12px, 2.4vh, 28px); font-size:clamp(15px, 2.1vh, 18px); }
+    .mdh-mid { grid-column:2; grid-row:1 / span 2; align-self:center; justify-self:center;
+      width:min(100%, 450px, calc((100vh - 330px) * 1.2857)) !important; }
+    .mdh-art { width:100% !important; height:auto !important; aspect-ratio:450/350; }
+    .mdh-mid h2 { margin-top:clamp(14px, 3vh, 39px); font-size:clamp(22px, 2.8vh, 30px); }
+    .mdh-buy { grid-column:3; grid-row:1 / span 2; align-self:center; margin-top:0 !important; }
+    .mdh-req { grid-column:1; grid-row:2; align-self:end; }
+    .mdh-req p { font-size:clamp(15px, 1.85vh, 20px); }
+    .mdh-req .lnk { margin-top:clamp(14px, 2.8vh, 40px); }
+    .mdh-avail { grid-column:3; grid-row:2; align-self:end; justify-self:end; width:max-content !important; }
+  }
   /* pf-kit:start ── Feature illustrations: live faux UI (stageshow rules) ──
      Only the product panel is drawn: no plate behind it, no white frame.
      Small cards: the panel is pinned to the copy's left edge and runs off the
@@ -301,7 +332,9 @@
   .fc-card .fc-thumb.pf-stage { position:relative; width:min(400px, 100%); height:auto; aspect-ratio:400/290;
     margin-top:auto; margin-bottom:-50.565px; border-radius:0; overflow:visible; background:transparent; }
   .fc-card:has(.pf-stage) .txt { margin-bottom:40px; }
-  .pf-media { background:#2F6BFF url('Media/Module%20Details%20Page/Features/wide-2-bg.png') center/cover no-repeat; }
+  /* wide-card grounds: dark streaks on the 1st, 3rd... wide card, the blue wave on the 2nd, 4th... */
+  .pf-media { background:#0A7CF0 url('Media/Module%20Details%20Page/Features/wide-bg-blue.jpg') center/cover no-repeat; }
+  .fc-wide:nth-of-type(odd) .pf-media { background:#03101F url('Media/Module%20Details%20Page/Features/wide-bg-dark.jpg') center/cover no-repeat; }
 
   .pf { position:absolute; inset:0; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif;
     font-size:13px; line-height:1.35; color:#111827; -webkit-font-smoothing:antialiased; text-align:left;
@@ -460,6 +493,7 @@
 </style>
 </head>
 <body class="font-body">
+<svg class="dk-fx" width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="dk-white" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  -1 -1 -1 3 0"/></filter></svg>
 <header class="mdh">
   <div id="site-nav" data-variant="dark" data-top="36"></div>
   <div class="mdh-inner">
@@ -468,7 +502,9 @@
       <p>This awesome module allows vendors to create bookable products, and customers to customize their booking orders. Create car rentals, appointment-based service marketplaces, etc. with this easily.</p>
     </div>
     <div class="mdh-mid" data-anim>
-      <img class="mdh-art is-svg" src="Media/Modules/woocommerce-booking/banner.svg" width="450" height="350" alt="Dokan WooCommerce Booking" />
+      <div class="mdh-art mdh-ic" data-sw="450" data-sh="350" style="--ic:#28c163" role="img" aria-label="Dokan WooCommerce Booking"><div class="stg" style="--sw:450;--sh:350"><span class="stg mdh-icn" style="--sw:304;--sh:193.62;left:-112.3px;top:-40.1px;transform:scale(2.2229)"><div style="position:absolute;left:124.2px;top:88.26px;width:56.4px;height:41.307px;background:#28C163;border-radius:0 0 6.857px 6.857px"></div>
+            <div style="position:absolute;left:121.02px;top:64.43px;width:61.961px;height:19.065px;background:#28C163;border-radius:4.285px"></div>
+            <div style="position:absolute;left:157.56px;top:116.86px;width:16.682px;height:6.355px;background:#fff;border-radius:.857px"></div></span></div></div>
       <h2>Dokan WooCommerce Booking</h2>
     </div>
     <div class="mdh-buy" data-anim>
@@ -555,31 +591,31 @@
         <p>Check out these awesome modules that you will get with our Business Package</p>
       </div>
       <div class="am-grid" data-stagger>
-        <a class="am-tile" href="module-vendor-staff-manager.html" title="Help Vendors appoint unlimited staff to manage their stores."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+        <a class="am-tile" href="module-vendor-staff-manager.html" title="Help Vendors appoint unlimited staff to manage their stores."><span class="am-ic am-nt" style="--ic:#07a5da;--cx:177.26;--cy:108.93;--f:0.006083" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/vendor-staff-manager.svg">
           </div></span></span><span class="am-t">Vendor Staff Manager</span></a>
-        <a class="am-tile" href="module-live-chat.html" title="Let your Vendors and customers chat with the Live Chat module."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.18px]">
+        <a class="am-tile" href="module-live-chat.html" title="Let your Vendors and customers chat with the Live Chat module."><span class="am-ic am-nt" style="--ic:#07a5da;--cx:174.29;--cy:110.91;--f:0.006089" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.18px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/live-chat.svg">
           </div></span></span><span class="am-t">Live Chat</span></a>
-        <a class="am-tile" href="module-export-import.html" title="Let Vendors Export / Import products right from the frontend."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.18px]">
+        <a class="am-tile" href="module-export-import.html" title="Let Vendors Export / Import products right from the frontend."><span class="am-ic am-nt" style="--ic:#007afe;--cx:174.96;--cy:110.92;--f:0.008522" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.18px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/export-import.svg">
           </div></span></span><span class="am-t">Export Import</span></a>
-        <a class="am-tile" href="module-vendor-vacation.html" title="Allow Vendors to make their products unavailable temporarily."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+        <a class="am-tile" href="module-vendor-vacation.html" title="Allow Vendors to make their products unavailable temporarily."><span class="am-ic am-nt" style="--ic:#007afe;--cx:171.98;--cy:113.88;--f:0.006569" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/vendor-vacation.svg">
           </div></span></span><span class="am-t">Vendor Vacation</span></a>
-        <a class="am-tile" href="module-product-enquiry.html" title="Allow the Visitors and Customers to inquire about products."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+        <a class="am-tile" href="module-product-enquiry.html" title="Allow the Visitors and Customers to inquire about products."><span class="am-ic am-nt" style="--ic:#ff761b;--cx:174.96;--cy:110.59;--f:0.006797" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-enquiry.svg">
           </div></span></span><span class="am-t">Product Enquiry</span></a>
-        <a class="am-tile" href="module-vendor-review.html" title="Add the ability for customers to post Reviews for your Vendors."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.18px]">
+        <a class="am-tile" href="module-vendor-review.html" title="Add the ability for customers to post Reviews for your Vendors."><span class="am-ic am-nt" style="--ic:#fbb035;--cx:174.96;--cy:109.6;--f:0.006101" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.18px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/vendor-review.svg">
           </div></span></span><span class="am-t">Vendor Review</span></a>
-        <a class="am-tile" href="module-subscriptions.html" title="Create highly customized subscription packs and charge vendors as you like."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="-translate-x-1/2 -translate-y-1/2 absolute bg-[#28c163] h-[77.864px] left-[calc(50%+0.47px)] rounded-[11.979px] top-[calc(50%+0.48px)] w-[103.819px]">
+        <a class="am-tile" href="module-subscriptions.html" title="Create highly customized subscription packs and charge vendors as you like."><span class="am-ic am-nt" style="--ic:#28c163;--cx:174.62;--cy:112.56;--f:0.004672" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="-translate-x-1/2 -translate-y-1/2 absolute bg-[#28c163] h-[77.864px] left-[calc(50%+0.47px)] rounded-[11.979px] top-[calc(50%+0.48px)] w-[103.819px]">
             <div class="absolute bg-white h-[9.983px] left-[9.98px] rounded-[1.997px] top-[11.98px] w-[75.868px]"></div>
           </div></span></span><span class="am-t">Subscriptions</span></a>
-        <a class="am-tile" href="module-store-support.html" title="Provide Vendors with a ticket-based support system."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
+        <a class="am-tile" href="module-store-support.html" title="Provide Vendors with a ticket-based support system."><span class="am-ic am-nt" style="--ic:#28c163;--cx:173.63;--cy:110.91;--f:0.006416" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.28px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/store-support.svg">
           </div></span></span><span class="am-t">Store Support</span></a>
-        <a class="am-tile" href="module-stripe-connect.html" title="Famous for its low fees, use Stripe to all handle all your payments."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[66.77px]">
+        <a class="am-tile" href="module-stripe-connect.html" title="Famous for its low fees, use Stripe to all handle all your payments."><span class="am-ic am-nt" style="--ic:#635bff;--cx:175.28;--cy:112.56;--f:0.003709" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[66.77px]">
             <div class="absolute contents left-[90.01px] top-[66.93px]">
               <div class="absolute h-[70.879px] left-[90.01px] overflow-clip top-[66.93px] w-[170.3px]">
                 <div class="absolute inset-[0_0_0.03%_0]">
@@ -593,7 +629,7 @@
               </p>
             </div>
           </div></span></span><span class="am-t">Stripe Connect</span></a>
-        <a class="am-tile" href="module-single-product-multivendor.html" title="Allow Vendors to sell another Vendor’s product."><span class="am-ic am-nt" style="background:#F4F4F6;--win:150" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[63.96px]">
+        <a class="am-tile" href="module-single-product-multivendor.html" title="Allow Vendors to sell another Vendor’s product."><span class="am-ic am-nt" style="--ic:#653cff;--cx:174.29;--cy:113.55;--f:0.006119" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[63.96px]">
             <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/single-product-multivendor.svg">
           </div></span></span><span class="am-t">Single Product Multivendor</span></a>
       </div>
@@ -723,7 +759,7 @@
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="site-nav.js?v=35"></script>
+<script src="site-nav.js?v=43"></script>
 <script>
 (function () {
   var socials = [
@@ -762,7 +798,7 @@
   }
   gsap.from('.site-nav .menu-row > *', { y:-16, opacity:0, duration:.6, stagger:.08, ease:'power3.out' });
   /* scroll reveals replay on every pass (shared helper in site-nav.js) */
-  gsap.utils.toArray('[data-anim]').forEach(function (el) { dokanReveal(el); });
+  gsap.utils.toArray('[data-anim]').forEach(function (el) { dokanReveal(el, el.closest('.mdh') ? { start:'top bottom' } : null); });   /* hero blocks reveal anywhere on screen */
   document.querySelectorAll('[data-stagger]').forEach(function (host) {
     dokanReveal(host.children, { trigger:host, start:'top 86%', y:34, duration:.7, stagger:.06 });
   });

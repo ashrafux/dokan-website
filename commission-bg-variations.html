@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Commission Card — 10 Background Variations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&family=Inter:wght@700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  // Design tokens pulled from Figma (get_variable_defs on node 1:6272)
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { display: ['Poppins', 'sans-serif'], body: ['Lato', 'sans-serif'] },
+        colors: {
+          dokan:   '#7047EB',
+          title:   '#0f172a',   // Text/900-Heading-Title
+          titled:  '#25252D',   // Font Color/Title-Heading
+          heading: '#0E0E0F',   // Font Color/Heading
+          para:    '#334155',   // Text/700-Dark Paragraph
+          paralite:'#475569',   // Text/600-Lite Paragraph
+          reg:     '#575757',   // Font Color/Regular
+          lite:    '#828282',   // Font Color/Lite
+          stroke:  '#E9E9E9',   // Neutral Color/Strock Lite
+          bord:    '#e2e2e7',   // border/primary
+          red:     '#E64B5F',
+          mint:    '#D4FBEF',
+          yellow:  '#EFBB40',
+          lav:     '#D8D8FE',
+        },
+        boxShadow: {
+          lite:   '0 2px 5px 0 #0000000F',
+          medium: '0 0 55px 0 #0000000A',
+        },
+      },
+    },
+  };
+</script>
+<style>
+  body { margin:0; background:#fff; font-family:'Lato',sans-serif; color:#0F172A; -webkit-font-smoothing:antialiased; }
+  .cv-wrap { max-width:1360px; margin:0 auto; padding:72px 48px 120px; }
+  .cv-wrap > h1 { margin:0; font:700 44px/1.2 'Poppins',sans-serif; }
+  .cv-wrap > p { margin:12px 0 0; font-size:18px; color:#475569; max-width:760px; }
+  .cv-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px; margin-top:48px; }
+  @media (max-width:1100px) { .cv-grid { grid-template-columns:1fr; } }
+  .cv { margin:0; padding:28px 28px 48px; border-radius:20px; background:#F5F3FB; }
+  .cv figcaption { display:flex; flex-direction:column; gap:4px; margin-bottom:28px; }
+  .cv figcaption b { font:600 18px/1.3 'Poppins',sans-serif; }
+  .cv figcaption span { font-size:15px; color:#64748B; }
+  .cv-stage { max-width:520px; margin:0 auto; }
+  .mn-rcpt { position:relative; align-self:start; display:flex; flex-direction:column; filter:drop-shadow(0 34px 36px rgba(15,23,42,.10)) drop-shadow(0 4px 10px rgba(15,23,42,.05)); }
+  .mn-rcpt-top, .mn-rcpt-bot { position:relative; background:#fff; --r:14px; }
+  .mn-rcpt-top { flex:1 1 auto; display:flex; flex-direction:column; gap:72px; padding:36px 40px 32px;   /* fixed 72px above the slider */ border-radius:22px 22px 0 0;
+    -webkit-mask:radial-gradient(circle var(--r) at 0 100%, #0000 98%, #000) left / 51% 100% no-repeat,
+                 radial-gradient(circle var(--r) at 100% 100%, #0000 98%, #000) right / 51% 100% no-repeat;
+            mask:radial-gradient(circle var(--r) at 0 100%, #0000 98%, #000) left / 51% 100% no-repeat,
+                 radial-gradient(circle var(--r) at 100% 100%, #0000 98%, #000) right / 51% 100% no-repeat; }
+  .mn-rcpt-bot { display:grid; grid-template-columns:1fr 1fr; border-radius:0 0 22px 22px;
+    -webkit-mask:radial-gradient(circle var(--r) at 0 0, #0000 98%, #000) left / 51% 100% no-repeat,
+                 radial-gradient(circle var(--r) at 100% 0, #0000 98%, #000) right / 51% 100% no-repeat;
+            mask:radial-gradient(circle var(--r) at 0 0, #0000 98%, #000) left / 51% 100% no-repeat,
+                 radial-gradient(circle var(--r) at 100% 0, #0000 98%, #000) right / 51% 100% no-repeat; }
+  .mn-rcpt-bot::before { content:''; position:absolute; left:26px; right:26px; top:-1px; border-top:2px dashed #E2E8F0; }
+  .mn-order { display:flex; justify-content:space-between; align-items:center; font-family:'Poppins',sans-serif; font-weight:600; font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:#94A3B8; }
+  .mn-line { display:flex; justify-content:space-between; align-items:baseline; gap:16px; margin-top:16px;
+    font-family:'Lato',sans-serif; font-size:18px; color:#475569; }
+  .mn-line b { font-family:'Poppins',sans-serif; font-weight:700; font-size:22px; color:#0F172A; font-variant-numeric:tabular-nums; }
+  .mn-slider { -webkit-appearance:none; appearance:none; display:block; width:100%; height:32px; margin:0;
+    background:transparent; cursor:pointer; --fill:15%; }
+  .mn-slider::-webkit-slider-runnable-track { height:10px; border-radius:9999px;
+    background:linear-gradient(90deg, #22C55E var(--fill), #E9E9EF var(--fill)); }
+  .mn-slider::-webkit-slider-thumb { -webkit-appearance:none; width:28px; height:28px; margin-top:-9px; border-radius:50%;
+    background:#22C55E; border:5px solid #fff; box-shadow:0 4px 14px rgba(15,23,42,.25); transition:transform .15s; }
+  .mn-slider:active::-webkit-slider-thumb { transform:scale(1.12); }
+  .mn-slider::-moz-range-track { height:10px; border-radius:9999px; background:#E9E9EF; }
+  .mn-slider::-moz-range-progress { height:10px; border-radius:9999px; background:#22C55E; }
+  .mn-slider::-moz-range-thumb { width:18px; height:18px; border-radius:50%; background:#22C55E; border:5px solid #fff;
+    box-shadow:0 4px 14px rgba(15,23,42,.25); }
+  .mn-slider:focus-visible { outline:2px solid #7047EB; outline-offset:6px; border-radius:9999px; }
+  .mn-paid { padding:4px 12px; border-radius:9999px; background:#DCFCE7; color:#15803D; letter-spacing:.04em; font-size:12px; }
+  .mn-ticks { display:flex; justify-content:space-between; margin-top:6px; padding:0 4px; font-family:'Lato',sans-serif;
+    font-size:13px; color:#94A3B8; }
+  .mn-stub { padding:28px 40px 36px; min-width:0; }
+  .mn-stub + .mn-stub { border-left:2px dashed #E2E8F0; }   /* same as the top divider */
+  .mn-stub span { display:block; font-family:'Lato',sans-serif; font-size:16px; color:#475569; }
+  .mn-stub b { display:block; margin-top:6px; font-family:'Poppins',sans-serif; font-weight:700; font-size:40px; line-height:1.2;
+    color:#0F172A; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .mn-stub.you b { color:#7047EB; }
+  .mn-g { display:block; }
+  /* ── background layer: one fill spread across both halves of the ticket (JS sets the card size) ── */
+  .cv .mn-rcpt-top, .cv .mn-rcpt-bot { background:var(--bg-solid,#fff); background-image:var(--bg-img,none); background-repeat:no-repeat;
+    background-size:calc(var(--cw,520) * 1px) calc(var(--ch,420) * 1px); }
+  .cv .mn-rcpt-top { background-position:0 0; }
+  .cv .mn-rcpt-bot { background-position:0 calc(var(--th,280) * -1px); }
+
+  /* dark ink set (dark and image-dark cards) */
+  .cv.dk .mn-order { color:#94A3B8; }
+  .cv.dk .mn-line { color:#CBD5E1; }
+  .cv.dk .mn-line b, .cv.dk .mn-stub b { color:#FFFFFF; }
+  .cv.dk .mn-stub span { color:#94A3B8; }
+  .cv.dk .mn-stub.you b { color:#B49DFF; }
+  .cv.dk .mn-ticks { color:#7C8BA1; }
+  .cv.dk .mn-paid { background:rgba(34,197,94,.16); color:#4ADE80; }
+  .cv.dk .mn-rcpt-bot::before, .cv.dk .mn-stub + .mn-stub { border-color:rgba(255,255,255,.16); }
+  .cv.dk .mn-slider::-webkit-slider-runnable-track { background:linear-gradient(90deg, #22C55E var(--fill), rgba(255,255,255,.14) var(--fill)); }
+  .cv.dk .mn-slider::-webkit-slider-thumb { border-color:#0F172A; }
+  .cv.dk .mn-rcpt { filter:drop-shadow(0 34px 36px rgba(15,23,42,.28)) drop-shadow(0 4px 10px rgba(15,23,42,.12)); }
+
+  .d1 { --bg-solid:#0F172A; }
+  .d2 { --bg-solid:#17171C; }
+  .d2 .mn-slider::-webkit-slider-thumb { border-color:#17171C !important; }
+  .d3 { --bg-solid:#1A0E3D; --bg-img:linear-gradient(160deg, #2A1666 0%, #1A0E3D 55%, #120A2E 100%); }
+  .d3 .mn-slider::-webkit-slider-thumb { border-color:#1A0E3D !important; }
+  .d4 { --bg-solid:#0B1030; --bg-img:url('Media/Module%20Details%20Page/Hero/hero-bg.png'); }
+  .d4 .mn-slider::-webkit-slider-thumb { border-color:#0B1030 !important; }
+  .i1 { --bg-solid:#1E5BFF; --bg-img:url('Media/Module%20Details%20Page/Features/wide-2-bg.png'); }
+  .i1 .mn-line, .i1 .mn-stub span, .i1 .mn-order, .i1 .mn-ticks { color:rgba(255,255,255,.82) !important; }
+  .i1 .mn-stub.you b { color:#FFFFFF !important; }
+  .i1 .mn-slider::-webkit-slider-thumb { border-color:#fff !important; }
+  .i1 .mn-rcpt-bot::before, .i1 .mn-stub + .mn-stub { border-color:rgba(255,255,255,.35) !important; }
+  .i2 { --bg-img:url('Media/Demo%20Details%20Page/Why%20Dokan%20Is%20the%20Best%20Solution%20for%20Your%20Marketplace.png'); }
+  .i3 { --bg-img:url('Media/Module%20Details%20Page/Additional%20Modules/band-bg.png'); }
+  .i2 .mn-rcpt-bot::before, .i2 .mn-stub + .mn-stub, .i3 .mn-rcpt-bot::before, .i3 .mn-stub + .mn-stub { border-color:rgba(15,23,42,.14); }
+  /* use only the part of the artwork that suits the ink: the deep-blue top of the wave, the pale top of the band */
+  .i1 .mn-rcpt-top, .i1 .mn-rcpt-bot { background-size:calc(var(--cw) * 1px) calc(var(--ch) * 2.1px); }
+  .i3 .mn-rcpt-top, .i3 .mn-rcpt-bot { background-size:calc(var(--cw) * 1px) calc(var(--ch) * 1.9px); }
+  .l1 { --bg-solid:#F3EEFF; }
+  .l2 { --bg-solid:#ECFDF5; }
+  .l3 { --bg-solid:#FFF8EE; }
+  .l1 .mn-rcpt-bot::before, .l1 .mn-stub + .mn-stub { border-color:#DCD2F8; }
+  .l2 .mn-rcpt-bot::before, .l2 .mn-stub + .mn-stub { border-color:#C6EBD8; }
+  .l3 .mn-rcpt-bot::before, .l3 .mn-stub + .mn-stub { border-color:#F0DFC4; }
+  .l1 .mn-slider::-webkit-slider-runnable-track { background:linear-gradient(90deg, #22C55E var(--fill), #E2D9FB var(--fill)); }
+  .l2 .mn-slider::-webkit-slider-runnable-track { background:linear-gradient(90deg, #22C55E var(--fill), #D3F1E2 var(--fill)); }
+  .l3 .mn-slider::-webkit-slider-runnable-track { background:linear-gradient(90deg, #22C55E var(--fill), #F2E6D3 var(--fill)); }
+  @media (max-width:640px) { .cv-wrap { padding:48px 16px 80px; } .cv { padding:20px 16px 32px; }
+    .mn-rcpt-top { padding:28px 24px 24px; } .mn-stub { padding:22px 20px 28px; } .mn-stub b { font-size:28px; } .mn-line { font-size:16px; } .mn-line b { font-size:20px; } }
+</style>
+</head>
+<body>
+<main class="cv-wrap">
+  <h1>Commission card: 10 backgrounds</h1>
+  <p>Same structure as the home page card; only the background and the ink that sits on it change. The slider works on every card.</p>
+  <div class="cv-grid"><figure class="cv dk d1"><figcaption><b>01 · Dark · Midnight navy</b><span>Solid #0F172A. The calm default dark mode.</span></figcaption><div class="cv-stage"><div class="mn-rcpt">
+        <div class="mn-rcpt-top">
+          <div class="mn-g">
+            <div class="mn-order"><span>Order #1042</span><span class="mn-paid">Paid</span></div>
+            <div class="mn-line"><span>Customer pays</span><b>$120.00</b></div>
+            <div class="mn-line"><label>Your commission</label><b class="js-rate">15%</b></div>
+          </div>
+          <div class="mn-g">
+            <input class="mn-slider" type="range" min="0" max="100" step="1" value="15" />
+            <div class="mn-ticks" aria-hidden="true"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+          </div>
+        </div>
+        <div class="mn-rcpt-bot" aria-live="polite">
+          <div class="mn-stub you"><span>You keep</span><b class="js-keep">$18.00</b></div>
+          <div class="mn-stub"><span>Vendor receives</span><b class="js-vendor">$102.00</b></div>
+        </div>
+      </div></div></figure><figure class="cv dk d2"><figcaption><b>02 · Dark · Charcoal</b><span>Neutral near-black #17171C, no blue tint.</span></figcaption><div class="cv-stage"><div class="mn-rcpt">
+        <div class="mn-rcpt-top">
+          <div class="mn-g">
+            <div class="mn-order"><span>Order #1042</span><span class="mn-paid">Paid</span></div>
+            <div class="mn-line"><span>Customer pays</span><b>$120.00</b></div>
+            <div class="mn-line"><label>Your commission</label><b class="js-rate">15%</b></div>
+          </div>
+          <div class="mn-g">
+            <input class="mn-slider" type="range" min="0" max="100" step="1" value="15" />
+            <div class="mn-ticks" aria-hidden="true"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+          </div>
+        </div>
+        <div class="mn-rcpt-bot" aria-live="polite">
+          <div class="mn-stub you"><span>You keep</span><b class="js-keep">$18.00</b></div>
+          <div class="mn-stub"><span>Vendor receives</span><b class="js-vendor">$102.00</b></div>
+        </div>
+      </div></div></figure><figure class="cv dk d3"><figcaption><b>03 · Dark · Dokan purple</b><span>Deep purple gradient (#24124F → #120A2E), on brand.</span></figcaption><div class="cv-stage"><div class="mn-rcpt">
+        <div class="mn-rcpt-top">
+          <div class="mn-g">
+            <div class="mn-order"><span>Order #1042</span><span class="mn-paid">Paid</span></div>
+            <div class="mn-line"><span>Customer pays</span><b>$120.00</b></div>
+            <div class="mn-line"><label>Your commission</label><b class="js-rate">15%</b></div>
+          </div>
+          <div class="mn-g">
+            <input class="mn-slider" type="range" min="0" max="100" step="1" value="15" />
+            <div class="mn-ticks" aria-hidden="true"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+          </div>
+        </div>
+        <div class="mn-rcpt-bot" aria-live="polite">
+          <div class="mn-stub you"><span>You keep</span><b class="js-keep">$18.00</b></div>
+          <div class="mn-stub"><span>Vendor receives</span><b class="js-vendor">$102.00</b></div>
+        </div>
+      </div></div></figure><figure class="cv dk d4"><figcaption><b>04 · Dark · Image</b><span>The module hero’s dark blue artwork behind the receipt.</span></figcaption><div class="cv-stage"><div class="mn-rcpt">
+        <div class="mn-rcpt-top">
+          <div class="mn-g">
+            <div class="mn-order"><span>Order #1042</span><span class="mn-paid">Paid</span></div>
+            <div class="mn-line"><span>Customer pays</span><b>$120.00</b></div>
+            <div class="mn-line"><label>Your commission</label><b class="js-rate">15%</b></div>
+          </div>
+          <div class="mn-g">
+            <input class="mn-slider" type="range" min="0" max="100" step="1" value="15" />
+            <div class="mn-ticks" aria-hidden="true"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+          </div>
+        </div>
+        <div class="mn-rcpt-bot" aria-live="polite">
+          <div class="mn-stub you"><span>You keep</span><b class="js-keep">$18.00</b></div>
+          <div class="mn-stub"><span>Vendor receives</span><b class="js-vendor">$102.00</b></div>
+        </div>
+      </div></div></figure><figure class="cv dk i1"><figcaption><b>05 · Image · Blue wave</b><span>The bright blue wave from the module feature cards, white text.</span></figcaption><div class="cv-stage"><div class="mn-rcpt">
+        <div class="mn-rcpt-top">
+          <div class="mn-g">
+            <div class="mn-order"><span>Order #1042</span><span class="mn-paid">Paid</span></div>
+            <div class="mn-line"><span>Customer pays</span><b>$120.00</b></div>
+            <div class="mn-line"><label>Your commission</label><b class="js-rate">15%</b></div>
+          </div>
+          <div class="mn-g">
+            <input class="mn-slider" type="range" min="0" max="100" step="1" value="15" />
+            <div class="mn-ticks" aria-hidden="true"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+          </div>
+        </div>
+        <div class="mn-rcpt-bot" aria-live="polite">
+          <div class="mn-stub you"><span>You keep</span><b class="js-keep">$18.00</b></div>
+          <div class="mn-stub"><span>Vendor receives</span><b class="js-vendor">$102.00</b></div>
+        </div>
+      </div></div></figure><figure class="cv i2"><figcaption><b>06 · Image · Pastel glow</b><span>The pink-to-purple wash from the demo page’s “Why Dokan” cards.</span></figcaption><div class="cv-stage"><div class="mn-rcpt">
+        <div class="mn-rcpt-top">
+          <div class="mn-g">
+            <div class="mn-order"><span>Order #1042</span><span class="mn-paid">Paid</span></div>
+            <div class="mn-line"><span>Customer pays</span><b>$120.00</b></div>
+            <div class="mn-line"><label>Your commission</label><b class="js-rate">15%</b></div>
+          </div>
+          <div class="mn-g">
+            <input class="mn-slider" type="range" min="0" max="100" step="1" value="15" />
+            <div class="mn-ticks" aria-hidden="true"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+          </div>
+        </div>
+        <div class="mn-rcpt-bot" aria-live="polite">
+          <div class="mn-stub you"><span>You keep</span><b class="js-keep">$18.00</b></div>
+          <div class="mn-stub"><span>Vendor receives</span><b class="js-vendor">$102.00</b></div>
+        </div>
+      </div></div></figure><figure class="cv i3"><figcaption><b>07 · Image · Soft band</b><span>The pale lavender band artwork from Additional Modules.</span></figcaption><div class="cv-stage"><div class="mn-rcpt">
+        <div class="mn-rcpt-top">
+          <div class="mn-g">
+            <div class="mn-order"><span>Order #1042</span><span class="mn-paid">Paid</span></div>
+            <div class="mn-line"><span>Customer pays</span><b>$120.00</b></div>
+            <div class="mn-line"><label>Your commission</label><b class="js-rate">15%</b></div>
+          </div>
+          <div class="mn-g">
+            <input class="mn-slider" type="range" min="0" max="100" step="1" value="15" />
+            <div class="mn-ticks" aria-hidden="true"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+          </div>
+        </div>
+        <div class="mn-rcpt-bot" aria-live="polite">
+          <div class="mn-stub you"><span>You keep</span><b class="js-keep">$18.00</b></div>
+          <div class="mn-stub"><span>Vendor receives</span><b class="js-vendor">$102.00</b></div>
+        </div>
+      </div></div></figure><figure class="cv l1"><figcaption><b>08 · Light · Lavender</b><span>Soft Dokan lavender #F3EEFF.</span></figcaption><div class="cv-stage"><div class="mn-rcpt">
+        <div class="mn-rcpt-top">
+          <div class="mn-g">
+            <div class="mn-order"><span>Order #1042</span><span class="mn-paid">Paid</span></div>
+            <div class="mn-line"><span>Customer pays</span><b>$120.00</b></div>
+            <div class="mn-line"><label>Your commission</label><b class="js-rate">15%</b></div>
+          </div>
+          <div class="mn-g">
+            <input class="mn-slider" type="range" min="0" max="100" step="1" value="15" />
+            <div class="mn-ticks" aria-hidden="true"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+          </div>
+        </div>
+        <div class="mn-rcpt-bot" aria-live="polite">
+          <div class="mn-stub you"><span>You keep</span><b class="js-keep">$18.00</b></div>
+          <div class="mn-stub"><span>Vendor receives</span><b class="js-vendor">$102.00</b></div>
+        </div>
+      </div></div></figure><figure class="cv l2"><figcaption><b>09 · Light · Mint</b><span>Fresh mint #ECFDF5, ties in with the green slider.</span></figcaption><div class="cv-stage"><div class="mn-rcpt">
+        <div class="mn-rcpt-top">
+          <div class="mn-g">
+            <div class="mn-order"><span>Order #1042</span><span class="mn-paid">Paid</span></div>
+            <div class="mn-line"><span>Customer pays</span><b>$120.00</b></div>
+            <div class="mn-line"><label>Your commission</label><b class="js-rate">15%</b></div>
+          </div>
+          <div class="mn-g">
+            <input class="mn-slider" type="range" min="0" max="100" step="1" value="15" />
+            <div class="mn-ticks" aria-hidden="true"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+          </div>
+        </div>
+        <div class="mn-rcpt-bot" aria-live="polite">
+          <div class="mn-stub you"><span>You keep</span><b class="js-keep">$18.00</b></div>
+          <div class="mn-stub"><span>Vendor receives</span><b class="js-vendor">$102.00</b></div>
+        </div>
+      </div></div></figure><figure class="cv l3"><figcaption><b>10 · Light · Warm cream</b><span>Warm cream #FFF8EE for a paper-receipt feel.</span></figcaption><div class="cv-stage"><div class="mn-rcpt">
+        <div class="mn-rcpt-top">
+          <div class="mn-g">
+            <div class="mn-order"><span>Order #1042</span><span class="mn-paid">Paid</span></div>
+            <div class="mn-line"><span>Customer pays</span><b>$120.00</b></div>
+            <div class="mn-line"><label>Your commission</label><b class="js-rate">15%</b></div>
+          </div>
+          <div class="mn-g">
+            <input class="mn-slider" type="range" min="0" max="100" step="1" value="15" />
+            <div class="mn-ticks" aria-hidden="true"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+          </div>
+        </div>
+        <div class="mn-rcpt-bot" aria-live="polite">
+          <div class="mn-stub you"><span>You keep</span><b class="js-keep">$18.00</b></div>
+          <div class="mn-stub"><span>Vendor receives</span><b class="js-vendor">$102.00</b></div>
+        </div>
+      </div></div></figure></div>
+</main>
+<script>
+  var ORDER = 120;
+  function money(n) { return '$' + n.toFixed(2); }
+  document.querySelectorAll('.cv').forEach(function (cv) {
+    var card = cv.querySelector('.mn-rcpt'), top = cv.querySelector('.mn-rcpt-top'), range = cv.querySelector('.mn-slider');
+    function size() { cv.style.setProperty('--cw', card.offsetWidth); cv.style.setProperty('--ch', card.offsetHeight); cv.style.setProperty('--th', top.offsetHeight); }
+    function paint() {
+      var pct = +range.value, yours = ORDER * pct / 100;
+      cv.querySelector('.js-rate').textContent = pct + '%';
+      cv.querySelector('.js-keep').textContent = money(yours);
+      cv.querySelector('.js-vendor').textContent = money(ORDER - yours);
+      range.style.setProperty('--fill', pct + '%');
+    }
+    range.addEventListener('input', paint); paint(); size();
+    if ('ResizeObserver' in window) new ResizeObserver(size).observe(card);
+  });
+</script>
+</body>
+</html>
