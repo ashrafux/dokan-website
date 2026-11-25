@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&family=Inter:wght@700&display=swap" rel="stylesheet" />
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="site-nav.css?v=34" />
+<link rel="stylesheet" href="site-nav.css?v=46" />
 <!-- Page loader: only the header shows until site-nav.js reveals the page (5s failsafe) -->
 <script>(function(d){if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('is-loading');setTimeout(function(){d.classList.remove('is-loading')},5000)})(document.documentElement)</script>
 <script>
@@ -421,7 +421,7 @@
   .wf-row.is-head .wf-cell.is-dokan .wf-tag { align-self:flex-start; margin-bottom:16px; }
 
   /* column headers */
-  .wf-tag { display:inline-flex; align-items:center; height:26px; padding:0 12px; border-radius:999px; background:#7047EB;
+  .wf-tag { display:inline-flex; align-items:center; height:26px; padding:0 12px; border-radius:999px; background:#F97316;   /* orange: stands apart from the purple button and green ticks */
     font-family:'Poppins',sans-serif; font-weight:600; font-size:12px; letter-spacing:.02em; color:#fff; }
   .wf-logo { display:block; width:118px; height:auto; }
   .wf-col { display:flex; flex-direction:column; align-items:flex-start; gap:14px; }
@@ -556,22 +556,20 @@
   .rs-track { display:flex; gap:28px; will-change:transform; }
   .rs-card { position:relative; flex:0 0 calc((100% - 28px) / 2); min-height:618px; box-sizing:border-box;
     padding:48px; border-radius:20px; background:#F3F3F5; display:flex; flex-direction:column;
-    transition:background-color .35s ease; }
-  .rs-card:hover { background:#E9E9EF; }
+    overflow:hidden; isolation:isolate; }
+  /* hover: the same gradient wash as the module thumbnails (demo details "Why Dokan" artwork), fading in on a layer */
+  /* the wash image has its own ~41px rounded corners: run it 40px past every edge so the card's own corner does the clipping */
+  .rs-card::before { content:''; position:absolute; inset:-40px; z-index:-1; pointer-events:none;
+    background:url('Media/Demo%20Details%20Page/Why%20Dokan%20Is%20the%20Best%20Solution%20for%20Your%20Marketplace.png') center/100% 100% no-repeat;
+    opacity:0; transition:opacity .35s ease; }
+  .rs-card:hover::before { opacity:1; }
+  @media (prefers-reduced-motion:reduce) { .rs-card::before { transition:none; } }
   .rs-title { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:33px; line-height:1.27; color:#0F172A; }
   .rs-desc { margin:14px 0 0; max-width:400px; font-family:'Lato',sans-serif; font-size:18px; line-height:1.64; color:#334155; }
   .rs-foot { margin-top:auto; padding-top:48px; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; }
   .rs-media { position:relative; width:318px; height:246px; flex:none; border-radius:16px; overflow:hidden; }
   .rs-media img { display:block; width:100%; height:100%; object-fit:cover; transition:transform .6s cubic-bezier(.22,.61,.36,1); }
-  .rs-card:hover .rs-media img { transform:scale(1.03); }
-  .rs-arrow { width:82px; height:82px; flex:none; border-radius:50%; display:grid; place-items:center;
-    background:#FFFFFF; color:#64748B; transition:background-color .3s ease, color .3s ease; }
-  .rs-arrow svg { width:34px; height:34px; transition:transform .35s cubic-bezier(.22,.61,.36,1); }
-  /* the design shows the first card "active"; hovering any card moves it there */
-  .rs-card:hover .rs-arrow,
-  .rs-track:not(:has(.rs-card:hover)) .rs-card:first-child .rs-arrow { background:#7047EB; color:#FFFFFF; }
-  .rs-card:hover .rs-arrow svg { transform:translate(2px,-2px); }
-  .rs-arrow:focus-visible { outline:2px solid #7047EB; outline-offset:3px; }
+  /* no arrow button: these cards don't link anywhere */
   /* analytics mock (no supplied asset for this card) */
   .rsa { background:#000; color:#fff; padding:26px 26px 24px; box-sizing:border-box; display:flex; flex-direction:column; }
   .rsa-spark { position:absolute; top:10px; right:12px; width:62px; height:62px; }
@@ -588,8 +586,6 @@
     .rs-title { font-size:28px; }
     .rs-desc { font-size:16px; }
     .rs-media { flex:0 1 318px; width:auto; height:auto; aspect-ratio:318/246; }
-    .rs-arrow { width:64px; height:64px; }
-    .rs-arrow svg { width:28px; height:28px; }
   }
   @media (max-width:1023px) {
     .rs-viewport { overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:28px; scrollbar-width:none; }
@@ -600,8 +596,6 @@
     .rs-desc { font-size:16px; }
     .rs-foot { padding-top:32px; gap:16px; }
     .rs-media { flex:0 1 318px; width:auto; height:auto; aspect-ratio:318/246; }
-    .rs-arrow { width:56px; height:56px; }
-    .rs-arrow svg { width:24px; height:24px; }
   }
 
   /* ---- Dokan Interface (Figma frame 2106260901) ---- */
@@ -833,6 +827,23 @@
   .md-ico { flex:none; width:56px; height:56px; border-radius:14px; overflow:hidden; }
   .md-ico img { display:block; width:100%; height:100%; object-fit:cover; }
   .md-label { font-family:'Inter',sans-serif; font-weight:700; font-size:15px; line-height:20px; color:#111; }
+  /* hover: the same gradient wash as the demo details page's "Why Dokan" cards, fading in on a layer */
+  .md-tile { position:relative; overflow:hidden; isolation:isolate; }
+  .md-tile::before { content:''; position:absolute; inset:0; z-index:-1; border-radius:inherit; pointer-events:none;
+    background:url('Media/Demo%20Details%20Page/Why%20Dokan%20Is%20the%20Best%20Solution%20for%20Your%20Marketplace.png') center/100% 100% no-repeat;
+    opacity:0; transition:opacity .35s ease; }
+  .md-tile:hover::before, .md-tile:focus-visible::before { opacity:1; }
+  .md-nt { transition:background-color .35s ease; }
+  @media (prefers-reduced-motion:reduce) { .md-tile::before, .md-nt { transition:none; } }
+  /* each tile shows its module's list-page thumbnail; every icon is scaled to the same visual size
+     (equal area, capped for wide logos) and centred on its measured artwork (--cx/--cy/--f) */
+  .md-nt { position:relative; display:block; background:var(--ic, #7047EB); --s:56; --win:150; }
+  .md-nt .stg { position:absolute; width:calc(var(--sw) * 1px); height:calc(var(--sh) * 1px); transform-origin:0 0; pointer-events:none;
+    transform:scale(calc(var(--s) * var(--f)));
+    left:calc((var(--s) * .5 - var(--cx) * var(--s) * var(--f)) * 1px); top:calc((var(--s) * .5 - var(--cy) * var(--s) * var(--f)) * 1px); }
+  .md-nt .stg img { max-width:none; object-fit:fill; }
+  .md-nt .stg { filter:url(#dk-white); }   /* white icon on its colour, inner detail kept */
+  @media (max-width:1023px) { .md-nt { --s:48; } }
   @media (max-width:1180px) { .md-groups { grid-template-columns:repeat(2, minmax(0,1fr)); gap:36px 24px; } }
   @media (max-width:1023px) {
     .md-card { padding:80px 24px; }
@@ -910,8 +921,7 @@
   .tm-media { grid-column:span 4; position:relative; overflow:hidden; border-radius:24px; padding:44px 44px 40px; box-sizing:border-box;
     display:flex; flex-direction:column; color:#fff;
     background:radial-gradient(120% 90% at 100% 0%, #8B6CF5 0%, rgba(139,108,245,0) 60%), linear-gradient(160deg, #6A3FE8 0%, #3B1FA6 100%); }
-  .tm-media::after { content:''; position:absolute; right:-80px; bottom:-80px; width:260px; height:260px; border-radius:50%;
-    border:1px solid rgba(255,255,255,.18); box-shadow:0 0 0 40px rgba(255,255,255,.05), 0 0 0 80px rgba(255,255,255,.035); pointer-events:none; }
+  /* no decorative rings on the stat card: just its gradient */
   .tm-media-k { margin:0; font-family:'Inter',sans-serif; font-weight:700; font-size:12.5px; letter-spacing:1.4px; text-transform:uppercase; color:rgba(255,255,255,.72); }
   .tm-big { margin:auto 0 0; font-family:'Poppins',sans-serif; font-weight:400; font-size:72px; line-height:1; letter-spacing:-.02em; }
   .tm-big-l { margin:8px 0 0; font-family:'Lato',sans-serif; font-size:18px; color:rgba(255,255,255,.8); }
@@ -1124,7 +1134,7 @@
   .tb-num { border-radius:20px; overflow:hidden; background:#070708 url('Media/Dokan%20by%20the%20numbers.png') center/cover no-repeat;
     padding:clamp(28px, 11.05cqw, 54px) clamp(20px, 7.41cqw, 36px) clamp(20px, 7.41cqw, 36px); }
   .tb-num > * { position:relative; z-index:1; }
-  .tb-num .tb-card-t { color:#fff; max-width:52cqw; padding-left:clamp(0px, 3.7cqw, 18px); }
+  .tb-num .tb-card-t { color:#fff; max-width:50.75cqw; padding-left:clamp(0px, 3.7cqw, 18px); box-sizing:content-box; }   /* Figma box 247.89px: "Dokan by / the numbers" */
   .tb-stats { margin-top:auto; display:grid; grid-template-columns:1fr 1fr; gap:4.52px 5.43px; }
   .tb-stat { min-height:141.59px; box-sizing:border-box; padding:25px 28px; border-radius:10px;
     background:rgba(255,255,255,.08); display:flex; flex-direction:column; }
@@ -1142,7 +1152,7 @@
   /* card 3 — score + platform tiles */
   .tb-rate { background:#F3F3F3; border:0.9px solid #E5E7EB; border-radius:18.09px;
     padding:clamp(26px, 10.74cqw, 52.47px) clamp(20px, 7.41cqw, 36px) clamp(20px, 7.41cqw, 36px); }
-  .tb-rate-head { display:flex; align-items:flex-start; justify-content:space-between; gap:16px;
+  .tb-rate-head { display:flex; align-items:flex-start; justify-content:flex-start; gap:26.2px;   /* Figma: photos sit right after the score */
     padding:0 clamp(0px, 3.7cqw, 18px); }
   .tb-score { display:flex; flex-direction:column; gap:5.43px; }
   .tb-score .v { font-family:'Poppins',sans-serif; font-weight:700; font-size:clamp(34px, 9.63cqw, 47.04px); line-height:120%;
@@ -1152,7 +1162,7 @@
   .tb-avatars { position:relative; width:149.98px; height:58.3px; flex:none; margin-top:9px; }
   .tb-avatars img { position:absolute; top:0; width:58.3px; height:58.3px; border-radius:50%;
     border:3.72px solid #fff; box-sizing:border-box; object-fit:cover; }
-  .tb-lede { margin:clamp(18px, 5.7cqw, 28px) 0 0; padding:0 clamp(0px, 3.7cqw, 18px); max-width:60cqw;
+  .tb-lede { margin:clamp(18px, 5.7cqw, 28px) 0 0; padding:0 clamp(0px, 3.7cqw, 18px); max-width:16.6em; box-sizing:content-box;   /* Figma box 292px at 18px; in em it keeps the same three lines as the font scales */
     font-family:'Lato',sans-serif; font-size:clamp(15px, 3.68cqw, 18px); line-height:140%; color:#475569; }
   .tb-plats { margin-top:auto; display:flex; flex-direction:column; gap:4.29px; }
   .tb-plat-row { display:flex; gap:5.23px; }
@@ -1199,6 +1209,7 @@
     .tb-card-t { font-size:26px; }
     .tb-num, .tb-awards, .tb-rate { padding:28px 20px 20px; }
     .tb-num .tb-card-t, .tb-awards .tb-card-t, .tb-rate-head, .tb-lede { padding-left:0; }
+    .tb-lede { max-width:none; }   /* phones: the description uses the card's full width */
     .tb-stat { min-height:0; padding:18px 20px; }
     .tb-stat .l { margin-top:14px; }
     .tb-aw { min-height:104px; }
@@ -1222,7 +1233,7 @@
      then the receipt (left) and the features (right), vertically centred.
      The receipt's ticket notches are cut with a mask, and the shadow is a
      drop-shadow on the wrapper, so it follows the notches instead of the box. */
-  .mn-section { background:#F5F3FB; padding:144px 0; margin:144px 20px 192px; border-radius:20px; }
+  .mn-section { background:#F3F3F3; padding:144px 0; margin:144px 20px 192px; border-radius:20px; }   /* same grey as the site's cards (e.g. the rating card) */
   .mn-wrap { width:100%; max-width:1664px; margin:0 auto; padding:0 82px; box-sizing:border-box; }
   .mn-h2 { margin:0; font-family:'Poppins',sans-serif; font-weight:700; font-size:52px; line-height:1.2; color:#0F172A; }
   .mn-h2 .ln { white-space:nowrap; }
@@ -1268,6 +1279,25 @@
   .mn-stub b { display:block; margin-top:6px; font-family:'Poppins',sans-serif; font-weight:700; font-size:40px; line-height:1.2;
     color:#0F172A; font-variant-numeric:tabular-nums; white-space:nowrap; }
   .mn-stub.you b { color:#7047EB; }
+  /* Dark image card (variation 04): the module hero's dark blue artwork runs as one background across
+     both halves of the ticket (the script sets the card size), with light ink on top. */
+  .mn-rcpt { filter:drop-shadow(0 34px 36px rgba(15,23,42,.28)) drop-shadow(0 4px 10px rgba(15,23,42,.12)); }
+  .mn-rcpt-top, .mn-rcpt-bot { background:#0B1030 url('Media/Module%20Details%20Page/Hero/hero-bg.png') no-repeat;
+    background-size:calc(var(--cw,560) * 1px) calc(var(--ch,430) * 1px); }
+  .mn-rcpt-top { background-position:0 0; }
+  .mn-rcpt-bot { background-position:0 calc(var(--th,290) * -1px); }
+  .mn-order { color:#94A3B8; }
+  .mn-line { color:#CBD5E1; }
+  .mn-line b, .mn-stub b { color:#FFFFFF; }
+  .mn-stub span { color:#94A3B8; }
+  .mn-stub.you b { color:#B49DFF; }
+  .mn-ticks { color:#7C8BA1; }
+  .mn-paid { background:rgba(34,197,94,.16); color:#4ADE80; }
+  .mn-rcpt-bot::before, .mn-stub + .mn-stub { border-color:rgba(255,255,255,.16); }
+  .mn-slider::-webkit-slider-runnable-track { background:linear-gradient(90deg, #22C55E var(--fill), rgba(255,255,255,.14) var(--fill)); }
+  .mn-slider::-webkit-slider-thumb { border-color:#0B1030; }
+  .mn-slider::-moz-range-track { background:rgba(255,255,255,.14); }
+  .mn-slider::-moz-range-thumb { border-color:#0B1030; }
 
   .mn-feats { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:44px 56px; }
   .mn-feat h3 { display:flex; align-items:flex-start; gap:12px; margin:0; font-family:'Poppins',sans-serif; font-weight:600;
@@ -1395,6 +1425,7 @@
 </style>
 </head>
 <body class="font-body">
+<svg class="dk-fx" width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="dk-white" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  -1 -1 -1 3 0"/></filter></svg>
 
 <!-- ══════════════════════ HERO ══════════════════════ -->
 <header class="hero-shell">
@@ -1432,12 +1463,12 @@
     <div class="tb-cards" id="trusted-cards">
 
       <article class="tb-card tb-num">
-        <h3 class="tb-card-t">Dokan by the numbers</h3>
+        <h3 class="tb-card-t">Dokan by<br />the numbers</h3>
         <div class="tb-stats">
-          <div class="tb-stat"><div class="n font-display font-medium">50K+</div><p class="l">Active Marketplaces</p></div>
-          <div class="tb-stat"><div class="n font-display font-medium">60%+</div><p class="l">Lower Startup Costs</p></div>
-          <div class="tb-stat"><div class="n font-display font-medium">90%+</div><p class="l">Customer Satisfaction</p></div>
-          <div class="tb-stat"><div class="n font-display font-medium">3.97M+</div><p class="l">Total Downloads</p></div>
+          <div class="tb-stat"><div class="n font-display font-medium">50K+</div><p class="l">Active<br />Marketplaces</p></div>
+          <div class="tb-stat"><div class="n font-display font-medium">60%+</div><p class="l">Lower<br />Startup Costs</p></div>
+          <div class="tb-stat"><div class="n font-display font-medium">90%+</div><p class="l">Customer<br />Satisfaction</p></div>
+          <div class="tb-stat"><div class="n font-display font-medium">3.97M+</div><p class="l">Total<br />Downloads</p></div>
         </div>
       </article>
 
@@ -1779,39 +1810,90 @@
         <div class="md-col">
           <h3>Sell more</h3>
           <ul>
-            <li><a class="md-tile" href="modules.html"><span class="md-ico"><img src="Media/Modules/product-addon.png" alt="" width="67" height="67" loading="lazy" /></span><span class="md-label">Product Addon</span></a></li>
-            <li><a class="md-tile" href="modules.html"><span class="md-ico"><img src="Media/Modules/product-advertising.png" alt="" width="67" height="67" loading="lazy" /></span><span class="md-label">Product Advertising</span></a></li>
-            <li><a class="md-tile" href="modules.html"><span class="md-ico"><img src="Media/Modules/subscriptions.png" alt="" width="67" height="67" loading="lazy" /></span><span class="md-label">Subscriptions</span></a></li>
-            <li><a class="md-tile" href="modules.html"><span class="md-ico"><img src="Media/Modules/product-subscription.png" alt="" width="67" height="67" loading="lazy" /></span><span class="md-label">Product Subscription</span></a></li>
-            <li><a class="md-tile" href="modules.html"><span class="md-ico"><img src="Media/Modules/elementor.png" alt="" width="67" height="67" loading="lazy" /></span><span class="md-label">Elementor</span></a></li>
+            <li><a class="md-tile" href="module-product-addon.html"><span class="md-ico md-nt" style="--ic:#5c26fe;--cx:175.95;--cy:110.26;--f:0.00581" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-addon-neutral.svg"></span></span><span class="md-label">Product Addon</span></a></li>
+            <li><a class="md-tile" href="module-product-advertising.html"><span class="md-ico md-nt" style="--ic:#097ce5;--cx:175.62;--cy:111.91;--f:0.004431" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(30.05%-0.06px)_calc(31.97%-0.06px)_calc(30.13%-0.06px)_calc(32.11%-0.06px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-advertising.svg">
+          </div></span></span><span class="md-label">Product Advertising</span></a></li>
+            <li><a class="md-tile" href="module-subscriptions.html"><span class="md-ico md-nt" style="--ic:#28c163;--cx:174.62;--cy:112.56;--f:0.004672" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="-translate-x-1/2 -translate-y-1/2 absolute bg-[#28c163] h-[77.864px] left-[calc(50%+0.47px)] rounded-[11.979px] top-[calc(50%+0.48px)] w-[103.819px]">
+            <div class="absolute bg-white h-[9.983px] left-[9.98px] rounded-[1.997px] top-[11.98px] w-[75.868px]"></div>
+          </div></span></span><span class="md-label">Subscriptions</span></a></li>
+            <li><a class="md-tile" href="module-product-subscription.html"><span class="md-ico md-nt" style="--ic:#ff761b;--cx:175.29;--cy:112.24;--f:0.005204" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(29.45%-0.06px)_calc(39.19%-0.03px)_calc(29.42%-0.06px)_calc(39.22%-0.03px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-subscription.svg">
+          </div></span></span><span class="md-label">Product Subscription</span></a></li>
+            <li><a class="md-tile" href="module-elementor.html"><span class="md-ico md-nt" style="--ic:#ed01ee;--cx:175.95;--cy:111.25;--f:0.006031" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute h-[150.735px] left-[63.7px] top-[35.65px] w-[223.12px]">
+            <img alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="Media/Module%20Page/Icons/elementor.png">
+          </div></span></span><span class="md-label">Elementor</span></a></li>
           </ul>
         </div>
         <div class="md-col">
           <h3>Manage vendors</h3>
           <ul>
-            <li><a class="md-tile" href="modules.html"><span class="md-ico"><img src="Media/Modules/seller-badge.png" alt="" width="67" height="67" loading="lazy" /></span><span class="md-label">Seller Badge</span></a></li>
-            <li><a class="md-tile" href="modules.html"><span class="md-ico"><img src="Media/Modules/follow-store.png" alt="" width="67" height="67" loading="lazy" /></span><span class="md-label">Follow Store</span></a></li>
-            <li><a class="md-tile" href="modules.html"><span class="md-ico"><img src="Media/Modules/report-abuse.png" alt="" width="67" height="67" loading="lazy" /></span><span class="md-label">Report Abuse</span></a></li>
-            <li><a class="md-tile" href="modules.html"><span class="md-ico"><img src="Media/Modules/product-manager.png" alt="" width="67" height="67" loading="lazy" /></span><span class="md-label">Product Manager</span></a></li>
-            <li><a class="md-tile" href="modules.html"><span class="md-ico"><img src="Media/Modules/export-import.png" alt="" width="67" height="67" loading="lazy" /></span><span class="md-label">Export Import</span></a></li>
+            <li><a class="md-tile" href="module-seller-badge.html"><span class="md-ico md-nt" style="--ic:#ff761b;--cx:174.29;--cy:110.25;--f:0.005646" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(28.47%-0.07px)_calc(39.45%-0.03px)_calc(28.97%-0.07px)_calc(39.51%-0.03px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/seller-badge.svg">
+          </div></span></span><span class="md-label">Seller Badge</span></a></li>
+            <li><a class="md-tile" href="module-follow-store.html"><span class="md-ico md-nt" style="--ic:#612efe;--cx:174.95;--cy:111.57;--f:0.00485" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(30.43%-0.06px)_calc(34.79%-0.05px)_calc(30.79%-0.06px)_calc(34.95%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/follow-store.svg">
+          </div></span></span><span class="md-label">Follow Store</span></a></li>
+            <li><a class="md-tile" href="module-report-abuse.html"><span class="md-ico md-nt" style="--ic:#f93f35;--cx:173.96;--cy:110.91;--f:0.006339" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/report-abuse-neutral.svg"></span></span><span class="md-label">Report Abuse</span></a></li>
+            <li><a class="md-tile" href="module-product-form-manager.html"><span class="md-ico md-nt" style="--ic:#28c163;--cx:175.28;--cy:112.23;--f:0.00613" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[139.65px] top-[73.9px]">
+            <div class="absolute bg-[#28c163] h-[47.356px] left-[143.45px] rounded-bl-[7.286px] rounded-br-[7.286px] top-[101.37px] w-[64.659px]"></div>
+            <div class="absolute bg-[#28c163] h-[21.857px] left-[139.81px] rounded-[4.553px] top-[74.05px] w-[71.034px]"></div>
+            <div class="absolute bg-white h-[7.286px] left-[181.7px] rounded-[0.911px] top-[134.16px] w-[19.125px]"></div>
+          </div></span></span><span class="md-label">Product Manager</span></a></li>
+            <li><a class="md-tile" href="module-export-import.html"><span class="md-ico md-nt" style="--ic:#007afe;--cx:174.96;--cy:110.92;--f:0.008522" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[127.2px] size-[94.62px] top-[64.18px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/export-import.svg">
+          </div></span></span><span class="md-label">Export Import</span></a></li>
           </ul>
         </div>
         <div class="md-col">
           <h3>Get paid</h3>
           <ul>
-            <li><a class="md-tile" href="modules.html"><span class="md-ico"><img src="Media/Modules/stripe-connect.png" alt="" width="67" height="67" loading="lazy" /></span><span class="md-label">Stripe Connect</span></a></li>
-            <li><a class="md-tile" href="modules.html"><span class="md-ico"><img src="Media/Modules/stripe-express.png" alt="" width="67" height="67" loading="lazy" /></span><span class="md-label">Stripe Express</span></a></li>
-            <li><a class="md-tile" href="modules.html"><span class="md-ico"><img src="Media/Modules/razorpay.png" alt="" width="67" height="67" loading="lazy" /></span><span class="md-label">Razorpay</span></a></li>
-            <li><a class="md-tile" href="modules.html"><span class="md-ico"><img src="Media/Modules/paystack-module.png" alt="" width="67" height="67" loading="lazy" /></span><span class="md-label">Paystack</span></a></li>
+            <li><a class="md-tile" href="module-stripe-connect.html"><span class="md-ico md-nt" style="--ic:#635bff;--cx:175.28;--cy:112.56;--f:0.003709" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[66.77px]">
+            <div class="absolute contents left-[90.01px] top-[66.93px]">
+              <div class="absolute h-[70.879px] left-[90.01px] overflow-clip top-[66.93px] w-[170.3px]">
+                <div class="absolute inset-[0_0_0.03%_0]">
+                  <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/stripe-connect.svg">
+                </div>
+              </div>
+            </div>
+            <div class="absolute bg-[#635bff] content-stretch flex h-[19.568px] items-center justify-center left-[189.27px] px-[15.936px] py-[3.984px] rounded-[47.807px] top-[137.71px] w-[71.945px]">
+              <p class="[word-break:break-word] font-['Inter',sans-serif] font-semibold leading-[normal] not-italic relative shrink-0 text-[9.561px] text-white whitespace-nowrap">
+                Connect
+              </p>
+            </div>
+          </div></span></span><span class="md-label">Stripe Connect</span></a></li>
+            <li><a class="md-tile" href="module-stripe-express.html"><span class="md-ico md-nt" style="--ic:#635bff;--cx:175.62;--cy:110.92;--f:0.003992" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[75.36px]">
+            <div class="absolute h-[70.879px] left-[90.01px] overflow-clip top-[75.52px] w-[170.3px]">
+              <div class="absolute inset-[0_0.01%_0.03%_0]">
+                <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/stripe-express.svg">
+              </div>
+            </div>
+          </div></span></span><span class="md-label">Stripe Express</span></a></li>
+            <li><a class="md-tile" href="module-razorpay.html"><span class="md-ico md-nt" style="--ic:#3495fc;--cx:174.62;--cy:111.9;--f:0.005411" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[83.62px] size-[182.139px] top-[20.58px]">
+            <img alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="Media/Module%20Page/Icons/razorpay.png">
+          </div></span></span><span class="md-label">Razorpay</span></a></li>
+            <li><a class="md-tile" href="module-paystack.html"><span class="md-ico md-nt" style="--ic:#07a5da;--cx:173.96;--cy:112.23;--f:0.006266" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents inset-[calc(33.4%-0.05px)_calc(39.13%-0.03px)_calc(33.3%-0.05px)_calc(39.22%-0.03px)]">
+            <div class="absolute inset-[33.4%_39.13%_33.3%_39.22%]">
+              <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/paystack.svg">
+            </div>
+          </div></span></span><span class="md-label">Paystack</span></a></li>
           </ul>
         </div>
         <div class="md-col">
           <h3>Ship and deliver</h3>
           <ul>
-            <li><a class="md-tile" href="modules.html"><span class="md-ico"><img src="Media/Modules/table-rate-shipping.png" alt="" width="67" height="67" loading="lazy" /></span><span class="md-label">Table Rate Shipping</span></a></li>
-            <li><a class="md-tile" href="modules.html"><span class="md-ico"><img src="Media/Modules/delivery-time.png" alt="" width="67" height="67" loading="lazy" /></span><span class="md-label">Delivery Time</span></a></li>
-            <li><a class="md-tile" href="modules.html"><span class="md-ico"><img src="Media/Modules/geolocation.png" alt="" width="67" height="67" loading="lazy" /></span><span class="md-label">Geolocation</span></a></li>
-            <li><a class="md-tile" href="modules.html"><span class="md-ico"><img src="Media/Modules/printful-integration.png" alt="" width="67" height="67" loading="lazy" /></span><span class="md-label">Printful Integration</span></a></li>
+            <li><a class="md-tile" href="module-table-rate-shipping.html"><span class="md-ico md-nt" style="--ic:#fbb035;--cx:174.29;--cy:112.23;--f:0.004939" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(32.19%-0.06px)_calc(34.35%-0.05px)_calc(32.42%-0.06px)_calc(34.24%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/table-rate-shipping.svg">
+          </div></span></span><span class="md-label">Table Rate Shipping</span></a></li>
+            <li><a class="md-tile" href="module-delivery-time.html"><span class="md-ico md-nt" style="--ic:#fe710d;--cx:174.29;--cy:111.24;--f:0.00502" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(33.4%-0.05px)_calc(34.53%-0.05px)_calc(32.97%-0.05px)_calc(34.6%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/delivery-time.svg">
+          </div></span></span><span class="md-label">Delivery Time</span></a></li>
+            <li><a class="md-tile" href="module-geolocation.html"><span class="md-ico md-nt" style="--ic:#01c16e;--cx:174.29;--cy:111.57;--f:0.005395" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(29.31%-0.06px)_calc(37.17%-0.04px)_calc(29.61%-0.06px)_calc(37.09%-0.04px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/geolocation.svg">
+          </div></span></span><span class="md-label">Geolocation</span></a></li>
+            <li><a class="md-tile" href="module-printful-integration.html"><span class="md-ico md-nt" style="--ic:#007afe;--cx:174.62;--cy:111.9;--f:0.00506" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute left-[122.22px] size-[104.58px] top-[59.56px]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/printful-integration.svg">
+          </div></span></span><span class="md-label">Printful Integration</span></a></li>
           </ul>
         </div>
       </div>
@@ -2155,7 +2237,6 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
 
   // ---------- Reasons cards ----------
-  var ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 17.5L17.5 6.5M8.5 6.5h9v9"/></svg>';
   var SPARK = '<svg class="rsa-spark" viewBox="0 0 80 80" fill="#fff" aria-hidden="true"><path d="M50 14c1.6 9.6 6.4 14.4 16 16-9.6 1.6-14.4 6.4-16 16-1.6-9.6-6.4-14.4-16-16 9.6-1.6 14.4-6.4 16-16z"/><path d="M22 4c.9 5.1 3.4 7.6 8.5 8.5C25.4 13.4 22.9 15.9 22 21c-.9-5.1-3.4-7.6-8.5-8.5C18.6 11.6 21.1 9.1 22 4z"/><path d="M24 52c.6 3.4 2.3 5.1 5.7 5.7-3.4.6-5.1 2.3-5.7 5.7-.6-3.4-2.3-5.1-5.7-5.7 3.4-.6 5.1-2.3 5.7-5.7z"/></svg>';
   var ANALYTICS =
     '<div class="rs-media rsa" role="img" aria-label="Dokan analytics: revenue up 18.2% this month">' + SPARK +
@@ -2180,7 +2261,6 @@
       '<div class="rs-foot">' +
         (r.analytics ? ANALYTICS
           : '<div class="rs-media"><img src="' + r.img + '" alt="' + r.alt + '" width="648" height="501" /></div>') +
-        '<button type="button" class="rs-arrow" aria-label="Learn more: ' + r.t.replace('<br>', ' ') + '">' + ARROW + '</button>' +
       '</div>';
     rc.appendChild(el);
   });
@@ -2355,6 +2435,16 @@
     }
     range.addEventListener('input', paint);
     paint();
+    /* one background across both ticket halves: tell the CSS the card's size and where the top half ends */
+    var card = range.closest('.mn-rcpt'), topHalf = card && card.querySelector('.mn-rcpt-top');
+    function size() {
+      if (!card) return;
+      card.style.setProperty('--cw', card.offsetWidth);
+      card.style.setProperty('--ch', card.offsetHeight);
+      card.style.setProperty('--th', topHalf.offsetHeight);
+    }
+    size();
+    if ('ResizeObserver' in window && card) new ResizeObserver(size).observe(card); else window.addEventListener('resize', size);
   })();
 
   // ---------- Testimonial stars ----------
@@ -2477,7 +2567,7 @@
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="site-nav.js?v=35"></script>
+<script src="site-nav.js?v=43"></script>
 <script>
 /* ═══════════ Motion layer ═══════════
    Runs after the section builders above, so JS-generated cards are
@@ -2512,16 +2602,8 @@
     document.querySelectorAll(sel).forEach(function (el) { el.classList.add(cls); });
   }
   tag('#discover-cards > article', 'hv-lift');
-  tag('.md-tile', 'hv-lift');                        // module cards
   tag('.shadow-lite', 'hv-lift');                     // discover pills
-  /* Module cards: scale the icon on hover */
-  document.querySelectorAll('.md-tile').forEach(function (t) {
-    var icon = t.querySelector('.md-ico');
-    if (!icon) return;
-    icon.style.transition = 'transform .35s cubic-bezier(.22,.61,.36,1)';
-    t.addEventListener('mouseenter', function () { icon.style.transform = 'scale(1.12) rotate(-3deg)'; });
-    t.addEventListener('mouseleave', function () { icon.style.transform = ''; });
-  });
+  /* Module cards: hover is the CSS gradient wash (.md-tile::before), no lift or icon tilt */
 
   /* Arrow nudge only on text+icon actions — not on nav chevrons, the
      icon-only prev/next buttons, or the nav / mega menus (their icons

@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Commission Section — 10 Variations</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700;900&display=swap" rel="stylesheet" />
+<style>
+  /* Preview page only — 10 alternatives for the home page's
+     "You earn on every order" section. Not linked from the site. */
+  *, *::before, *::after { box-sizing:border-box; }
+  :root { --dokan:#7047EB; --dokan-d:#5D36D6; --title:#0F172A; --para:#334155; --lite:#475569; --line:#E5E7EB;
+    --green:#10B981; --pf:Poppins, sans-serif; --lf:Lato, sans-serif; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:#fff; color:var(--title); font-family:var(--lf); -webkit-font-smoothing:antialiased; }
+  h2, h3, h4, p { margin:0; }
+  .wrap { width:100%; max-width:1700px; margin:0 auto; padding:0 102px; }
+  @media (max-width:1200px) { .wrap { padding:0 48px; } }
+  @media (max-width:700px) { .wrap { padding:0 20px; } }
+  .band { margin:0 20px; border-radius:20px; overflow:hidden; position:relative; }
+  @media (max-width:640px) { .band { border-radius:16px; } }
+
+  /* top switcher */
+  .pv-bar { position:sticky; top:0; z-index:50; background:rgba(255,255,255,.92); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line); }
+  .pv-bar .wrap { display:flex; align-items:center; gap:24px; height:68px; }
+  .pv-bar b { font-family:var(--pf); font-weight:600; font-size:16px; white-space:nowrap; }
+  .pv-nav { display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; }
+  .pv-nav::-webkit-scrollbar { display:none; }
+  .pv-nav a { flex:none; padding:8px 14px; border-radius:9999px; background:#F3F3F3; color:var(--para); text-decoration:none;
+    font-weight:700; font-size:14px; transition:background-color .2s, color .2s; }
+  .pv-nav a:hover, .pv-nav a.on { background:var(--dokan); color:#fff; }
+  .pv-head { padding-top:88px; padding-bottom:40px; }
+  .pv-head h1 { margin:0; font-family:var(--pf); font-weight:700; font-size:clamp(32px,4vw,52px); line-height:1.2; }
+  .pv-head p { margin-top:16px; max-width:720px; font-size:20px; line-height:1.5; color:var(--lite); }
+  .pv-label { display:flex; align-items:baseline; gap:14px; padding-top:120px; padding-bottom:28px; scroll-margin-top:-40px; }
+  .pv-label span { font-family:var(--pf); font-weight:700; font-size:14px; letter-spacing:.08em; color:var(--dokan); }
+  .pv-label h2 { font-family:var(--pf); font-weight:600; font-size:24px; color:var(--title); }
+  .pv-label em { font-style:normal; color:var(--lite); font-size:17px; }
+  @media (max-width:640px) { .pv-label { flex-wrap:wrap; padding-top:80px; gap:6px 12px; scroll-margin-top:-16px; } .pv-label em { width:100%; } }
+
+  /* shared range input: the fill follows --fill, colours per variation */
+  .rng { -webkit-appearance:none; appearance:none; width:100%; height:32px; margin:0; background:transparent; cursor:pointer;
+    --acc:var(--dokan); --trk:#E9E9EF; --th:#fff; --h:10px; }
+  .rng::-webkit-slider-runnable-track { height:var(--h); border-radius:9999px;
+    background:linear-gradient(90deg, var(--acc) var(--fill,15%), var(--trk) var(--fill,15%)); }
+  .rng::-moz-range-track { height:var(--h); border-radius:9999px; background:var(--trk); }
+  .rng::-moz-range-progress { height:var(--h); border-radius:9999px; background:var(--acc); }
+  .rng::-webkit-slider-thumb { -webkit-appearance:none; width:28px; height:28px; margin-top:calc((var(--h) - 28px) / 2);
+    border-radius:50%; background:var(--acc); border:5px solid var(--th); box-shadow:0 4px 14px rgba(15,23,42,.25);
+    transition:transform .15s; }
+  .rng::-moz-range-thumb { width:18px; height:18px; border-radius:50%; background:var(--acc); border:5px solid var(--th);
+    box-shadow:0 4px 14px rgba(15,23,42,.25); }
+  .rng:active::-webkit-slider-thumb { transform:scale(1.12); }
+  .rng:focus-visible { outline:2px solid var(--acc); outline-offset:6px; border-radius:9999px; }
+  .ic { width:24px; height:24px; flex:none; }
+  .pill { display:inline-flex; align-items:center; height:38px; padding:0 18px; border-radius:9999px; font-family:var(--pf);
+    font-weight:600; font-size:15px; white-space:nowrap; }
+  .num { font-variant-numeric:tabular-nums; }
+
+  /* ════════ V1 — Split receipt ════════ */
+  .v1 { background:#F5F3FB; padding:120px 0; }
+  .v1 .g { display:grid; grid-template-columns:minmax(0,560px) minmax(0,1fr); gap:96px; align-items:center; }
+  .v1 h2 { font-family:var(--pf); font-weight:700; font-size:clamp(32px,3.6vw,52px); line-height:1.15; }
+  .v1 .lede { margin-top:20px; font-size:20px; line-height:1.5; color:var(--lite); max-width:520px; }
+  .v1 .rcpt { position:relative; background:#fff; border-radius:22px; box-shadow:0 40px 80px -40px rgba(45,25,120,.35); }
+  .v1 .rcpt-top { padding:36px 40px 28px; }
+  .v1 .rcpt small { font-family:var(--pf); font-weight:600; font-size:13px; letter-spacing:.1em; color:#94A3B8; text-transform:uppercase; }
+  .v1 .rcpt-row { display:flex; justify-content:space-between; align-items:baseline; margin-top:14px; font-size:18px; color:var(--lite); }
+  .v1 .rcpt-row b { font-family:var(--pf); font-size:22px; color:var(--title); }
+  .v1 .rcpt .rng { margin-top:22px; }
+  .v1 .perf { position:relative; height:28px; }
+  .v1 .perf::before { content:''; position:absolute; left:28px; right:28px; top:50%; border-top:2px dashed #DDD6F5; }
+  .v1 .perf::after, .v1 .perf i { content:''; position:absolute; top:0; width:28px; height:28px; border-radius:50%; background:#F5F3FB; }
+  .v1 .perf::after { right:-14px; } .v1 .perf i { left:-14px; }
+  .v1 .stubs { display:grid; grid-template-columns:1fr 1fr; }
+  .v1 .stub { padding:26px 40px 34px; }
+  .v1 .stub + .stub { border-left:2px dashed #DDD6F5; }
+  .v1 .stub span { display:block; font-size:16px; color:var(--lite); }
+  .v1 .stub b { display:block; margin-top:6px; font-family:var(--pf); font-weight:700; font-size:clamp(28px,3vw,40px); }
+  .v1 .stub.you b { color:var(--dokan); }
+  .v1 .feats { display:grid; grid-template-columns:1fr 1fr; gap:40px 48px; margin-top:48px; }
+  .v1 .f h3 { display:flex; gap:12px; align-items:center; font-family:var(--pf); font-weight:600; font-size:20px; }
+  .v1 .f .ic { color:var(--dokan); }
+  .v1 .f p { margin-top:10px; font-size:17px; line-height:1.55; color:var(--lite); }
+  .v1 .works { display:flex; flex-wrap:wrap; gap:10px; margin-top:44px; align-items:center; }
+  .v1 .works span { margin-right:8px; color:var(--lite); }
+  .v1 .works .pill { background:#fff; border:1px solid #E4DEF7; }
+  @media (max-width:1100px) { .v1 .g { grid-template-columns:1fr; gap:56px; } }
+  @media (max-width:640px) { .v1 { padding:72px 0; } .v1 .feats { grid-template-columns:1fr; gap:28px; }
+    .v1 .rcpt-top, .v1 .stub { padding-left:24px; padding-right:24px; } }
+
+  /* ════════ V2 — Dark revenue console ════════ */
+  .v2 { background:#0D0C14; color:#fff; padding:120px 0; }
+  .v2::before { content:''; position:absolute; inset:-30% -10% auto auto; width:900px; height:900px;
+    background:radial-gradient(closest-side, rgba(112,71,235,.45), transparent); pointer-events:none; }
+  .v2 .top { position:relative; display:flex; justify-content:space-between; align-items:flex-end; gap:40px; flex-wrap:wrap; }
+  .v2 h2 { font-family:var(--pf); font-weight:700; font-size:clamp(32px,3.6vw,52px); line-height:1.15; max-width:800px; }
+  .v2 h2 em { font-style:normal; color:#A78BFA; }
+  .v2 .console { position:relative; display:grid; grid-template-columns:320px minmax(0,1fr); gap:64px; align-items:center;
+    margin-top:64px; padding:48px; border-radius:24px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.09); }
+  .v2 .donut { position:relative; width:320px; aspect-ratio:1; border-radius:50%;
+    background:conic-gradient(#A78BFA calc(var(--p) * 1%), rgba(255,255,255,.08) 0); transition:background .2s; }
+  .v2 .donut::after { content:''; position:absolute; inset:34px; border-radius:50%; background:#13121C; }
+  .v2 .donut div { position:absolute; inset:0; z-index:1; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .v2 .donut b { font-family:var(--pf); font-weight:700; font-size:56px; }
+  .v2 .donut span { color:rgba(255,255,255,.6); font-size:16px; }
+  .v2 .kp { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .v2 .kp div { padding:22px 24px; border-radius:16px; background:rgba(255,255,255,.05); }
+  .v2 .kp span { font-size:15px; color:rgba(255,255,255,.6); }
+  .v2 .kp b { display:block; margin-top:8px; font-family:var(--pf); font-weight:700; font-size:clamp(24px,2.4vw,34px); }
+  .v2 .kp .you b { color:#A78BFA; } .v2 .kp .ven b { color:#34D399; }
+  .v2 .ctl { margin-top:32px; }
+  .v2 .ctl label { display:flex; justify-content:space-between; font-family:var(--pf); font-weight:600; font-size:17px; }
+  .v2 .ctl .rng { --acc:#A78BFA; --trk:rgba(255,255,255,.12); --th:#13121C; margin-top:10px; }
+  .v2 .ctl p { margin-top:12px; font-size:15px; color:rgba(255,255,255,.55); }
+  .v2 .feats { position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:24px; }
+  .v2 .f { padding:28px; border-radius:18px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07); }
+  .v2 .f .ic { color:#A78BFA; width:28px; height:28px; }
+  .v2 .f h3 { margin-top:18px; font-family:var(--pf); font-weight:600; font-size:19px; }
+  .v2 .f p { margin-top:8px; font-size:16px; line-height:1.55; color:rgba(255,255,255,.62); }
+  .v2 .works { position:relative; display:flex; flex-wrap:wrap; gap:10px 28px; margin-top:44px; align-items:center;
+    color:rgba(255,255,255,.5); font-family:var(--pf); font-weight:600; font-size:18px; }
+  .v2 .works b { color:#fff; opacity:.85; }
+  @media (max-width:1200px) { .v2 .console { grid-template-columns:1fr; justify-items:center; } .v2 .console > div:last-child { width:100%; }
+    .v2 .feats { grid-template-columns:1fr 1fr; } }
+  @media (max-width:640px) { .v2 { padding:72px 0; } .v2 .console { padding:24px; } .v2 .donut { width:240px; }
+    .v2 .donut b { font-size:44px; } .v2 .kp { grid-template-columns:1fr; } .v2 .feats { grid-template-columns:1fr; } }
+
+  /* ════════ V3 — Money-flow diagram ════════ */
+  .v3 { background:#fff; border:1px solid var(--line); padding:112px 0 96px; }
+  .v3 .hd { text-align:center; max-width:980px; margin:0 auto; }
+  .v3 h2 { font-family:var(--pf); font-weight:700; font-size:clamp(32px,3.6vw,52px); line-height:1.15; }
+  .v3 .hd p { margin-top:18px; font-size:20px; color:var(--lite); }
+  .v3 .flow { position:relative; display:grid; grid-template-columns:1fr 1.25fr 1fr; align-items:center; margin:72px auto 0; max-width:1180px; }
+  .v3 .node { position:relative; z-index:2; padding:26px 28px; border-radius:20px; background:#fff; border:1px solid var(--line);
+    box-shadow:0 24px 48px -28px rgba(15,23,42,.3); }
+  .v3 .node span { font-size:15px; color:var(--lite); }
+  .v3 .node b { display:block; margin-top:6px; font-family:var(--pf); font-weight:700; font-size:clamp(26px,2.6vw,36px); }
+  .v3 .hub { justify-self:center; width:min(100%,360px); text-align:center; background:var(--dokan); color:#fff; border:0;
+    box-shadow:0 30px 60px -24px rgba(112,71,235,.65); }
+  .v3 .hub span { color:rgba(255,255,255,.8); }
+  .v3 .hub .rng { --acc:#fff; --trk:rgba(255,255,255,.28); --th:var(--dokan); margin-top:14px; }
+  .v3 .outs { display:grid; gap:20px; }
+  .v3 .outs .you b { color:var(--dokan); } .v3 .outs .ven b { color:var(--green); }
+  .v3 svg.lines { position:absolute; inset:0; width:100%; height:100%; z-index:1; overflow:visible; }
+  .v3 .lines path { fill:none; stroke-linecap:round; stroke-dasharray:2 14; animation:v3flow 1.1s linear infinite; }
+  .v3 .lines .in { stroke:#C4B5FD; stroke-width:8; }
+  .v3 .lines .l-you { stroke:var(--dokan); stroke-width:calc(2px + var(--p) * .14px); }
+  .v3 .lines .l-ven { stroke:var(--green); stroke-width:calc(2px + (100 - var(--p)) * .14px); }
+  @keyframes v3flow { to { stroke-dashoffset:-32; } }
+  .v3 .feats { display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:96px; border-top:1px solid var(--line); }
+  .v3 .f { padding:36px 32px 0 0; }
+  .v3 .f + .f { padding-left:32px; border-left:1px solid var(--line); }
+  .v3 .f .ic { color:var(--dokan); }
+  .v3 .f h3 { margin-top:16px; font-family:var(--pf); font-weight:600; font-size:19px; }
+  .v3 .f p { margin-top:8px; font-size:16px; line-height:1.55; color:var(--lite); }
+  .v3 .works { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-top:56px; }
+  .v3 .works .pill { background:#F5F3FB; color:var(--dokan); }
+  @media (max-width:1000px) { .v3 .flow { grid-template-columns:1fr; gap:28px; max-width:420px; } .v3 svg.lines { display:none; }
+    .v3 .hub { width:100%; } .v3 .feats { grid-template-columns:1fr 1fr; } .v3 .f:nth-child(3) { padding-left:0; border-left:0; } }
+  @media (max-width:640px) { .v3 { padding:72px 0; } .v3 .feats { grid-template-columns:1fr; } .v3 .f, .v3 .f + .f { padding:28px 0 0; border-left:0; } }
+  @media (prefers-reduced-motion:reduce) { .v3 .lines path { animation:none; } }
+
+  /* ════════ V4 — One big number ════════ */
+  .v4 { background:linear-gradient(180deg,#F6F4FF 0%,#FFFFFF 100%); padding:120px 0; text-align:center; }
+  .v4 h2 { font-family:var(--pf); font-weight:700; font-size:clamp(32px,3.6vw,52px); line-height:1.15; }
+  .v4 .big { margin-top:56px; font-family:var(--pf); font-weight:700; font-size:clamp(72px,11vw,168px); line-height:1; color:var(--dokan);
+    letter-spacing:-.02em; }
+  .v4 .sub { margin-top:14px; font-size:20px; color:var(--lite); }
+  .v4 .sub b { color:var(--title); }
+  .v4 .ctl { max-width:720px; margin:40px auto 0; }
+  .v4 .ctl .ticks { display:flex; justify-content:space-between; margin-top:6px; font-size:14px; color:#94A3B8; }
+  .v4 .seg { display:flex; max-width:720px; height:14px; margin:28px auto 0; border-radius:9999px; overflow:hidden; background:#DDF7EC; }
+  .v4 .seg i { width:calc(var(--p) * 1%); background:var(--dokan); transition:width .15s; }
+  .v4 .legend { display:flex; justify-content:center; gap:28px; margin-top:14px; font-size:16px; color:var(--lite); }
+  .v4 .legend i { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:8px; vertical-align:1px; }
+  .v4 .feats { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-top:96px; text-align:left; }
+  .v4 .f { padding:32px; border-radius:20px; background:#fff; border:1px solid #ECE8FB;
+    transition:transform .3s cubic-bezier(.22,.61,.36,1), box-shadow .3s; }
+  .v4 .f:hover { transform:translateY(-6px); box-shadow:0 24px 48px -28px rgba(112,71,235,.45); }
+  .v4 .f .ib { display:grid; place-items:center; width:52px; height:52px; border-radius:14px; background:#F1ECFF; color:var(--dokan); }
+  .v4 .f h3 { margin-top:22px; font-family:var(--pf); font-weight:600; font-size:20px; }
+  .v4 .f p { margin-top:10px; font-size:16px; line-height:1.55; color:var(--lite); }
+  .v4 .works { display:flex; justify-content:center; flex-wrap:wrap; gap:10px 32px; margin-top:52px; font-family:var(--pf);
+    font-weight:600; font-size:18px; color:#94A3B8; }
+  .v4 .works b { color:var(--para); }
+  @media (max-width:1100px) { .v4 .feats { grid-template-columns:1fr 1fr; } }
+  @media (max-width:640px) { .v4 { padding:72px 0; } .v4 .feats { grid-template-columns:1fr; } }
+
+  /* ════════ V5 — Bento grid ════════ */
+  .v5 { background:#F3F3F3; padding:120px 0; }
+  .v5 h2 { font-family:var(--pf); font-weight:700; font-size:clamp(32px,3.6vw,52px); line-height:1.15; max-width:900px; }
+  .v5 .bento { display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:minmax(220px,auto); gap:20px; margin-top:56px; }
+  .v5 .t { border-radius:22px; padding:32px; background:#fff; position:relative; overflow:hidden; }
+  .v5 .calc { grid-column:span 2; grid-row:span 2; background:var(--dokan); color:#fff; display:flex; flex-direction:column; }
+  .v5 .calc h3 { font-family:var(--pf); font-weight:600; font-size:22px; }
+  .v5 .calc .pct { margin-top:auto; font-family:var(--pf); font-weight:700; font-size:clamp(64px,7vw,104px); line-height:1; }
+  .v5 .calc .pct small { font-size:.32em; font-weight:600; opacity:.8; margin-left:8px; }
+  .v5 .calc .rng { --acc:#fff; --trk:rgba(255,255,255,.25); --th:var(--dokan); margin-top:22px; }
+  .v5 .calc .res { display:flex; justify-content:space-between; gap:16px; margin-top:22px; padding-top:22px; border-top:1px solid rgba(255,255,255,.22);
+    font-size:17px; color:rgba(255,255,255,.8); }
+  .v5 .calc .res b { display:block; margin-top:4px; font-family:var(--pf); font-size:28px; color:#fff; }
+  .v5 .calc::after { content:''; position:absolute; right:-120px; top:-120px; width:320px; height:320px; border-radius:50%;
+    border:60px solid rgba(255,255,255,.07); }
+  .v5 .f .ic { color:var(--dokan); width:30px; height:30px; }
+  .v5 .f h3 { margin-top:20px; font-family:var(--pf); font-weight:600; font-size:20px; }
+  .v5 .f p { margin-top:8px; font-size:16px; line-height:1.55; color:var(--lite); }
+  .v5 .f.dark { background:#0F172A; color:#fff; } .v5 .f.dark p { color:rgba(255,255,255,.65); } .v5 .f.dark .ic { color:#A78BFA; }
+  .v5 .f.mint { background:#DDF7EC; } .v5 .f.mint .ic { color:#047857; }
+  .v5 .gw { grid-column:span 4; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; min-height:0; padding:28px 32px; }
+  .v5 .gw span { font-family:var(--pf); font-weight:600; font-size:20px; }
+  .v5 .gw div { display:flex; flex-wrap:wrap; gap:10px; }
+  .v5 .gw .pill { background:#F3F3F3; }
+  @media (max-width:1100px) { .v5 .bento { grid-template-columns:1fr 1fr; } .v5 .calc { grid-column:span 2; grid-row:auto; min-height:420px; } .v5 .gw { grid-column:span 2; } }
+  @media (max-width:640px) { .v5 { padding:72px 0; } .v5 .bento { grid-template-columns:1fr; } .v5 .calc, .v5 .gw { grid-column:auto; } .v5 .t { padding:24px; } }
+
+  /* ════════ V6 — Purple split screen ════════ */
+  .v6 { display:grid; grid-template-columns:1fr 1fr; background:#fff; border:1px solid var(--line); }
+  .v6 .l { background:var(--dokan); color:#fff; padding:112px max(48px, calc((100% - 700px) / 2)) 112px 102px; position:relative; overflow:hidden; }
+  .v6 .l::after { content:''; position:absolute; left:-160px; bottom:-220px; width:520px; height:520px; border-radius:50%;
+    background:radial-gradient(closest-side, rgba(255,255,255,.16), transparent); }
+  .v6 h2 { position:relative; font-family:var(--pf); font-weight:700; font-size:clamp(32px,3.2vw,50px); line-height:1.15; }
+  .v6 .calc { position:relative; z-index:1; margin-top:56px; }
+  .v6 .calc .row { display:flex; justify-content:space-between; align-items:baseline; font-size:18px; color:rgba(255,255,255,.8); }
+  .v6 .calc .row b { font-family:var(--pf); font-size:30px; color:#fff; }
+  .v6 .calc .rng { --acc:#fff; --trk:rgba(255,255,255,.25); --th:var(--dokan); margin-top:18px; }
+  .v6 .calc .split { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:28px; }
+  .v6 .calc .split div { padding:20px 22px; border-radius:16px; background:rgba(255,255,255,.12); }
+  .v6 .calc .split span { font-size:15px; color:rgba(255,255,255,.75); }
+  .v6 .calc .split b { display:block; margin-top:4px; font-family:var(--pf); font-weight:700; font-size:clamp(24px,2.4vw,34px); }
+  .v6 .r { padding:112px 102px 112px 88px; }
+  .v6 ol { list-style:none; margin:0; padding:0; counter-reset:n; }
+  .v6 li { counter-increment:n; display:grid; grid-template-columns:64px 1fr; gap:4px 18px; padding:28px 0; border-bottom:1px solid var(--line); }
+  .v6 li:first-child { padding-top:0; }
+  .v6 li::before { content:'0' counter(n); grid-row:span 2; font-family:var(--pf); font-weight:700; font-size:34px; color:#DDD6F5; line-height:1; }
+  .v6 li h3 { font-family:var(--pf); font-weight:600; font-size:21px; }
+  .v6 li p { font-size:17px; line-height:1.55; color:var(--lite); }
+  .v6 .works { display:flex; flex-wrap:wrap; gap:10px; margin-top:32px; align-items:center; }
+  .v6 .works span { color:var(--lite); margin-right:6px; }
+  .v6 .works .pill { border:1px solid var(--line); }
+  @media (max-width:1100px) { .v6 { grid-template-columns:1fr; } .v6 .l, .v6 .r { padding:72px 48px; } }
+  @media (max-width:640px) { .v6 .l, .v6 .r { padding:56px 24px; } }
+
+  /* ════════ V7 — Growing bars ════════ */
+  .v7 { background:#FAFAFB; border:1px solid var(--line); padding:120px 0; }
+  .v7 .g { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,640px); gap:96px; align-items:center; }
+  .v7 h2 { font-family:var(--pf); font-weight:700; font-size:clamp(32px,3.6vw,52px); line-height:1.15; }
+  .v7 .feats { margin-top:44px; display:grid; gap:24px; }
+  .v7 .f { display:flex; gap:18px; }
+  .v7 .f .ib { flex:none; display:grid; place-items:center; width:48px; height:48px; border-radius:12px; background:#fff;
+    border:1px solid var(--line); color:var(--dokan); }
+  .v7 .f h3 { font-family:var(--pf); font-weight:600; font-size:19px; }
+  .v7 .f p { margin-top:4px; font-size:16px; line-height:1.55; color:var(--lite); }
+  .v7 .chart { padding:40px; border-radius:24px; background:#fff; box-shadow:0 40px 80px -48px rgba(15,23,42,.35); }
+  .v7 .chart .hd { display:flex; justify-content:space-between; align-items:center; font-family:var(--pf); font-weight:600; font-size:20px; }
+  .v7 .chart .hd b { padding:6px 14px; border-radius:9999px; background:#F1ECFF; color:var(--dokan); font-size:16px; }
+  .v7 .cols { display:grid; grid-template-columns:1fr 1fr; gap:28px; height:300px; margin-top:32px; align-items:end;
+    border-bottom:2px solid var(--line); }
+  .v7 .col { display:flex; flex-direction:column; justify-content:flex-end; height:100%; }
+  .v7 .col i { display:block; border-radius:14px 14px 0 0; transition:height .2s; min-height:6px; }
+  .v7 .col.you i { height:calc(var(--p) * 1%); background:linear-gradient(180deg,#9B7BFF,var(--dokan)); }
+  .v7 .col.ven i { height:calc((100 - var(--p)) * 1%); background:linear-gradient(180deg,#5EEAD4,var(--green)); }
+  .v7 .col b { font-family:var(--pf); font-weight:700; font-size:26px; margin-bottom:10px; }
+  .v7 .lbls { display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:12px; font-size:16px; color:var(--lite); }
+  .v7 .chart .rng { margin-top:28px; }
+  .v7 .chart p { margin-top:10px; font-size:15px; color:#94A3B8; }
+  .v7 .works { display:flex; flex-wrap:wrap; gap:10px; margin-top:40px; }
+  .v7 .works .pill { background:#fff; border:1px solid var(--line); }
+  @media (max-width:1100px) { .v7 .g { grid-template-columns:1fr; gap:56px; } }
+  @media (max-width:640px) { .v7 { padding:72px 0; } .v7 .chart { padding:24px; } .v7 .cols { height:220px; } }
+
+  /* ════════ V8 — Feature tabs ════════ */
+  .v8 { background:#fff; border:1px solid var(--line); padding:120px 0; }
+  .v8 h2 { font-family:var(--pf); font-weight:700; font-size:clamp(32px,3.6vw,52px); line-height:1.15; max-width:900px; }
+  .v8 .g { display:grid; grid-template-columns:minmax(0,520px) minmax(0,1fr); gap:56px; margin-top:64px; align-items:stretch; }
+  .v8 .tabs { display:grid; gap:12px; align-content:start; }
+  .v8 .tab { display:flex; gap:16px; text-align:left; padding:24px 26px; border-radius:18px; border:1px solid var(--line); background:#fff;
+    cursor:pointer; font:inherit; color:inherit; transition:border-color .2s, background-color .2s, box-shadow .2s; }
+  .v8 .tab .ic { color:#94A3B8; margin-top:2px; transition:color .2s; }
+  .v8 .tab h3 { font-family:var(--pf); font-weight:600; font-size:19px; }
+  .v8 .tab p { margin-top:6px; font-size:16px; line-height:1.55; color:var(--lite); display:none; }
+  .v8 .tab[aria-selected="true"] { border-color:var(--dokan); background:#FAF8FF; box-shadow:0 18px 40px -28px rgba(112,71,235,.6); }
+  .v8 .tab[aria-selected="true"] .ic { color:var(--dokan); }
+  .v8 .tab[aria-selected="true"] p { display:block; }
+  .v8 .panel { position:relative; border-radius:24px; background:#F5F3FB; padding:48px; display:flex; flex-direction:column; justify-content:center; min-height:460px; }
+  .v8 .pane { display:none; } .v8 .pane.on { display:block; animation:v8in .35s ease; }
+  @keyframes v8in { from { opacity:0; transform:translateY(10px); } }
+  .v8 .pane h4 { font-family:var(--pf); font-weight:600; font-size:15px; letter-spacing:.08em; text-transform:uppercase; color:var(--dokan); }
+  .v8 .pane .k { margin-top:14px; font-family:var(--pf); font-weight:700; font-size:clamp(30px,3vw,44px); line-height:1.2; }
+  .v8 .pane .rng { margin-top:26px; }
+  .v8 .pane .rows { margin-top:24px; display:grid; gap:12px; }
+  .v8 .pane .rows div { display:flex; justify-content:space-between; padding:16px 20px; border-radius:14px; background:#fff; font-size:17px; color:var(--lite); }
+  .v8 .pane .rows b { font-family:var(--pf); color:var(--title); }
+  .v8 .modes { display:flex; flex-wrap:wrap; gap:10px; margin-top:26px; }
+  .v8 .modes .pill { background:#fff; border:1px solid #E4DEF7; }
+  .v8 .modes .pill.on { background:var(--dokan); color:#fff; border-color:var(--dokan); }
+  .v8 .pane p.d { margin-top:16px; font-size:18px; line-height:1.55; color:var(--lite); max-width:560px; }
+  .v8 .works { display:flex; flex-wrap:wrap; gap:10px; margin-top:40px; align-items:center; }
+  .v8 .works span { color:var(--lite); margin-right:6px; }
+  .v8 .works .pill { background:#F3F3F3; }
+  @media (max-width:1100px) { .v8 .g { grid-template-columns:1fr; } }
+  @media (max-width:640px) { .v8 { padding:72px 0; } .v8 .panel { padding:24px; min-height:0; } }
+
+  /* ════════ V9 — Live order notification ════════ */
+  .v9 { background:linear-gradient(135deg,#EEF2FF 0%,#F5F3FF 55%,#ECFDF5 100%); padding:120px 0; }
+  .v9 .g { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,600px); gap:96px; align-items:center; }
+  .v9 h2 { font-family:var(--pf); font-weight:700; font-size:clamp(32px,3.6vw,52px); line-height:1.15; }
+  .v9 .feats { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:44px; }
+  .v9 .f { display:flex; gap:14px; padding:20px; border-radius:16px; background:rgba(255,255,255,.7); }
+  .v9 .f .ic { color:var(--dokan); }
+  .v9 .f h3 { font-family:var(--pf); font-weight:600; font-size:17px; }
+  .v9 .f p { margin-top:4px; font-size:15px; line-height:1.5; color:var(--lite); }
+  .v9 .phone { position:relative; }
+  .v9 .toast { display:flex; align-items:center; gap:14px; padding:16px 20px; border-radius:16px; background:#0F172A; color:#fff;
+    box-shadow:0 20px 40px -20px rgba(15,23,42,.6); width:max-content; max-width:100%; margin-left:auto; animation:v9pop 3s ease-in-out infinite; }
+  .v9 .toast i { display:grid; place-items:center; width:36px; height:36px; border-radius:10px; background:var(--green); font-style:normal; }
+  .v9 .toast b { font-family:var(--pf); font-size:15px; } .v9 .toast span { font-size:14px; color:rgba(255,255,255,.65); }
+  @keyframes v9pop { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
+  .v9 .order { margin-top:18px; border-radius:22px; background:#fff; box-shadow:0 40px 80px -40px rgba(15,23,42,.35); overflow:hidden; }
+  .v9 .order .oh { display:flex; justify-content:space-between; align-items:center; padding:22px 28px; border-bottom:1px solid var(--line); }
+  .v9 .order .oh b { font-family:var(--pf); font-size:18px; }
+  .v9 .order .oh span { padding:5px 12px; border-radius:9999px; background:#DCFCE7; color:#15803D; font-weight:700; font-size:13px; }
+  .v9 .order .ob { padding:24px 28px; display:grid; gap:14px; }
+  .v9 .order .line { display:flex; justify-content:space-between; font-size:17px; color:var(--lite); }
+  .v9 .order .line b { color:var(--title); font-family:var(--pf); }
+  .v9 .order .line.you b { color:var(--dokan); } .v9 .order .line.ven b { color:var(--green); }
+  .v9 .order hr { border:0; border-top:1px dashed var(--line); margin:4px 0; }
+  .v9 .order .of { padding:20px 28px 26px; background:#FAFAFB; }
+  .v9 .order .of label { display:flex; justify-content:space-between; font-family:var(--pf); font-weight:600; font-size:16px; }
+  .v9 .order .of .rng { margin-top:8px; }
+  .v9 .works { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
+  .v9 .works .pill { background:#fff; }
+  @media (max-width:1100px) { .v9 .g { grid-template-columns:1fr; gap:56px; } }
+  @media (max-width:640px) { .v9 { padding:72px 0; } .v9 .feats { grid-template-columns:1fr; } .v9 .order .oh, .v9 .order .ob, .v9 .order .of { padding-left:20px; padding-right:20px; } }
+  @media (prefers-reduced-motion:reduce) { .v9 .toast { animation:none; } }
+
+  /* ════════ V10 — Editorial sentence ════════ */
+  .v10 { background:#fff; border:1px solid var(--line); padding:128px 0; }
+  .v10 .kick { font-family:var(--pf); font-weight:600; font-size:15px; letter-spacing:.1em; text-transform:uppercase; color:var(--dokan); }
+  .v10 h2 { margin-top:16px; font-family:var(--pf); font-weight:700; font-size:clamp(34px,4.2vw,64px); line-height:1.1; max-width:1100px; }
+  .v10 .sent { margin-top:64px; max-width:1200px; font-family:var(--pf); font-weight:500; font-size:clamp(24px,2.6vw,38px); line-height:1.6; color:#94A3B8; }
+  .v10 .sent b { color:var(--title); font-weight:700; }
+  .v10 .sent .hl { color:var(--dokan); } .v10 .sent .hg { color:var(--green); }
+  .v10 .inline { display:inline-block; width:min(320px,70vw); vertical-align:middle; margin:0 10px; }
+  .v10 .grid { display:grid; grid-template-columns:repeat(4,1fr); margin-top:96px; border-top:1px solid var(--title); }
+  .v10 .f { padding:28px 28px 0 0; }
+  .v10 .f + .f { padding-left:28px; border-left:1px solid var(--line); }
+  .v10 .f small { font-family:var(--pf); font-weight:600; font-size:14px; color:#94A3B8; }
+  .v10 .f h3 { margin-top:14px; font-family:var(--pf); font-weight:600; font-size:20px; }
+  .v10 .f p { margin-top:8px; font-size:16px; line-height:1.6; color:var(--lite); }
+  .v10 .works { margin-top:56px; font-size:18px; color:var(--lite); }
+  .v10 .works b { color:var(--title); font-family:var(--pf); font-weight:600; }
+  @media (max-width:1100px) { .v10 .grid { grid-template-columns:1fr 1fr; } .v10 .f:nth-child(3) { padding-left:0; border-left:0; } }
+  @media (max-width:640px) { .v10 { padding:72px 0; } .v10 .grid { grid-template-columns:1fr; } .v10 .f, .v10 .f + .f { padding:24px 0 0; border-left:0; } }
+
+  .pv-end { padding:120px 0 160px; text-align:center; color:var(--lite); font-size:18px; }
+</style>
+</head>
+<body>
+
+<!-- shared icons -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-split" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="4" cy="12" r="1.6"/><path d="M5.6 12H9c2.6 0 3.6-5 7-5h4.5M9 12c2.6 0 3.6 5 7 5h4.5"/><path d="M18 4.5L20.5 7 18 9.5M18 14.5l2.5 2.5-2.5 2.5"/></symbol>
+  <symbol id="i-pct" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.6 15.4l6.8-6.8"/><circle cx="9.2" cy="9.2" r="1.3"/><circle cx="14.8" cy="14.8" r="1.3"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 7.5V6A1.5 1.5 0 0018 4.5H5.5A2.5 2.5 0 003 7v10a2.5 2.5 0 002.5 2.5H18a1.5 1.5 0 001.5-1.5v-1.5"/><path d="M21 10h-4.5a2 2 0 000 4H21z"/><path d="M16.8 12h.01"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M15 15.6a3 3 0 11-.9-2.2"/><path d="M14.6 11.6v1.9h-1.9"/></symbol>
+</svg>
+
+<nav class="pv-bar" aria-label="Variations">
+  <div class="wrap">
+    <b>Commission section</b>
+    <div class="pv-nav">
+      <a href="#v1">01 Receipt</a><a href="#v2">02 Dark console</a><a href="#v3">03 Money flow</a><a href="#v4">04 Big number</a>
+      <a href="#v5">05 Bento</a><a href="#v6">06 Split screen</a><a href="#v7">07 Bars</a><a href="#v8">08 Tabs</a>
+      <a href="#v9">09 Live order</a><a href="#v10">10 Editorial</a>
+    </div>
+  </div>
+</nav>
+
+<header class="wrap pv-head">
+  <h1>10 directions for “You earn on every order”</h1>
+  <p>Same content as the home page section: the headline, the commission slider on a $120 order, four features and four gateways. Every slider works. Pick one and it goes on the home page.</p>
+</header>
+
+<!-- ═══════ 01 ═══════ -->
+<div class="wrap pv-label" id="v1"><span>01</span><h2>Split receipt</h2><em>The order is a receipt that tears into two stubs: yours and the vendor's.</em></div>
+<section class="band v1" data-calc>
+  <div class="wrap g">
+    <div>
+      <h2>You earn on every order. Vendors get paid automatically.</h2>
+      <p class="lede">Customers pay once. Dokan splits the payment at checkout, so your cut and the vendor's share never mix.</p>
+      <div class="rcpt" style="margin-top:40px">
+        <div class="rcpt-top">
+          <small>Order #1042</small>
+          <div class="rcpt-row"><span>Customer pays</span><b class="num">$120.00</b></div>
+          <div class="rcpt-row"><span>Your commission</span><b class="num" data-o="pct">15%</b></div>
+          <input class="rng" type="range" min="0" max="100" value="15" data-pct aria-label="Your commission" />
+        </div>
+        <div class="perf"><i></i></div>
+        <div class="stubs">
+          <div class="stub you"><span>You keep</span><b class="num" data-o="keep">$18.00</b></div>
+          <div class="stub"><span>Vendor receives</span><b class="num" data-o="vendor">$102.00</b></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="feats">
+        <div class="f"><h3><svg class="ic"><use href="#i-split"/></svg>Split payments at checkout</h3><p>Customers pay once, while commissions and vendor shares are automatically separated.</p></div>
+        <div class="f"><h3><svg class="ic"><use href="#i-pct"/></svg>Commission your way</h3><p>Set percentage, flat-fee, or combined commissions across marketplaces, vendors, or categories.</p></div>
+        <div class="f"><h3><svg class="ic"><use href="#i-wallet"/></svg>Payouts without the spreadsheet</h3><p>Vendors request withdrawals or receive scheduled payouts based on your configured minimums.</p></div>
+        <div class="f"><h3><svg class="ic"><use href="#i-cal"/></svg>Vendor subscriptions</h3><p>Charge vendors recurring monthly fees to sell alongside or instead of commissions.</p></div>
+      </div>
+      <div class="works"><span>Works with</span><b class="pill">Stripe Connect</b><b class="pill">PayPal Marketplace</b><b class="pill">Mangopay</b><b class="pill">Razorpay</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 02 ═══════ -->
+<div class="wrap pv-label" id="v2"><span>02</span><h2>Dark revenue console</h2><em>A dark dashboard: a ring shows your share, three live numbers beside it.</em></div>
+<section class="band v2" data-calc>
+  <div class="wrap">
+    <div class="top"><h2>You earn on every order. <em>Vendors get paid automatically.</em></h2></div>
+    <div class="console">
+      <div class="donut"><div><b class="num" data-o="pct">15%</b><span>your commission</span></div></div>
+      <div>
+        <div class="kp">
+          <div><span>Customer pays</span><b class="num">$120.00</b></div>
+          <div class="you"><span>You keep</span><b class="num" data-o="keep">$18.00</b></div>
+          <div class="ven"><span>Vendor receives</span><b class="num" data-o="vendor">$102.00</b></div>
+        </div>
+        <div class="ctl">
+          <label><span>Your commission</span><span class="num" data-o="pct">15%</span></label>
+          <input class="rng" type="range" min="0" max="100" value="15" data-pct aria-label="Your commission" />
+          <p>Split instantly at checkout. No manual transfers.</p>
+        </div>
+      </div>
+    </div>
+    <div class="feats">
+      <div class="f"><svg class="ic"><use href="#i-split"/></svg><h3>Split payments at checkout</h3><p>Customers pay once, while commissions and vendor shares are automatically separated.</p></div>
+      <div class="f"><svg class="ic"><use href="#i-pct"/></svg><h3>Commission your way</h3><p>Set percentage, flat-fee, or combined commissions across marketplaces, vendors, or categories.</p></div>
+      <div class="f"><svg class="ic"><use href="#i-wallet"/></svg><h3>Payouts without the spreadsheet</h3><p>Vendors request withdrawals or receive scheduled payouts based on your configured minimums.</p></div>
+      <div class="f"><svg class="ic"><use href="#i-cal"/></svg><h3>Vendor subscriptions</h3><p>Charge vendors recurring monthly fees to sell alongside or instead of commissions.</p></div>
+    </div>
+    <div class="works"><span>Works with</span><b>Stripe Connect</b><b>PayPal Marketplace</b><b>Mangopay</b><b>Razorpay</b></div>
+  </div>
+</section>
+
+<!-- ═══════ 03 ═══════ -->
+<div class="wrap pv-label" id="v3"><span>03</span><h2>Money flow</h2><em>The payment visibly flows from the customer through Dokan and splits; line thickness follows the slider.</em></div>
+<section class="band v3" data-calc>
+  <div class="wrap">
+    <div class="hd"><h2>You earn on every order. Vendors get paid automatically.</h2><p>One payment in. Two payouts out. Nobody moves money by hand.</p></div>
+    <div class="flow">
+      <svg class="lines" viewBox="0 0 1180 300" preserveAspectRatio="none" aria-hidden="true">
+        <path class="in" d="M300 150 C 360 150, 380 150, 430 150" />
+        <path class="l-you" d="M750 150 C 820 150, 820 70, 880 70" />
+        <path class="l-ven" d="M750 150 C 820 150, 820 230, 880 230" />
+      </svg>
+      <div class="node"><span>Customer pays</span><b class="num">$120.00</b></div>
+      <div class="node hub"><span>Dokan splits at <b class="num" style="display:inline;font-size:inherit" data-o="pct">15%</b></span><b>Checkout</b>
+        <input class="rng" type="range" min="0" max="100" value="15" data-pct aria-label="Your commission" /></div>
+      <div class="outs">
+        <div class="node you"><span>You keep</span><b class="num" data-o="keep">$18.00</b></div>
+        <div class="node ven"><span>Vendor receives</span><b class="num" data-o="vendor">$102.00</b></div>
+      </div>
+    </div>
+    <div class="feats">
+      <div class="f"><svg class="ic"><use href="#i-split"/></svg><h3>Split payments at checkout</h3><p>Customers pay once, while commissions and vendor shares are automatically separated.</p></div>
+      <div class="f"><svg class="ic"><use href="#i-pct"/></svg><h3>Commission your way</h3><p>Set percentage, flat-fee, or combined commissions across marketplaces, vendors, or categories.</p></div>
+      <div class="f"><svg class="ic"><use href="#i-wallet"/></svg><h3>Payouts without the spreadsheet</h3><p>Vendors request withdrawals or receive scheduled payouts based on your configured minimums.</p></div>
+      <div class="f"><svg class="ic"><use href="#i-cal"/></svg><h3>Vendor subscriptions</h3><p>Charge vendors recurring monthly fees to sell alongside or instead of commissions.</p></div>
+    </div>
+    <div class="works"><b class="pill">Stripe Connect</b><b class="pill">PayPal Marketplace</b><b class="pill">Mangopay</b><b class="pill">Razorpay</b></div>
+  </div>
+</section>
+
+<!-- ═══════ 04 ═══════ -->
+<div class="wrap pv-label" id="v4"><span>04</span><h2>One big number</h2><em>Centred and simple: what you keep is the hero, everything else supports it.</em></div>
+<section class="band v4" data-calc>
+  <div class="wrap">
+    <h2>You earn on every order.<br />Vendors get paid automatically.</h2>
+    <div class="big num" data-o="keep">$18.00</div>
+    <p class="sub">is yours on a <b>$120</b> order at <b class="num" data-o="pct">15%</b>. The vendor gets <b class="num" data-o="vendor">$102.00</b>, instantly.</p>
+    <div class="ctl">
+      <input class="rng" type="range" min="0" max="100" value="15" data-pct aria-label="Your commission" />
+      <div class="ticks"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+    </div>
+    <div class="seg" aria-hidden="true"><i></i></div>
+    <div class="legend"><span><i style="background:var(--dokan)"></i>You</span><span><i style="background:#9FE7C8"></i>Vendor</span></div>
+    <div class="feats">
+      <div class="f"><div class="ib"><svg class="ic"><use href="#i-split"/></svg></div><h3>Split payments at checkout</h3><p>Customers pay once, while commissions and vendor shares are automatically separated.</p></div>
+      <div class="f"><div class="ib"><svg class="ic"><use href="#i-pct"/></svg></div><h3>Commission your way</h3><p>Set percentage, flat-fee, or combined commissions across marketplaces, vendors, or categories.</p></div>
+      <div class="f"><div class="ib"><svg class="ic"><use href="#i-wallet"/></svg></div><h3>Payouts without the spreadsheet</h3><p>Vendors request withdrawals or receive scheduled payouts based on your configured minimums.</p></div>
+      <div class="f"><div class="ib"><svg class="ic"><use href="#i-cal"/></svg></div><h3>Vendor subscriptions</h3><p>Charge vendors recurring monthly fees to sell alongside or instead of commissions.</p></div>
+    </div>
+    <div class="works"><span>Works with</span><b>Stripe Connect</b><b>PayPal Marketplace</b><b>Mangopay</b><b>Razorpay</b></div>
+  </div>
+</section>
+
+<!-- ═══════ 05 ═══════ -->
+<div class="wrap pv-label" id="v5"><span>05</span><h2>Bento grid</h2><em>A purple calculator tile anchors a grid of feature tiles in three tones.</em></div>
+<section class="band v5" data-calc>
+  <div class="wrap">
+    <h2>You earn on every order. Vendors get paid automatically.</h2>
+    <div class="bento">
+      <div class="t calc">
+        <h3>Your commission on a $120 order</h3>
+        <div class="pct num"><span data-o="pct">15%</span><small>per order</small></div>
+        <input class="rng" type="range" min="0" max="100" value="15" data-pct aria-label="Your commission" />
+        <div class="res"><div>You keep<b class="num" data-o="keep">$18.00</b></div><div style="text-align:right">Vendor receives<b class="num" data-o="vendor">$102.00</b></div></div>
+      </div>
+      <div class="t f"><svg class="ic"><use href="#i-split"/></svg><h3>Split payments at checkout</h3><p>Customers pay once, while commissions and vendor shares are automatically separated.</p></div>
+      <div class="t f dark"><svg class="ic"><use href="#i-pct"/></svg><h3>Commission your way</h3><p>Set percentage, flat-fee, or combined commissions across marketplaces, vendors, or categories.</p></div>
+      <div class="t f mint"><svg class="ic"><use href="#i-wallet"/></svg><h3>Payouts without the spreadsheet</h3><p>Vendors request withdrawals or receive scheduled payouts based on your configured minimums.</p></div>
+      <div class="t f"><svg class="ic"><use href="#i-cal"/></svg><h3>Vendor subscriptions</h3><p>Charge vendors recurring monthly fees to sell alongside or instead of commissions.</p></div>
+      <div class="t gw"><span>Works with</span><div><b class="pill">Stripe Connect</b><b class="pill">PayPal Marketplace</b><b class="pill">Mangopay</b><b class="pill">Razorpay</b></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 06 ═══════ -->
+<div class="wrap pv-label" id="v6"><span>06</span><h2>Split screen</h2><em>Purple half for the money, white half for the how — a numbered list of the four features.</em></div>
+<section class="band v6" data-calc>
+  <div class="l">
+    <h2>You earn on every order. Vendors get paid automatically.</h2>
+    <div class="calc">
+      <div class="row"><span>Customer pays</span><b class="num">$120.00</b></div>
+      <div class="row" style="margin-top:22px"><span>Your commission</span><b class="num" data-o="pct">15%</b></div>
+      <input class="rng" type="range" min="0" max="100" value="15" data-pct aria-label="Your commission" />
+      <div class="split"><div><span>You keep</span><b class="num" data-o="keep">$18.00</b></div><div><span>Vendor receives</span><b class="num" data-o="vendor">$102.00</b></div></div>
+    </div>
+  </div>
+  <div class="r">
+    <ol>
+      <li><h3>Split payments at checkout</h3><p>Customers pay once, while commissions and vendor shares are automatically separated.</p></li>
+      <li><h3>Commission your way</h3><p>Set percentage, flat-fee, or combined commissions across marketplaces, vendors, or categories.</p></li>
+      <li><h3>Payouts without the spreadsheet</h3><p>Vendors request withdrawals or receive scheduled payouts based on your configured minimums.</p></li>
+      <li><h3>Vendor subscriptions</h3><p>Charge vendors recurring monthly fees to sell alongside or instead of commissions.</p></li>
+    </ol>
+    <div class="works"><span>Works with</span><b class="pill">Stripe Connect</b><b class="pill">PayPal Marketplace</b><b class="pill">Mangopay</b><b class="pill">Razorpay</b></div>
+  </div>
+</section>
+
+<!-- ═══════ 07 ═══════ -->
+<div class="wrap pv-label" id="v7"><span>07</span><h2>Growing bars</h2><em>Two bars rise and fall as you drag — the split reads at a glance.</em></div>
+<section class="band v7" data-calc>
+  <div class="wrap g">
+    <div>
+      <h2>You earn on every order. Vendors get paid automatically.</h2>
+      <div class="feats">
+        <div class="f"><div class="ib"><svg class="ic"><use href="#i-split"/></svg></div><div><h3>Split payments at checkout</h3><p>Customers pay once, while commissions and vendor shares are automatically separated.</p></div></div>
+        <div class="f"><div class="ib"><svg class="ic"><use href="#i-pct"/></svg></div><div><h3>Commission your way</h3><p>Set percentage, flat-fee, or combined commissions across marketplaces, vendors, or categories.</p></div></div>
+        <div class="f"><div class="ib"><svg class="ic"><use href="#i-wallet"/></svg></div><div><h3>Payouts without the spreadsheet</h3><p>Vendors request withdrawals or receive scheduled payouts based on your configured minimums.</p></div></div>
+        <div class="f"><div class="ib"><svg class="ic"><use href="#i-cal"/></svg></div><div><h3>Vendor subscriptions</h3><p>Charge vendors recurring monthly fees to sell alongside or instead of commissions.</p></div></div>
+      </div>
+      <div class="works"><b class="pill">Stripe Connect</b><b class="pill">PayPal Marketplace</b><b class="pill">Mangopay</b><b class="pill">Razorpay</b></div>
+    </div>
+    <div class="chart">
+      <div class="hd"><span>A $120 order, split</span><b class="num" data-o="pct">15%</b></div>
+      <div class="cols">
+        <div class="col you"><b class="num" data-o="keep">$18.00</b><i></i></div>
+        <div class="col ven"><b class="num" data-o="vendor">$102.00</b><i></i></div>
+      </div>
+      <div class="lbls"><span>You keep</span><span>Vendor receives</span></div>
+      <input class="rng" type="range" min="0" max="100" value="15" data-pct aria-label="Your commission" />
+      <p>Drag to set your commission. Split instantly at checkout.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 08 ═══════ -->
+<div class="wrap pv-label" id="v8"><span>08</span><h2>Feature tabs</h2><em>Each feature is a tab; the panel shows it in action. Commission opens with the calculator.</em></div>
+<section class="band v8" data-calc data-tabs>
+  <div class="wrap">
+    <h2>You earn on every order. Vendors get paid automatically.</h2>
+    <div class="g">
+      <div class="tabs" role="tablist" aria-label="Payment features">
+        <button class="tab" role="tab" aria-selected="true" data-pane="0"><svg class="ic"><use href="#i-pct"/></svg><span><h3>Commission your way</h3><p>Set percentage, flat-fee, or combined commissions across marketplaces, vendors, or categories.</p></span></button>
+        <button class="tab" role="tab" aria-selected="false" data-pane="1"><svg class="ic"><use href="#i-split"/></svg><span><h3>Split payments at checkout</h3><p>Customers pay once, while commissions and vendor shares are automatically separated.</p></span></button>
+        <button class="tab" role="tab" aria-selected="false" data-pane="2"><svg class="ic"><use href="#i-wallet"/></svg><span><h3>Payouts without the spreadsheet</h3><p>Vendors request withdrawals or receive scheduled payouts based on your configured minimums.</p></span></button>
+        <button class="tab" role="tab" aria-selected="false" data-pane="3"><svg class="ic"><use href="#i-cal"/></svg><span><h3>Vendor subscriptions</h3><p>Charge vendors recurring monthly fees to sell alongside or instead of commissions.</p></span></button>
+      </div>
+      <div class="panel">
+        <div class="pane on" role="tabpanel">
+          <h4>Your commission</h4>
+          <div class="k"><span class="num" data-o="pct">15%</span> per order</div>
+          <input class="rng" type="range" min="0" max="100" value="15" data-pct aria-label="Your commission" />
+          <div class="rows"><div><span>Customer pays</span><b class="num">$120.00</b></div><div><span>You keep</span><b class="num" data-o="keep">$18.00</b></div><div><span>Vendor receives</span><b class="num" data-o="vendor">$102.00</b></div></div>
+        </div>
+        <div class="pane" role="tabpanel">
+          <h4>At checkout</h4>
+          <div class="k">One payment in, two payouts out.</div>
+          <p class="d">Customers pay once, while commissions and vendor shares are automatically separated, so you never forward money by hand.</p>
+          <div class="modes"><b class="pill on">Stripe Connect</b><b class="pill">PayPal Marketplace</b><b class="pill">Mangopay</b><b class="pill">Razorpay</b></div>
+        </div>
+        <div class="pane" role="tabpanel">
+          <h4>Payouts</h4>
+          <div class="k">Withdrawals on request or on schedule.</div>
+          <p class="d">Vendors request withdrawals or receive scheduled payouts based on your configured minimums.</p>
+          <div class="rows"><div><span>Minimum withdrawal</span><b>$50.00</b></div><div><span>Schedule</span><b>Weekly, every Monday</b></div></div>
+        </div>
+        <div class="pane" role="tabpanel">
+          <h4>Subscriptions</h4>
+          <div class="k">Recurring fees, with or without commission.</div>
+          <p class="d">Charge vendors recurring monthly fees to sell alongside or instead of commissions.</p>
+          <div class="modes"><b class="pill on">Commission</b><b class="pill">Subscription</b><b class="pill">Both</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="works"><span>Works with</span><b class="pill">Stripe Connect</b><b class="pill">PayPal Marketplace</b><b class="pill">Mangopay</b><b class="pill">Razorpay</b></div>
+  </div>
+</section>
+
+<!-- ═══════ 09 ═══════ -->
+<div class="wrap pv-label" id="v9"><span>09</span><h2>Live order</h2><em>Shows the moment it happens: an order notification and its breakdown, just like the vendor dashboard.</em></div>
+<section class="band v9" data-calc>
+  <div class="wrap g">
+    <div>
+      <h2>You earn on every order. Vendors get paid automatically.</h2>
+      <div class="feats">
+        <div class="f"><svg class="ic"><use href="#i-split"/></svg><div><h3>Split payments at checkout</h3><p>Customers pay once, while commissions and vendor shares are automatically separated.</p></div></div>
+        <div class="f"><svg class="ic"><use href="#i-pct"/></svg><div><h3>Commission your way</h3><p>Set percentage, flat-fee, or combined commissions across marketplaces, vendors, or categories.</p></div></div>
+        <div class="f"><svg class="ic"><use href="#i-wallet"/></svg><div><h3>Payouts without the spreadsheet</h3><p>Vendors request withdrawals or receive scheduled payouts based on your configured minimums.</p></div></div>
+        <div class="f"><svg class="ic"><use href="#i-cal"/></svg><div><h3>Vendor subscriptions</h3><p>Charge vendors recurring monthly fees to sell alongside or instead of commissions.</p></div></div>
+      </div>
+      <div class="works"><b class="pill">Stripe Connect</b><b class="pill">PayPal Marketplace</b><b class="pill">Mangopay</b><b class="pill">Razorpay</b></div>
+    </div>
+    <div class="phone">
+      <div class="toast"><i>✓</i><div><b>New order · $120.00</b><br /><span>You earned <span class="num" data-o="keep">$18.00</span> just now</span></div></div>
+      <div class="order">
+        <div class="oh"><b>Order #1042</b><span>Paid</span></div>
+        <div class="ob">
+          <div class="line"><span>Leather tote bag × 1</span><b class="num">$120.00</b></div>
+          <hr />
+          <div class="line you"><span>Admin commission (<span class="num" data-o="pct">15%</span>)</span><b class="num" data-o="keep">$18.00</b></div>
+          <div class="line ven"><span>Vendor earning</span><b class="num" data-o="vendor">$102.00</b></div>
+        </div>
+        <div class="of">
+          <label><span>Your commission</span><span class="num" data-o="pct">15%</span></label>
+          <input class="rng" type="range" min="0" max="100" value="15" data-pct aria-label="Your commission" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 10 ═══════ -->
+<div class="wrap pv-label" id="v10"><span>10</span><h2>Editorial sentence</h2><em>Typography-led: the calculator is a sentence you can drag.</em></div>
+<section class="band v10" data-calc>
+  <div class="wrap">
+    <div class="kick">Commission &amp; payouts</div>
+    <h2>You earn on every order. Vendors get paid automatically.</h2>
+    <p class="sent">On a <b>$120</b> order, take
+      <span class="inline"><input class="rng" type="range" min="0" max="100" value="15" data-pct aria-label="Your commission" /></span>
+      <b class="hl num" data-o="pct">15%</b> — you keep <b class="hl num" data-o="keep">$18.00</b> and your vendor gets <b class="hg num" data-o="vendor">$102.00</b>, split instantly at checkout.</p>
+    <div class="grid">
+      <div class="f"><small>01</small><h3>Split payments at checkout</h3><p>Customers pay once, while commissions and vendor shares are automatically separated.</p></div>
+      <div class="f"><small>02</small><h3>Commission your way</h3><p>Set percentage, flat-fee, or combined commissions across marketplaces, vendors, or categories.</p></div>
+      <div class="f"><small>03</small><h3>Payouts without the spreadsheet</h3><p>Vendors request withdrawals or receive scheduled payouts based on your configured minimums.</p></div>
+      <div class="f"><small>04</small><h3>Vendor subscriptions</h3><p>Charge vendors recurring monthly fees to sell alongside or instead of commissions.</p></div>
+    </div>
+    <p class="works">Works with <b>Stripe Connect</b>, <b>PayPal Marketplace</b>, <b>Mangopay</b> and <b>Razorpay</b>.</p>
+  </div>
+</section>
+
+<p class="pv-end">Tell me the number you like (or mix: e.g. “04 layout with 02 colours”) and I’ll put it on the home page.</p>
+
+<script>
+  /* Every variation: one commission slider drives the numbers, bars, ring and flow lines */
+  (function () {
+    var money = function (n) { return '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); };
+    document.querySelectorAll('[data-calc]').forEach(function (root) {
+      var total = 120, inputs = root.querySelectorAll('[data-pct]');
+      function set(p) {
+        p = Math.max(0, Math.min(100, +p));
+        var you = total * p / 100, ven = total - you;
+        root.style.setProperty('--p', p);
+        root.querySelectorAll('[data-o="pct"]').forEach(function (e) { e.textContent = p + '%'; });
+        root.querySelectorAll('[data-o="keep"]').forEach(function (e) { e.textContent = money(you); });
+        root.querySelectorAll('[data-o="vendor"]').forEach(function (e) { e.textContent = money(ven); });
+        inputs.forEach(function (i) { if (+i.value !== p) i.value = p; i.style.setProperty('--fill', p + '%'); });
+      }
+      inputs.forEach(function (i) { i.addEventListener('input', function () { set(i.value); }); });
+      set(inputs[0] ? inputs[0].value : 15);
+    });
+    /* 08: feature tabs */
+    document.querySelectorAll('[data-tabs]').forEach(function (root) {
+      var tabs = root.querySelectorAll('.tab'), panes = root.querySelectorAll('.pane');
+      tabs.forEach(function (t) { t.addEventListener('click', function () {
+        tabs.forEach(function (o) { o.setAttribute('aria-selected', o === t ? 'true' : 'false'); });
+        panes.forEach(function (p, i) { p.classList.toggle('on', i === +t.dataset.pane); });
+      }); });
+    });
+    /* top bar: highlight the variation in view */
+    var links = [].slice.call(document.querySelectorAll('.pv-nav a')), labels = [].slice.call(document.querySelectorAll('.pv-label')), cur = '';
+    function mark() {
+      var id = '';
+      labels.forEach(function (l) { if (l.getBoundingClientRect().top < innerHeight * 0.4) id = l.id; });
+      if (id === cur) return; cur = id;
+      links.forEach(function (a) {
+        var on = a.getAttribute('href') === '#' + id; a.classList.toggle('on', on);
+        if (on) a.parentNode.scrollLeft = a.offsetLeft - 24;
+      });
+    }
+    addEventListener('scroll', mark, { passive: true }); mark();
+  })();
+</script>
+</body>
+</html>

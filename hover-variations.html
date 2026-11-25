@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Module Tile Hover — 4 Variations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lato:wght@400;700&family=Inter:wght@700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  // Design tokens pulled from Figma (get_variable_defs on node 1:6272)
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { display: ['Poppins', 'sans-serif'], body: ['Lato', 'sans-serif'] },
+        colors: {
+          dokan:   '#7047EB',
+          title:   '#0f172a',   // Text/900-Heading-Title
+          titled:  '#25252D',   // Font Color/Title-Heading
+          heading: '#0E0E0F',   // Font Color/Heading
+          para:    '#334155',   // Text/700-Dark Paragraph
+          paralite:'#475569',   // Text/600-Lite Paragraph
+          reg:     '#575757',   // Font Color/Regular
+          lite:    '#828282',   // Font Color/Lite
+          stroke:  '#E9E9E9',   // Neutral Color/Strock Lite
+          bord:    '#e2e2e7',   // border/primary
+          red:     '#E64B5F',
+          mint:    '#D4FBEF',
+          yellow:  '#EFBB40',
+          lav:     '#D8D8FE',
+        },
+        boxShadow: {
+          lite:   '0 2px 5px 0 #0000000F',
+          medium: '0 0 55px 0 #0000000A',
+        },
+      },
+    },
+  };
+</script>
+<style>
+  body { margin:0; background:#F5F3FB; font-family:'Lato',sans-serif; color:#0F172A; -webkit-font-smoothing:antialiased; }
+  .hx-wrap { max-width:1500px; margin:0 auto; padding:72px 48px 120px; }
+  .hx-wrap > h1 { margin:0; font:700 44px/1.2 'Poppins',sans-serif; }
+  .hx-wrap > p { margin:12px 0 0; font-size:18px; color:#475569; }
+  .hx-sec { margin-top:64px; padding:40px; border-radius:20px; background:linear-gradient(180deg,#EEF0F8,#F7F1F1); }
+  .hx-copy h2 { margin:0; font:600 24px/1.3 'Poppins',sans-serif; }
+  .hx-copy p { margin:8px 0 0; max-width:720px; font-size:16px; line-height:1.5; color:#475569; }
+  .hx-grid { margin:28px 0 0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px 34px; }
+  @media (max-width:1180px) { .hx-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media (max-width:560px) { .hx-wrap { padding:48px 20px 80px; } .hx-sec { padding:24px 16px; } .hx-grid { grid-template-columns:1fr; } }
+  .md-tile { display:flex; align-items:center; gap:16px; height:92px; padding:0 20px; box-sizing:border-box;
+    background:#fff; border-radius:18px; box-shadow:0 2px 18px rgba(0,0,0,.06); }
+  .md-ico { flex:none; width:56px; height:56px; border-radius:14px; overflow:hidden; }
+  .md-ico img { display:block; width:100%; height:100%; object-fit:cover; }
+  .md-label { font-family:'Inter',sans-serif; font-weight:700; font-size:15px; line-height:20px; color:#111; }
+  /* each tile shows its module's list-page thumbnail; every icon is scaled to the same visual size
+     (equal area, capped for wide logos) and centred on its measured artwork (--cx/--cy/--f) */
+  .md-nt { position:relative; display:block; background:#F4F4F6; --s:56; --win:150; }
+  .md-nt .stg { position:absolute; width:calc(var(--sw) * 1px); height:calc(var(--sh) * 1px); transform-origin:0 0; pointer-events:none;
+    transform:scale(calc(var(--s) * var(--f)));
+    left:calc((var(--s) * .5 - var(--cx) * var(--s) * var(--f)) * 1px); top:calc((var(--s) * .5 - var(--cy) * var(--s) * var(--f)) * 1px); }
+  .md-nt .stg img { max-width:none; object-fit:fill; }
+  @media (max-width:1023px) { .md-nt { --s:48; } }
+
+  /* shared: the arrow sits at the right, hidden at rest */
+  .md-tile { position:relative; overflow:hidden; color:inherit; text-decoration:none; }
+  .md-label { flex:1 1 auto; }
+  .hx-arr { flex:none; display:grid; place-items:center; width:20px; height:20px; color:#7047EB; opacity:0; transform:translateX(-8px);
+    transition:opacity .3s ease, transform .35s cubic-bezier(.22,.61,.36,1); }
+  .hx-arr svg { width:18px; height:18px; }
+  .md-tile, .md-ico, .md-label { transition:transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s, background-color .3s, color .3s; }
+  .v3 .hx-arr { display:none; }
+  @media (hover:hover) {
+    /* A: soft lift + tinted icon */
+    .v1 .md-tile:hover { transform:translateY(-4px); box-shadow:0 22px 44px -22px rgba(20,20,40,.30); }
+    .v1 .md-tile:hover .md-ico { background:#F1EDFE; transform:scale(1.06); }
+    .v1 .md-tile:hover .hx-arr, .v2 .md-tile:hover .hx-arr, .v4 .md-tile:hover .hx-arr { opacity:1; transform:none; }
+    /* B: purple outline */
+    .v2 .md-tile:hover { box-shadow:0 2px 18px rgba(0,0,0,.06), inset 0 0 0 1.5px #7047EB; }
+    .v2 .md-tile:hover .md-label { color:#7047EB; }
+    /* C: icon pops out */
+    .v3 .md-tile:hover .md-ico { background:#fff; transform:translateY(-3px) scale(1.1); box-shadow:0 12px 22px -8px rgba(20,20,40,.28); }
+    .v3 .md-tile:hover .md-label { transform:translateX(4px); }
+    /* D: spotlight following the pointer */
+    .v4 .md-tile::before { content:''; position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .3s;
+      background:radial-gradient(180px circle at var(--mx,50%) var(--my,50%), rgba(112,71,235,.14), transparent 70%); }
+    .v4 .md-tile:hover::before { opacity:1; }
+    .v4 .md-tile:hover { transform:translateY(-3px); box-shadow:0 18px 36px -20px rgba(20,20,40,.28); }
+    .v4 .md-tile > * { position:relative; }
+  }
+  .md-tile:focus-visible { outline:2px solid #7047EB; outline-offset:3px; }
+  @media (prefers-reduced-motion:reduce) { .md-tile, .md-ico, .md-label, .hx-arr { transition:none; } }
+</style>
+</head>
+<body>
+<main class="hx-wrap">
+  <h1>Module tile hover: 4 variations</h1>
+  <p>Hover over the tiles in each section. Every option looks identical at rest; only the hover differs.</p>
+
+<section class="hx-sec v1">
+  <div class="hx-copy"><h2>A · Soft lift + tinted icon</h2><p>The card rises a little, the icon square turns lavender and the icon grows slightly; an arrow slides in on the right.</p></div>
+  <ul class="hx-grid"><li><a class="md-tile" href="module-product-addon.html"><span class="md-ico md-nt" style="--cx:175.39;--cy:109.79;--f:0.006042" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-addon-neutral.svg"></span></span><span class="md-label">Product Addon</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-product-advertising.html"><span class="md-ico md-nt" style="--cx:176.38;--cy:112.75;--f:0.004765" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(30.05%-0.06px)_calc(31.97%-0.06px)_calc(30.13%-0.06px)_calc(32.11%-0.06px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-advertising.svg">
+          </div></span></span><span class="md-label">Product Advertising</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-seller-badge.html"><span class="md-ico md-nt" style="--cx:175.06;--cy:111.1;--f:0.006019" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(28.47%-0.07px)_calc(39.45%-0.03px)_calc(28.97%-0.07px)_calc(39.51%-0.03px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/seller-badge.svg">
+          </div></span></span><span class="md-label">Seller Badge</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-follow-store.html"><span class="md-ico md-nt" style="--cx:175.72;--cy:112.42;--f:0.005295" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(30.43%-0.06px)_calc(34.79%-0.05px)_calc(30.79%-0.06px)_calc(34.95%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/follow-store.svg">
+          </div></span></span><span class="md-label">Follow Store</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-stripe-connect.html"><span class="md-ico md-nt" style="--cx:176.05;--cy:113.41;--f:0.004048" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[66.77px]">
+            <div class="absolute contents left-[90.01px] top-[66.93px]">
+              <div class="absolute h-[70.879px] left-[90.01px] overflow-clip top-[66.93px] w-[170.3px]">
+                <div class="absolute inset-[0_0_0.03%_0]">
+                  <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/stripe-connect.svg">
+                </div>
+              </div>
+            </div>
+            <div class="absolute bg-[#635bff] content-stretch flex h-[19.568px] items-center justify-center left-[189.27px] px-[15.936px] py-[3.984px] rounded-[47.807px] top-[137.71px] w-[71.945px]">
+              <p class="[word-break:break-word] font-['Inter',sans-serif] font-semibold leading-[normal] not-italic relative shrink-0 text-[9.561px] text-white whitespace-nowrap">
+                Connect
+              </p>
+            </div>
+          </div></span></span><span class="md-label">Stripe Connect</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-stripe-express.html"><span class="md-ico md-nt" style="--cx:176.38;--cy:111.76;--f:0.004367" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[75.36px]">
+            <div class="absolute h-[70.879px] left-[90.01px] overflow-clip top-[75.52px] w-[170.3px]">
+              <div class="absolute inset-[0_0.01%_0.03%_0]">
+                <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/stripe-express.svg">
+              </div>
+            </div>
+          </div></span></span><span class="md-label">Stripe Express</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-table-rate-shipping.html"><span class="md-ico md-nt" style="--cx:175.06;--cy:113.08;--f:0.005411" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(32.19%-0.06px)_calc(34.35%-0.05px)_calc(32.42%-0.06px)_calc(34.24%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/table-rate-shipping.svg">
+          </div></span></span><span class="md-label">Table Rate Shipping</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-delivery-time.html"><span class="md-ico md-nt" style="--cx:175.06;--cy:112.09;--f:0.005563" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(33.4%-0.05px)_calc(34.53%-0.05px)_calc(32.97%-0.05px)_calc(34.6%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/delivery-time.svg">
+          </div></span></span><span class="md-label">Delivery Time</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li></ul>
+</section>
+<section class="hx-sec v2">
+  <div class="hx-copy"><h2>B · Purple outline</h2><p>No movement: a thin Dokan-purple outline appears, the name turns purple and the arrow slides in. The calmest option.</p></div>
+  <ul class="hx-grid"><li><a class="md-tile" href="module-product-addon.html"><span class="md-ico md-nt" style="--cx:175.39;--cy:109.79;--f:0.006042" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-addon-neutral.svg"></span></span><span class="md-label">Product Addon</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-product-advertising.html"><span class="md-ico md-nt" style="--cx:176.38;--cy:112.75;--f:0.004765" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(30.05%-0.06px)_calc(31.97%-0.06px)_calc(30.13%-0.06px)_calc(32.11%-0.06px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-advertising.svg">
+          </div></span></span><span class="md-label">Product Advertising</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-seller-badge.html"><span class="md-ico md-nt" style="--cx:175.06;--cy:111.1;--f:0.006019" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(28.47%-0.07px)_calc(39.45%-0.03px)_calc(28.97%-0.07px)_calc(39.51%-0.03px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/seller-badge.svg">
+          </div></span></span><span class="md-label">Seller Badge</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-follow-store.html"><span class="md-ico md-nt" style="--cx:175.72;--cy:112.42;--f:0.005295" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(30.43%-0.06px)_calc(34.79%-0.05px)_calc(30.79%-0.06px)_calc(34.95%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/follow-store.svg">
+          </div></span></span><span class="md-label">Follow Store</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-stripe-connect.html"><span class="md-ico md-nt" style="--cx:176.05;--cy:113.41;--f:0.004048" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[66.77px]">
+            <div class="absolute contents left-[90.01px] top-[66.93px]">
+              <div class="absolute h-[70.879px] left-[90.01px] overflow-clip top-[66.93px] w-[170.3px]">
+                <div class="absolute inset-[0_0_0.03%_0]">
+                  <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/stripe-connect.svg">
+                </div>
+              </div>
+            </div>
+            <div class="absolute bg-[#635bff] content-stretch flex h-[19.568px] items-center justify-center left-[189.27px] px-[15.936px] py-[3.984px] rounded-[47.807px] top-[137.71px] w-[71.945px]">
+              <p class="[word-break:break-word] font-['Inter',sans-serif] font-semibold leading-[normal] not-italic relative shrink-0 text-[9.561px] text-white whitespace-nowrap">
+                Connect
+              </p>
+            </div>
+          </div></span></span><span class="md-label">Stripe Connect</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-stripe-express.html"><span class="md-ico md-nt" style="--cx:176.38;--cy:111.76;--f:0.004367" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[75.36px]">
+            <div class="absolute h-[70.879px] left-[90.01px] overflow-clip top-[75.52px] w-[170.3px]">
+              <div class="absolute inset-[0_0.01%_0.03%_0]">
+                <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/stripe-express.svg">
+              </div>
+            </div>
+          </div></span></span><span class="md-label">Stripe Express</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-table-rate-shipping.html"><span class="md-ico md-nt" style="--cx:175.06;--cy:113.08;--f:0.005411" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(32.19%-0.06px)_calc(34.35%-0.05px)_calc(32.42%-0.06px)_calc(34.24%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/table-rate-shipping.svg">
+          </div></span></span><span class="md-label">Table Rate Shipping</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-delivery-time.html"><span class="md-ico md-nt" style="--cx:175.06;--cy:112.09;--f:0.005563" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(33.4%-0.05px)_calc(34.53%-0.05px)_calc(32.97%-0.05px)_calc(34.6%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/delivery-time.svg">
+          </div></span></span><span class="md-label">Delivery Time</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li></ul>
+</section>
+<section class="hx-sec v3">
+  <div class="hx-copy"><h2>C · Icon pops out</h2><p>The card stays still; only the icon square lifts out of the card with its own shadow, and the name nudges right.</p></div>
+  <ul class="hx-grid"><li><a class="md-tile" href="module-product-addon.html"><span class="md-ico md-nt" style="--cx:175.39;--cy:109.79;--f:0.006042" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-addon-neutral.svg"></span></span><span class="md-label">Product Addon</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-product-advertising.html"><span class="md-ico md-nt" style="--cx:176.38;--cy:112.75;--f:0.004765" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(30.05%-0.06px)_calc(31.97%-0.06px)_calc(30.13%-0.06px)_calc(32.11%-0.06px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-advertising.svg">
+          </div></span></span><span class="md-label">Product Advertising</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-seller-badge.html"><span class="md-ico md-nt" style="--cx:175.06;--cy:111.1;--f:0.006019" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(28.47%-0.07px)_calc(39.45%-0.03px)_calc(28.97%-0.07px)_calc(39.51%-0.03px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/seller-badge.svg">
+          </div></span></span><span class="md-label">Seller Badge</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-follow-store.html"><span class="md-ico md-nt" style="--cx:175.72;--cy:112.42;--f:0.005295" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(30.43%-0.06px)_calc(34.79%-0.05px)_calc(30.79%-0.06px)_calc(34.95%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/follow-store.svg">
+          </div></span></span><span class="md-label">Follow Store</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-stripe-connect.html"><span class="md-ico md-nt" style="--cx:176.05;--cy:113.41;--f:0.004048" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[66.77px]">
+            <div class="absolute contents left-[90.01px] top-[66.93px]">
+              <div class="absolute h-[70.879px] left-[90.01px] overflow-clip top-[66.93px] w-[170.3px]">
+                <div class="absolute inset-[0_0_0.03%_0]">
+                  <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/stripe-connect.svg">
+                </div>
+              </div>
+            </div>
+            <div class="absolute bg-[#635bff] content-stretch flex h-[19.568px] items-center justify-center left-[189.27px] px-[15.936px] py-[3.984px] rounded-[47.807px] top-[137.71px] w-[71.945px]">
+              <p class="[word-break:break-word] font-['Inter',sans-serif] font-semibold leading-[normal] not-italic relative shrink-0 text-[9.561px] text-white whitespace-nowrap">
+                Connect
+              </p>
+            </div>
+          </div></span></span><span class="md-label">Stripe Connect</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-stripe-express.html"><span class="md-ico md-nt" style="--cx:176.38;--cy:111.76;--f:0.004367" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[75.36px]">
+            <div class="absolute h-[70.879px] left-[90.01px] overflow-clip top-[75.52px] w-[170.3px]">
+              <div class="absolute inset-[0_0.01%_0.03%_0]">
+                <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/stripe-express.svg">
+              </div>
+            </div>
+          </div></span></span><span class="md-label">Stripe Express</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-table-rate-shipping.html"><span class="md-ico md-nt" style="--cx:175.06;--cy:113.08;--f:0.005411" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(32.19%-0.06px)_calc(34.35%-0.05px)_calc(32.42%-0.06px)_calc(34.24%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/table-rate-shipping.svg">
+          </div></span></span><span class="md-label">Table Rate Shipping</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-delivery-time.html"><span class="md-ico md-nt" style="--cx:175.06;--cy:112.09;--f:0.005563" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(33.4%-0.05px)_calc(34.53%-0.05px)_calc(32.97%-0.05px)_calc(34.6%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/delivery-time.svg">
+          </div></span></span><span class="md-label">Delivery Time</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li></ul>
+</section>
+<section class="hx-sec v4">
+  <div class="hx-copy"><h2>D · Spotlight</h2><p>A soft lavender glow follows the pointer across the card, with a small lift; the arrow slides in.</p></div>
+  <ul class="hx-grid"><li><a class="md-tile" href="module-product-addon.html"><span class="md-ico md-nt" style="--cx:175.39;--cy:109.79;--f:0.006042" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-addon-neutral.svg"></span></span><span class="md-label">Product Addon</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-product-advertising.html"><span class="md-ico md-nt" style="--cx:176.38;--cy:112.75;--f:0.004765" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(30.05%-0.06px)_calc(31.97%-0.06px)_calc(30.13%-0.06px)_calc(32.11%-0.06px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/product-advertising.svg">
+          </div></span></span><span class="md-label">Product Advertising</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-seller-badge.html"><span class="md-ico md-nt" style="--cx:175.06;--cy:111.1;--f:0.006019" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(28.47%-0.07px)_calc(39.45%-0.03px)_calc(28.97%-0.07px)_calc(39.51%-0.03px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/seller-badge.svg">
+          </div></span></span><span class="md-label">Seller Badge</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-follow-store.html"><span class="md-ico md-nt" style="--cx:175.72;--cy:112.42;--f:0.005295" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(30.43%-0.06px)_calc(34.79%-0.05px)_calc(30.79%-0.06px)_calc(34.95%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/follow-store.svg">
+          </div></span></span><span class="md-label">Follow Store</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-stripe-connect.html"><span class="md-ico md-nt" style="--cx:176.05;--cy:113.41;--f:0.004048" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[66.77px]">
+            <div class="absolute contents left-[90.01px] top-[66.93px]">
+              <div class="absolute h-[70.879px] left-[90.01px] overflow-clip top-[66.93px] w-[170.3px]">
+                <div class="absolute inset-[0_0_0.03%_0]">
+                  <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/stripe-connect.svg">
+                </div>
+              </div>
+            </div>
+            <div class="absolute bg-[#635bff] content-stretch flex h-[19.568px] items-center justify-center left-[189.27px] px-[15.936px] py-[3.984px] rounded-[47.807px] top-[137.71px] w-[71.945px]">
+              <p class="[word-break:break-word] font-['Inter',sans-serif] font-semibold leading-[normal] not-italic relative shrink-0 text-[9.561px] text-white whitespace-nowrap">
+                Connect
+              </p>
+            </div>
+          </div></span></span><span class="md-label">Stripe Connect</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-stripe-express.html"><span class="md-ico md-nt" style="--cx:176.38;--cy:111.76;--f:0.004367" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute contents left-[89.85px] top-[75.36px]">
+            <div class="absolute h-[70.879px] left-[90.01px] overflow-clip top-[75.52px] w-[170.3px]">
+              <div class="absolute inset-[0_0.01%_0.03%_0]">
+                <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/stripe-express.svg">
+              </div>
+            </div>
+          </div></span></span><span class="md-label">Stripe Express</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-table-rate-shipping.html"><span class="md-ico md-nt" style="--cx:175.06;--cy:113.08;--f:0.005411" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(32.19%-0.06px)_calc(34.35%-0.05px)_calc(32.42%-0.06px)_calc(34.24%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/table-rate-shipping.svg">
+          </div></span></span><span class="md-label">Table Rate Shipping</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li><li><a class="md-tile" href="module-delivery-time.html"><span class="md-ico md-nt" style="--cx:175.06;--cy:112.09;--f:0.005563" aria-hidden="true"><span class="stg" style="--sw:350.129;--sh:223"><div class="absolute inset-[calc(33.4%-0.05px)_calc(34.53%-0.05px)_calc(32.97%-0.05px)_calc(34.6%-0.05px)]">
+            <img alt="" class="absolute block inset-0 max-w-none size-full" src="Media/Module%20Page/Icons/delivery-time.svg">
+          </div></span></span><span class="md-label">Delivery Time</span><span class="hx-arr" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.17 10h11.66M10 4.17L15.83 10 10 15.83"/></svg></span></a></li></ul>
+</section>
+</main>
+<script>
+  document.querySelectorAll('.v4 .md-tile').forEach(function (t) {
+    t.addEventListener('pointermove', function (e) { var r = t.getBoundingClientRect();
+      t.style.setProperty('--mx', (e.clientX - r.left) + 'px'); t.style.setProperty('--my', (e.clientY - r.top) + 'px'); });
+  });
+  document.querySelectorAll('.md-tile').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); }); });
+</script>
+</body>
+</html>
